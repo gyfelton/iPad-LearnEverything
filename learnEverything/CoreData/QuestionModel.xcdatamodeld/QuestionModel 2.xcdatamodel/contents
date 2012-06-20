@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="872" systemVersion="10K549" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Question" representedClassName="Entity" syncable="YES">
+        <attribute name="answer_in_text" optional="YES" attributeType="String" defaultValueString="2" syncable="YES"/>
+        <attribute name="create_timestamp" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="is_initial_value" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <attribute name="question_in_text" optional="YES" attributeType="String" defaultValueString="1+1 = ?" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Question" positionX="160" positionY="192" width="128" height="105"/>
+    </elements>
+</model>
