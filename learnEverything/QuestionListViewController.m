@@ -250,8 +250,9 @@
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
     [newManagedObject setValue:[NSDate date] forKey:@"create_timestamp"];
     //set default value here
-    newManagedObject.question_in_text = @"1+1 = ?";
-    newManagedObject.answer_in_text = @"2";
+    NSInteger numOfRow = [_questionList numberOfRowsInSection:0];
+    newManagedObject.question_in_text = [NSString stringWithFormat:@"1 + %d = ?", numOfRow+1];
+    newManagedObject.answer_in_text = [NSString stringWithFormat:@"%d", numOfRow+2];
     
     // Save the context.
     NSError *error = nil;
