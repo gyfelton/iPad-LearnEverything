@@ -36,19 +36,28 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        _unitDictArray = [[NSMutableArray alloc] init];
+        _unitDictSet = [[NSMutableSet alloc] init];
     }
     return self;
+}
+
+- (void)_addUnitToSubviewHelper:(UIView*)unit indexPath:(GVIndexPath*)ip
+{
+    [self addSubview:unit];
+    
+    //Construct the relating info into a dictionary and store it
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:unit, @"view", ip, @"indexPath", [NSValue valueWithCGRect:unit.frame], @"frame", nil];
+    [_unitDictSet addObject:dict];
 }
 
 - (void)reloadData
 {
     //Clear away old views
-    for (NSDictionary *dict in _unitDictArray) {
+    for (NSDictionary *dict in _unitDictSet) {
         UIView *view = [dict objectForKey:@"view"];
         [view removeFromSuperview];
     }
-    [_unitDictArray removeAllObjects];
+    [_unitDictSet removeAllObjects];
     
     NSInteger row = [self.dataSource numberOfRowsForNonScrollableGridView:self];
     _numberOfRows = row;
@@ -69,13 +78,9 @@
                 CGFloat yOrigin = yBaseValue+height*r;
                 
                 UIView *unit = [self.dataSource viewForNonScrollableGridView:self atRowIndex:r columnIndex:c];
+                
                 unit.frame = CGRectMake(xOrigin+(width-unit.frame.size.width)/2, yOrigin+(height-unit.frame.size.height), unit.frame.size.width, unit.frame.size.height);
-                
-                [self addSubview:unit];
-                
-                //Construct the relating info into a dictionary and store it
-                NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:unit, @"view", [GVIndexPath indexPathWithRow:r andColumn:c], @"indexPath", nil];
-                [_unitDictArray addObject:dict];
+                [self _addUnitToSubviewHelper:unit indexPath:[GVIndexPath indexPathWithRow:r andColumn:c]];
             }
         }
     } else
@@ -91,7 +96,7 @@
 
 - (GVIndexPath*)indexPathForUnitView:(UIView *)view
 {
-    for (NSDictionary *dict in _unitDictArray) {
+    for (NSDictionary *dict in _unitDictSet) {
         UIView *v = [dict objectForKey:@"view"];
         if (v == view) {
             GVIndexPath *indexPath = [dict objectForKey:@"indexPath"];
@@ -101,33 +106,38 @@
     return nil;
 }
 
-- (UIView*)viewForIndexPath:(GVIndexPath *)indexPath
+- (NSDictionary *)_dictionaryForIndexPath:(GVIndexPath*)indexPath
 {
-    for (NSDictionary *dict in _unitDictArray) {
+    for (NSDictionary *dict in _unitDictSet) {
         GVIndexPath *ip = [dict objectForKey:@"indexPath"];
         if (ip.row == indexPath.row && ip.column == indexPath.column) {
-            UIView *view = [dict objectForKey:@"view"];
-            return view;
+            return dict;
         }
     }
     return nil;
+}
+
+- (UIView*)viewForIndexPath:(GVIndexPath *)indexPath
+{
+    UIView *view = [[self _dictionaryForIndexPath:indexPath] objectForKey:@"view"];
+    return view;
 }
 
 - (void)layoutUnitsAnimatedWithAnimationDirection:(GridViewAnimationType)animationType
 {
     if (animationType == kGridViewAnimationFlowFromBottom) {
         //First, shift all elements down
-        for (NSDictionary *dict in _unitDictArray) {
+        for (NSDictionary *dict in _unitDictSet) {
             UIView *view = [dict objectForKey:@"view"];
             view.frame = CGRectOffset(view.frame, 0, self.frame.size.height);
         }
         
         //Next, put them back in a animated way
         CGFloat delay = 0.0f;
-        NSInteger index = 0;
-        for (NSDictionary *dict in _unitDictArray) {
+        for (NSDictionary *dict in _unitDictSet) {
             UIView *view = [dict objectForKey:@"view"];
-            delay = 0.1f + index%_numberOfColumns*0.1f;
+            GVIndexPath *ip = [dict objectForKey:@"indexPath"];
+            delay = 0.1f + ip.column/self.numberOfColumns * 0.1f;
             [UIView animateWithDuration:0.4f 
                                   delay:delay
                                 options:UIViewAnimationOptionAllowAnimatedContent 
@@ -135,7 +145,33 @@
                                  view.frame = CGRectOffset(view.frame, 0, -1*self.frame.size.height);
                              }
                              completion:^(BOOL finished){}];
-            index++;
+        }
+    }
+}
+
+- (void)reloadUnitsWithIndexPathArray:(NSArray*)array withReloadMode:(GridViewReloadAnimationModes)mode
+{
+    for (GVIndexPath *ip in array) {
+        NSDictionary *dict = [self _dictionaryForIndexPath:ip];
+        UIView *old = [dict objectForKey:@"view"];
+        CGRect frame;
+        [[dict objectForKey:@"frame"] getValue:&frame];
+        [old removeFromSuperview];
+        [_unitDictSet removeObject:dict];
+
+        //Now ask for new unit
+        UIView *new = [self.dataSource viewForNonScrollableGridView:self atRowIndex:ip.row columnIndex:ip.column];
+        new.frame = frame;
+        [self _addUnitToSubviewHelper:new indexPath:ip];
+        
+        //Animate if needed
+        if (mode != kGridViewReloadAnimationModeNone) {
+            //default for now
+            new.transform = CGAffineTransformMakeScale(0.01f, 0.01f);
+            [UIView animateWithDuration:0.5f 
+                             animations:^(){
+                                 new.transform = CGAffineTransformIdentity;
+            }];
         }
     }
 }

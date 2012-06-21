@@ -24,14 +24,16 @@
         _grid_view = gv;
         _currentQuestionSetHead = -1;
         _currentQuestionSetTail = -1;
+        _answeredCardIndexPaths = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
--(UIView*)viewForNonScrollableGridViewAtRowIndex:(NSInteger)rowIndex columnIndex:(NSInteger)columnIndex
+- (UIView*)viewForNonScrollableGridViewAtRowIndex:(NSInteger)rowIndex columnIndex:(NSInteger)columnIndex
 {
     //if _currentQuestionSetTail and _currentQuestionSetHead not set yet, init them
-    if (_currentQuestionSetHead == _currentQuestionSetTail) {
+    if (_currentQuestionSetHead == _currentQuestionSetTail && _currentQuestionSetHead == -1) {
+        //first time visit here
         _currentQuestionSetHead = 0;
         _currentQuestionSetTail = _grid_view.numberOfRows*_grid_view.numberOfColumns/2;
     }
@@ -42,7 +44,7 @@
     GVIndexPath *indexPath = [GVIndexPath indexPathWithRow:rowIndex andColumn:columnIndex];
     
     while (!hasChosen) {
-        int index = _currentQuestionSetHead + arc4random() % _currentQuestionSetTail;
+        int index = _currentQuestionSetHead + arc4random() % (_currentQuestionSetTail-_currentQuestionSetHead);
         Question *qn = [_questionList objectAtIndex:index];
         id qnHasShown = [_indexPathForQuestion objectAtIndex:index];
         id ansHasShown = [_indexPathForAnswer objectAtIndex:index];
@@ -50,6 +52,7 @@
             continue;
         } else
         {
+            //Found one available qn/answer to put in
             hasChosen = YES;
             if (![qnHasShown isKindOfClass:[GVIndexPath class]]) {
                 [_indexPathForQuestion replaceObjectAtIndex:index withObject:indexPath];
@@ -88,9 +91,46 @@
     return aCard;
 }
 
+- (void)reloadAnsweredCardsHelper
+{
+    [_answeredCardIndexPaths shuffle];
+    [_grid_view reloadUnitsWithIndexPathArray:_answeredCardIndexPaths withReloadMode:kGridViewReloadAnimationModeDefault];
+    [_answeredCardIndexPaths removeAllObjects];
+}
+
+- (void)shrinkAnsweredCardsHelper
+{
+    [UIView animateWithDuration:0.5f 
+                     animations:^(){
+        for (GVIndexPath *ip in _answeredCardIndexPaths) {
+            UIView *view = [_grid_view viewForIndexPath:ip];
+            view.transform = CGAffineTransformMakeScale(0.01f, 0.01f);
+        }
+    } 
+                     completion:^(BOOL finished){
+                         [self reloadAnsweredCardsHelper];
+    }];
+}
+
 - (void)clearUsedUnitsIfNeeded
 {
+    //When clicked cards are more than half of total
     
+    if ([_answeredCardIndexPaths count]*2 >= _grid_view.numberOfRows*_grid_view.numberOfColumns) {
+        
+        _currentQuestionSetHead = (_currentQuestionSetTail+1)%[_questionList count];
+        _currentQuestionSetTail = (_currentQuestionSetHead+[_answeredCardIndexPaths count]/2)%[_questionList count];
+        
+        [UIView animateWithDuration:0.15f 
+                         animations:^(){
+                for (GVIndexPath *ip in _answeredCardIndexPaths) {
+                    UIView *view = [_grid_view viewForIndexPath:ip];
+                    view.transform = CGAffineTransformMakeScale(1.1f, 1.1f);}
+                }
+                         completion:^(BOOL finished){
+                             [self shrinkAnsweredCardsHelper];
+                }];
+    }
 }
 
 - (void)onUnitClicked:(id)sender
@@ -100,18 +140,18 @@
         return; //clicked on used card
     }
     
-    GVIndexPath *indexPath = [_grid_view indexPathForUnitView:card];
+    GVIndexPath *nowClickIndexPath = [_grid_view indexPathForUnitView:card];
     card.selected = !card.selected;
     
-    if (!_clickedBtnIndexPath || (_clickedBtnIndexPath.row == indexPath.row && _clickedBtnIndexPath.column == indexPath.column)) {
-        _clickedBtnIndexPath = indexPath;
+    if (!_clickedBtnIndexPath || (_clickedBtnIndexPath.row == nowClickIndexPath.row && _clickedBtnIndexPath.column == nowClickIndexPath.column)) {
+        _clickedBtnIndexPath = nowClickIndexPath;
     } else
     {
         //Clicked on second btn, react corrdingly
         QuestionCard *card1 = (QuestionCard*)[_grid_view viewForIndexPath:_clickedBtnIndexPath];
         
         if (card1.cardType == card.cardType) {
-            //Do nothing
+            //Same card type Do nothing
             card.selected = NO;
             card1.selected = NO;
         } else
@@ -135,16 +175,21 @@
                 //Answer is correct
                 card1.checkmark.hidden = NO;
                 card.checkmark.hidden = NO;
+                
+                //Register answered cards
+                [_answeredCardIndexPaths addObject:_clickedBtnIndexPath];
+                [_answeredCardIndexPaths addObject:nowClickIndexPath];
+                
+                [self clearUsedUnitsIfNeeded];
             } else
             {
+                //Wrong answer
                 card.selected = NO;
                 card1.selected = NO;
             }
         }
         
         _clickedBtnIndexPath = nil;
-        
-        [self clearUsedUnitsIfNeeded];
     }
 }
 

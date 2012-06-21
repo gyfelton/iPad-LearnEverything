@@ -41,18 +41,25 @@ enum GridViewAnimationType {
     };
 typedef enum GridViewAnimationType GridViewAnimationType;
 
+enum GridViewReloadAnimationModes {
+    kGridViewReloadAnimationModeNone = -1,
+    kGridViewReloadAnimationModeDefault = 0
+    };
+typedef enum GridViewReloadAnimationModes GridViewReloadAnimationModes;
 /**
  If you want to make it Scrollable, better just put this on the scrollView
  */
 @interface NonScrollableGridView : UIView
 {
-    NSMutableArray *_unitDictArray; //A Dictionary containing the view and its corresponding GVIndexPath
+    NSMutableSet *_unitDictSet; //A Set containing dictionaries of the view and its corresponding GVIndexPath
     
     NSInteger _numberOfRows;
     NSInteger _numberOfColumns;
 }
 
 - (void)reloadData;
+- (void)reloadUnitsWithIndexPathArray:(NSArray*)array withReloadMode:(GridViewReloadAnimationModes)mode;
+
 - (GVIndexPath*)indexPathForUnitView:(UIView*)view;
 - (UIView*)viewForIndexPath:(GVIndexPath*)indexPath;
 - (void)layoutUnitsAnimatedWithAnimationDirection:(GridViewAnimationType)animationType;

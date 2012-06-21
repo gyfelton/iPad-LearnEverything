@@ -20,6 +20,8 @@
     GVIndexPath *_clickedBtnIndexPath;
     
     NonScrollableGridView *_grid_view;
+    
+    NSMutableArray *_answeredCardIndexPaths;
 }
 
 @property (nonatomic, strong) NSMutableArray *questionList;
