@@ -1,5 +1,5 @@
 //
-//  QuestionListViewController.m
+//  QuestionSetViewController.m
 //  learnEverything
 //
 //  Created by Yuanfeng on 12-06-02.
@@ -8,10 +8,16 @@
 
 #import "QuestionSetViewController.h"
 #import "QuestionSet.h"
+#import "Question+Helpers.h"
+#import "NSManagedObject+Helpers.h"
 #import "OpenUDID.h"
+#import "JSONKit.h"
+#import "QuestionListViewController.h"
 
 @interface QuestionSetViewController (Private) 
 - (void)configureCell:(GMGridViewCell *)cell atIndex:(NSInteger)index;
+- (BOOL)_parseQuestionSetDictionaryAndInsertToCoreData:(NSDictionary*)question_set filePath:(NSString*)path fileNameAsSetID:(NSString*)set_id;
+- (BOOL)insertNewObjectWithSetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questions:(NSArray*)questions;
 @end
 
 @implementation QuestionSetViewController
@@ -47,9 +53,9 @@
         
     _questionSetView = [[GMGridView alloc] initWithFrame:_questionSetView_placeholder.frame];
     _questionSetView.style = GMGridViewStyleSwap;
-    _questionSetView.itemSpacing = 30;
+    _questionSetView.itemSpacing = 60;
     _questionSetView.minEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
-    _questionSetView.centerGrid = YES;
+    _questionSetView.centerGrid = NO;
     _questionSetView.actionDelegate = self;
 //    _questionSetView.sortingDelegate = self;
 //    _questionSetView.transformDelegate = self;
@@ -65,6 +71,28 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyBoardHeightChange:) name:UIKeyboardDidShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyBoardHeightChange:) name:UIKeyboardDidHideNotification object:nil];
     }
+    
+    //Check for existing qsj files to load question set if need
+    
+    NSArray *array = [[NSBundle mainBundle] pathsForResourcesOfType:@"qsj" inDirectory:nil];
+    NSError *error = nil;
+    for (NSString *path in array) {
+        NSString *set_id = [[path lastPathComponent] stringByDeletingPathExtension];
+        NSArray *questionSetArr = [self.fetchedResultsController fetchedObjects];
+        BOOL alreadyExists = NO;
+        for (QuestionSet *set in questionSetArr) {
+            if ([set.set_id isEqualToString:set_id] /*TODO: check modify_timestamp*/) {
+                alreadyExists = YES;
+                break;
+            }
+        }
+        if (true) {//(!alreadyExists) {
+            NSString *jsonStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
+            NSDictionary *resultDict = [jsonStr objectFromJSONString];
+            BOOL success = [self _parseQuestionSetDictionaryAndInsertToCoreData:resultDict filePath:path fileNameAsSetID:set_id];
+        }
+    }
+
 }
 
 - (void)viewDidUnload
@@ -89,7 +117,7 @@
 
 - (CGSize)GMGridView:(GMGridView *)gridView sizeForItemsInInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
-    return CGSizeMake(200, 300);
+    return CGSizeMake(140, 210);
 }
 
 - (GMGridViewCell*)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
@@ -121,7 +149,10 @@
         [self performSelector:@selector(insertNewObject)];
     } else
     {
-        
+        QuestionSet *qn_set = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:position inSection:0]];
+        QuestionListViewController *listVC = [[QuestionListViewController alloc] initWithNibName:nil bundle:nil];
+        listVC.managedObjectContext = self.managedObjectContext;
+        [self.navigationController pushViewController:listVC animated:YES];
     }
 }
 
@@ -235,18 +266,31 @@
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:0];
     if (index >= [sectionInfo numberOfObjects]) {
-        UILabel *view = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 300)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 140, 210)];
         view.backgroundColor = [UIColor redColor];
-        view.text = @"+";
+        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 180, 140, 30)];
+        lbl.textAlignment = UITextAlignmentCenter;
+        lbl.text = @"+";
         
         cell.contentView = view;
     } else
     {
         QuestionSet *managedObject = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
         
-        UILabel *view = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 300)];
-        view.backgroundColor = [UIColor redColor];
-        view.text = managedObject.name;
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 140, 210)];
+//        view.backgroundColor = [UIColor redColor];
+        
+        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 120, 180)];
+        img.backgroundColor = [UIColor blackColor];
+        img.tag = 0;
+        img.image = [UIImage imageNamed:@"qn_set_cover_default"];
+        [view addSubview:img];
+        
+        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 180, 140, 30)];
+        lbl.textAlignment = UITextAlignmentCenter;
+        lbl.text = managedObject.name;
+        lbl.tag = 1;
+        [view addSubview:lbl];
         
         cell.contentView = view;
     }
@@ -262,21 +306,40 @@
  }
  */
 
-- (void)insertNewObject
+- (BOOL)_parseQuestionSetDictionaryAndInsertToCoreData:(NSDictionary*)question_set filePath:(NSString*)path fileNameAsSetID:(NSString*)set_id
+{
+    if (!set_id) {
+        return NO;
+    }
+    NSString *name = [question_set objectForKey:@"name"];
+    NSString *author = [question_set objectForKey:@"author"];
+    NSArray *questionRawData = [question_set objectForKey:@"questions"];
+    NSArray *questions = [Question parseJSONDictionaryArray:questionRawData context:[self.fetchedResultsController managedObjectContext]];
+    if (!questions) {
+        NSLog(@"FAIL TO PARSE QUESTIONS FROM QSJ FILE");
+    }
+    
+    return [self insertNewObjectWithSetID:set_id name:name author:author createDate:[NSDate date] modifyDate:[NSDate date] questions:questions];
+}
+
+- (BOOL)insertNewObjectWithSetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questions:(NSArray*)questions
 {
     // Create a new instance of the entity managed by the fetched results controller.
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
     QuestionSet *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-    
+
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    [newManagedObject setValue:[NSDate date] forKey:@"create_timestamp"];
-    [newManagedObject setValue:[NSDate date] forKey:@"modify_timestamp"];
-    NSString *uniqueID = [NSString stringWithFormat:@"user_%@_on_%d", [OpenUDID value], [[NSDate date] timeIntervalSinceReferenceDate]];
-    [newManagedObject setValue:uniqueID forKey:@"set_id"];
-    [newManagedObject setValue:uniqueID forKey:@"name"]; //TODO
-    
+    [newManagedObject setValueIfNotNil:create_date forKey:@"create_timestamp"];
+    [newManagedObject setValueIfNotNil:modifyDate forKey:@"modify_timestamp"];
+    [newManagedObject setValueIfNotNil:set_id forKey:@"set_id"];
+    [newManagedObject setValueIfNotNil:name forKey:@"name"];
+    [newManagedObject setValueIfNotNil:author forKey:@"author"];
+    if (questions) {
+        [newManagedObject addQuestions:[NSSet setWithArray:questions]];
+    }
+
     // Save the context.
     NSError *error = nil;
     if (![context save:&error]) {
@@ -286,8 +349,16 @@
          abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
          */
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
+        abort(); //TODO
+        return NO;
     }
+    return YES;
+}
+
+- (BOOL)insertNewObject
+{
+    NSString *uniqueID = [NSString stringWithFormat:@"user_%@_on_%d", [OpenUDID value], [[NSDate date] timeIntervalSinceReferenceDate]];
+    return [self insertNewObjectWithSetID:uniqueID name:@"我的题库" author:@"" createDate:[NSDate date] modifyDate:[NSDate date] questions:nil];
 }
 
 #pragma mark - NSNotifications

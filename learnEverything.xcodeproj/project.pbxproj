@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		FE014F4F157DD155003BE31E /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = FE014F4E157DD155003BE31E /* checkmark.png */; };
+		FE57F1AE1594493F00DD09E4 /* qn_set_cover_default.png in Resources */ = {isa = PBXBuildFile; fileRef = FE57F1AD1594493F00DD09E4 /* qn_set_cover_default.png */; };
+		FE57F1B2159449DE00DD09E4 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = FE57F1B1159449DE00DD09E4 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		FE57F1B715944B5000DD09E4 /* system_99chengfa.qsj in Resources */ = {isa = PBXBuildFile; fileRef = FE57F1B615944B5000DD09E4 /* system_99chengfa.qsj */; };
 		FE685DCF1591A0B50043EB87 /* QuestionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FE685DCE1591A0B50043EB87 /* QuestionManager.m */; };
 		FE82F8DE157CF3890081F81E /* NonScrollableGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE82F8DD157CF3890081F81E /* NonScrollableGridView.m */; };
 		FE82F8E9157D19BE0081F81E /* BaseGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE82F8E8157D19BE0081F81E /* BaseGameViewController.m */; };
@@ -37,7 +40,9 @@
 		FEEACE0B1579C88300698EBB /* QuestionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEEACE0A1579C88300698EBB /* QuestionCell.xib */; };
 		FEEACE111579CAF900698EBB /* QuestionModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FEEACE0F1579CAF800698EBB /* QuestionModel.xcdatamodeld */; };
 		FEEACE191579DA3000698EBB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEEACE181579DA3000698EBB /* CoreData.framework */; };
-		FEFE55FD15936B19002EBFD1 /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = FEFE55FC15936B19002EBFD1 /* Question.m */; };
+		FEF224A3159472B90093A9D6 /* Question+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF224A2159472B90093A9D6 /* Question+Helpers.m */; };
+		FEF224A6159475270093A9D6 /* NSManagedObject+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF224A5159475270093A9D6 /* NSManagedObject+Helpers.m */; };
+		FEF224AB15947A250093A9D6 /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF224AA15947A250093A9D6 /* Question.m */; };
 		FEFE560015936B34002EBFD1 /* QuestionSet.m in Sources */ = {isa = PBXBuildFile; fileRef = FEFE55FF15936B34002EBFD1 /* QuestionSet.m */; };
 		FEFE560315936E6B002EBFD1 /* QuestionSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEFE560215936E6B002EBFD1 /* QuestionSetViewController.m */; };
 		FEFE560515936E89002EBFD1 /* QuestionSetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEFE560415936E89002EBFD1 /* QuestionSetViewController.xib */; };
@@ -66,6 +71,10 @@
 
 /* Begin PBXFileReference section */
 		FE014F4E157DD155003BE31E /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
+		FE57F1AD1594493F00DD09E4 /* qn_set_cover_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qn_set_cover_default.png; sourceTree = "<group>"; };
+		FE57F1B0159449DE00DD09E4 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		FE57F1B1159449DE00DD09E4 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		FE57F1B615944B5000DD09E4 /* system_99chengfa.qsj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = system_99chengfa.qsj; sourceTree = "<group>"; };
 		FE685DCD1591A0B50043EB87 /* QuestionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionManager.h; sourceTree = "<group>"; };
 		FE685DCE1591A0B50043EB87 /* QuestionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionManager.m; sourceTree = "<group>"; };
 		FE82F8DC157CF3890081F81E /* NonScrollableGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonScrollableGridView.h; sourceTree = "<group>"; };
@@ -110,9 +119,15 @@
 		FEEACE0A1579C88300698EBB /* QuestionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionCell.xib; sourceTree = "<group>"; };
 		FEEACE101579CAF900698EBB /* QuestionModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = QuestionModel.xcdatamodel; sourceTree = "<group>"; };
 		FEEACE181579DA3000698EBB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
+		FEF224A1159472B90093A9D6 /* Question+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Question+Helpers.h"; path = "learnEverything/Question+Helpers.h"; sourceTree = "<group>"; };
+		FEF224A2159472B90093A9D6 /* Question+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Question+Helpers.m"; path = "learnEverything/Question+Helpers.m"; sourceTree = "<group>"; };
+		FEF224A4159475270093A9D6 /* NSManagedObject+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+Helpers.h"; path = "learnEverything/CoreData/NSManagedObject+Helpers.h"; sourceTree = "<group>"; };
+		FEF224A5159475270093A9D6 /* NSManagedObject+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+Helpers.m"; path = "learnEverything/CoreData/NSManagedObject+Helpers.m"; sourceTree = "<group>"; };
+		FEF224A7159477370093A9D6 /* QuestionModel 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "QuestionModel 4.xcdatamodel"; sourceTree = "<group>"; };
+		FEF224A8159479DA0093A9D6 /* QuestionModel 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "QuestionModel 5.xcdatamodel"; sourceTree = "<group>"; };
+		FEF224A915947A250093A9D6 /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Question.h; path = learnEverything/CoreData/Question.h; sourceTree = "<group>"; };
+		FEF224AA15947A250093A9D6 /* Question.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Question.m; path = learnEverything/CoreData/Question.m; sourceTree = "<group>"; };
 		FEF4FA47159366A900D6171F /* QuestionModel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "QuestionModel 3.xcdatamodel"; sourceTree = "<group>"; };
-		FEFE55FB15936B19002EBFD1 /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Question.h; path = learnEverything/Question.h; sourceTree = "<group>"; };
-		FEFE55FC15936B19002EBFD1 /* Question.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Question.m; path = learnEverything/Question.m; sourceTree = "<group>"; };
 		FEFE55FE15936B34002EBFD1 /* QuestionSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuestionSet.h; path = learnEverything/QuestionSet.h; sourceTree = "<group>"; };
 		FEFE55FF15936B34002EBFD1 /* QuestionSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuestionSet.m; path = learnEverything/QuestionSet.m; sourceTree = "<group>"; };
 		FEFE560115936E6B002EBFD1 /* QuestionSetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionSetViewController.h; sourceTree = "<group>"; };
@@ -142,13 +157,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FE57F1AF159449DE00DD09E4 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				FE57F1B0159449DE00DD09E4 /* JSONKit.h */,
+				FE57F1B1159449DE00DD09E4 /* JSONKit.m */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
+		FE57F1B315944B1E00DD09E4 /* question_set_predefined */ = {
+			isa = PBXGroup;
+			children = (
+				FE57F1B615944B5000DD09E4 /* system_99chengfa.qsj */,
+			);
+			path = question_set_predefined;
+			sourceTree = "<group>";
+		};
 		FEDAEA6A1578A21100F2552F = {
 			isa = PBXGroup;
 			children = (
 				FEFE564115940812002EBFD1 /* QuartzCore.framework */,
 				FEEACE0F1579CAF800698EBB /* QuestionModel.xcdatamodeld */,
-				FEFE55FB15936B19002EBFD1 /* Question.h */,
-				FEFE55FC15936B19002EBFD1 /* Question.m */,
+				FEF224A915947A250093A9D6 /* Question.h */,
+				FEF224AA15947A250093A9D6 /* Question.m */,
+				FEF224A1159472B90093A9D6 /* Question+Helpers.h */,
+				FEF224A2159472B90093A9D6 /* Question+Helpers.m */,
+				FEF224A4159475270093A9D6 /* NSManagedObject+Helpers.h */,
+				FEF224A5159475270093A9D6 /* NSManagedObject+Helpers.m */,
 				FEFE55FE15936B34002EBFD1 /* QuestionSet.h */,
 				FEFE55FF15936B34002EBFD1 /* QuestionSet.m */,
 				FEDAEA7F1578A21100F2552F /* learnEverything */,
@@ -228,6 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				FEDAEA9A1578A31600F2552F /* images */,
+				FE57F1B315944B1E00DD09E4 /* question_set_predefined */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -243,6 +280,7 @@
 				FEDAEA9E1578A31600F2552F /* red1.png */,
 				FEDAEA9F1578A31600F2552F /* red2.png */,
 				FEDAEAA01578A31600F2552F /* right.png */,
+				FE57F1AD1594493F00DD09E4 /* qn_set_cover_default.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -261,6 +299,7 @@
 		FEFE56061593F674002EBFD1 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				FE57F1AF159449DE00DD09E4 /* JSON */,
 				FEFE5633159402DE002EBFD1 /* GMGridView.xcodeproj */,
 				FEFE56071593F674002EBFD1 /* OpenUDID.h */,
 				FEFE56081593F674002EBFD1 /* OpenUDID.m */,
@@ -358,6 +397,8 @@
 				FEB87D3A1584424900AC82EF /* TwoPlayersGameViewController.xib in Resources */,
 				FEFE560515936E89002EBFD1 /* QuestionSetViewController.xib in Resources */,
 				FEFE56401594048C002EBFD1 /* close_x.png in Resources */,
+				FE57F1AE1594493F00DD09E4 /* qn_set_cover_default.png in Resources */,
+				FE57F1B715944B5000DD09E4 /* system_99chengfa.qsj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,10 +422,13 @@
 				FEE9798D157F8F2F00A3DE03 /* QuestionCard.m in Sources */,
 				FEB87D391584424900AC82EF /* TwoPlayersGameViewController.m in Sources */,
 				FE685DCF1591A0B50043EB87 /* QuestionManager.m in Sources */,
-				FEFE55FD15936B19002EBFD1 /* Question.m in Sources */,
 				FEFE560015936B34002EBFD1 /* QuestionSet.m in Sources */,
 				FEFE560315936E6B002EBFD1 /* QuestionSetViewController.m in Sources */,
 				FEFE56091593F674002EBFD1 /* OpenUDID.m in Sources */,
+				FE57F1B2159449DE00DD09E4 /* JSONKit.m in Sources */,
+				FEF224A3159472B90093A9D6 /* Question+Helpers.m in Sources */,
+				FEF224A6159475270093A9D6 /* NSManagedObject+Helpers.m in Sources */,
+				FEF224AB15947A250093A9D6 /* Question.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -532,9 +576,11 @@
 			children = (
 				FE82F8E3157D11A90081F81E /* QuestionModel 2.xcdatamodel */,
 				FEF4FA47159366A900D6171F /* QuestionModel 3.xcdatamodel */,
+				FEF224A7159477370093A9D6 /* QuestionModel 4.xcdatamodel */,
+				FEF224A8159479DA0093A9D6 /* QuestionModel 5.xcdatamodel */,
 				FEEACE101579CAF900698EBB /* QuestionModel.xcdatamodel */,
 			);
-			currentVersion = FEF4FA47159366A900D6171F /* QuestionModel 3.xcdatamodel */;
+			currentVersion = FEF224A8159479DA0093A9D6 /* QuestionModel 5.xcdatamodel */;
 			name = QuestionModel.xcdatamodeld;
 			path = learnEverything/CoreData/QuestionModel.xcdatamodeld;
 			sourceTree = "<group>";

@@ -1,5 +1,5 @@
 //
-//  QuestionListViewController.h
+//  QuestionSetViewController.h
 //  learnEverything
 //
 //  Created by Yuanfeng on 12-06-02.

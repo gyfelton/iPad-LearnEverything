@@ -43,7 +43,7 @@
 							<object class="IBUITextField" id="575312755">
 								<reference key="NSNextResponder" ref="336205897"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{191, 8}, {284, 65}}</string>
+								<string key="NSFrame">{{79, 8}, {284, 65}}</string>
 								<reference key="NSSuperview" ref="336205897"/>
 								<reference key="NSNextKeyView" ref="808728693"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -79,7 +79,7 @@
 							<object class="IBUITextField" id="808728693">
 								<reference key="NSNextResponder" ref="336205897"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{570, 8}, {284, 65}}</string>
+								<string key="NSFrame">{{400, 8}, {284, 65}}</string>
 								<reference key="NSSuperview" ref="336205897"/>
 								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -133,7 +133,7 @@
 								</object>
 							</object>
 						</array>
-						<string key="NSFrameSize">{1024, 81}</string>
+						<string key="NSFrameSize">{704, 81}</string>
 						<reference key="NSSuperview" ref="391686929"/>
 						<reference key="NSNextKeyView" ref="148505350"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -147,7 +147,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</array>
-				<string key="NSFrameSize">{1024, 82}</string>
+				<string key="NSFrameSize">{704, 82}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="336205897"/>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>

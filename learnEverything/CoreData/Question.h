@@ -2,7 +2,7 @@
 //  Question.h
 //  learnEverything
 //
-//  Created by Yuanfeng on 12-06-21.
+//  Created by Yuanfeng on 12-06-22.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSDate * create_timestamp;
 @property (nonatomic, retain) NSNumber * is_initial_value;
 @property (nonatomic, retain) NSString * question_in_text;
+@property (nonatomic, retain) NSString * answer_id;
 @property (nonatomic, retain) QuestionSet *belongs_to;
 
 @end
