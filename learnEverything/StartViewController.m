@@ -9,6 +9,7 @@
 #import "StartViewController.h"
 #import "AppDelegate.h"
 #import "SinglePlayerGameViewController.h"
+#import "QuestionSetViewController.h"
 
 @implementation StartViewController
 
@@ -65,8 +66,8 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
-- (IBAction)onEditQuestionList:(id)sender {
-    QuestionListViewController *questionEditVC = [[QuestionListViewController alloc] initWithNibName:nil bundle:nil];
+- (IBAction)onEditQuestionSetList:(id)sender {
+    QuestionSetViewController *questionEditVC = [[QuestionSetViewController alloc] initWithNibName:nil bundle:nil];
     questionEditVC.managedObjectContext = ((AppDelegate*)[UIApplication sharedApplication].delegate).managedObjectContext;
     
     [self.navigationController pushViewController:questionEditVC animated:YES];

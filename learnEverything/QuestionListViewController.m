@@ -304,6 +304,7 @@
 }
 
 #pragma mark - NSNotifications
+
 - (void)onKeyBoardHeightChange:(NSNotification *)notification
 {
     CGRect keyboardFrame;
@@ -315,5 +316,6 @@
     _questionList.contentInset = UIEdgeInsetsMake(0, 0, realKeyboardFrame.origin.y>=0? realKeyboardFrame.size.height : 0, 0);
     [_questionList scrollRectToVisible:[_questionList rectForRowAtIndexPath:_indexPathForEditingTextField] animated:YES];
 }
+
 @end
 

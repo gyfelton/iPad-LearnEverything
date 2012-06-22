@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "QuestionListViewController.h"
 
 @interface StartViewController : UIViewController
 
 - (IBAction)onSinglePlayerGameClicked:(id)sender;
 - (IBAction)onTwoPlayersGameClicked:(id)sender;
-- (IBAction)onEditQuestionList:(id)sender;
+- (IBAction)onEditQuestionSetList:(id)sender;
 
 @end

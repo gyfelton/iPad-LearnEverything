@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		FE014F4F157DD155003BE31E /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = FE014F4E157DD155003BE31E /* checkmark.png */; };
-		FE1862D9159210B0008A13FA /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1862D8159210B0008A13FA /* Question.m */; };
 		FE685DCF1591A0B50043EB87 /* QuestionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FE685DCE1591A0B50043EB87 /* QuestionManager.m */; };
 		FE82F8DE157CF3890081F81E /* NonScrollableGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE82F8DD157CF3890081F81E /* NonScrollableGridView.m */; };
 		FE82F8E9157D19BE0081F81E /* BaseGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE82F8E8157D19BE0081F81E /* BaseGameViewController.m */; };
@@ -38,12 +37,35 @@
 		FEEACE0B1579C88300698EBB /* QuestionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEEACE0A1579C88300698EBB /* QuestionCell.xib */; };
 		FEEACE111579CAF900698EBB /* QuestionModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FEEACE0F1579CAF800698EBB /* QuestionModel.xcdatamodeld */; };
 		FEEACE191579DA3000698EBB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEEACE181579DA3000698EBB /* CoreData.framework */; };
+		FEFE55FD15936B19002EBFD1 /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = FEFE55FC15936B19002EBFD1 /* Question.m */; };
+		FEFE560015936B34002EBFD1 /* QuestionSet.m in Sources */ = {isa = PBXBuildFile; fileRef = FEFE55FF15936B34002EBFD1 /* QuestionSet.m */; };
+		FEFE560315936E6B002EBFD1 /* QuestionSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEFE560215936E6B002EBFD1 /* QuestionSetViewController.m */; };
+		FEFE560515936E89002EBFD1 /* QuestionSetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEFE560415936E89002EBFD1 /* QuestionSetViewController.xib */; };
+		FEFE56091593F674002EBFD1 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = FEFE56081593F674002EBFD1 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		FEFE563E15940322002EBFD1 /* libGMGridView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FEFE563B159402DF002EBFD1 /* libGMGridView.a */; };
+		FEFE56401594048C002EBFD1 /* close_x.png in Resources */ = {isa = PBXBuildFile; fileRef = FEFE563F1594048C002EBFD1 /* close_x.png */; };
+		FEFE564215940813002EBFD1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEFE564115940812002EBFD1 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FEFE563A159402DF002EBFD1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FEFE5633159402DE002EBFD1 /* GMGridView.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 78509312149FAC2E000787E4;
+			remoteInfo = GMGridView;
+		};
+		FEFE563C159402EB002EBFD1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FEFE5633159402DE002EBFD1 /* GMGridView.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 78509311149FAC2E000787E4;
+			remoteInfo = GMGridView;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		FE014F4E157DD155003BE31E /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
-		FE1862D7159210B0008A13FA /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Question.h; path = learnEverything/CoreData/Question.h; sourceTree = "<group>"; };
-		FE1862D8159210B0008A13FA /* Question.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Question.m; path = learnEverything/CoreData/Question.m; sourceTree = "<group>"; };
 		FE685DCD1591A0B50043EB87 /* QuestionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionManager.h; sourceTree = "<group>"; };
 		FE685DCE1591A0B50043EB87 /* QuestionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionManager.m; sourceTree = "<group>"; };
 		FE82F8DC157CF3890081F81E /* NonScrollableGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonScrollableGridView.h; sourceTree = "<group>"; };
@@ -88,6 +110,19 @@
 		FEEACE0A1579C88300698EBB /* QuestionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionCell.xib; sourceTree = "<group>"; };
 		FEEACE101579CAF900698EBB /* QuestionModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = QuestionModel.xcdatamodel; sourceTree = "<group>"; };
 		FEEACE181579DA3000698EBB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
+		FEF4FA47159366A900D6171F /* QuestionModel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "QuestionModel 3.xcdatamodel"; sourceTree = "<group>"; };
+		FEFE55FB15936B19002EBFD1 /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Question.h; path = learnEverything/Question.h; sourceTree = "<group>"; };
+		FEFE55FC15936B19002EBFD1 /* Question.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Question.m; path = learnEverything/Question.m; sourceTree = "<group>"; };
+		FEFE55FE15936B34002EBFD1 /* QuestionSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuestionSet.h; path = learnEverything/QuestionSet.h; sourceTree = "<group>"; };
+		FEFE55FF15936B34002EBFD1 /* QuestionSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuestionSet.m; path = learnEverything/QuestionSet.m; sourceTree = "<group>"; };
+		FEFE560115936E6B002EBFD1 /* QuestionSetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionSetViewController.h; sourceTree = "<group>"; };
+		FEFE560215936E6B002EBFD1 /* QuestionSetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionSetViewController.m; sourceTree = "<group>"; };
+		FEFE560415936E89002EBFD1 /* QuestionSetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionSetViewController.xib; sourceTree = "<group>"; };
+		FEFE56071593F674002EBFD1 /* OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
+		FEFE56081593F674002EBFD1 /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
+		FEFE5633159402DE002EBFD1 /* GMGridView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GMGridView.xcodeproj; path = GMGridView/GMGridView.xcodeproj; sourceTree = "<group>"; };
+		FEFE563F1594048C002EBFD1 /* close_x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close_x.png; sourceTree = "<group>"; };
+		FEFE564115940812002EBFD1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +130,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEFE564215940813002EBFD1 /* QuartzCore.framework in Frameworks */,
+				FEFE563E15940322002EBFD1 /* libGMGridView.a in Frameworks */,
 				FEEACE191579DA3000698EBB /* CoreData.framework in Frameworks */,
 				FEDAEA7A1578A21100F2552F /* UIKit.framework in Frameworks */,
 				FEDAEA7C1578A21100F2552F /* Foundation.framework in Frameworks */,
@@ -108,9 +145,12 @@
 		FEDAEA6A1578A21100F2552F = {
 			isa = PBXGroup;
 			children = (
+				FEFE564115940812002EBFD1 /* QuartzCore.framework */,
 				FEEACE0F1579CAF800698EBB /* QuestionModel.xcdatamodeld */,
-				FE1862D7159210B0008A13FA /* Question.h */,
-				FE1862D8159210B0008A13FA /* Question.m */,
+				FEFE55FB15936B19002EBFD1 /* Question.h */,
+				FEFE55FC15936B19002EBFD1 /* Question.m */,
+				FEFE55FE15936B34002EBFD1 /* QuestionSet.h */,
+				FEFE55FF15936B34002EBFD1 /* QuestionSet.m */,
 				FEDAEA7F1578A21100F2552F /* learnEverything */,
 				FEDAEA781578A21100F2552F /* Frameworks */,
 				FEDAEA761578A21100F2552F /* Products */,
@@ -162,6 +202,10 @@
 				FEEACE0615795FBD00698EBB /* QuestionListViewController.m */,
 				FEEACE0715795FBD00698EBB /* QuestionListViewController.xib */,
 				FEEACE0A1579C88300698EBB /* QuestionCell.xib */,
+				FEFE560115936E6B002EBFD1 /* QuestionSetViewController.h */,
+				FEFE560215936E6B002EBFD1 /* QuestionSetViewController.m */,
+				FEFE560415936E89002EBFD1 /* QuestionSetViewController.xib */,
+				FEFE56061593F674002EBFD1 /* Utils */,
 				FEDAEA991578A31600F2552F /* Resources */,
 				FEDAEA801578A21100F2552F /* Supporting Files */,
 				FEEACDFF15795E0700698EBB /* Util */,
@@ -191,6 +235,7 @@
 		FEDAEA9A1578A31600F2552F /* images */ = {
 			isa = PBXGroup;
 			children = (
+				FEFE563F1594048C002EBFD1 /* close_x.png */,
 				FE014F4E157DD155003BE31E /* checkmark.png */,
 				FEDAEA9B1578A31600F2552F /* green1.png */,
 				FEDAEA9C1578A31600F2552F /* green2.png */,
@@ -213,6 +258,24 @@
 			name = Util;
 			sourceTree = "<group>";
 		};
+		FEFE56061593F674002EBFD1 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				FEFE5633159402DE002EBFD1 /* GMGridView.xcodeproj */,
+				FEFE56071593F674002EBFD1 /* OpenUDID.h */,
+				FEFE56081593F674002EBFD1 /* OpenUDID.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		FEFE5634159402DE002EBFD1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FEFE563B159402DF002EBFD1 /* libGMGridView.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -227,6 +290,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				FEFE563D159402EB002EBFD1 /* PBXTargetDependency */,
 			);
 			name = learnEverything;
 			productName = learnEverything;
@@ -251,12 +315,28 @@
 			mainGroup = FEDAEA6A1578A21100F2552F;
 			productRefGroup = FEDAEA761578A21100F2552F /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = FEFE5634159402DE002EBFD1 /* Products */;
+					ProjectRef = FEFE5633159402DE002EBFD1 /* GMGridView.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				FEDAEA741578A21100F2552F /* learnEverything */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		FEFE563B159402DF002EBFD1 /* libGMGridView.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libGMGridView.a;
+			remoteRef = FEFE563A159402DF002EBFD1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		FEDAEA731578A21100F2552F /* Resources */ = {
@@ -276,6 +356,8 @@
 				FEEACE0B1579C88300698EBB /* QuestionCell.xib in Resources */,
 				FE014F4F157DD155003BE31E /* checkmark.png in Resources */,
 				FEB87D3A1584424900AC82EF /* TwoPlayersGameViewController.xib in Resources */,
+				FEFE560515936E89002EBFD1 /* QuestionSetViewController.xib in Resources */,
+				FEFE56401594048C002EBFD1 /* close_x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,11 +381,22 @@
 				FEE9798D157F8F2F00A3DE03 /* QuestionCard.m in Sources */,
 				FEB87D391584424900AC82EF /* TwoPlayersGameViewController.m in Sources */,
 				FE685DCF1591A0B50043EB87 /* QuestionManager.m in Sources */,
-				FE1862D9159210B0008A13FA /* Question.m in Sources */,
+				FEFE55FD15936B19002EBFD1 /* Question.m in Sources */,
+				FEFE560015936B34002EBFD1 /* QuestionSet.m in Sources */,
+				FEFE560315936E6B002EBFD1 /* QuestionSetViewController.m in Sources */,
+				FEFE56091593F674002EBFD1 /* OpenUDID.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FEFE563D159402EB002EBFD1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GMGridView;
+			targetProxy = FEFE563C159402EB002EBFD1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		FEDAEA821578A21100F2552F /* InfoPlist.strings */ = {
@@ -345,8 +438,13 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				SDKROOT = iphoneos;
+				HEADER_SEARCH_PATHS = "learnEverything/Utils/GMGridView/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
+				SDKROOT = iphoneos5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -364,9 +462,14 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				HEADER_SEARCH_PATHS = "learnEverything/Utils/GMGridView/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				SDKROOT = iphoneos;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
+				SDKROOT = iphoneos5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -428,9 +531,10 @@
 			isa = XCVersionGroup;
 			children = (
 				FE82F8E3157D11A90081F81E /* QuestionModel 2.xcdatamodel */,
+				FEF4FA47159366A900D6171F /* QuestionModel 3.xcdatamodel */,
 				FEEACE101579CAF900698EBB /* QuestionModel.xcdatamodel */,
 			);
-			currentVersion = FE82F8E3157D11A90081F81E /* QuestionModel 2.xcdatamodel */;
+			currentVersion = FEF4FA47159366A900D6171F /* QuestionModel 3.xcdatamodel */;
 			name = QuestionModel.xcdatamodeld;
 			path = learnEverything/CoreData/QuestionModel.xcdatamodeld;
 			sourceTree = "<group>";
