@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FE014F4F157DD155003BE31E /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = FE014F4E157DD155003BE31E /* checkmark.png */; };
+		FE1B921A159567D50090A127 /* basic_english.qsj in Resources */ = {isa = PBXBuildFile; fileRef = FE1B9219159567D50090A127 /* basic_english.qsj */; };
 		FE57F1AE1594493F00DD09E4 /* qn_set_cover_default.png in Resources */ = {isa = PBXBuildFile; fileRef = FE57F1AD1594493F00DD09E4 /* qn_set_cover_default.png */; };
 		FE57F1B2159449DE00DD09E4 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = FE57F1B1159449DE00DD09E4 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FE57F1B715944B5000DD09E4 /* system_99chengfa.qsj in Resources */ = {isa = PBXBuildFile; fileRef = FE57F1B615944B5000DD09E4 /* system_99chengfa.qsj */; };
@@ -71,6 +72,7 @@
 
 /* Begin PBXFileReference section */
 		FE014F4E157DD155003BE31E /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
+		FE1B9219159567D50090A127 /* basic_english.qsj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_english.qsj; sourceTree = "<group>"; };
 		FE57F1AD1594493F00DD09E4 /* qn_set_cover_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qn_set_cover_default.png; sourceTree = "<group>"; };
 		FE57F1B0159449DE00DD09E4 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		FE57F1B1159449DE00DD09E4 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 		FE57F1B315944B1E00DD09E4 /* question_set_predefined */ = {
 			isa = PBXGroup;
 			children = (
+				FE1B9219159567D50090A127 /* basic_english.qsj */,
 				FE57F1B615944B5000DD09E4 /* system_99chengfa.qsj */,
 			);
 			path = question_set_predefined;
@@ -399,6 +402,7 @@
 				FEFE56401594048C002EBFD1 /* close_x.png in Resources */,
 				FE57F1AE1594493F00DD09E4 /* qn_set_cover_default.png in Resources */,
 				FE57F1B715944B5000DD09E4 /* system_99chengfa.qsj in Resources */,
+				FE1B921A159567D50090A127 /* basic_english.qsj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

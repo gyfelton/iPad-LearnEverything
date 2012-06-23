@@ -86,7 +86,7 @@
                 break;
             }
         }
-        if (true) {//(!alreadyExists) {
+        if (!alreadyExists) {
             NSString *jsonStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
             NSDictionary *resultDict = [jsonStr objectFromJSONString];
             BOOL success = [self _parseQuestionSetDictionaryAndInsertToCoreData:resultDict filePath:path fileNameAsSetID:set_id];
@@ -150,8 +150,8 @@
     } else
     {
         QuestionSet *qn_set = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:position inSection:0]];
-        QuestionListViewController *listVC = [[QuestionListViewController alloc] initWithNibName:nil bundle:nil];
-        listVC.managedObjectContext = self.managedObjectContext;
+        QuestionListViewController *listVC = [[QuestionListViewController alloc] initWithManagedContext:self.managedObjectContext andQuestionSetID:qn_set.set_id];
+
         [self.navigationController pushViewController:listVC animated:YES];
     }
 }
@@ -317,6 +317,8 @@
     NSArray *questions = [Question parseJSONDictionaryArray:questionRawData context:[self.fetchedResultsController managedObjectContext]];
     if (!questions) {
         NSLog(@"FAIL TO PARSE QUESTIONS FROM QSJ FILE");
+    } else
+    {
     }
     
     return [self insertNewObjectWithSetID:set_id name:name author:author createDate:[NSDate date] modifyDate:[NSDate date] questions:questions];
@@ -328,7 +330,7 @@
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
     QuestionSet *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-
+    
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
     [newManagedObject setValueIfNotNil:create_date forKey:@"create_timestamp"];
@@ -337,6 +339,9 @@
     [newManagedObject setValueIfNotNil:name forKey:@"name"];
     [newManagedObject setValueIfNotNil:author forKey:@"author"];
     if (questions) {
+        for (Question *question in questions) {
+            question.belongs_to = newManagedObject;
+        }
         [newManagedObject addQuestions:[NSSet setWithArray:questions]];
     }
 

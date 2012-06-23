@@ -8,6 +8,7 @@
 
 #import "QuestionListViewController.h"
 #import "Question.h"
+#import "QuestionSet.h"
 
 @implementation QuestionCell
 @synthesize ansTxtField, questionNumber,questionTxtField;
@@ -23,12 +24,15 @@
 @synthesize managedObjectContext;
 @synthesize fetchedResultsController = __fetchedResultsController;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithManagedContext:(NSManagedObjectContext*)context andQuestionSetID:(NSString*)set_id
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // Custom initialization
         self.title = @"编辑题库";
+        
+        self.managedObjectContext = context;
+        _questionSetID = set_id;
         
         UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject)];
         //TODO implement this in the future
@@ -136,6 +140,11 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Question" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
+    NSPredicate *predicate = [NSPredicate
+                              predicateWithFormat:@"ANY belongs_to.set_id like %@",
+                              _questionSetID];
+    //[fetchRequest setPredicate:predicate];
+    
     // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
     
@@ -160,7 +169,7 @@
 	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 	    abort();
 	}
-    
+    NSArray *arr = [self.fetchedResultsController fetchedObjects];
     return __fetchedResultsController;
 }    
 
@@ -218,7 +227,7 @@
 {
     cell.questionNumber.text = [NSString stringWithFormat:@"%d.", indexPath.row+1];
     Question *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
+    NSLog(@"set_id %@", managedObject.belongs_to.set_id);
     if ([managedObject.is_initial_value boolValue]) {
         cell.questionTxtField.placeholder = managedObject.question_in_text;
         cell.ansTxtField.placeholder = managedObject.answer_in_text;

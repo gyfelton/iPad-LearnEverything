@@ -25,6 +25,8 @@
     __unsafe_unretained IBOutlet UITableView *_questionList;
     
     NSIndexPath *_indexPathForEditingTextField;
+
+    NSString *_questionSetID;
 }
 
 @property (nonatomic, strong) UINib *questionCellNib; 
@@ -32,5 +34,7 @@
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
+- (id)initWithManagedContext:(NSManagedObjectContext*)context andQuestionSetID:(NSString*)set_id;
 
 @end

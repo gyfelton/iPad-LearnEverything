@@ -1,0 +1,18 @@
+{
+    "name" : "一年级英语",
+    "author" : "system",
+    "questions" :   [
+                    {
+                        "question_in_text": "cat",
+                        "answer_id": "猫"
+                    },
+                    {
+                        "question_in_text": "dog",
+                        "answer_id": "狗"
+                    },
+                    {
+                        "question_in_text": "bird",
+                        "answer_id": "鸟"
+                    }
+                ]
+}

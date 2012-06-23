@@ -17,6 +17,7 @@
         <attribute name="set_id" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="questions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Question" inverseName="belongs_to" inverseEntity="Question" syncable="YES"/>
     </entity>
+    <fetchRequest name="fetchQuestions" entity="Question" predicateString="belongs_to.set_id == &quot;basic_english&quot;"/>
     <elements>
         <element name="Question" positionX="160" positionY="192" width="128" height="120"/>
         <element name="QuestionSet" positionX="457" positionY="-9" width="128" height="150"/>
