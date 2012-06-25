@@ -8,7 +8,6 @@
 
 #import "QuestionListViewController.h"
 #import "Question.h"
-#import "QuestionSet.h"
 
 @implementation QuestionCell
 @synthesize ansTxtField, questionNumber,questionTxtField;
@@ -22,9 +21,8 @@
 @implementation QuestionListViewController
 @synthesize questionCell, questionCellNib;
 @synthesize managedObjectContext;
-@synthesize fetchedResultsController = __fetchedResultsController;
 
-- (id)initWithManagedContext:(NSManagedObjectContext*)context andQuestionSetID:(NSString*)set_id
+- (id)initWithManagedContext:(NSManagedObjectContext*)context andQuestionSet:(QuestionSet *)qs
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
@@ -32,7 +30,7 @@
         self.title = @"编辑题库";
         
         self.managedObjectContext = context;
-        _questionSetID = set_id;
+        _questionSet = qs;
         
         UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject)];
         //TODO implement this in the future
@@ -59,6 +57,9 @@
     
     //Init question cell from nib
     self.questionCellNib = [UINib nibWithNibName:@"QuestionCell" bundle:nil];
+    
+    _set_name_txtfield.text = _questionSet.name;
+    _set_author_txtfield.text = _questionSet.author;
     
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 5.0f) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyBoardHeightChange:) name:UIKeyboardDidChangeFrameNotification object:nil];
@@ -88,7 +89,7 @@
 // Customize the number of sections in the table view.
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [[self.fetchedResultsController sections] count];
+    return 1;
 }
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -98,8 +99,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
+    //refresh the new question list
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"create_timestamp" ascending:YES];
+    _questions = [_questionSet.questions sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    
+    return [_questions count];
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -124,6 +128,7 @@
     return cell;
 }
 
+/*
 #pragma mark - Fetched results controller
 
 - (NSFetchedResultsController *)fetchedResultsController
@@ -161,17 +166,13 @@
     
 	NSError *error = nil;
 	if (![self.fetchedResultsController performFetch:&error]) {
-	    /*
-	     Replace this implementation with code to handle the error appropriately.
-         
-	     abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-	     */
 	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 	    abort();
 	}
     NSArray *arr = [self.fetchedResultsController fetchedObjects];
     return __fetchedResultsController;
 }    
+
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
@@ -222,11 +223,12 @@
 {
     [_questionList endUpdates];
 }
-
+*/
 - (void)configureCell:(QuestionCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     cell.questionNumber.text = [NSString stringWithFormat:@"%d.", indexPath.row+1];
-    Question *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    Question *managedObject = [_questions objectAtIndex:indexPath.row];
+    
     NSLog(@"set_id %@", managedObject.belongs_to.set_id);
     if ([managedObject.is_initial_value boolValue]) {
         cell.questionTxtField.placeholder = managedObject.question_in_text;
@@ -251,17 +253,18 @@
 - (void)insertNewObject
 {
     // Create a new instance of the entity managed by the fetched results controller.
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    Question *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+    NSManagedObjectContext *context = self.managedObjectContext;
+    Question *question = [NSEntityDescription insertNewObjectForEntityForName:@"Question" inManagedObjectContext:context];
     
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    [newManagedObject setValue:[NSDate date] forKey:@"create_timestamp"];
+    [question setValue:[NSDate date] forKey:@"create_timestamp"];
     //set default value here
     NSInteger numOfRow = [_questionList numberOfRowsInSection:0];
-    newManagedObject.question_in_text = [NSString stringWithFormat:@"1 + %d = ?", numOfRow+1];
-    newManagedObject.answer_in_text = [NSString stringWithFormat:@"%d", numOfRow+2];
+    question.question_in_text = [NSString stringWithFormat:@"1 + %d = ?", numOfRow+1];
+    question.answer_in_text = [NSString stringWithFormat:@"%d", numOfRow+2];
+    question.is_initial_value = [NSNumber numberWithBool:YES];
+    question.belongs_to = _questionSet;
     
     // Save the context.
     NSError *error = nil;
@@ -273,16 +276,20 @@
          */
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
+    } else
+    {
+        //Animate the insertion
+        [_questionList insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[_questions count] inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 
-- (void)undoPreviousOp:(id)sender
-{
-    //Not working
-    NSUndoManager *manager = self.fetchedResultsController.managedObjectContext.undoManager;
-    BOOL canUndo = manager.canUndo;
-    [self.fetchedResultsController.managedObjectContext.undoManager undo];
-}
+//- (void)undoPreviousOp:(id)sender
+//{
+//    //Not working
+//    NSUndoManager *manager = self.fetchedResultsController.managedObjectContext.undoManager;
+//    BOOL canUndo = manager.canUndo;
+//    [self.fetchedResultsController.managedObjectContext.undoManager undo];
+//}
 
 #pragma mark - UITextField Delegate
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -292,24 +299,29 @@
         _indexPathForEditingTextField = [_questionList indexPathForCell:cell];
     } else
     {
-        [NSException raise:@"Cannot find UITableViewCell Class Exception for Textfield" format:@""];
     }
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    NSLog(@"did end editing %@", _indexPathForEditingTextField.description);
-    
-    Question *question = [self.fetchedResultsController objectAtIndexPath:_indexPathForEditingTextField];
-    
-    question.is_initial_value = [NSNumber numberWithBool:NO];
-    
-    if (textField.tag == QUESTION_TXT_TAG) {
-        question.question_in_text = textField.text;
-    } else if (textField.tag == ANS_TXT_TAG) {
-        question.answer_in_text = textField.text;
+    if (textField == _set_name_txtfield) {
+        _questionSet.name = textField.text;
+    } else if (textField == _set_author_txtfield) {
+        _questionSet.author = textField.text;
+    } else if (_indexPathForEditingTextField) {
+        NSLog(@"did end editing %@", _indexPathForEditingTextField.description);
+        
+        Question *question = [_questions objectAtIndex:_indexPathForEditingTextField.row];
+        
+        question.is_initial_value = [NSNumber numberWithBool:NO];
+        
+        if (textField.tag == QUESTION_TXT_TAG) {
+            question.question_in_text = textField.text;
+        } else if (textField.tag == ANS_TXT_TAG) {
+            question.answer_in_text = textField.text;
+        }
+        _indexPathForEditingTextField = nil;
     }
-    _indexPathForEditingTextField = nil;
 }
 
 #pragma mark - NSNotifications
@@ -326,5 +338,31 @@
     [_questionList scrollRectToVisible:[_questionList rectForRowAtIndexPath:_indexPathForEditingTextField] animated:YES];
 }
 
+#pragma mark - IBActions
+- (IBAction)onShareQuestionSetClicked:(id)sender {
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *mailVC = [[MFMailComposeViewController alloc] init];
+        [mailVC setSubject:@"题库名"];
+        [mailVC setMessageBody:@"这是一个题库，请使用 xxx 打开" isHTML:NO];
+        NSArray *array = [[NSBundle mainBundle] pathsForResourcesOfType:@"qsj" inDirectory:nil];
+        NSString *path = [array lastObject];
+        NSData *data = [NSData dataWithContentsOfFile:path];
+        [mailVC addAttachmentData:data mimeType:@"application/x-qsj" fileName:@"test.qsj"];
+        mailVC.mailComposeDelegate = self;
+        [self presentModalViewController:mailVC animated:YES];
+    } else
+    {
+        //TODO
+    }
+
+    
+}
+
+#pragma mark - MFMailCompose Delegate
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    NSLog(@"Send?");
+    //TODO dismiss the mail VC
+}
 @end
 

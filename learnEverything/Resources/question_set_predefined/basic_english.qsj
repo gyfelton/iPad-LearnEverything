@@ -1,18 +1,485 @@
 {
     "name" : "一年级英语",
     "author" : "system",
-    "questions" :   [
-                    {
-                        "question_in_text": "cat",
-                        "answer_id": "猫"
-                    },
-                    {
-                        "question_in_text": "dog",
-                        "answer_id": "狗"
-                    },
-                    {
-                        "question_in_text": "bird",
-                        "answer_id": "鸟"
-                    }
-                ]
+    "questions" :  
+                [
+                {
+                    "question_in_text": "hello",
+                    "answer_id": "你好"
+                },
+                {
+                    "question_in_text": "hi",
+                    "answer_id": "打招呼"
+                },
+                {
+                    "question_in_text": "goodbye",
+                    "answer_id": "再见"
+                },
+                {
+                    "question_in_text": "bye",
+                    "answer_id": "再见"
+                },
+                {
+                    "question_in_text": "I’m",
+                    "answer_id": "我是"
+                },
+                {
+                    "question_in_text": "I",
+                    "answer_id": "我"
+                },
+                {
+                    "question_in_text": "am",
+                    "answer_id": "是"
+                },
+                {
+                    "question_in_text": "fine",
+                    "answer_id": "很好"
+                },
+                {
+                    "question_in_text": "good",
+                    "answer_id": "好的"
+                },
+                {
+                    "question_in_text": "morning",
+                    "answer_id": "上午"
+                },
+                {
+                    "question_in_text": "what’s",
+                    "answer_id": "是什么"
+                },
+                {
+                    "question_in_text": "what",
+                    "answer_id": "什么"
+                },
+                {
+                    "question_in_text": "is",
+                    "answer_id": "是"
+                },
+                {
+                    "question_in_text": "my",
+                    "answer_id": "我的"
+                },
+                {
+                    "question_in_text": "your",
+                    "answer_id": "你的"
+                },
+                {
+                    "question_in_text": "name",
+                    "answer_id": "名字"
+                },
+                {
+                    "question_in_text": "a",
+                    "answer_id": "一个/件"
+                },
+                {
+                    "question_in_text": "bird",
+                    "answer_id": "鸟"
+                },
+                {
+                    "question_in_text": "panda",
+                    "answer_id": "熊猫"
+                },
+                {
+                    "question_in_text": "boy",
+                    "answer_id": "男孩"
+                },
+                {
+                    "question_in_text": "girl",
+                    "answer_id": "女孩"
+                },
+                {
+                    "question_in_text": "afternoon",
+                    "answer_id": "下午"
+                },
+                {
+                    "question_in_text": "count",
+                    "answer_id": "数数"
+                },
+                {
+                    "question_in_text": "how",
+                    "answer_id": "many",
+                    "undefined": "多少"
+                },
+                {
+                    "question_in_text": "one",
+                    "answer_id": "1"
+                },
+                {
+                    "question_in_text": "two",
+                    "answer_id": "2"
+                },
+                {
+                    "question_in_text": "three",
+                    "answer_id": "3"
+                },
+                {
+                    "question_in_text": "four",
+                    "answer_id": "4"
+                },
+                {
+                    "question_in_text": "five",
+                    "answer_id": "5"
+                },
+                {
+                    "question_in_text": "six",
+                    "answer_id": "6"
+                },
+                {
+                    "question_in_text": "seven",
+                    "answer_id": "7"
+                },
+                {
+                    "question_in_text": "eight",
+                    "answer_id": "8"
+                },
+                {
+                    "question_in_text": "nine",
+                    "answer_id": "9"
+                },
+                {
+                    "question_in_text": "ten",
+                    "answer_id": "10"
+                },
+                {
+                    "question_in_text": "yes",
+                    "answer_id": "是"
+                },
+                {
+                    "question_in_text": "no",
+                    "answer_id": "不是"
+                },
+                {
+                    "question_in_text": "green",
+                    "answer_id": "绿色"
+                },
+                {
+                    "question_in_text": "black",
+                    "answer_id": "黑色"
+                },
+                {
+                    "question_in_text": "blue",
+                    "answer_id": "蓝色"
+                },
+                {
+                    "question_in_text": "white",
+                    "answer_id": "白色"
+                },
+                {
+                    "question_in_text": "red",
+                    "answer_id": "红色"
+                },
+                {
+                    "question_in_text": "yellow",
+                    "answer_id": "黄色"
+                },
+                {
+                    "question_in_text": "pink",
+                    "answer_id": "粉色"
+                },
+                {
+                    "question_in_text": "orange",
+                    "answer_id": "桔色，桔子"
+                },
+                {
+                    "question_in_text": "purple",
+                    "answer_id": "紫色"
+                },
+                {
+                    "question_in_text": "colour",
+                    "answer_id": "颜色"
+                },
+                {
+                    "question_in_text": "ball",
+                    "answer_id": "球"
+                },
+                {
+                    "question_in_text": "stand",
+                    "answer_id": "站"
+                },
+                {
+                    "question_in_text": "up",
+                    "answer_id": "向上"
+                },
+                {
+                    "question_in_text": "stand",
+                    "answer_id": "up",
+                    "undefined": "起立"
+                },
+                {
+                    "question_in_text": "open",
+                    "answer_id": "打开"
+                },
+                {
+                    "question_in_text": "the",
+                    "answer_id": "这"
+                },
+                {
+                    "question_in_text": "window",
+                    "answer_id": "窗"
+                },
+                {
+                    "question_in_text": "door",
+                    "answer_id": "门"
+                },
+                {
+                    "question_in_text": "sit",
+                    "answer_id": "坐"
+                },
+                {
+                    "question_in_text": "down",
+                    "answer_id": "向下"
+                },
+                {
+                    "question_in_text": "sit",
+                    "answer_id": "down",
+                    "undefined": "坐下"
+                },
+                {
+                    "question_in_text": "it’s",
+                    "answer_id": "它是"
+                },
+                {
+                    "question_in_text": "it",
+                    "answer_id": "它"
+                },
+                {
+                    "question_in_text": "point",
+                    "answer_id": "指向"
+                },
+                {
+                    "question_in_text": "to",
+                    "answer_id": "去/到"
+                },
+                {
+                    "question_in_text": "too",
+                    "answer_id": "也"
+                },
+                {
+                    "question_in_text": "ceiling",
+                    "answer_id": "天花板"
+                },
+                {
+                    "question_in_text": "floor",
+                    "answer_id": "地板"
+                },
+                {
+                    "question_in_text": "Ms",
+                    "answer_id": "女士"
+                },
+                {
+                    "question_in_text": "come",
+                    "answer_id": "来"
+                },
+                {
+                    "question_in_text": "go",
+                    "answer_id": "去"
+                },
+                {
+                    "question_in_text": "this",
+                    "answer_id": "这个"
+                },
+                {
+                    "question_in_text": "that",
+                    "answer_id": "那个"
+                },
+                {
+                    "question_in_text": "our",
+                    "answer_id": "我们的"
+                },
+                {
+                    "question_in_text": "classroom",
+                    "answer_id": "教室"
+                },
+                {
+                    "question_in_text": "desk",
+                    "answer_id": "书桌"
+                },
+                {
+                    "question_in_text": "and",
+                    "answer_id": "和"
+                },
+                {
+                    "question_in_text": "seat",
+                    "answer_id": "座位"
+                },
+                {
+                    "question_in_text": "chair",
+                    "answer_id": "椅子"
+                },
+                {
+                    "question_in_text": "teacher",
+                    "answer_id": "老师"
+                },
+                {
+                    "question_in_text": "cat",
+                    "answer_id": "猫"
+                },
+                {
+                    "question_in_text": "dog",
+                    "answer_id": "狗"
+                },
+                {
+                    "question_in_text": "cap",
+                    "answer_id": "棒球帽"
+                },
+                {
+                    "question_in_text": "hat",
+                    "answer_id": "帽子"
+                },
+                {
+                    "question_in_text": "school",
+                    "answer_id": "bag",
+                    "undefined": "书包"
+                },
+                {
+                    "question_in_text": "pen",
+                    "answer_id": "钢笔"
+                },
+                {
+                    "question_in_text": "ruler",
+                    "answer_id": "尺"
+                },
+                {
+                    "question_in_text": "book",
+                    "answer_id": "书"
+                },
+                {
+                    "question_in_text": "pencil",
+                    "answer_id": "铅笔"
+                },
+                {
+                    "question_in_text": "pencil-box",
+                    "answer_id": "铅笔盒"
+                },
+                {
+                    "question_in_text": "eraser",
+                    "answer_id": "橡皮"
+                },
+                {
+                    "question_in_text": "crayon",
+                    "answer_id": "蜡笔"
+                },
+                {
+                    "question_in_text": "look",
+                    "answer_id": "看"
+                },
+                {
+                    "question_in_text": "say",
+                    "answer_id": "说"
+                },
+                {
+                    "question_in_text": "sing",
+                    "answer_id": "唱"
+                },
+                {
+                    "question_in_text": "fox",
+                    "answer_id": "狐狸"
+                },
+                {
+                    "question_in_text": "frog",
+                    "answer_id": "青蛙"
+                },
+                {
+                    "question_in_text": "friend",
+                    "answer_id": "朋友"
+                },
+                {
+                    "question_in_text": "kite",
+                    "answer_id": "风筝"
+                },
+                {
+                    "question_in_text": "house",
+                    "answer_id": "房子"
+                },
+                {
+                    "question_in_text": "box",
+                    "answer_id": "盒子"
+                },
+                {
+                    "question_in_text": "how",
+                    "answer_id": "old",
+                    "undefined": "几岁"
+                },
+                {
+                    "question_in_text": "you’re",
+                    "answer_id": "你是"
+                },
+                {
+                    "question_in_text": "you",
+                    "answer_id": "你"
+                },
+                {
+                    "question_in_text": "are",
+                    "answer_id": "是"
+                },
+                {
+                    "question_in_text": "happy",
+                    "answer_id": "高兴的"
+                },
+                {
+                    "question_in_text": "birthday",
+                    "answer_id": "生日"
+                },
+                {
+                    "question_in_text": "thank",
+                    "answer_id": "you",
+                    "undefined": "谢谢你"
+                },
+                {
+                    "question_in_text": "thank",
+                    "answer_id": "谢谢"
+                },
+                {
+                    "question_in_text": "for",
+                    "answer_id": "为"
+                },
+                {
+                    "question_in_text": "welcome",
+                    "answer_id": "欢迎"
+                },
+                {
+                    "question_in_text": "where’s",
+                    "answer_id": "在哪里"
+                },
+                {
+                    "question_in_text": "where",
+                    "answer_id": "哪里"
+                },
+                {
+                    "question_in_text": "in",
+                    "answer_id": "在…里"
+                },
+                {
+                    "question_in_text": "on",
+                    "answer_id": "在…上"
+                },
+                {
+                    "question_in_text": "under",
+                    "answer_id": "在…下"
+                },
+                {
+                    "question_in_text": "bed",
+                    "answer_id": "床"
+                },
+                {
+                    "question_in_text": "balloon",
+                    "answer_id": "气球"
+                },
+                {
+                    "question_in_text": "doll",
+                    "answer_id": "洋娃娃"
+                },
+                {
+                    "question_in_text": "bear",
+                    "answer_id": "熊"
+                },
+                {
+                    "question_in_text": "head",
+                    "answer_id": "头"
+                },
+                {
+                    "question_in_text": "hand",
+                    "answer_id": "手"
+                }
+            ]
 }

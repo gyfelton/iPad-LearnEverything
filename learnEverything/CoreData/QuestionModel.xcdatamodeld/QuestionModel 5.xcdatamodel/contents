@@ -4,7 +4,7 @@
         <attribute name="answer_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="answer_in_text" optional="YES" attributeType="String" defaultValueString="2" syncable="YES"/>
         <attribute name="create_timestamp" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="is_initial_value" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <attribute name="is_initial_value" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="question_in_text" optional="YES" attributeType="String" defaultValueString="1+1 = ?" syncable="YES"/>
         <relationship name="belongs_to" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="QuestionSet" inverseName="questions" inverseEntity="QuestionSet" syncable="YES"/>
     </entity>

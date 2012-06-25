@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FE014F4F157DD155003BE31E /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = FE014F4E157DD155003BE31E /* checkmark.png */; };
+		FE08F1571596C38E009E981C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE08F1561596C38E009E981C /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		FE1B921A159567D50090A127 /* basic_english.qsj in Resources */ = {isa = PBXBuildFile; fileRef = FE1B9219159567D50090A127 /* basic_english.qsj */; };
 		FE57F1AE1594493F00DD09E4 /* qn_set_cover_default.png in Resources */ = {isa = PBXBuildFile; fileRef = FE57F1AD1594493F00DD09E4 /* qn_set_cover_default.png */; };
 		FE57F1B2159449DE00DD09E4 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = FE57F1B1159449DE00DD09E4 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -72,6 +73,7 @@
 
 /* Begin PBXFileReference section */
 		FE014F4E157DD155003BE31E /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
+		FE08F1561596C38E009E981C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		FE1B9219159567D50090A127 /* basic_english.qsj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_english.qsj; sourceTree = "<group>"; };
 		FE57F1AD1594493F00DD09E4 /* qn_set_cover_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qn_set_cover_default.png; sourceTree = "<group>"; };
 		FE57F1B0159449DE00DD09E4 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE08F1571596C38E009E981C /* MessageUI.framework in Frameworks */,
 				FEFE564215940813002EBFD1 /* QuartzCore.framework in Frameworks */,
 				FEFE563E15940322002EBFD1 /* libGMGridView.a in Frameworks */,
 				FEEACE191579DA3000698EBB /* CoreData.framework in Frameworks */,
@@ -180,7 +183,7 @@
 		FEDAEA6A1578A21100F2552F = {
 			isa = PBXGroup;
 			children = (
-				FEFE564115940812002EBFD1 /* QuartzCore.framework */,
+				FE08F1561596C38E009E981C /* MessageUI.framework */,
 				FEEACE0F1579CAF800698EBB /* QuestionModel.xcdatamodeld */,
 				FEF224A915947A250093A9D6 /* Question.h */,
 				FEF224AA15947A250093A9D6 /* Question.m */,
@@ -207,6 +210,7 @@
 		FEDAEA781578A21100F2552F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FEFE564115940812002EBFD1 /* QuartzCore.framework */,
 				FEEACE181579DA3000698EBB /* CoreData.framework */,
 				FEDAEA791578A21100F2552F /* UIKit.framework */,
 				FEDAEA7B1578A21100F2552F /* Foundation.framework */,

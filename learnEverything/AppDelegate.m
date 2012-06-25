@@ -53,6 +53,19 @@
     [self.twoPlayersGameViewController.navigationController setNavigationBarHidden:YES];
 }
 
+- (BOOL)processURLIfIsFileURL:(NSURL*)url
+{
+    if ([url isFileURL]) {
+        //Handle qsj file here
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Received a qsj file!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    } else
+    {
+        //Handle url scheme here
+    }
+    return YES;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {   
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -64,11 +77,26 @@
     
     [self.window makeKeyAndVisible];
     
+    NSURL *url = (NSURL *)[launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
+    [self processURLIfIsFileURL:url];
+    
     StartViewController *startVC = [[StartViewController alloc] initWithNibName:nil bundle:nil];
     _startVCNav = [[UINavigationController alloc] initWithRootViewController:startVC];
     
     [self showStartScreenAnimated];
     
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    [self processURLIfIsFileURL:url];
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    [self processURLIfIsFileURL:url];
     return YES;
 }
 

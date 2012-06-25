@@ -19,7 +19,7 @@
 @property (nonatomic, retain) NSDate * create_timestamp;
 @property (nonatomic, retain) NSDate * modify_timestamp;
 @property (nonatomic, retain) NSSet *questions;
-
+@property (nonatomic, retain) NSString * author;
 @end
 
 @interface QuestionSet (CoreDataGeneratedAccessors)

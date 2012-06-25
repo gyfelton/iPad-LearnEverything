@@ -16,7 +16,8 @@
 
 @interface QuestionSetViewController (Private) 
 - (void)configureCell:(GMGridViewCell *)cell atIndex:(NSInteger)index;
-- (BOOL)_parseQuestionSetDictionaryAndInsertToCoreData:(NSDictionary*)question_set filePath:(NSString*)path fileNameAsSetID:(NSString*)set_id;
+- (BOOL)_assignValuesToQuestionSetAndSave:(QuestionSet*)set withContext:(NSManagedObjectContext*)context SetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questions:(NSArray*)questions;
+- (BOOL)_parseQuestionSetDictionary:(NSDictionary*)question_set filePath:(NSString*)path fileNameAsSetID:(NSString*)set_id andInsertToCoreDataIfNil:(QuestionSet*)qnSet;
 - (BOOL)insertNewObjectWithSetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questions:(NSArray*)questions;
 @end
 
@@ -76,20 +77,40 @@
     
     NSArray *array = [[NSBundle mainBundle] pathsForResourcesOfType:@"qsj" inDirectory:nil];
     NSError *error = nil;
+    NSString *pathForQuestionSet;
     for (NSString *path in array) {
         NSString *set_id = [[path lastPathComponent] stringByDeletingPathExtension];
         NSArray *questionSetArr = [self.fetchedResultsController fetchedObjects];
         BOOL alreadyExists = NO;
+        QuestionSet *questionSet = nil;
         for (QuestionSet *set in questionSetArr) {
-            if ([set.set_id isEqualToString:set_id] /*TODO: check modify_timestamp*/) {
+            if ([set.set_id isEqualToString:set_id]) {
                 alreadyExists = YES;
+                questionSet = set;
+                pathForQuestionSet = path;
                 break;
             }
         }
         if (!alreadyExists) {
             NSString *jsonStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
             NSDictionary *resultDict = [jsonStr objectFromJSONString];
-            BOOL success = [self _parseQuestionSetDictionaryAndInsertToCoreData:resultDict filePath:path fileNameAsSetID:set_id];
+            BOOL success = [self _parseQuestionSetDictionary:resultDict filePath:path fileNameAsSetID:set_id andInsertToCoreDataIfNil:nil];
+        } else
+        {
+            NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&error];
+            if ([questionSet.modify_timestamp compare:[attributes objectForKey:NSFileModificationDate]] == NSOrderedAscending) {
+                //TODO need testing on this
+                //modification date is later, should update
+                NSString *jsonStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
+                
+                NSMutableDictionary *resultDict = [NSMutableDictionary dictionaryWithDictionary:[jsonStr objectFromJSONString]];
+                
+                //Assign dates info to dict to update the questionSet
+                [resultDict setValue:[attributes objectForKey:NSFileModificationDate] forKey:@"modify_date"];
+                [resultDict setValue:[attributes objectForKey:NSFileCreationDate] forKey:@"create_date"];
+                
+                [self _parseQuestionSetDictionary:resultDict filePath:path fileNameAsSetID:set_id andInsertToCoreDataIfNil:questionSet];
+            }
         }
     }
 
@@ -100,6 +121,12 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [_questionSetView reloadData];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -150,7 +177,7 @@
     } else
     {
         QuestionSet *qn_set = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:position inSection:0]];
-        QuestionListViewController *listVC = [[QuestionListViewController alloc] initWithManagedContext:self.managedObjectContext andQuestionSetID:qn_set.set_id];
+        QuestionListViewController *listVC = [[QuestionListViewController alloc] initWithManagedContext:self.managedObjectContext andQuestionSet:qn_set];
 
         [self.navigationController pushViewController:listVC animated:YES];
     }
@@ -306,7 +333,7 @@
  }
  */
 
-- (BOOL)_parseQuestionSetDictionaryAndInsertToCoreData:(NSDictionary*)question_set filePath:(NSString*)path fileNameAsSetID:(NSString*)set_id
+- (BOOL)_parseQuestionSetDictionary:(NSDictionary*)question_set filePath:(NSString*)path fileNameAsSetID:(NSString*)set_id andInsertToCoreDataIfNil:(QuestionSet*)qnSet
 {
     if (!set_id) {
         return NO;
@@ -314,6 +341,8 @@
     NSString *name = [question_set objectForKey:@"name"];
     NSString *author = [question_set objectForKey:@"author"];
     NSArray *questionRawData = [question_set objectForKey:@"questions"];
+    NSDate *createDate = [question_set objectForKey:@"create_timestamp"];
+    NSDate *modifyDate = [question_set objectForKey:@"modify_timestamp"];
     NSArray *questions = [Question parseJSONDictionaryArray:questionRawData context:[self.fetchedResultsController managedObjectContext]];
     if (!questions) {
         NSLog(@"FAIL TO PARSE QUESTIONS FROM QSJ FILE");
@@ -321,30 +350,31 @@
     {
     }
     
-    return [self insertNewObjectWithSetID:set_id name:name author:author createDate:[NSDate date] modifyDate:[NSDate date] questions:questions];
-}
-
-- (BOOL)insertNewObjectWithSetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questions:(NSArray*)questions
-{
-    // Create a new instance of the entity managed by the fetched results controller.
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    QuestionSet *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-    
-    // If appropriate, configure the new managed object.
-    // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    [newManagedObject setValueIfNotNil:create_date forKey:@"create_timestamp"];
-    [newManagedObject setValueIfNotNil:modifyDate forKey:@"modify_timestamp"];
-    [newManagedObject setValueIfNotNil:set_id forKey:@"set_id"];
-    [newManagedObject setValueIfNotNil:name forKey:@"name"];
-    [newManagedObject setValueIfNotNil:author forKey:@"author"];
-    if (questions) {
-        for (Question *question in questions) {
-            question.belongs_to = newManagedObject;
-        }
-        [newManagedObject addQuestions:[NSSet setWithArray:questions]];
+    if (!qnSet) {
+        return [self insertNewObjectWithSetID:set_id name:name author:author createDate:createDate modifyDate:modifyDate questions:questions];
+    } else
+    {
+        return [self _assignValuesToQuestionSetAndSave:qnSet withContext:self.managedObjectContext SetID:set_id name:name author:author createDate:createDate modifyDate:modifyDate questions:questions];
     }
 
+}
+
+- (BOOL)_assignValuesToQuestionSetAndSave:(QuestionSet*)set withContext:(NSManagedObjectContext*)context SetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questions:(NSArray*)questions
+{
+    // If appropriate, configure the new managed object.
+    // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
+    [set setValueIfNotNil:create_date forKey:@"create_timestamp"];
+    [set setValueIfNotNil:modifyDate forKey:@"modify_timestamp"];
+    [set setValueIfNotNil:set_id forKey:@"set_id"];
+    [set setValueIfNotNil:name forKey:@"name"];
+    [set setValueIfNotNil:author forKey:@"author"];
+    if (questions) {
+        for (Question *question in questions) {
+            question.belongs_to = set;
+        }
+        [set addQuestions:[NSSet setWithArray:questions]];
+    }
+    
     // Save the context.
     NSError *error = nil;
     if (![context save:&error]) {
@@ -358,6 +388,16 @@
         return NO;
     }
     return YES;
+}
+
+- (BOOL)insertNewObjectWithSetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questions:(NSArray*)questions
+{
+    // Create a new instance of the entity managed by the fetched results controller.
+    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
+    QuestionSet *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+    
+    return [self _assignValuesToQuestionSetAndSave:newManagedObject withContext:context SetID:set_id name:name author:author createDate:create_date modifyDate:modifyDate questions:questions];
 }
 
 - (BOOL)insertNewObject

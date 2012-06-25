@@ -1,18 +1,187 @@
 {
     "name" : "九九乘法表",
     "author" : "system",
-    "questions" :   [
-                        {
-                            "question_in_text": "1×1",
-                            "answer_id": "1"
-                        },
-                        {
-                            "question_in_text": "2×1",
-                            "answer_id": "2"
-                        },
-                        {
-                            "question_in_text": "3×1",
-                            "answer_id": "3"
-                        }
-                    ]
+    "questions" :   
+                [
+                {
+                    "question_in_text": "1×1",
+                    "answer_id": "1"
+                },
+                {
+                    "question_in_text": "1×2",
+                    "answer_id": "2"
+                },
+                {
+                    "question_in_text": "2×2",
+                    "answer_id": "4"
+                },
+                {
+                    "question_in_text": "1×3",
+                    "answer_id": "3"
+                },
+                {
+                    "question_in_text": "2×3",
+                    "answer_id": "6"
+                },
+                {
+                    "question_in_text": "3×3",
+                    "answer_id": "9"
+                },
+                {
+                    "question_in_text": "1×4",
+                    "answer_id": "4"
+                },
+                {
+                    "question_in_text": "2×4",
+                    "answer_id": "8"
+                },
+                {
+                    "question_in_text": "3×4",
+                    "answer_id": "12"
+                },
+                {
+                    "question_in_text": "4×4",
+                    "answer_id": "16"
+                },
+                {
+                    "question_in_text": "1×5",
+                    "answer_id": "5"
+                },
+                {
+                    "question_in_text": "2×5",
+                    "answer_id": "10"
+                },
+                {
+                    "question_in_text": "3×5",
+                    "answer_id": "15"
+                },
+                {
+                    "question_in_text": "4×5",
+                    "answer_id": "20"
+                },
+                {
+                    "question_in_text": "5×5",
+                    "answer_id": "25"
+                },
+                {
+                    "question_in_text": "1×6",
+                    "answer_id": "6"
+                },
+                {
+                    "question_in_text": "2×6",
+                    "answer_id": "12"
+                },
+                {
+                    "question_in_text": "3×6",
+                    "answer_id": "18"
+                },
+                {
+                    "question_in_text": "4×6",
+                    "answer_id": "24"
+                },
+                {
+                    "question_in_text": "5×6",
+                    "answer_id": "30"
+                },
+                {
+                    "question_in_text": "6×6",
+                    "answer_id": "36"
+                },
+                {
+                    "question_in_text": "1×7",
+                    "answer_id": "7"
+                },
+                {
+                    "question_in_text": "2×7",
+                    "answer_id": "14"
+                },
+                {
+                    "question_in_text": "3×7",
+                    "answer_id": "21"
+                },
+                {
+                    "question_in_text": "4×7",
+                    "answer_id": "28"
+                },
+                {
+                    "question_in_text": "5×7",
+                    "answer_id": "35"
+                },
+                {
+                    "question_in_text": "6×7",
+                    "answer_id": "42"
+                },
+                {
+                    "question_in_text": "7×7",
+                    "answer_id": "49"
+                },
+                {
+                    "question_in_text": "1×8",
+                    "answer_id": "8"
+                },
+                {
+                    "question_in_text": "2×8",
+                    "answer_id": "16"
+                },
+                {
+                    "question_in_text": "3×8",
+                    "answer_id": "24"
+                },
+                {
+                    "question_in_text": "4×8",
+                    "answer_id": "32"
+                },
+                {
+                    "question_in_text": "5×8",
+                    "answer_id": "40"
+                },
+                {
+                    "question_in_text": "6×8",
+                    "answer_id": "48"
+                },
+                {
+                    "question_in_text": "7×8",
+                    "answer_id": "56"
+                },
+                {
+                    "question_in_text": "8×8",
+                    "answer_id": "64"
+                },
+                {
+                    "question_in_text": "1×9",
+                    "answer_id": "9"
+                },
+                {
+                    "question_in_text": "2×9",
+                    "answer_id": "18"
+                },
+                {
+                    "question_in_text": "3×9",
+                    "answer_id": "27"
+                },
+                {
+                    "question_in_text": "4×9",
+                    "answer_id": "36"
+                },
+                {
+                    "question_in_text": "5×9",
+                    "answer_id": "45"
+                },
+                {
+                    "question_in_text": "6×9",
+                    "answer_id": "54"
+                },
+                {
+                    "question_in_text": "7×9",
+                    "answer_id": "63"
+                },
+                {
+                    "question_in_text": "8×9",
+                    "answer_id": "72"
+                },
+                {
+                    "question_in_text": "9×9",
+                    "answer_id": "81"
+                }
+            ]
 }
