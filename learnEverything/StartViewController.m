@@ -9,6 +9,7 @@
 #import "StartViewController.h"
 #import "AppDelegate.h"
 #import "SinglePlayerGameViewController.h"
+#import "ParentControlViewController.h"
 #import "QuestionSetViewController.h"
 
 @implementation StartViewController
@@ -38,11 +39,10 @@
     // Do any additional setup after loading the view from its nib.
 }
 
-- (void)viewDidUnload
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -52,10 +52,17 @@
 }
 
 - (IBAction)onSinglePlayerGameClicked:(id)sender {
-    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate prepareForSinglePlayerGame];
+    QuestionSetViewController *chooseQuestionSet = [[QuestionSetViewController alloc] initWithViewControllerType:kChooseGameSet];
     
-    [self dismissModalViewControllerAnimated:YES];
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    chooseQuestionSet.managedObjectContext = appDelegate.managedObjectContext;
+    
+    [self.navigationController pushViewController:chooseQuestionSet animated:YES];
+//    
+//    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+//    [appDelegate prepareForSinglePlayerGame];
+//    
+//    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (IBAction)onTwoPlayersGameClicked:(id)sender
@@ -67,10 +74,9 @@
 }
 
 - (IBAction)onEditQuestionSetList:(id)sender {
-    QuestionSetViewController *questionEditVC = [[QuestionSetViewController alloc] initWithNibName:nil bundle:nil];
-    questionEditVC.managedObjectContext = ((AppDelegate*)[UIApplication sharedApplication].delegate).managedObjectContext;
+    ParentControlViewController *parentControl = [[ParentControlViewController alloc] initWithNibName:nil bundle:nil];
     
-    [self.navigationController pushViewController:questionEditVC animated:YES];
+    [self.navigationController pushViewController:parentControl animated:YES];
 }
 
 @end

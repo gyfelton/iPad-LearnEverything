@@ -82,7 +82,6 @@
     
     StartViewController *startVC = [[StartViewController alloc] initWithNibName:nil bundle:nil];
     _startVCNav = [[UINavigationController alloc] initWithRootViewController:startVC];
-    
     [self showStartScreenAnimated];
     
     return YES;

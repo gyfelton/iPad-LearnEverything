@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		FE014F4F157DD155003BE31E /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = FE014F4E157DD155003BE31E /* checkmark.png */; };
 		FE08F1571596C38E009E981C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE08F1561596C38E009E981C /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		FE08F16615980116009E981C /* ParentControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE08F16415980116009E981C /* ParentControlViewController.m */; };
+		FE08F16715980116009E981C /* ParentControlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE08F16515980116009E981C /* ParentControlViewController.xib */; };
+		FE08F16A15980126009E981C /* FakeScannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE08F16915980126009E981C /* FakeScannerView.m */; };
 		FE1B921A159567D50090A127 /* basic_english.qsj in Resources */ = {isa = PBXBuildFile; fileRef = FE1B9219159567D50090A127 /* basic_english.qsj */; };
 		FE57F1AE1594493F00DD09E4 /* qn_set_cover_default.png in Resources */ = {isa = PBXBuildFile; fileRef = FE57F1AD1594493F00DD09E4 /* qn_set_cover_default.png */; };
 		FE57F1B2159449DE00DD09E4 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = FE57F1B1159449DE00DD09E4 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -74,6 +77,11 @@
 /* Begin PBXFileReference section */
 		FE014F4E157DD155003BE31E /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
 		FE08F1561596C38E009E981C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		FE08F16315980116009E981C /* ParentControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParentControlViewController.h; path = "Parent Control/ParentControlViewController.h"; sourceTree = "<group>"; };
+		FE08F16415980116009E981C /* ParentControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParentControlViewController.m; path = "Parent Control/ParentControlViewController.m"; sourceTree = "<group>"; };
+		FE08F16515980116009E981C /* ParentControlViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ParentControlViewController.xib; path = "Parent Control/ParentControlViewController.xib"; sourceTree = "<group>"; };
+		FE08F16815980126009E981C /* FakeScannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FakeScannerView.h; path = "Parent Control/FakeScannerView.h"; sourceTree = "<group>"; };
+		FE08F16915980126009E981C /* FakeScannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FakeScannerView.m; path = "Parent Control/FakeScannerView.m"; sourceTree = "<group>"; };
 		FE1B9219159567D50090A127 /* basic_english.qsj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_english.qsj; sourceTree = "<group>"; };
 		FE57F1AD1594493F00DD09E4 /* qn_set_cover_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qn_set_cover_default.png; sourceTree = "<group>"; };
 		FE57F1B0159449DE00DD09E4 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
@@ -162,6 +170,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FE08F162159800E0009E981C /* Parent Control */ = {
+			isa = PBXGroup;
+			children = (
+				FE08F16815980126009E981C /* FakeScannerView.h */,
+				FE08F16915980126009E981C /* FakeScannerView.m */,
+				FE08F16315980116009E981C /* ParentControlViewController.h */,
+				FE08F16415980116009E981C /* ParentControlViewController.m */,
+				FE08F16515980116009E981C /* ParentControlViewController.xib */,
+			);
+			name = "Parent Control";
+			sourceTree = "<group>";
+		};
 		FE57F1AF159449DE00DD09E4 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,6 +268,7 @@
 				FEFE560115936E6B002EBFD1 /* QuestionSetViewController.h */,
 				FEFE560215936E6B002EBFD1 /* QuestionSetViewController.m */,
 				FEFE560415936E89002EBFD1 /* QuestionSetViewController.xib */,
+				FE08F162159800E0009E981C /* Parent Control */,
 				FEFE56061593F674002EBFD1 /* Utils */,
 				FEDAEA991578A31600F2552F /* Resources */,
 				FEDAEA801578A21100F2552F /* Supporting Files */,
@@ -407,6 +428,7 @@
 				FE57F1AE1594493F00DD09E4 /* qn_set_cover_default.png in Resources */,
 				FE57F1B715944B5000DD09E4 /* system_99chengfa.qsj in Resources */,
 				FE1B921A159567D50090A127 /* basic_english.qsj in Resources */,
+				FE08F16715980116009E981C /* ParentControlViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,6 +459,8 @@
 				FEF224A3159472B90093A9D6 /* Question+Helpers.m in Sources */,
 				FEF224A6159475270093A9D6 /* NSManagedObject+Helpers.m in Sources */,
 				FEF224AB15947A250093A9D6 /* Question.m in Sources */,
+				FE08F16615980116009E981C /* ParentControlViewController.m in Sources */,
+				FE08F16A15980126009E981C /* FakeScannerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

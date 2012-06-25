@@ -34,6 +34,8 @@
 
     QuestionSet *_questionSet;
     NSArray *_questions;
+    
+    MFMailComposeViewController *_mailComposeVC;
 }
 
 @property (nonatomic, strong) UINib *questionCellNib; 

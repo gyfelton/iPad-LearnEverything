@@ -10,11 +10,23 @@
 #import "GMGridView.h"
 #import "GMGridViewCell.h"
 
+enum QuestionSetViewControllerType {
+    kEditQuestionSet = 0,
+    kChooseGameSet = 1
+    };
+typedef enum QuestionSetViewControllerType QuestionSetViewControllerType;
+
 @interface QuestionSetViewController : UIViewController <GMGridViewDataSource, GMGridViewActionDelegate, NSFetchedResultsControllerDelegate>
 {
     GMGridView *_questionSetView;
     IBOutlet UIView *_questionSetView_placeholder;
+    
+    QuestionSetViewControllerType _viewControllerType;
+    
+    UIButton *_chooseGameModeBtn;
 }
+
+- (id)initWithViewControllerType:(QuestionSetViewControllerType)type;
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 

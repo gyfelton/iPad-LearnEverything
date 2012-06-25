@@ -341,28 +341,26 @@
 #pragma mark - IBActions
 - (IBAction)onShareQuestionSetClicked:(id)sender {
     if ([MFMailComposeViewController canSendMail]) {
-        MFMailComposeViewController *mailVC = [[MFMailComposeViewController alloc] init];
-        [mailVC setSubject:@"题库名"];
-        [mailVC setMessageBody:@"这是一个题库，请使用 xxx 打开" isHTML:NO];
+        _mailComposeVC = [[MFMailComposeViewController alloc] init];
+        [_mailComposeVC setSubject:@"题库名"];
+        [_mailComposeVC setMessageBody:@"这是一个题库，请使用 xxx 打开" isHTML:NO];
         NSArray *array = [[NSBundle mainBundle] pathsForResourcesOfType:@"qsj" inDirectory:nil];
         NSString *path = [array lastObject];
         NSData *data = [NSData dataWithContentsOfFile:path];
-        [mailVC addAttachmentData:data mimeType:@"application/x-qsj" fileName:@"test.qsj"];
-        mailVC.mailComposeDelegate = self;
-        [self presentModalViewController:mailVC animated:YES];
+        [_mailComposeVC addAttachmentData:data mimeType:@"application/x-qsj" fileName:@"test.qsj"];
+        _mailComposeVC.mailComposeDelegate = self;
+        [self presentModalViewController:_mailComposeVC animated:YES];
     } else
     {
         //TODO
-    }
-
-    
+    }    
 }
 
 #pragma mark - MFMailCompose Delegate
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
-    NSLog(@"Send?");
-    //TODO dismiss the mail VC
+    [_mailComposeVC dismissModalViewControllerAnimated:YES];
+    //TODO react according to mail send result?
 }
 @end
 

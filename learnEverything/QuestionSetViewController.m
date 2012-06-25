@@ -27,13 +27,16 @@
 
 #define NUM_FOR_ADD_BUTTON 1
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithViewControllerType:(QuestionSetViewControllerType)type
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nil bundle:nil];
+    
     if (self) {
         // Custom initialization
-        self.title = @"题库列表";
+        _viewControllerType = type;
+        self.title = _viewControllerType == kEditQuestionSet ? @"编辑题库" : @"选择题库开始游戏";
     }
+    
     return self;
 }
 
@@ -47,32 +50,8 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
+- (void)checkCachedQuestionSets
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-        
-    _questionSetView = [[GMGridView alloc] initWithFrame:_questionSetView_placeholder.frame];
-    _questionSetView.style = GMGridViewStyleSwap;
-    _questionSetView.itemSpacing = 60;
-    _questionSetView.minEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
-    _questionSetView.centerGrid = NO;
-    _questionSetView.actionDelegate = self;
-//    _questionSetView.sortingDelegate = self;
-//    _questionSetView.transformDelegate = self;
-    _questionSetView.dataSource = self;
-    
-    [self.view insertSubview:_questionSetView aboveSubview:_questionSetView_placeholder];
-    [_questionSetView_placeholder removeFromSuperview];
-    
-    if ([[UIDevice currentDevice].systemVersion floatValue] >= 5.0f) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyBoardHeightChange:) name:UIKeyboardDidChangeFrameNotification object:nil];
-    } else
-    {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyBoardHeightChange:) name:UIKeyboardDidShowNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyBoardHeightChange:) name:UIKeyboardDidHideNotification object:nil];
-    }
-    
     //Check for existing qsj files to load question set if need
     
     NSArray *array = [[NSBundle mainBundle] pathsForResourcesOfType:@"qsj" inDirectory:nil];
@@ -113,7 +92,64 @@
             }
         }
     }
+}
 
+- (void)prepareGameModeChooser
+{
+    //Choose single or dual
+    _chooseGameModeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _chooseGameModeBtn.frame = self.view.frame;
+    _chooseGameModeBtn.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6f];
+    [_chooseGameModeBtn addTarget:self action:@selector(cancelGame:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *singlePlayer = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    singlePlayer.frame = CGRectMake(0, 0, 300, 150);
+    singlePlayer.center = CGPointMake(_chooseGameModeBtn.center.x, _chooseGameModeBtn.center.y-100);
+    [singlePlayer setTitle:@"单人对战" forState:UIControlStateNormal];
+    [singlePlayer addTarget:self action:@selector(startSinglePlayerGame:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [_chooseGameModeBtn addSubview:singlePlayer];
+    
+    UIButton *twoPlayers = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    twoPlayers.frame = CGRectMake(0, 0, 300, 150);
+    twoPlayers.center = CGPointMake(_chooseGameModeBtn.center.x, _chooseGameModeBtn.center.y+100);
+    [twoPlayers setTitle:@"双人对决" forState:UIControlStateNormal];
+    [twoPlayers addTarget:self action:@selector(startDualPlayersGame:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [_chooseGameModeBtn addSubview:twoPlayers];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+        
+    _questionSetView = [[GMGridView alloc] initWithFrame:_questionSetView_placeholder.frame];
+    _questionSetView.style = GMGridViewStyleSwap;
+    _questionSetView.itemSpacing = 41;
+    _questionSetView.minEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20);
+    _questionSetView.centerGrid = NO;
+    _questionSetView.actionDelegate = self;
+//    _questionSetView.sortingDelegate = self;
+//    _questionSetView.transformDelegate = self;
+    _questionSetView.dataSource = self;
+    
+    [self.view insertSubview:_questionSetView aboveSubview:_questionSetView_placeholder];
+    [_questionSetView_placeholder removeFromSuperview];
+    
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 5.0f) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyBoardHeightChange:) name:UIKeyboardDidChangeFrameNotification object:nil];
+    } else
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyBoardHeightChange:) name:UIKeyboardDidShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyBoardHeightChange:) name:UIKeyboardDidHideNotification object:nil];
+    }
+    
+    [self checkCachedQuestionSets];
+    
+    if (_viewControllerType == kChooseGameSet) {
+        [self prepareGameModeChooser];
+    }
 }
 
 - (void)viewDidUnload
@@ -126,6 +162,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     [_questionSetView reloadData];
 }
 
@@ -139,12 +176,13 @@
 - (NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:0];
-    return [sectionInfo numberOfObjects] + NUM_FOR_ADD_BUTTON;
+    int addButton = _viewControllerType == kEditQuestionSet ? NUM_FOR_ADD_BUTTON : 0;
+    return [sectionInfo numberOfObjects] + addButton;
 }
 
 - (CGSize)GMGridView:(GMGridView *)gridView sizeForItemsInInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
-    return CGSizeMake(140, 210);
+    return CGSizeMake(164, 240);
 }
 
 - (GMGridViewCell*)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
@@ -171,16 +209,38 @@
 #pragma mark - GMGridView Delegate
 - (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
+    GMGridViewCell *cell = [gridView cellForItemAtIndex:position];
+    
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:0];
     if (position >= [sectionInfo numberOfObjects]) { 
         [self performSelector:@selector(insertNewObject)];
     } else
     {
-        QuestionSet *qn_set = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:position inSection:0]];
-        QuestionListViewController *listVC = [[QuestionListViewController alloc] initWithManagedContext:self.managedObjectContext andQuestionSet:qn_set];
-
-        [self.navigationController pushViewController:listVC animated:YES];
+        if (_viewControllerType == kEditQuestionSet) {
+            QuestionSet *qn_set = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:position inSection:0]];
+            QuestionListViewController *listVC = [[QuestionListViewController alloc] initWithManagedContext:self.managedObjectContext andQuestionSet:qn_set];
+            
+            [self.navigationController pushViewController:listVC animated:YES];
+        } else
+        {
+            [self.view addSubview:_chooseGameModeBtn];
+        }
     }
+}
+
+- (void)startSinglePlayerGame:(UIButton*)btn
+{
+    
+}
+
+- (void)startDualPlayersGame:(UIButton*)btn
+{
+    
+}
+
+- (void)cancelGame:(UIButton*)btn
+{
+    [_chooseGameModeBtn removeFromSuperview];
 }
 
 - (void)GMGridViewDidTapOnEmptySpace:(GMGridView *)gridView
@@ -293,6 +353,7 @@
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:0];
     if (index >= [sectionInfo numberOfObjects]) {
+        //Add Button
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 140, 210)];
         view.backgroundColor = [UIColor redColor];
         UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 180, 140, 30)];
@@ -304,16 +365,19 @@
     {
         QuestionSet *managedObject = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
         
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 140, 210)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 164, 240)];
 //        view.backgroundColor = [UIColor redColor];
         
-        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 120, 180)];
+        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(20, 0, 144, 192)];
         img.backgroundColor = [UIColor blackColor];
         img.tag = 0;
         img.image = [UIImage imageNamed:@"qn_set_cover_default"];
         [view addSubview:img];
         
-        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 180, 140, 30)];
+        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 192, 164, 48)];
+        lbl.font = [UIFont boldSystemFontOfSize:22];
+        lbl.adjustsFontSizeToFitWidth = YES;
+        lbl.minimumFontSize = 9;
         lbl.textAlignment = UITextAlignmentCenter;
         lbl.text = managedObject.name;
         lbl.tag = 1;
