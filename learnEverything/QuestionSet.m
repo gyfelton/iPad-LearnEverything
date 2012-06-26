@@ -19,4 +19,5 @@
 @dynamic modify_timestamp;
 @dynamic questions;
 @dynamic author;
+
 @end

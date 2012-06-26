@@ -9,6 +9,7 @@
 #import "NSManagedObject+Helpers.h"
 
 @implementation NSManagedObject (Helpers)
+
 - (void)setValueIfNotNil:(id)value forKey:(NSString *)key
 {
     if (value) {

@@ -9,7 +9,9 @@
 #import "NonScrollableGridView.h"
 
 @implementation GVIndexPath
+
 @synthesize row = _row, column = _column;
+
 - (GVIndexPath*)initIndexPathWithRow:(NSInteger)r andColumn:(NSInteger)c
 {
     self = [super init];

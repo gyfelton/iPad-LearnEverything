@@ -13,17 +13,20 @@
 #import "OpenUDID.h"
 #import "JSONKit.h"
 #import "QuestionListViewController.h"
+#import "AppDelegate.h"
 
 @interface QuestionSetViewController (Private) 
 - (void)configureCell:(GMGridViewCell *)cell atIndex:(NSInteger)index;
 - (BOOL)_assignValuesToQuestionSetAndSave:(QuestionSet*)set withContext:(NSManagedObjectContext*)context SetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questions:(NSArray*)questions;
 - (BOOL)_parseQuestionSetDictionary:(NSDictionary*)question_set filePath:(NSString*)path fileNameAsSetID:(NSString*)set_id andInsertToCoreDataIfNil:(QuestionSet*)qnSet;
 - (BOOL)insertNewObjectWithSetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questions:(NSArray*)questions;
+- (void)insertNewObject;
 @end
 
 @implementation QuestionSetViewController
 @synthesize managedObjectContext;
 @synthesize fetchedResultsController = __fetchedResultsController;
+@synthesize isSinglePlayerMode;
 
 #define NUM_FOR_ADD_BUTTON 1
 
@@ -94,6 +97,7 @@
     }
 }
 
+/*
 - (void)prepareGameModeChooser
 {
     //Choose single or dual
@@ -118,6 +122,7 @@
     
     [_chooseGameModeBtn addSubview:twoPlayers];
 }
+*/
 
 - (void)viewDidLoad
 {
@@ -148,8 +153,10 @@
     [self checkCachedQuestionSets];
     
     if (_viewControllerType == kChooseGameSet) {
-        [self prepareGameModeChooser];
+//        [self prepareGameModeChooser];
     }
+    
+    self.view.backgroundColor = [UIColor clearColor]; 
 }
 
 - (void)viewDidUnload
@@ -209,11 +216,13 @@
 #pragma mark - GMGridView Delegate
 - (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
-    GMGridViewCell *cell = [gridView cellForItemAtIndex:position];
-    
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:0];
     if (position >= [sectionInfo numberOfObjects]) { 
         [self performSelector:@selector(insertNewObject)];
+        
+        QuestionSet *qn_set = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:position inSection:0]];
+        QuestionListViewController *listVC = [[QuestionListViewController alloc] initWithManagedContext:self.managedObjectContext andQuestionSet:qn_set];
+        [self.navigationController pushViewController:listVC animated:YES];
     } else
     {
         if (_viewControllerType == kEditQuestionSet) {
@@ -223,11 +232,21 @@
             [self.navigationController pushViewController:listVC animated:YES];
         } else
         {
-            [self.view addSubview:_chooseGameModeBtn];
+            //Start game here
+            AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+            if (self.isSinglePlayerMode) {
+                [appDelegate prepareForSinglePlayerGame];
+                [self dismissModalViewControllerAnimated:YES];
+            } else
+            {
+                [appDelegate prepareForTwoPlayersGame];
+                [self dismissModalViewControllerAnimated:YES];
+            }
         }
     }
 }
 
+/*
 - (void)startSinglePlayerGame:(UIButton*)btn
 {
     
@@ -242,6 +261,7 @@
 {
     [_chooseGameModeBtn removeFromSuperview];
 }
+*/
 
 - (void)GMGridViewDidTapOnEmptySpace:(GMGridView *)gridView
 {
@@ -368,14 +388,17 @@
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 164, 240)];
 //        view.backgroundColor = [UIColor redColor];
         
-        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(20, 0, 144, 192)];
+        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 144, 192)];
         img.backgroundColor = [UIColor blackColor];
         img.tag = 0;
         img.image = [UIImage imageNamed:@"qn_set_cover_default"];
         [view addSubview:img];
         
         UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 192, 164, 48)];
-        lbl.font = [UIFont boldSystemFontOfSize:22];
+        lbl.font = [UIFont regularChineseFontWithSize:26];
+        lbl.backgroundColor = [UIColor clearColor];
+//        lbl.shadowColor = [UIColor darkTextColor];
+//        lbl.shadowOffset = CGSizeMake(0, -1);
         lbl.adjustsFontSizeToFitWidth = YES;
         lbl.minimumFontSize = 9;
         lbl.textAlignment = UITextAlignmentCenter;

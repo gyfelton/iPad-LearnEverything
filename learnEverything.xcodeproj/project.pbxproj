@@ -8,36 +8,47 @@
 
 /* Begin PBXBuildFile section */
 		FE014F4F157DD155003BE31E /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = FE014F4E157DD155003BE31E /* checkmark.png */; };
+		FE05A7A51598724F006F1FAC /* main_bg_full_screen.png in Resources */ = {isa = PBXBuildFile; fileRef = FE05A7A41598724F006F1FAC /* main_bg_full_screen.png */; };
+		FE05A7AA1598A987006F1FAC /* FangZhengZhiYiJianTi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE05A7A91598A987006F1FAC /* FangZhengZhiYiJianTi.ttf */; };
+		FE05A7B11598AC4C006F1FAC /* UIFont+Additionals.m in Sources */ = {isa = PBXBuildFile; fileRef = FE05A7B01598AC4C006F1FAC /* UIFont+Additionals.m */; };
 		FE08F1571596C38E009E981C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE08F1561596C38E009E981C /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		FE08F16615980116009E981C /* ParentControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE08F16415980116009E981C /* ParentControlViewController.m */; };
 		FE08F16715980116009E981C /* ParentControlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE08F16515980116009E981C /* ParentControlViewController.xib */; };
 		FE08F16A15980126009E981C /* FakeScannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE08F16915980126009E981C /* FakeScannerView.m */; };
+		FE08F17015984BA8009E981C /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = FE08F16D15984BA8009E981C /* NSMutableArray+Shuffling.m */; };
+		FE08F17115984BA8009E981C /* UIViewController+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = FE08F16F15984BA8009E981C /* UIViewController+Util.m */; };
 		FE1B921A159567D50090A127 /* basic_english.qsj in Resources */ = {isa = PBXBuildFile; fileRef = FE1B9219159567D50090A127 /* basic_english.qsj */; };
+		FE2AB105159989B20095BAB6 /* dialog-left.png in Resources */ = {isa = PBXBuildFile; fileRef = FE2AB103159989B20095BAB6 /* dialog-left.png */; };
+		FE2AB106159989B20095BAB6 /* dialog-right.png in Resources */ = {isa = PBXBuildFile; fileRef = FE2AB104159989B20095BAB6 /* dialog-right.png */; };
 		FE57F1AE1594493F00DD09E4 /* qn_set_cover_default.png in Resources */ = {isa = PBXBuildFile; fileRef = FE57F1AD1594493F00DD09E4 /* qn_set_cover_default.png */; };
 		FE57F1B2159449DE00DD09E4 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = FE57F1B1159449DE00DD09E4 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FE57F1B715944B5000DD09E4 /* system_99chengfa.qsj in Resources */ = {isa = PBXBuildFile; fileRef = FE57F1B615944B5000DD09E4 /* system_99chengfa.qsj */; };
 		FE685DCF1591A0B50043EB87 /* QuestionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FE685DCE1591A0B50043EB87 /* QuestionManager.m */; };
 		FE82F8DE157CF3890081F81E /* NonScrollableGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE82F8DD157CF3890081F81E /* NonScrollableGridView.m */; };
-		FE82F8E9157D19BE0081F81E /* BaseGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE82F8E8157D19BE0081F81E /* BaseGameViewController.m */; };
-		FE82F8EC157D1F220081F81E /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = FE82F8EB157D1F220081F81E /* NSMutableArray+Shuffling.m */; };
-		FEB87D391584424900AC82EF /* TwoPlayersGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB87D371584424900AC82EF /* TwoPlayersGameViewController.m */; };
-		FEB87D3A1584424900AC82EF /* TwoPlayersGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEB87D381584424900AC82EF /* TwoPlayersGameViewController.xib */; };
 		FEDAEA7A1578A21100F2552F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEDAEA791578A21100F2552F /* UIKit.framework */; };
 		FEDAEA7C1578A21100F2552F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEDAEA7B1578A21100F2552F /* Foundation.framework */; };
 		FEDAEA7E1578A21100F2552F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEDAEA7D1578A21100F2552F /* CoreGraphics.framework */; };
-		FEDAEA841578A21100F2552F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FEDAEA821578A21100F2552F /* InfoPlist.strings */; };
 		FEDAEA861578A21100F2552F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FEDAEA851578A21100F2552F /* main.m */; };
 		FEDAEA8A1578A21200F2552F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FEDAEA891578A21200F2552F /* AppDelegate.m */; };
-		FEDAEA8D1578A21200F2552F /* SinglePlayerGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEDAEA8C1578A21200F2552F /* SinglePlayerGameViewController.m */; };
-		FEDAEA931578A21200F2552F /* SinglePlayerGameViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEDAEA911578A21200F2552F /* SinglePlayerGameViewController_iPad.xib */; };
 		FEDAEAA11578A31600F2552F /* green1.png in Resources */ = {isa = PBXBuildFile; fileRef = FEDAEA9B1578A31600F2552F /* green1.png */; };
 		FEDAEAA21578A31600F2552F /* green2.png in Resources */ = {isa = PBXBuildFile; fileRef = FEDAEA9C1578A31600F2552F /* green2.png */; };
 		FEDAEAA31578A31600F2552F /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = FEDAEA9D1578A31600F2552F /* left.png */; };
 		FEDAEAA41578A31600F2552F /* red1.png in Resources */ = {isa = PBXBuildFile; fileRef = FEDAEA9E1578A31600F2552F /* red1.png */; };
 		FEDAEAA51578A31600F2552F /* red2.png in Resources */ = {isa = PBXBuildFile; fileRef = FEDAEA9F1578A31600F2552F /* red2.png */; };
 		FEDAEAA61578A31600F2552F /* right.png in Resources */ = {isa = PBXBuildFile; fileRef = FEDAEAA01578A31600F2552F /* right.png */; };
+		FEE16C6715998A62004EA22F /* BaseGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE16C5F15998A62004EA22F /* BaseGameViewController.m */; };
+		FEE16C6815998A62004EA22F /* PauseMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEE16C6015998A62004EA22F /* PauseMenuView.xib */; };
+		FEE16C6915998A62004EA22F /* SinglePlayerGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE16C6215998A62004EA22F /* SinglePlayerGameViewController.m */; };
+		FEE16C6A15998A62004EA22F /* SinglePlayerGameViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEE16C6315998A62004EA22F /* SinglePlayerGameViewController_iPad.xib */; };
+		FEE16C6B15998A62004EA22F /* TwoPlayersGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE16C6515998A62004EA22F /* TwoPlayersGameViewController.m */; };
+		FEE16C6C15998A62004EA22F /* TwoPlayersGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEE16C6615998A62004EA22F /* TwoPlayersGameViewController.xib */; };
+		FEE16C6E15998ABA004EA22F /* DialogViews.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEE16C6D15998ABA004EA22F /* DialogViews.xib */; };
+		FEE16C7215998EC1004EA22F /* countdown_one.png in Resources */ = {isa = PBXBuildFile; fileRef = FEE16C6F15998EC1004EA22F /* countdown_one.png */; };
+		FEE16C7315998EC1004EA22F /* countdown_three.png in Resources */ = {isa = PBXBuildFile; fileRef = FEE16C7015998EC1004EA22F /* countdown_three.png */; };
+		FEE16C76159991C6004EA22F /* countdown_two.png in Resources */ = {isa = PBXBuildFile; fileRef = FEE16C75159991C6004EA22F /* countdown_two.png */; };
+		FEE16C78159992DD004EA22F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEE16C77159992DD004EA22F /* AVFoundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		FEE16C7F159993CC004EA22F /* xj.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FEE16C7E159993CC004EA22F /* xj.mp3 */; };
 		FEE9798D157F8F2F00A3DE03 /* QuestionCard.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE9798C157F8F2F00A3DE03 /* QuestionCard.m */; };
-		FEEACDFD15795E0200698EBB /* UIViewController+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEACDFC15795E0200698EBB /* UIViewController+Util.m */; };
 		FEEACE0315795E3D00698EBB /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEACE0115795E3D00698EBB /* StartViewController.m */; };
 		FEEACE0415795E3D00698EBB /* StartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEEACE0215795E3D00698EBB /* StartViewController.xib */; };
 		FEEACE0815795FBE00698EBB /* QuestionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEACE0615795FBD00698EBB /* QuestionListViewController.m */; };
@@ -76,13 +87,23 @@
 
 /* Begin PBXFileReference section */
 		FE014F4E157DD155003BE31E /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
+		FE05A7A41598724F006F1FAC /* main_bg_full_screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_bg_full_screen.png; sourceTree = "<group>"; };
+		FE05A7A91598A987006F1FAC /* FangZhengZhiYiJianTi.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FangZhengZhiYiJianTi.ttf; sourceTree = "<group>"; };
+		FE05A7AF1598AC4C006F1FAC /* UIFont+Additionals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Additionals.h"; sourceTree = "<group>"; };
+		FE05A7B01598AC4C006F1FAC /* UIFont+Additionals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Additionals.m"; sourceTree = "<group>"; };
 		FE08F1561596C38E009E981C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		FE08F16315980116009E981C /* ParentControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParentControlViewController.h; path = "Parent Control/ParentControlViewController.h"; sourceTree = "<group>"; };
 		FE08F16415980116009E981C /* ParentControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParentControlViewController.m; path = "Parent Control/ParentControlViewController.m"; sourceTree = "<group>"; };
 		FE08F16515980116009E981C /* ParentControlViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ParentControlViewController.xib; path = "Parent Control/ParentControlViewController.xib"; sourceTree = "<group>"; };
 		FE08F16815980126009E981C /* FakeScannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FakeScannerView.h; path = "Parent Control/FakeScannerView.h"; sourceTree = "<group>"; };
 		FE08F16915980126009E981C /* FakeScannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FakeScannerView.m; path = "Parent Control/FakeScannerView.m"; sourceTree = "<group>"; };
+		FE08F16C15984BA8009E981C /* NSMutableArray+Shuffling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Shuffling.h"; sourceTree = "<group>"; };
+		FE08F16D15984BA8009E981C /* NSMutableArray+Shuffling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffling.m"; sourceTree = "<group>"; };
+		FE08F16E15984BA8009E981C /* UIViewController+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Util.h"; sourceTree = "<group>"; };
+		FE08F16F15984BA8009E981C /* UIViewController+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Util.m"; sourceTree = "<group>"; };
 		FE1B9219159567D50090A127 /* basic_english.qsj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_english.qsj; sourceTree = "<group>"; };
+		FE2AB103159989B20095BAB6 /* dialog-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dialog-left.png"; sourceTree = "<group>"; };
+		FE2AB104159989B20095BAB6 /* dialog-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dialog-right.png"; sourceTree = "<group>"; };
 		FE57F1AD1594493F00DD09E4 /* qn_set_cover_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qn_set_cover_default.png; sourceTree = "<group>"; };
 		FE57F1B0159449DE00DD09E4 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		FE57F1B1159449DE00DD09E4 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
@@ -92,36 +113,38 @@
 		FE82F8DC157CF3890081F81E /* NonScrollableGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonScrollableGridView.h; sourceTree = "<group>"; };
 		FE82F8DD157CF3890081F81E /* NonScrollableGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NonScrollableGridView.m; sourceTree = "<group>"; };
 		FE82F8E3157D11A90081F81E /* QuestionModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "QuestionModel 2.xcdatamodel"; sourceTree = "<group>"; };
-		FE82F8E7157D19BE0081F81E /* BaseGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseGameViewController.h; sourceTree = "<group>"; };
-		FE82F8E8157D19BE0081F81E /* BaseGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseGameViewController.m; sourceTree = "<group>"; };
-		FE82F8EA157D1F220081F81E /* NSMutableArray+Shuffling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Shuffling.h"; sourceTree = "<group>"; };
-		FE82F8EB157D1F220081F81E /* NSMutableArray+Shuffling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffling.m"; sourceTree = "<group>"; };
-		FEB87D361584424900AC82EF /* TwoPlayersGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoPlayersGameViewController.h; sourceTree = "<group>"; };
-		FEB87D371584424900AC82EF /* TwoPlayersGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwoPlayersGameViewController.m; sourceTree = "<group>"; };
-		FEB87D381584424900AC82EF /* TwoPlayersGameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwoPlayersGameViewController.xib; sourceTree = "<group>"; };
 		FEDAEA751578A21100F2552F /* learnEverything.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = learnEverything.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEDAEA791578A21100F2552F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		FEDAEA7B1578A21100F2552F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FEDAEA7D1578A21100F2552F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		FEDAEA811578A21100F2552F /* learnEverything-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "learnEverything-Info.plist"; sourceTree = "<group>"; };
-		FEDAEA831578A21100F2552F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FEDAEA851578A21100F2552F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FEDAEA871578A21100F2552F /* learnEverything-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "learnEverything-Prefix.pch"; sourceTree = "<group>"; };
 		FEDAEA881578A21100F2552F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FEDAEA891578A21200F2552F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		FEDAEA8B1578A21200F2552F /* SinglePlayerGameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SinglePlayerGameViewController.h; sourceTree = "<group>"; };
-		FEDAEA8C1578A21200F2552F /* SinglePlayerGameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SinglePlayerGameViewController.m; sourceTree = "<group>"; };
-		FEDAEA921578A21200F2552F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SinglePlayerGameViewController_iPad.xib; sourceTree = "<group>"; };
 		FEDAEA9B1578A31600F2552F /* green1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green1.png; sourceTree = "<group>"; };
 		FEDAEA9C1578A31600F2552F /* green2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green2.png; sourceTree = "<group>"; };
 		FEDAEA9D1578A31600F2552F /* left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left.png; sourceTree = "<group>"; };
 		FEDAEA9E1578A31600F2552F /* red1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red1.png; sourceTree = "<group>"; };
 		FEDAEA9F1578A31600F2552F /* red2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red2.png; sourceTree = "<group>"; };
 		FEDAEAA01578A31600F2552F /* right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right.png; sourceTree = "<group>"; };
+		FEE16C5E15998A62004EA22F /* BaseGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseGameViewController.h; sourceTree = "<group>"; };
+		FEE16C5F15998A62004EA22F /* BaseGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseGameViewController.m; sourceTree = "<group>"; };
+		FEE16C6015998A62004EA22F /* PauseMenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PauseMenuView.xib; sourceTree = "<group>"; };
+		FEE16C6115998A62004EA22F /* SinglePlayerGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglePlayerGameViewController.h; sourceTree = "<group>"; };
+		FEE16C6215998A62004EA22F /* SinglePlayerGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinglePlayerGameViewController.m; sourceTree = "<group>"; };
+		FEE16C6315998A62004EA22F /* SinglePlayerGameViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SinglePlayerGameViewController_iPad.xib; sourceTree = "<group>"; };
+		FEE16C6415998A62004EA22F /* TwoPlayersGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoPlayersGameViewController.h; sourceTree = "<group>"; };
+		FEE16C6515998A62004EA22F /* TwoPlayersGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwoPlayersGameViewController.m; sourceTree = "<group>"; };
+		FEE16C6615998A62004EA22F /* TwoPlayersGameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwoPlayersGameViewController.xib; sourceTree = "<group>"; };
+		FEE16C6D15998ABA004EA22F /* DialogViews.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DialogViews.xib; sourceTree = "<group>"; };
+		FEE16C6F15998EC1004EA22F /* countdown_one.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = countdown_one.png; sourceTree = "<group>"; };
+		FEE16C7015998EC1004EA22F /* countdown_three.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = countdown_three.png; sourceTree = "<group>"; };
+		FEE16C75159991C6004EA22F /* countdown_two.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = countdown_two.png; sourceTree = "<group>"; };
+		FEE16C77159992DD004EA22F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		FEE16C7E159993CC004EA22F /* xj.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = xj.mp3; sourceTree = "<group>"; };
 		FEE9798B157F8F2F00A3DE03 /* QuestionCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionCard.h; sourceTree = "<group>"; };
 		FEE9798C157F8F2F00A3DE03 /* QuestionCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionCard.m; sourceTree = "<group>"; };
-		FEEACDFB15795E0200698EBB /* UIViewController+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Util.h"; sourceTree = "<group>"; };
-		FEEACDFC15795E0200698EBB /* UIViewController+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Util.m"; sourceTree = "<group>"; };
 		FEEACE0015795E3D00698EBB /* StartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartViewController.h; sourceTree = "<group>"; };
 		FEEACE0115795E3D00698EBB /* StartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartViewController.m; sourceTree = "<group>"; };
 		FEEACE0215795E3D00698EBB /* StartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StartViewController.xib; sourceTree = "<group>"; };
@@ -157,6 +180,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEE16C78159992DD004EA22F /* AVFoundation.framework in Frameworks */,
 				FE08F1571596C38E009E981C /* MessageUI.framework in Frameworks */,
 				FEFE564215940813002EBFD1 /* QuartzCore.framework in Frameworks */,
 				FEFE563E15940322002EBFD1 /* libGMGridView.a in Frameworks */,
@@ -170,6 +194,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FE05A7A81598A987006F1FAC /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				FE05A7A91598A987006F1FAC /* FangZhengZhiYiJianTi.ttf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
 		FE08F162159800E0009E981C /* Parent Control */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,6 +212,15 @@
 				FE08F16515980116009E981C /* ParentControlViewController.xib */,
 			);
 			name = "Parent Control";
+			sourceTree = "<group>";
+		};
+		FE2AB102159989B20095BAB6 /* dialogs */ = {
+			isa = PBXGroup;
+			children = (
+				FE2AB103159989B20095BAB6 /* dialog-left.png */,
+				FE2AB104159989B20095BAB6 /* dialog-right.png */,
+			);
+			path = dialogs;
 			sourceTree = "<group>";
 		};
 		FE57F1AF159449DE00DD09E4 /* JSON */ = {
@@ -203,17 +244,16 @@
 		FEDAEA6A1578A21100F2552F = {
 			isa = PBXGroup;
 			children = (
-				FE08F1561596C38E009E981C /* MessageUI.framework */,
 				FEEACE0F1579CAF800698EBB /* QuestionModel.xcdatamodeld */,
 				FEF224A915947A250093A9D6 /* Question.h */,
 				FEF224AA15947A250093A9D6 /* Question.m */,
+				FEFE55FE15936B34002EBFD1 /* QuestionSet.h */,
+				FEFE55FF15936B34002EBFD1 /* QuestionSet.m */,
 				FEF224A1159472B90093A9D6 /* Question+Helpers.h */,
 				FEF224A2159472B90093A9D6 /* Question+Helpers.m */,
 				FEF224A4159475270093A9D6 /* NSManagedObject+Helpers.h */,
 				FEF224A5159475270093A9D6 /* NSManagedObject+Helpers.m */,
-				FEFE55FE15936B34002EBFD1 /* QuestionSet.h */,
-				FEFE55FF15936B34002EBFD1 /* QuestionSet.m */,
-				FEDAEA7F1578A21100F2552F /* learnEverything */,
+				FEDAEA7F1578A21100F2552F /* Learn Everything */,
 				FEDAEA781578A21100F2552F /* Frameworks */,
 				FEDAEA761578A21100F2552F /* Products */,
 			);
@@ -230,6 +270,8 @@
 		FEDAEA781578A21100F2552F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FEE16C77159992DD004EA22F /* AVFoundation.framework */,
+				FE08F1561596C38E009E981C /* MessageUI.framework */,
 				FEFE564115940812002EBFD1 /* QuartzCore.framework */,
 				FEEACE181579DA3000698EBB /* CoreData.framework */,
 				FEDAEA791578A21100F2552F /* UIKit.framework */,
@@ -239,21 +281,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		FEDAEA7F1578A21100F2552F /* learnEverything */ = {
+		FEDAEA7F1578A21100F2552F /* Learn Everything */ = {
 			isa = PBXGroup;
 			children = (
 				FEDAEA881578A21100F2552F /* AppDelegate.h */,
 				FEDAEA891578A21200F2552F /* AppDelegate.m */,
 				FE82F8DC157CF3890081F81E /* NonScrollableGridView.h */,
 				FE82F8DD157CF3890081F81E /* NonScrollableGridView.m */,
-				FE82F8E7157D19BE0081F81E /* BaseGameViewController.h */,
-				FE82F8E8157D19BE0081F81E /* BaseGameViewController.m */,
-				FEDAEA8B1578A21200F2552F /* SinglePlayerGameViewController.h */,
-				FEDAEA8C1578A21200F2552F /* SinglePlayerGameViewController.m */,
-				FEDAEA911578A21200F2552F /* SinglePlayerGameViewController_iPad.xib */,
-				FEB87D361584424900AC82EF /* TwoPlayersGameViewController.h */,
-				FEB87D371584424900AC82EF /* TwoPlayersGameViewController.m */,
-				FEB87D381584424900AC82EF /* TwoPlayersGameViewController.xib */,
 				FE685DCD1591A0B50043EB87 /* QuestionManager.h */,
 				FE685DCE1591A0B50043EB87 /* QuestionManager.m */,
 				FEE9798B157F8F2F00A3DE03 /* QuestionCard.h */,
@@ -268,12 +302,13 @@
 				FEFE560115936E6B002EBFD1 /* QuestionSetViewController.h */,
 				FEFE560215936E6B002EBFD1 /* QuestionSetViewController.m */,
 				FEFE560415936E89002EBFD1 /* QuestionSetViewController.xib */,
+				FEE16C5D15998A61004EA22F /* Game Play */,
 				FE08F162159800E0009E981C /* Parent Control */,
 				FEFE56061593F674002EBFD1 /* Utils */,
 				FEDAEA991578A31600F2552F /* Resources */,
 				FEDAEA801578A21100F2552F /* Supporting Files */,
-				FEEACDFF15795E0700698EBB /* Util */,
 			);
+			name = "Learn Everything";
 			path = learnEverything;
 			sourceTree = "<group>";
 		};
@@ -281,7 +316,6 @@
 			isa = PBXGroup;
 			children = (
 				FEDAEA811578A21100F2552F /* learnEverything-Info.plist */,
-				FEDAEA821578A21100F2552F /* InfoPlist.strings */,
 				FEDAEA851578A21100F2552F /* main.m */,
 				FEDAEA871578A21100F2552F /* learnEverything-Prefix.pch */,
 			);
@@ -291,6 +325,8 @@
 		FEDAEA991578A31600F2552F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FEE16C7D159993CC004EA22F /* sounds */,
+				FE05A7A81598A987006F1FAC /* fonts */,
 				FEDAEA9A1578A31600F2552F /* images */,
 				FE57F1B315944B1E00DD09E4 /* question_set_predefined */,
 			);
@@ -300,6 +336,7 @@
 		FEDAEA9A1578A31600F2552F /* images */ = {
 			isa = PBXGroup;
 			children = (
+				FE2AB102159989B20095BAB6 /* dialogs */,
 				FEFE563F1594048C002EBFD1 /* close_x.png */,
 				FE014F4E157DD155003BE31E /* checkmark.png */,
 				FEDAEA9B1578A31600F2552F /* green1.png */,
@@ -309,19 +346,37 @@
 				FEDAEA9F1578A31600F2552F /* red2.png */,
 				FEDAEAA01578A31600F2552F /* right.png */,
 				FE57F1AD1594493F00DD09E4 /* qn_set_cover_default.png */,
+				FE05A7A41598724F006F1FAC /* main_bg_full_screen.png */,
+				FEE16C6F15998EC1004EA22F /* countdown_one.png */,
+				FEE16C7015998EC1004EA22F /* countdown_three.png */,
+				FEE16C75159991C6004EA22F /* countdown_two.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
 		};
-		FEEACDFF15795E0700698EBB /* Util */ = {
+		FEE16C5D15998A61004EA22F /* Game Play */ = {
 			isa = PBXGroup;
 			children = (
-				FEEACDFB15795E0200698EBB /* UIViewController+Util.h */,
-				FEEACDFC15795E0200698EBB /* UIViewController+Util.m */,
-				FE82F8EA157D1F220081F81E /* NSMutableArray+Shuffling.h */,
-				FE82F8EB157D1F220081F81E /* NSMutableArray+Shuffling.m */,
+				FEE16C5E15998A62004EA22F /* BaseGameViewController.h */,
+				FEE16C5F15998A62004EA22F /* BaseGameViewController.m */,
+				FEE16C6015998A62004EA22F /* PauseMenuView.xib */,
+				FEE16C6D15998ABA004EA22F /* DialogViews.xib */,
+				FEE16C6115998A62004EA22F /* SinglePlayerGameViewController.h */,
+				FEE16C6215998A62004EA22F /* SinglePlayerGameViewController.m */,
+				FEE16C6315998A62004EA22F /* SinglePlayerGameViewController_iPad.xib */,
+				FEE16C6415998A62004EA22F /* TwoPlayersGameViewController.h */,
+				FEE16C6515998A62004EA22F /* TwoPlayersGameViewController.m */,
+				FEE16C6615998A62004EA22F /* TwoPlayersGameViewController.xib */,
 			);
-			name = Util;
+			path = "Game Play";
+			sourceTree = "<group>";
+		};
+		FEE16C7D159993CC004EA22F /* sounds */ = {
+			isa = PBXGroup;
+			children = (
+				FEE16C7E159993CC004EA22F /* xj.mp3 */,
+			);
+			path = sounds;
 			sourceTree = "<group>";
 		};
 		FEFE56061593F674002EBFD1 /* Utils */ = {
@@ -331,6 +386,12 @@
 				FEFE5633159402DE002EBFD1 /* GMGridView.xcodeproj */,
 				FEFE56071593F674002EBFD1 /* OpenUDID.h */,
 				FEFE56081593F674002EBFD1 /* OpenUDID.m */,
+				FE08F16C15984BA8009E981C /* NSMutableArray+Shuffling.h */,
+				FE08F16D15984BA8009E981C /* NSMutableArray+Shuffling.m */,
+				FE08F16E15984BA8009E981C /* UIViewController+Util.h */,
+				FE08F16F15984BA8009E981C /* UIViewController+Util.m */,
+				FE05A7AF1598AC4C006F1FAC /* UIFont+Additionals.h */,
+				FE05A7B01598AC4C006F1FAC /* UIFont+Additionals.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -410,8 +471,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FEDAEA841578A21100F2552F /* InfoPlist.strings in Resources */,
-				FEDAEA931578A21200F2552F /* SinglePlayerGameViewController_iPad.xib in Resources */,
 				FEDAEAA11578A31600F2552F /* green1.png in Resources */,
 				FEDAEAA21578A31600F2552F /* green2.png in Resources */,
 				FEDAEAA31578A31600F2552F /* left.png in Resources */,
@@ -422,13 +481,24 @@
 				FEEACE0915795FBE00698EBB /* QuestionListViewController.xib in Resources */,
 				FEEACE0B1579C88300698EBB /* QuestionCell.xib in Resources */,
 				FE014F4F157DD155003BE31E /* checkmark.png in Resources */,
-				FEB87D3A1584424900AC82EF /* TwoPlayersGameViewController.xib in Resources */,
 				FEFE560515936E89002EBFD1 /* QuestionSetViewController.xib in Resources */,
 				FEFE56401594048C002EBFD1 /* close_x.png in Resources */,
 				FE57F1AE1594493F00DD09E4 /* qn_set_cover_default.png in Resources */,
 				FE57F1B715944B5000DD09E4 /* system_99chengfa.qsj in Resources */,
 				FE1B921A159567D50090A127 /* basic_english.qsj in Resources */,
 				FE08F16715980116009E981C /* ParentControlViewController.xib in Resources */,
+				FE05A7A51598724F006F1FAC /* main_bg_full_screen.png in Resources */,
+				FE05A7AA1598A987006F1FAC /* FangZhengZhiYiJianTi.ttf in Resources */,
+				FE2AB105159989B20095BAB6 /* dialog-left.png in Resources */,
+				FE2AB106159989B20095BAB6 /* dialog-right.png in Resources */,
+				FEE16C6815998A62004EA22F /* PauseMenuView.xib in Resources */,
+				FEE16C6A15998A62004EA22F /* SinglePlayerGameViewController_iPad.xib in Resources */,
+				FEE16C6C15998A62004EA22F /* TwoPlayersGameViewController.xib in Resources */,
+				FEE16C6E15998ABA004EA22F /* DialogViews.xib in Resources */,
+				FEE16C7215998EC1004EA22F /* countdown_one.png in Resources */,
+				FEE16C7315998EC1004EA22F /* countdown_three.png in Resources */,
+				FEE16C76159991C6004EA22F /* countdown_two.png in Resources */,
+				FEE16C7F159993CC004EA22F /* xj.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,16 +511,11 @@
 			files = (
 				FEDAEA861578A21100F2552F /* main.m in Sources */,
 				FEDAEA8A1578A21200F2552F /* AppDelegate.m in Sources */,
-				FEDAEA8D1578A21200F2552F /* SinglePlayerGameViewController.m in Sources */,
-				FEEACDFD15795E0200698EBB /* UIViewController+Util.m in Sources */,
 				FEEACE0315795E3D00698EBB /* StartViewController.m in Sources */,
 				FEEACE0815795FBE00698EBB /* QuestionListViewController.m in Sources */,
 				FEEACE111579CAF900698EBB /* QuestionModel.xcdatamodeld in Sources */,
 				FE82F8DE157CF3890081F81E /* NonScrollableGridView.m in Sources */,
-				FE82F8E9157D19BE0081F81E /* BaseGameViewController.m in Sources */,
-				FE82F8EC157D1F220081F81E /* NSMutableArray+Shuffling.m in Sources */,
 				FEE9798D157F8F2F00A3DE03 /* QuestionCard.m in Sources */,
-				FEB87D391584424900AC82EF /* TwoPlayersGameViewController.m in Sources */,
 				FE685DCF1591A0B50043EB87 /* QuestionManager.m in Sources */,
 				FEFE560015936B34002EBFD1 /* QuestionSet.m in Sources */,
 				FEFE560315936E6B002EBFD1 /* QuestionSetViewController.m in Sources */,
@@ -461,6 +526,12 @@
 				FEF224AB15947A250093A9D6 /* Question.m in Sources */,
 				FE08F16615980116009E981C /* ParentControlViewController.m in Sources */,
 				FE08F16A15980126009E981C /* FakeScannerView.m in Sources */,
+				FE08F17015984BA8009E981C /* NSMutableArray+Shuffling.m in Sources */,
+				FE08F17115984BA8009E981C /* UIViewController+Util.m in Sources */,
+				FE05A7B11598AC4C006F1FAC /* UIFont+Additionals.m in Sources */,
+				FEE16C6715998A62004EA22F /* BaseGameViewController.m in Sources */,
+				FEE16C6915998A62004EA22F /* SinglePlayerGameViewController.m in Sources */,
+				FEE16C6B15998A62004EA22F /* TwoPlayersGameViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,25 +544,6 @@
 			targetProxy = FEFE563C159402EB002EBFD1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		FEDAEA821578A21100F2552F /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FEDAEA831578A21100F2552F /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		FEDAEA911578A21200F2552F /* SinglePlayerGameViewController_iPad.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FEDAEA921578A21200F2552F /* en */,
-			);
-			name = SinglePlayerGameViewController_iPad.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		FEDAEA941578A21200F2552F /* Debug */ = {

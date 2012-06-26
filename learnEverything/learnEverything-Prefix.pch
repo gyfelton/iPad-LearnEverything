@@ -12,8 +12,7 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
+    #import "UIFont+Additionals.h"
 #endif
 
 #define LANDSCAPE_ORIENTATION UIInterfaceOrientationIsLandscape(interfaceOrientation)
-
-

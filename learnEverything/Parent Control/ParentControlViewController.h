@@ -12,7 +12,8 @@
 @interface ParentControlViewController : UIViewController <FakeScannerDelegate>
 {
     FakeScannerView *_fakeScannerView;
-    IBOutlet UILabel *_topTitle;
+    __unsafe_unretained IBOutlet UILabel *_topTitle;
+    __unsafe_unretained IBOutlet UILabel *_tipLbl;
     
     BOOL _allowAccess;
 }

@@ -9,5 +9,7 @@
 #import <CoreData/CoreData.h>
 
 @interface NSManagedObject (Helpers)
+
 - (void)setValueIfNotNil:(id)value forKey:(NSString *)key;
+
 @end

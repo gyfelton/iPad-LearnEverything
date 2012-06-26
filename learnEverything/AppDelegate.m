@@ -10,6 +10,7 @@
 
 #import "SinglePlayerGameViewController.h"
 #import "TwoPlayersGameViewController.h"
+#import "ParentControlViewController.h"
 
 @implementation AppDelegate
 @synthesize managedObjectContext = __managedObjectContext;
@@ -76,6 +77,12 @@
     self.window.rootViewController = self.baseNavigationController;
     
     [self.window makeKeyAndVisible];
+    
+    //Add a default background 
+    UIImageView *baseBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main_bg_full_screen"]];
+    baseBackground.frame = self.window.frame;
+    [self.window addSubview:baseBackground];
+    [self.window sendSubviewToBack:baseBackground];
     
     NSURL *url = (NSURL *)[launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
     [self processURLIfIsFileURL:url];

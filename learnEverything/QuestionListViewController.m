@@ -224,6 +224,7 @@
     [_questionList endUpdates];
 }
 */
+
 - (void)configureCell:(QuestionCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     cell.questionNumber.text = [NSString stringWithFormat:@"%d.", indexPath.row+1];
@@ -299,6 +300,7 @@
         _indexPathForEditingTextField = [_questionList indexPathForCell:cell];
     } else
     {
+        
     }
 }
 
@@ -335,7 +337,10 @@
     //CGRect keyBoardRect = keyHeightValues 
     //TODO here we only take care of lanscape mode, need to consider portrait mode or other types of keyboard if possible
     _questionList.contentInset = UIEdgeInsetsMake(0, 0, realKeyboardFrame.origin.y>=0? realKeyboardFrame.size.height : 0, 0);
-    [_questionList scrollRectToVisible:[_questionList rectForRowAtIndexPath:_indexPathForEditingTextField] animated:YES];
+    
+    if (_indexPathForEditingTextField) {
+        [_questionList scrollRectToVisible:[_questionList rectForRowAtIndexPath:_indexPathForEditingTextField] animated:YES];
+    }
 }
 
 #pragma mark - IBActions

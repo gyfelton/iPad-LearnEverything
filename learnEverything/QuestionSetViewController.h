@@ -23,7 +23,7 @@ typedef enum QuestionSetViewControllerType QuestionSetViewControllerType;
     
     QuestionSetViewControllerType _viewControllerType;
     
-    UIButton *_chooseGameModeBtn;
+//    UIButton *_chooseGameModeBtn;
 }
 
 - (id)initWithViewControllerType:(QuestionSetViewControllerType)type;
@@ -32,4 +32,5 @@ typedef enum QuestionSetViewControllerType QuestionSetViewControllerType;
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
+@property BOOL isSinglePlayerMode;
 @end

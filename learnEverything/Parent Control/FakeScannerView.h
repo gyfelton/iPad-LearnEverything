@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @protocol FakeScannerDelegate <NSObject>
+
 @optional
 - (void)didBeginDetectFinger:(BOOL)isAdult;
 - (void)didDetectFingerMoving:(BOOL)isAdult;
 - (void)didEndDetectFinger;
+
 @end
 
 @interface FakeScannerView : UIView

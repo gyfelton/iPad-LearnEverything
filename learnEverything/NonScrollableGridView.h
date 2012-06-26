@@ -46,6 +46,7 @@ enum GridViewReloadAnimationModes {
     kGridViewReloadAnimationModeDefault = 0
     };
 typedef enum GridViewReloadAnimationModes GridViewReloadAnimationModes;
+
 /**
  If you want to make it Scrollable, better just put this on the scrollView
  */
