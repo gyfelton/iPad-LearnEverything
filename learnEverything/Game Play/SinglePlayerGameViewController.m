@@ -275,11 +275,13 @@
     imageView2.contentMode = UIViewContentModeScaleAspectFit;
     [self.view addSubview:imageView2];
     [self animateStarToLightHeroAndIncrementScore:imageView2];
+    
+    AudioServicesPlaySystemSound(_correctSound);  // 播放SoundID声音
 }
 
 - (void)QuestionManager:(QuestionManager *)manager answerWronglyWithCard1:(QuestionCard *)card1 card2:(QuestionCard *)card2
 {
-    //Animate star
+    //Animate flame
     CGRect rect = [card1 convertRect:card1.bounds toView:self.view];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
     imageView.image = [UIImage imageNamed:@"flame"];
@@ -295,6 +297,12 @@
     imageView2.contentMode = UIViewContentModeScaleAspectFit;
     [self.view addSubview:imageView2];
     [self animateStarToDarkSideAndDecrementScore:imageView2];
+    
+    AudioServicesPlaySystemSound(_wrongAnswerSound);  // 播放SoundID声音
 }
 
+- (void)QuestionManager:(QuestionManager *)manager clickOnCard:(QuestionCard *)card
+{
+    AudioServicesPlaySystemSound(_clickSound);  // 播放SoundID声音
+}
 @end

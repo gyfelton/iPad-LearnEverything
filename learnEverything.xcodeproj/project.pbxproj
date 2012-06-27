@@ -28,6 +28,10 @@
 		FE61AE30159AC18D000EEBFE /* flame.png in Resources */ = {isa = PBXBuildFile; fileRef = FE61AE2F159AC18D000EEBFE /* flame.png */; };
 		FE685DCF1591A0B50043EB87 /* QuestionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FE685DCE1591A0B50043EB87 /* QuestionManager.m */; };
 		FE82F8DE157CF3890081F81E /* NonScrollableGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE82F8DD157CF3890081F81E /* NonScrollableGridView.m */; };
+		FEC18E76159AFCC3001ED526 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = FEC18E75159AFCC3001ED526 /* click.wav */; };
+		FEC18E78159AFCE2001ED526 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEC18E77159AFCE2001ED526 /* AudioToolbox.framework */; };
+		FEC18E7A159AFD7F001ED526 /* correct.caf in Resources */ = {isa = PBXBuildFile; fileRef = FEC18E79159AFD7F001ED526 /* correct.caf */; };
+		FEC18E7E159B03AD001ED526 /* wrongAnswer.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FEC18E7D159B03AD001ED526 /* wrongAnswer.mp3 */; };
 		FEDAEA7A1578A21100F2552F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEDAEA791578A21100F2552F /* UIKit.framework */; };
 		FEDAEA7C1578A21100F2552F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEDAEA7B1578A21100F2552F /* Foundation.framework */; };
 		FEDAEA7E1578A21100F2552F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEDAEA7D1578A21100F2552F /* CoreGraphics.framework */; };
@@ -120,6 +124,10 @@
 		FE82F8DC157CF3890081F81E /* NonScrollableGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonScrollableGridView.h; sourceTree = "<group>"; };
 		FE82F8DD157CF3890081F81E /* NonScrollableGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NonScrollableGridView.m; sourceTree = "<group>"; };
 		FE82F8E3157D11A90081F81E /* QuestionModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "QuestionModel 2.xcdatamodel"; sourceTree = "<group>"; };
+		FEC18E75159AFCC3001ED526 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
+		FEC18E77159AFCE2001ED526 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		FEC18E79159AFD7F001ED526 /* correct.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = correct.caf; sourceTree = "<group>"; };
+		FEC18E7D159B03AD001ED526 /* wrongAnswer.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = wrongAnswer.mp3; sourceTree = "<group>"; };
 		FEDAEA751578A21100F2552F /* learnEverything.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = learnEverything.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEDAEA791578A21100F2552F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		FEDAEA7B1578A21100F2552F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -188,6 +196,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEC18E78159AFCE2001ED526 /* AudioToolbox.framework in Frameworks */,
 				FEE16C78159992DD004EA22F /* AVFoundation.framework in Frameworks */,
 				FE08F1571596C38E009E981C /* MessageUI.framework in Frameworks */,
 				FEFE564215940813002EBFD1 /* QuartzCore.framework in Frameworks */,
@@ -278,6 +287,7 @@
 		FEDAEA781578A21100F2552F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FEC18E77159AFCE2001ED526 /* AudioToolbox.framework */,
 				FEE16C77159992DD004EA22F /* AVFoundation.framework */,
 				FE08F1561596C38E009E981C /* MessageUI.framework */,
 				FEFE564115940812002EBFD1 /* QuartzCore.framework */,
@@ -387,6 +397,9 @@
 			isa = PBXGroup;
 			children = (
 				FEE16C7E159993CC004EA22F /* xj.mp3 */,
+				FEC18E79159AFD7F001ED526 /* correct.caf */,
+				FEC18E75159AFCC3001ED526 /* click.wav */,
+				FEC18E7D159B03AD001ED526 /* wrongAnswer.mp3 */,
 			);
 			path = sounds;
 			sourceTree = "<group>";
@@ -515,6 +528,9 @@
 				FE61AE2C159AA589000EEBFE /* star_score.png in Resources */,
 				FE61AE2E159ABC07000EEBFE /* wrong_cross.png in Resources */,
 				FE61AE30159AC18D000EEBFE /* flame.png in Resources */,
+				FEC18E76159AFCC3001ED526 /* click.wav in Resources */,
+				FEC18E7A159AFD7F001ED526 /* correct.caf in Resources */,
+				FEC18E7E159B03AD001ED526 /* wrongAnswer.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

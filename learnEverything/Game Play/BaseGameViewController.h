@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
 #import "Question.h"
 
@@ -24,6 +25,10 @@
     
 @protected
     BOOL _gameDidTerminate;
+    
+    SystemSoundID _correctSound;
+    SystemSoundID _clickSound;
+    SystemSoundID _wrongAnswerSound;
 }
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

@@ -15,7 +15,7 @@
 
 - (void)QuestionManager:(QuestionManager*)manager answerCorrectlyWithCard1:(QuestionCard*)card1 card2:(QuestionCard*)card2;
 - (void)QuestionManager:(QuestionManager *)manager answerWronglyWithCard1:(QuestionCard *)card1 card2:(QuestionCard *)card2;
-
+- (void)QuestionManager:(QuestionManager *)manager clickOnCard:(QuestionCard*)card;
 @end
 
 @interface QuestionManager : NSObject {

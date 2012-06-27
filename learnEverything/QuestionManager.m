@@ -146,11 +146,16 @@
     GVIndexPath *nowClickIndexPath = [_grid_view indexPathForUnitView:card];
     card.pressed = !card.pressed;
     
+    if ([questionManagerDelegate respondsToSelector:@selector(QuestionManager:clickOnCard:)]) {
+        [questionManagerDelegate QuestionManager:self clickOnCard:card];
+    }
+    
     if (!_clickedBtnIndexPath || (_clickedBtnIndexPath.row == nowClickIndexPath.row && _clickedBtnIndexPath.column == nowClickIndexPath.column)) {
         
         //click on the same card
         if (!_clickedBtnIndexPath) {
             _clickedBtnIndexPath = nowClickIndexPath;
+        
         } else
         {
             _clickedBtnIndexPath = nil;
@@ -272,7 +277,6 @@
                                      completion:^(BOOL finished){
                                          [card flipCardWithDuration:0.5f completion:NULL];
                                          [card1 flipCardWithDuration:0.5f completion:NULL];
-                                         
                                      }
                      ];
                 }

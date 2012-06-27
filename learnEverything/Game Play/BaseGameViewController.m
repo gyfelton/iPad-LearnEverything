@@ -93,6 +93,19 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onWillResignAvtiveNotificationReceived:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onDidBecomeAvtiveNotificationReceived:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
+    //store sounds needed
+    NSString *thesoundFilePath = [[NSBundle mainBundle] pathForResource:@"correct" ofType:@"caf"];    //创建音乐文件路径
+    CFURLRef thesoundURL = (__bridge CFURLRef) [NSURL fileURLWithPath:thesoundFilePath];
+    AudioServicesCreateSystemSoundID(thesoundURL, &_correctSound);
+    
+    thesoundFilePath = [[NSBundle mainBundle] pathForResource:@"click" ofType:@"wav"];
+    thesoundURL = (__bridge CFURLRef) [NSURL fileURLWithPath:thesoundFilePath];
+    AudioServicesCreateSystemSoundID(thesoundURL, &_clickSound);
+    
+    thesoundFilePath = [[NSBundle mainBundle] pathForResource:@"wrongAnswer" ofType:@"mp3"];
+    thesoundURL = (__bridge CFURLRef) [NSURL fileURLWithPath:thesoundFilePath];
+    AudioServicesCreateSystemSoundID(thesoundURL, &_wrongAnswerSound);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -110,6 +123,13 @@
 {
     [super viewWillDisappear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self.audioPlayer stop];
+    self.audioPlayer = nil;
 }
 
 #pragma mark - Dialog related
@@ -156,6 +176,7 @@
         }
     }
     [self.audioPlayer setDelegate:self];
+    self.audioPlayer.volume = 0.6f; //Because it's too loud
 	[self.audioPlayer play];
 }
 
@@ -166,7 +187,9 @@
 
 - (void)onDidBecomeAvtiveNotificationReceived:(NSNotification*)notification
 {
-    [self.audioPlayer play];
+    if (!_gameDidTerminate) {
+        [self.audioPlayer play];
+    }
 }
 
 - (void)gameDidTerminate
