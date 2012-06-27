@@ -10,7 +10,7 @@
 #import "QuestionSetViewController.h"
 #import "AppDelegate.h"
 
-#define DEFAULT_TEXT @"只有大人们可以编辑题库哦\n请让他们帮忙扫描指纹吧\n\n请将大拇指按在下方框内"
+#define DEFAULT_TEXT @"请使用大拇指扫描指纹"
 
 @interface ParentControlViewController (Private)
 - (void)animateScanLightUp;
@@ -23,7 +23,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.title = @"访问受限";
+        self.title = @"身份确认";
     }
     return self;
 }
@@ -49,7 +49,7 @@
     [self.view addSubview:_fakeScannerView];
     
     _topTitle.text = DEFAULT_TEXT;
-    _topTitle.font = [UIFont regularChineseFontWithSize:24];
+    _topTitle.font = [UIFont regularChineseFontWithSize:38];
     
     _tipLbl.hidden = YES; //Not using this
 }
@@ -127,7 +127,7 @@
 
 - (void)accessDenied
 {
-    _topTitle.text = @"扫描失败！请重新扫描";
+    _topTitle.text = @"扫描失败 >_<\n只有爸爸妈妈才能打开这里哦\n";
 }
 
 - (void)showNormalText 
@@ -140,7 +140,7 @@
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     if (isAdult) {
         _allowAccess = YES;
-        _topTitle.text = @"扫描中...不要移动手指";
+        _topTitle.text = @"扫描中...请不要移动手指";
         [self performSelector:@selector(accessGranted) withObject:nil afterDelay:0.5f];
     } else
     {
