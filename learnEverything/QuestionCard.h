@@ -24,6 +24,7 @@ typedef enum cardType cardType;
 }
 
 @property (nonatomic, strong) UIImageView *checkmark;
+@property (nonatomic, strong) UIImageView *wrongcross;
 
 @property (nonatomic, strong) GVIndexPath *associatedIndexPath;
 

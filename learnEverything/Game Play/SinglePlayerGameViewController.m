@@ -53,6 +53,7 @@
     }
     
     _countdownImageView.center = CGPointMake(512, 500);
+    
     if (number == 1) {
         _countdownImageView.image = [UIImage imageNamed:@"countdown_one"];
         [self performSelector:@selector(dismissCountdownAndStartGame) withObject:nil afterDelay:1.0f];
@@ -193,6 +194,7 @@
                          //CGAffineTransform movement = CGAffineTransformMakeTranslation(/scale, (80 - star.frame.origin.y)/scale);
                          //CGAffineTransform shrinkDown = CGAffineTransformMakeScale(scale, scale);
                          //star.transform = CGAffineTransformConcat(movement, shrinkDown);
+                         star.transform = CGAffineTransformMakeRotation(M_PI);
                      } 
                      completion:^(BOOL finished) {
                          [UIView animateWithDuration:0.2f animations:^{
@@ -202,6 +204,29 @@
                          }];
                           
                          _progressBar.progress +=0.025f;
+                         
+                     }];
+}
+
+- (void)_animateFlameMovement:(UIView*)flame
+{
+    [UIView animateWithDuration:0.6f delay:0.1f 
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         CGFloat scale = 0.2f;
+                         flame.frame = CGRectMake(920, 80, flame.frame.size.width*scale, flame.frame.size.height*scale);
+                         //CGAffineTransform movement = CGAffineTransformMakeTranslation(/scale, (80 - star.frame.origin.y)/scale);
+                         //CGAffineTransform shrinkDown = CGAffineTransformMakeScale(scale, scale);
+                         //star.transform = CGAffineTransformConcat(movement, shrinkDown);
+                     } 
+                     completion:^(BOOL finished) {
+                         [UIView animateWithDuration:0.2f animations:^{
+                             //                             star.transform = CGAffineTransformMakeScale(0.1f, 0.1f);
+                         } completion:^(BOOL finished) {
+                             [flame removeFromSuperview];
+                         }];
+                         
+                         _progressBar.progress -=0.025f;
                          
                      }];
 }
@@ -219,6 +244,19 @@
     ];
 }
 
+- (void)animateStarToDarkSideAndDecrementScore:(UIView*)flame
+{
+    flame.transform = CGAffineTransformMakeScale(0.01, 0.01);
+    [UIView animateWithDuration:0.1f 
+                     animations:^(){
+                         flame.transform = CGAffineTransformIdentity;
+                     }
+                     completion:^(BOOL finished){
+                         [self _animateFlameMovement:flame];
+                     }
+     ];
+}
+
 - (void)QuestionManager:(QuestionManager *)manager answerCorrectlyWithCard1:(QuestionCard *)card1 card2:(QuestionCard *)card2
 {
     //Animate star
@@ -226,6 +264,7 @@
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
     imageView.image = [UIImage imageNamed:@"star_score"];
     imageView.contentMode = UIViewContentModeScaleAspectFit;
+
     [self.view addSubview:imageView];
     [self animateStarToLightHeroAndIncrementScore:imageView];
     
@@ -236,6 +275,26 @@
     imageView2.contentMode = UIViewContentModeScaleAspectFit;
     [self.view addSubview:imageView2];
     [self animateStarToLightHeroAndIncrementScore:imageView2];
+}
+
+- (void)QuestionManager:(QuestionManager *)manager answerWronglyWithCard1:(QuestionCard *)card1 card2:(QuestionCard *)card2
+{
+    //Animate star
+    CGRect rect = [card1 convertRect:card1.bounds toView:self.view];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
+    imageView.image = [UIImage imageNamed:@"flame"];
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    [self.view addSubview:imageView];
+    [self animateStarToDarkSideAndDecrementScore:imageView];
+    
+    
+    CGRect rect2 = [card2 convertRect:card2.bounds toView:self.view];
+    UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:rect2];
+    imageView2.image = [UIImage imageNamed:@"flame"];
+    imageView2.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:imageView2];
+    [self animateStarToDarkSideAndDecrementScore:imageView2];
 }
 
 @end

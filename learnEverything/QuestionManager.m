@@ -148,8 +148,13 @@
     
     if (!_clickedBtnIndexPath || (_clickedBtnIndexPath.row == nowClickIndexPath.row && _clickedBtnIndexPath.column == nowClickIndexPath.column)) {
         
-        //Click on same card
-        _clickedBtnIndexPath = nowClickIndexPath;
+        //click on the same card
+        if (!_clickedBtnIndexPath) {
+            _clickedBtnIndexPath = nowClickIndexPath;
+        } else
+        {
+            _clickedBtnIndexPath = nil;
+        }
         
         //Not used
         //Flip card since it's first card (or click on same card)
@@ -208,26 +213,57 @@
                 {
                     //Answer is correct
                     card1.checkmark.hidden = NO;
+                    card1.checkmark.transform = CGAffineTransformMakeScale(0.1f, 0.1f);
                     card.checkmark.hidden = NO;
-                    //TODO Animate stars
-                    if ([questionManagerDelegate respondsToSelector:@selector(QuestionManager:answerCorrectlyWithCard1:card2:)]) {
-                        [questionManagerDelegate QuestionManager:self answerCorrectlyWithCard1:card card2:card1];
-                    }
+                    card.checkmark.transform = card1.checkmark.transform;
+                    
+                    [UIView animateWithDuration:0.2f 
+                                     animations:^{
+                                        card.checkmark.transform = card1.checkmark.transform = CGAffineTransformIdentity;
+                                    }
+                                    completion:^(BOOL finished) {
+                                        //Animate stars
+                                        if ([questionManagerDelegate respondsToSelector:@selector(QuestionManager:answerCorrectlyWithCard1:card2:)]) {
+                                            [questionManagerDelegate QuestionManager:self answerCorrectlyWithCard1:card card2:card1];
+                                        }
+                                        [self clearUsedUnitsIfNeeded];
+                                    }
+                     ];
                     
                     //Register answered cards
                     [_answeredCardIndexPaths addObject:_clickedBtnIndexPath];
                     [_answeredCardIndexPaths addObject:nowClickIndexPath];
-                    
-                    [self clearUsedUnitsIfNeeded];
                     
                     _clickedBtnIndexPath = nil;
                 }
             } else
             {
                 //Wrong answer
-                card.pressed = NO;
-                card1.pressed = NO;
                 //TODO show cross and DU sound
+                card1.wrongcross.hidden = NO;
+                card1.wrongcross.transform = CGAffineTransformMakeScale(0.1f, 0.1f);
+                card.wrongcross.hidden = NO;
+                card.wrongcross.transform = card1.checkmark.transform;
+                
+                [UIView animateWithDuration:0.3f 
+                                 animations:^{
+                                     card.wrongcross.transform = card1.wrongcross.transform = CGAffineTransformIdentity;
+                                 }
+                                 completion:^(BOOL finished) {
+                                     //Animate flame
+                                     card.pressed = NO;
+                                     card1.pressed = NO;
+                                     if ([questionManagerDelegate respondsToSelector:@selector(QuestionManager:answerWronglyWithCard1:card2:)]) {
+                                         [questionManagerDelegate QuestionManager:self answerWronglyWithCard1:card card2:card1];
+                                     }
+                                     [UIView animateWithDuration:0.0 delay:0.3f options:nil animations:^{
+                                         card.wrongcross.hidden = YES;
+                                         card1.wrongcross.hidden = YES;
+                                     } completion:^(BOOL finished) {
+                                         
+                                     }];
+                                 }
+                 ];
                 
                 //Not used
                 if (isFlipCards) {

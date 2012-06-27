@@ -10,7 +10,7 @@
 
 @implementation QuestionCard
 @synthesize cardType, associatedIndexPath;
-@synthesize checkmark;
+@synthesize checkmark, wrongcross;
 @synthesize questionIndex;
 @synthesize isShowingCardBack = _isShowingCardBack;
 @synthesize pressed = _pressed;
@@ -30,6 +30,13 @@
         checkmark.frame = CGRectMake(0, 0, checkmark.frame.size.width, checkmark.frame.size.height);
         [self addSubview:checkmark];
         checkmark.hidden = YES;
+        
+        wrongcross = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wrong_cross"]];
+        wrongcross.contentMode = UIViewContentModeScaleAspectFit;
+        wrongcross.frame = self.frame;
+        wrongcross.frame = CGRectMake(0, 0, checkmark.frame.size.width, checkmark.frame.size.height);
+        [self addSubview:wrongcross];
+        wrongcross.hidden = YES;
         
         _cardBack = [[UIImageView alloc] initWithFrame:frame];
         _cardBack.frame = CGRectMake(0, 0, _cardBack.frame.size.width, _cardBack.frame.size.height);
