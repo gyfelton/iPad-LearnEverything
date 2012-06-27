@@ -16,7 +16,7 @@
     __unsafe_unretained IBOutlet UILabel *_tipLbl;
     __unsafe_unretained IBOutlet UIView *scanArea_placeholder;
 
-    
+    BOOL _scanImageStarted;
     __unsafe_unretained IBOutlet UIImageView *_scanImage;
     
     BOOL _allowAccess;

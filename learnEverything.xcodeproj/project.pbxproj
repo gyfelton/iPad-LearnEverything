@@ -98,6 +98,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		88CE9C2D159AEEF600862303 /* fingerDetector.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fingerDetector.png; sourceTree = "<group>"; };
 		FE014F4E157DD155003BE31E /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
 		FE05A7A41598724F006F1FAC /* main_bg_full_screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_bg_full_screen.png; sourceTree = "<group>"; };
 		FE05A7A91598A987006F1FAC /* FangZhengZhiYiJianTi.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FangZhengZhiYiJianTi.ttf; sourceTree = "<group>"; };
@@ -362,6 +363,7 @@
 		FEDAEA9A1578A31600F2552F /* images */ = {
 			isa = PBXGroup;
 			children = (
+				88CE9C2D159AEEF600862303 /* fingerDetector.png */,
 				FE2AB102159989B20095BAB6 /* dialogs */,
 				FEFE563F1594048C002EBFD1 /* close_x.png */,
 				FE082ABA159B093800188848 /* scanlight.png */,
@@ -620,7 +622,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				SDKROOT = iphoneos5.0;
+				SDKROOT = iphoneos5.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -645,7 +647,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				SDKROOT = iphoneos5.0;
+				SDKROOT = iphoneos5.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -659,7 +661,7 @@
 				INFOPLIST_FILE = "learnEverything/learnEverything-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos5.0;
+				SDKROOT = iphoneos5.1;
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
@@ -673,7 +675,7 @@
 				INFOPLIST_FILE = "learnEverything/learnEverything-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos5.0;
+				SDKROOT = iphoneos5.1;
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
