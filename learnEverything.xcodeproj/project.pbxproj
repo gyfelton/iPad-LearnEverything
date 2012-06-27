@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		88CE9C2E159AEEF600862303 /* fingerDetector.png in Resources */ = {isa = PBXBuildFile; fileReff = 88CE9C2D159AEEF600862303 /* fingerDetector.png */; };
 		FE014F4F157DD155003BE31E /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = FE014F4E157DD155003BE31E /* checkmark.png */; };
 		FE05A7A51598724F006F1FAC /* main_bg_full_screen.png in Resources */ = {isa = PBXBuildFile; fileRef = FE05A7A41598724F006F1FAC /* main_bg_full_screen.png */; };
 		FE05A7AA1598A987006F1FAC /* FangZhengZhiYiJianTi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE05A7A91598A987006F1FAC /* FangZhengZhiYiJianTi.ttf */; };
 		FE05A7B11598AC4C006F1FAC /* UIFont+Additionals.m in Sources */ = {isa = PBXBuildFile; fileRef = FE05A7B01598AC4C006F1FAC /* UIFont+Additionals.m */; };
+		FE082ABB159B093800188848 /* scanlight.png in Resources */ = {isa = PBXBuildFile; fileRef = FE082ABA159B093800188848 /* scanlight.png */; };
 		FE08F1571596C38E009E981C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE08F1561596C38E009E981C /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		FE08F16615980116009E981C /* ParentControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE08F16415980116009E981C /* ParentControlViewController.m */; };
 		FE08F16715980116009E981C /* ParentControlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE08F16515980116009E981C /* ParentControlViewController.xib */; };
@@ -95,12 +95,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		88CE9C2D159AEEF600862303 /* fingerDetector.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fingerDetector.png; sourceTree = "<group>"; };
 		FE014F4E157DD155003BE31E /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
 		FE05A7A41598724F006F1FAC /* main_bg_full_screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_bg_full_screen.png; sourceTree = "<group>"; };
 		FE05A7A91598A987006F1FAC /* FangZhengZhiYiJianTi.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FangZhengZhiYiJianTi.ttf; sourceTree = "<group>"; };
 		FE05A7AF1598AC4C006F1FAC /* UIFont+Additionals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Additionals.h"; sourceTree = "<group>"; };
 		FE05A7B01598AC4C006F1FAC /* UIFont+Additionals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Additionals.m"; sourceTree = "<group>"; };
+		FE082ABA159B093800188848 /* scanlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = scanlight.png; path = learnEverything/Resources/images/scanlight.png; sourceTree = SOURCE_ROOT; };
 		FE08F1561596C38E009E981C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		FE08F16315980116009E981C /* ParentControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParentControlViewController.h; path = "Parent Control/ParentControlViewController.h"; sourceTree = "<group>"; };
 		FE08F16415980116009E981C /* ParentControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParentControlViewController.m; path = "Parent Control/ParentControlViewController.m"; sourceTree = "<group>"; };
@@ -356,9 +356,9 @@
 		FEDAEA9A1578A31600F2552F /* images */ = {
 			isa = PBXGroup;
 			children = (
-				88CE9C2D159AEEF600862303 /* fingerDetector.png */,
 				FE2AB102159989B20095BAB6 /* dialogs */,
 				FEFE563F1594048C002EBFD1 /* close_x.png */,
+				FE082ABA159B093800188848 /* scanlight.png */,
 				FE014F4E157DD155003BE31E /* checkmark.png */,
 				FE61AE2F159AC18D000EEBFE /* flame.png */,
 				FE61AE2D159ABC07000EEBFE /* wrong_cross.png */,
@@ -534,6 +534,8 @@
 				FEC18E76159AFCC3001ED526 /* click.wav in Resources */,
 				FEC18E7A159AFD7F001ED526 /* correct.caf in Resources */,
 				FEC18E7E159B03AD001ED526 /* wrongAnswer.mp3 in Resources */,
+				FE082ABB159B093800188848 /* scanlight.png in Resources */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
@@ -606,7 +608,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				SDKROOT = iphoneos5.1;
+				SDKROOT = iphoneos5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -631,7 +633,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				SDKROOT = iphoneos5.1;
+				SDKROOT = iphoneos5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -645,7 +647,7 @@
 				INFOPLIST_FILE = "learnEverything/learnEverything-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos5.1;
+				SDKROOT = iphoneos5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
@@ -659,7 +661,7 @@
 				INFOPLIST_FILE = "learnEverything/learnEverything-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos5.1;
+				SDKROOT = iphoneos5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
