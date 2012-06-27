@@ -65,6 +65,8 @@ typedef enum GridViewReloadAnimationModes GridViewReloadAnimationModes;
 - (UIView*)viewForIndexPath:(GVIndexPath*)indexPath;
 - (void)layoutUnitsAnimatedWithAnimationDirection:(GridViewAnimationType)animationType;
 
+- (NSArray*)allUnits;
+
 @property (nonatomic, unsafe_unretained) id<NonScrollableGridViewDataSource> dataSource;
 @property NSInteger numberOfRows;
 @property NSInteger numberOfColumns;

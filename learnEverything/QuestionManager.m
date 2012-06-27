@@ -7,14 +7,14 @@
 //
 
 #import "QuestionManager.h"
-#import "QuestionCard.h"
 #import "Question.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NSMutableArray+Shuffling.h"
 
 @implementation QuestionManager
-
+@synthesize isFlipCards;
 @synthesize questionList = _questionList;
+@synthesize questionManagerDelegate;
 
 - (id)initWithGridView:(NonScrollableGridView*)gv questionList:(NSMutableArray*)list
 {
@@ -40,7 +40,9 @@
     
     BOOL hasChosen = NO;
     NSString *toShow = nil;
+    
     QuestionCard *aCard = [[QuestionCard alloc] initWithFrame:CGRectMake(0, 0, 200, 123)];
+    
     GVIndexPath *indexPath = [GVIndexPath indexPathWithRow:rowIndex andColumn:columnIndex];
     
     while (!hasChosen) {
@@ -136,60 +138,112 @@
 - (void)onUnitClicked:(id)sender
 {
     QuestionCard *card = sender;
+    
     if (card.checkmark.hidden == NO) {
         return; //clicked on used card
     }
     
     GVIndexPath *nowClickIndexPath = [_grid_view indexPathForUnitView:card];
-    card.selected = !card.selected;
+    card.pressed = !card.pressed;
     
     if (!_clickedBtnIndexPath || (_clickedBtnIndexPath.row == nowClickIndexPath.row && _clickedBtnIndexPath.column == nowClickIndexPath.column)) {
+        
+        //Click on same card
         _clickedBtnIndexPath = nowClickIndexPath;
+        
+        //Not used
+        //Flip card since it's first card (or click on same card)
+        if (isFlipCards) {
+            [card flipCardWithDuration:0.5f completion:NULL];
+        }
     } else
     {
         //Clicked on second btn, react corrdingly
         QuestionCard *card1 = (QuestionCard*)[_grid_view viewForIndexPath:_clickedBtnIndexPath];
         
         if (card1.cardType == card.cardType) {
-            //Same card type Do nothing
-            card.selected = NO;
-            card1.selected = NO;
+            //Same card type, revert pressed state
+            card.pressed = NO;
+            card1.pressed = NO;
+            //TODO play the DU sound
+            
+            //Not used
+            if (isFlipCards) {
+                //Flip second one, then both flip back
+                [card flipCardWithDuration:0.5f 
+                                 completion:^(BOOL finished){
+                                    [card flipCardWithDuration:0.5f completion:NULL];
+                                    [card1 flipCardWithDuration:0.5f completion:NULL];
+                                 }
+                ];
+            }
+            
+            //Seet clicked to nil
+            _clickedBtnIndexPath = nil;
+            
         } else
         {
-            //            QuestionCard *questionCard = card.cardType==question?card:card1;
-            //            GVIndexPath *questionIndex = [_grid_view indexPathForUnitView:questionCard];
-            //            QuestionCard *answerCard = card.cardType==answer?card:card1;
-            //            
-            //            NSInteger index = 0;
-            //            for (GVIndexPath *ip in _indexPathForQuestion) {
-            //                if ([ip isKindOfClass:[GVIndexPath class]]) {
-            //                    if (ip.row == questionIndex.row && ip.column == questionIndex.column) {
-            //                        break;
-            //                    }
-            //                }
-            //                index++;
-            //            }
-            //            GVIndexPath *answerIndex = [_indexPathForAnswer objectAtIndex:index];
-            //            GVIndexPath *answerIndexToCompare = [_grid_view indexPathForUnitView:answerCard];
             if (card1.questionIndex == card.questionIndex) {
-                //Answer is correct
-                card1.checkmark.hidden = NO;
-                card.checkmark.hidden = NO;
-                
-                //Register answered cards
-                [_answeredCardIndexPaths addObject:_clickedBtnIndexPath];
-                [_answeredCardIndexPaths addObject:nowClickIndexPath];
-                
-                [self clearUsedUnitsIfNeeded];
+                if (isFlipCards) {
+                    //Not used
+                    /*
+                    [card flipCardWithDuration:0.5f 
+                                    completion:^(BOOL finished){
+                                        //same block as below!!!
+                                        //Answer is correct
+                                        card1.checkmark.hidden = NO;
+                                        card.checkmark.hidden = NO;
+                                        
+                                        //Register answered cards
+                                        [_answeredCardIndexPaths addObject:_clickedBtnIndexPath];
+                                        [_answeredCardIndexPaths addObject:nowClickIndexPath];
+                                        
+                                        [self clearUsedUnitsIfNeeded];
+                                        
+                                        _clickedBtnIndexPath = nil;
+                                    }
+                     ];
+                     */
+                } else
+                {
+                    //Answer is correct
+                    card1.checkmark.hidden = NO;
+                    card.checkmark.hidden = NO;
+                    //TODO Animate stars
+                    if ([questionManagerDelegate respondsToSelector:@selector(QuestionManager:answerCorrectlyWithCard1:card2:)]) {
+                        [questionManagerDelegate QuestionManager:self answerCorrectlyWithCard1:card card2:card1];
+                    }
+                    
+                    //Register answered cards
+                    [_answeredCardIndexPaths addObject:_clickedBtnIndexPath];
+                    [_answeredCardIndexPaths addObject:nowClickIndexPath];
+                    
+                    [self clearUsedUnitsIfNeeded];
+                    
+                    _clickedBtnIndexPath = nil;
+                }
             } else
             {
                 //Wrong answer
-                card.selected = NO;
-                card1.selected = NO;
+                card.pressed = NO;
+                card1.pressed = NO;
+                //TODO show cross and DU sound
+                
+                //Not used
+                if (isFlipCards) {
+                    //Flip second one, then both flip back
+                    [card flipCardWithDuration:0.5f 
+                                     completion:^(BOOL finished){
+                                         [card flipCardWithDuration:0.5f completion:NULL];
+                                         [card1 flipCardWithDuration:0.5f completion:NULL];
+                                         
+                                     }
+                     ];
+                }
+                
+                _clickedBtnIndexPath = nil;
             }
         }
-        
-        _clickedBtnIndexPath = nil;
     }
 }
 
@@ -211,4 +265,13 @@
     [_grid_view reloadData];
 }
 
+- (void)flipAllCardsWithAnimation:(BOOL)animation
+{
+    if (isFlipCards) {
+        NSArray *array = [_grid_view allUnits];
+        for (QuestionCard *card in array) {
+            [card flipCardWithDuration:0.5f completion:NULL];
+        }
+    }
+}
 @end

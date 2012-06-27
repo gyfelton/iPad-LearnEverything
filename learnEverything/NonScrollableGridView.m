@@ -96,6 +96,16 @@
 //    [self reloadData];
 }
 
+- (NSArray*)allUnits
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (NSDictionary *dict in _unitDictSet) {
+        UIView *v = [dict objectForKey:@"view"];
+        [array addObject:v];
+    }
+    return [NSArray arrayWithArray:array];
+}
+
 - (GVIndexPath*)indexPathForUnitView:(UIView *)view
 {
     for (NSDictionary *dict in _unitDictSet) {

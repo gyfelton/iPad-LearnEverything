@@ -13,9 +13,15 @@ enum cardType {
     question = 0,
     answer = 1
     };
+
 typedef enum cardType cardType;
 
 @interface QuestionCard : UIButton
+{
+    UIImageView *_cardBack;
+    BOOL _isShowingCardBack;
+    BOOL _pressed;
+}
 
 @property (nonatomic, strong) UIImageView *checkmark;
 
@@ -24,4 +30,11 @@ typedef enum cardType cardType;
 @property cardType cardType;
 
 @property NSInteger questionIndex;
+
+@property BOOL isShowingCardBack;
+
+@property (nonatomic, setter = setPressed:) BOOL pressed;
+
+- (void)flipCardWithDuration:(NSTimeInterval)duration completion:(void (^)(BOOL finished))completion;
+
 @end

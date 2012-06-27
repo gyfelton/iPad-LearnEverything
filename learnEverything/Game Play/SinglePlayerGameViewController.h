@@ -12,7 +12,7 @@
 #import "NonScrollableGridView.h"
 #import "QuestionManager.h"
 
-@interface SinglePlayerGameViewController : BaseGameViewController <NonScrollableGridViewDataSource>
+@interface SinglePlayerGameViewController : BaseGameViewController <NonScrollableGridViewDataSource, QuestionManagerDelegate>
 {
     __unsafe_unretained IBOutlet UIView *_grid_view_place_holder;
     NonScrollableGridView *_grid_view;
@@ -24,6 +24,8 @@
     QuestionManager *_questionManager;
     
     UIImageView *_countdownImageView;
+    
+    __unsafe_unretained IBOutlet UIProgressView *_progressBar;
 }
 
 - (void)reinitGame;

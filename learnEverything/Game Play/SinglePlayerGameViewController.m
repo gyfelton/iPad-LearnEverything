@@ -24,10 +24,24 @@
 }
 
 #pragma mark - Animations
+- (void)showInitialDialogs
+{
+    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"小朋友快来帮忙！\n正确配对下面的英文和图片，\n就能给我力量帮助打倒怪兽！"];
+    [self performSelector:@selector(showInitialRightDialog) withObject:nil afterDelay:2.0f];
+}
+
+- (void)showInitialRightDialog
+{
+    [super dismissLeftDialog];
+    [super showRightDialogAtPosition:CGPointMake(700, 133) withText:@"ARR....\nARRRRR....."];
+    [super performSelector:@selector(dismissRightDialog) withObject:nil afterDelay:2.0f];
+}
+
 - (void)presentCardsAnimated
 {   
     _grid_view.hidden = NO;
     [_grid_view layoutUnitsAnimatedWithAnimationDirection:kGridViewAnimationFlowFromBottom];
+    [self performSelector:@selector(showInitialDialogs) withObject:nil afterDelay:0.1f];
 }
 
 - (void)showCountDown:(NSNumber*)num
@@ -54,16 +68,8 @@
 
 - (void)startMusicAndShowCountDown
 {
-    [super dismissRightDialog];
     [super playBackgroundMusic];
     [self showCountDown:[NSNumber numberWithInt:3]];
-}
-
-- (void)showRightDialog
-{
-    [super dismissLeftDialog];
-    [super showRightDialogAtPosition:CGPointMake(700, 133) withText:@"ARRRRR....."];
-    [self performSelector:@selector(startMusicAndShowCountDown) withObject:nil afterDelay:2.0f];
 }
 
 #pragma mark - View lifecycle
@@ -86,6 +92,8 @@
     [_grid_view_place_holder removeFromSuperview];
     
     _questionManager = [[QuestionManager alloc] initWithGridView:_grid_view questionList:_questionList];
+    _questionManager.questionManagerDelegate = self;
+    _questionManager.isFlipCards = NO;//Flip cards is not a good idea for now
     
     [self reinitGame];
 }
@@ -94,7 +102,12 @@
 {
     [_countdownImageView removeFromSuperview];
     _countdownImageView = nil;
-    //TODO flip cards here
+    
+    [self presentCardsAnimated];
+    
+    //Not used:
+    //flip cards here
+    //[_questionManager flipAllCardsWithAnimation:NO]; //YES will not work
 }
 
 - (void)viewDidUnload
@@ -103,6 +116,7 @@
     _grid_view = nil;
     _questionList = nil;
     _questionManager = nil;
+    _progressBar = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -111,15 +125,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self presentCardsAnimated];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"夏普朋友fdafdaf"];
-    [self performSelector:@selector(showRightDialog) withObject:nil afterDelay:2.0f];
+    [self startMusicAndShowCountDown];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -167,6 +179,63 @@
 -(UIView*)viewForNonScrollableGridView:(NonScrollableGridView *)gridView atRowIndex:(NSInteger)rowIndex columnIndex:(NSInteger)columnIndex
 {
     return [_questionManager viewForNonScrollableGridViewAtRowIndex:rowIndex columnIndex:columnIndex];
+}
+
+
+#pragma mark - QuestionManager Delegate
+- (void)_animateStarMovement:(UIView*)star
+{
+    [UIView animateWithDuration:0.6f delay:0.1f 
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         CGFloat scale = 0.2f;
+                         star.frame = CGRectMake(20, 80, star.frame.size.width*scale, star.frame.size.height*scale);
+                         //CGAffineTransform movement = CGAffineTransformMakeTranslation(/scale, (80 - star.frame.origin.y)/scale);
+                         //CGAffineTransform shrinkDown = CGAffineTransformMakeScale(scale, scale);
+                         //star.transform = CGAffineTransformConcat(movement, shrinkDown);
+                     } 
+                     completion:^(BOOL finished) {
+                         [UIView animateWithDuration:0.2f animations:^{
+//                             star.transform = CGAffineTransformMakeScale(0.1f, 0.1f);
+                         } completion:^(BOOL finished) {
+                             [star removeFromSuperview];
+                         }];
+                          
+                         _progressBar.progress +=0.025f;
+                         
+                     }];
+}
+
+- (void)animateStarToLightHeroAndIncrementScore:(UIView*)star
+{
+    star.transform = CGAffineTransformMakeScale(0.01, 0.01);
+    [UIView animateWithDuration:0.1f 
+                     animations:^(){
+                         star.transform = CGAffineTransformIdentity;
+    }
+                     completion:^(BOOL finished){
+                         [self _animateStarMovement:star];
+                     }
+    ];
+}
+
+- (void)QuestionManager:(QuestionManager *)manager answerCorrectlyWithCard1:(QuestionCard *)card1 card2:(QuestionCard *)card2
+{
+    //Animate star
+    CGRect rect = [card1 convertRect:card1.bounds toView:self.view];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
+    imageView.image = [UIImage imageNamed:@"star_score"];
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:imageView];
+    [self animateStarToLightHeroAndIncrementScore:imageView];
+    
+    
+    CGRect rect2 = [card2 convertRect:card2.bounds toView:self.view];
+    UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:rect2];
+    imageView2.image = [UIImage imageNamed:@"star_score"];
+    imageView2.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:imageView2];
+    [self animateStarToLightHeroAndIncrementScore:imageView2];
 }
 
 @end

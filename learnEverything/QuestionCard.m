@@ -12,6 +12,8 @@
 @synthesize cardType, associatedIndexPath;
 @synthesize checkmark;
 @synthesize questionIndex;
+@synthesize isShowingCardBack = _isShowingCardBack;
+@synthesize pressed = _pressed;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -28,8 +30,38 @@
         checkmark.frame = CGRectMake(0, 0, checkmark.frame.size.width, checkmark.frame.size.height);
         [self addSubview:checkmark];
         checkmark.hidden = YES;
+        
+        _cardBack = [[UIImageView alloc] initWithFrame:frame];
+        _cardBack.frame = CGRectMake(0, 0, _cardBack.frame.size.width, _cardBack.frame.size.height);
+        _cardBack.image = [UIImage imageNamed:@"card_back"];
+        [self addSubview:_cardBack];
+        _cardBack.hidden = YES;
     }
     return self;
+}
+
+- (void)flipCardWithDuration:(NSTimeInterval)duration completion:(void (^)(BOOL finished))completion
+{
+    if (!_isShowingCardBack) {
+        [UIView transitionWithView:self 
+                          duration:duration
+                           options:UIViewAnimationOptionTransitionFlipFromRight 
+                        animations:^(){
+                            _cardBack.hidden = NO;
+                            _isShowingCardBack = YES;
+                        } 
+                        completion:completion];
+    } else
+    {
+        [UIView transitionWithView:self 
+                          duration:duration
+                           options:UIViewAnimationOptionTransitionFlipFromLeft 
+                        animations:^(){
+                            _cardBack.hidden = YES;
+                            _isShowingCardBack = NO;
+                        } 
+                        completion:completion];
+    }
 }
 
 /*
@@ -40,5 +72,16 @@
     // Drawing code
 }
 */
+
+- (void)setPressed:(BOOL)press
+{
+    _pressed = press;
+    if (press) {
+        [UIView animateWithDuration:0.1f animations:^{self.transform = CGAffineTransformMakeScale(0.8f, 0.8f);}];
+    } else
+    {
+        [UIView animateWithDuration:0.1f animations:^{self.transform = CGAffineTransformIdentity;}];
+    }
+}
 
 @end
