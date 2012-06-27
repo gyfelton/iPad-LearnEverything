@@ -28,10 +28,10 @@
 - (void)drawRect:(CGRect)rect
 {
     //TODO handle rotation problem
-    CGContextRef context = UIGraphicsGetCurrentContext(); 
-    //CGRect rectangle = CGRectMake(self.center.x-RECT_WIDTH/2, self.center.y-RECT_HEIGHT/2-20, RECT_WIDTH, RECT_HEIGHT);
-    CGContextSetLineCap(context, kCGLineCapRound);
-    CGContextStrokeRectWithWidth(context, rect, 6);
+//    CGContextRef context = UIGraphicsGetCurrentContext(); 
+//    //CGRect rectangle = CGRectMake(self.center.x-RECT_WIDTH/2, self.center.y-RECT_HEIGHT/2-20, RECT_WIDTH, RECT_HEIGHT);
+//    CGContextSetLineCap(context, kCGLineCapRound);
+//    CGContextStrokeRectWithWidth(context, rect, 6);
 }
 
 - (BOOL)_isAdultFinger:(NSSet*)touches
@@ -63,4 +63,5 @@
 {
     [delegate didEndDetectFinger];
 }
+
 @end

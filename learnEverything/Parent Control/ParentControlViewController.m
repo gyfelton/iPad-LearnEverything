@@ -12,6 +12,10 @@
 
 #define DEFAULT_TEXT @"只有大人们可以编辑题库哦\n请让他们帮忙扫描指纹吧\n\n请将大拇指按在下方框内"
 
+@interface ParentControlViewController (Private)
+- (void)animateScanLightUp;
+@end
+
 @implementation ParentControlViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -38,7 +42,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    _fakeScannerView = [[FakeScannerView alloc] initWithFrame:CGRectMake(0, 0, 200, 300)];
+    _fakeScannerView = [[FakeScannerView alloc] initWithFrame:scanArea_placeholder.frame];
     _fakeScannerView.delegate = self;
     _fakeScannerView.center = self.view.center;
     _fakeScannerView.backgroundColor = [UIColor clearColor];
@@ -57,6 +61,35 @@
     _topTitle.text = DEFAULT_TEXT;
     
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+- (void)animateScanLightDown
+{
+    [UIView animateWithDuration:2.0f animations:^{
+        _scanImage.frame = CGRectOffset(_scanImage.frame, 0, 194-22);
+    } completion:^(BOOL finished) {
+        [self animateScanLightUp];
+    }];
+}
+
+- (void)animateScanLightUp
+{
+    [UIView animateWithDuration:2.0f animations:^{
+        _scanImage.frame = CGRectOffset(_scanImage.frame, 0, -194+22);
+    } 
+        completion:^(BOOL finished) {
+        [self animateScanLightDown];
+    }];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (!_scanImageStarted) {
+        _scanImageStarted = YES;
+        [self animateScanLightUp];
+    }
 }
 
 - (void)dealloc
@@ -87,6 +120,7 @@
 {
     if (_allowAccess) {
         _topTitle.text = @"扫描成功！";
+        
         [self performSelector:@selector(pushToQuestionSet) withObject:nil afterDelay:0.6f];
     }
 }
@@ -107,7 +141,7 @@
     if (isAdult) {
         _allowAccess = YES;
         _topTitle.text = @"扫描中...不要移动手指";
-        [self performSelector:@selector(accessGranted) withObject:nil afterDelay:1.5f];
+        [self performSelector:@selector(accessGranted) withObject:nil afterDelay:0.5f];
     } else
     {
         _allowAccess = NO;
@@ -136,6 +170,8 @@
 }
 - (void)viewDidUnload {
     _tipLbl = nil;
+    scanArea_placeholder = nil;
+    _scanImage = nil;
     [super viewDidUnload];
 }
 @end

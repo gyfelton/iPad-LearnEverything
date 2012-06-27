@@ -14,6 +14,10 @@
     FakeScannerView *_fakeScannerView;
     __unsafe_unretained IBOutlet UILabel *_topTitle;
     __unsafe_unretained IBOutlet UILabel *_tipLbl;
+    __unsafe_unretained IBOutlet UIView *scanArea_placeholder;
+
+    
+    __unsafe_unretained IBOutlet UIImageView *_scanImage;
     
     BOOL _allowAccess;
 }
