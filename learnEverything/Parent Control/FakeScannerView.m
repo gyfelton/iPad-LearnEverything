@@ -37,13 +37,13 @@
 - (BOOL)_isAdultFinger:(NSSet*)touches
 {
     UITouch *touch = [touches anyObject];
-    float vf = 10.0f; 
+    float vf = 11.0f; 
     id valFloat = [touch valueForKey:@"pathMajorRadius"]; 
     if(valFloat != nil) {
         vf = [valFloat floatValue]; 
     }
     //NSLog(@"touch begin: count: %d, radius: %f", [[event allTouches] count],vf);
-    if (vf > 10.0f) {
+    if (vf > 11.0f) {
         return YES;
     }
     return NO;

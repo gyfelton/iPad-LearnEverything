@@ -14,7 +14,6 @@
 		FE082ABB159B093800188848 /* scanlight.png in Resources */ = {isa = PBXBuildFile; fileRef = FE082ABA159B093800188848 /* scanlight.png */; };
 		FE082AC7159B323600188848 /* main_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FE082AC5159B323600188848 /* main_bg.jpg */; };
 		FE082AC8159B323600188848 /* main_bg@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FE082AC6159B323600188848 /* main_bg@2x.jpg */; };
-		FE082ACA159B364600188848 /* fingerDetector.png in Resources */ = {isa = PBXBuildFile; fileRef = FE082AC9159B364600188848 /* fingerDetector.png */; };
 		FE08F1571596C38E009E981C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE08F1561596C38E009E981C /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		FE08F16615980116009E981C /* ParentControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE08F16415980116009E981C /* ParentControlViewController.m */; };
 		FE08F16715980116009E981C /* ParentControlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE08F16515980116009E981C /* ParentControlViewController.xib */; };
@@ -37,6 +36,7 @@
 		FE82F8DE157CF3890081F81E /* NonScrollableGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE82F8DD157CF3890081F81E /* NonScrollableGridView.m */; };
 		FE9A8347159BDE5E00262D85 /* main_title.png in Resources */ = {isa = PBXBuildFile; fileRef = FE9A8346159BDE5E00262D85 /* main_title.png */; };
 		FE9A8349159BE3A300262D85 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = FE9A8348159BE3A300262D85 /* Default-Landscape~ipad.png */; };
+		FE9A834B159BEB9200262D85 /* fingerDetector-2.png in Resources */ = {isa = PBXBuildFile; fileRef = FE9A834A159BEB9200262D85 /* fingerDetector-2.png */; };
 		FEC18E76159AFCC3001ED526 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = FEC18E75159AFCC3001ED526 /* click.wav */; };
 		FEC18E78159AFCE2001ED526 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEC18E77159AFCE2001ED526 /* AudioToolbox.framework */; };
 		FEC18E7A159AFD7F001ED526 /* correct.caf in Resources */ = {isa = PBXBuildFile; fileRef = FEC18E79159AFD7F001ED526 /* correct.caf */; };
@@ -103,7 +103,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		88CE9C2D159AEEF600862303 /* fingerDetector.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fingerDetector.png; sourceTree = "<group>"; };
 		FE014F4E157DD155003BE31E /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
 		FE05A7A41598724F006F1FAC /* main_bg_full_screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_bg_full_screen.png; sourceTree = "<group>"; };
 		FE05A7A91598A987006F1FAC /* FangZhengZhiYiJianTi.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FangZhengZhiYiJianTi.ttf; sourceTree = "<group>"; };
@@ -112,7 +111,6 @@
 		FE082ABA159B093800188848 /* scanlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = scanlight.png; path = learnEverything/Resources/images/scanlight.png; sourceTree = SOURCE_ROOT; };
 		FE082AC5159B323600188848 /* main_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = main_bg.jpg; sourceTree = "<group>"; };
 		FE082AC6159B323600188848 /* main_bg@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "main_bg@2x.jpg"; sourceTree = "<group>"; };
-		FE082AC9159B364600188848 /* fingerDetector.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fingerDetector.png; sourceTree = "<group>"; };
 		FE08F1561596C38E009E981C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		FE08F16315980116009E981C /* ParentControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParentControlViewController.h; path = "Parent Control/ParentControlViewController.h"; sourceTree = "<group>"; };
 		FE08F16415980116009E981C /* ParentControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParentControlViewController.m; path = "Parent Control/ParentControlViewController.m"; sourceTree = "<group>"; };
@@ -144,6 +142,7 @@
 		FE82F8E3157D11A90081F81E /* QuestionModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "QuestionModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		FE9A8346159BDE5E00262D85 /* main_title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_title.png; sourceTree = "<group>"; };
 		FE9A8348159BE3A300262D85 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = SOURCE_ROOT; };
+		FE9A834A159BEB9200262D85 /* fingerDetector-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fingerDetector-2.png"; sourceTree = "<group>"; };
 		FEC18E75159AFCC3001ED526 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
 		FEC18E77159AFCE2001ED526 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		FEC18E79159AFD7F001ED526 /* correct.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = correct.caf; sourceTree = "<group>"; };
@@ -377,14 +376,13 @@
 		FEDAEA9A1578A31600F2552F /* images */ = {
 			isa = PBXGroup;
 			children = (
+				FE9A834A159BEB9200262D85 /* fingerDetector-2.png */,
 				FE9A8346159BDE5E00262D85 /* main_title.png */,
 				FE3DF11D159BCDD4004924C2 /* back_button.png */,
 				FE3DF11B159BC695004924C2 /* roundedButton.png */,
-				88CE9C2D159AEEF600862303 /* fingerDetector.png */,
 				FE2AB102159989B20095BAB6 /* dialogs */,
 				FEFE563F1594048C002EBFD1 /* close_x.png */,
 				FE082ABA159B093800188848 /* scanlight.png */,
-				FE082AC9159B364600188848 /* fingerDetector.png */,
 				FE014F4E157DD155003BE31E /* checkmark.png */,
 				FE61AE2F159AC18D000EEBFE /* flame.png */,
 				FE61AE2D159ABC07000EEBFE /* wrong_cross.png */,
@@ -565,11 +563,11 @@
 				FE082ABB159B093800188848 /* scanlight.png in Resources */,
 				FE082AC7159B323600188848 /* main_bg.jpg in Resources */,
 				FE082AC8159B323600188848 /* main_bg@2x.jpg in Resources */,
-				FE082ACA159B364600188848 /* fingerDetector.png in Resources */,
 				FE3DF11C159BC695004924C2 /* roundedButton.png in Resources */,
 				FE3DF11E159BCDD4004924C2 /* back_button.png in Resources */,
 				FE9A8347159BDE5E00262D85 /* main_title.png in Resources */,
 				FE9A8349159BE3A300262D85 /* Default-Landscape~ipad.png in Resources */,
+				FE9A834B159BEB9200262D85 /* fingerDetector-2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

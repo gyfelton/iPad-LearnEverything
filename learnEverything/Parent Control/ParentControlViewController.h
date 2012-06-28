@@ -15,6 +15,8 @@
     __unsafe_unretained IBOutlet UILabel *_topTitle;
     __unsafe_unretained IBOutlet UILabel *_tipLbl;
     __unsafe_unretained IBOutlet UIView *scanArea_placeholder;
+    __unsafe_unretained IBOutlet UILabel *_main_title;
+    __unsafe_unretained IBOutlet UILabel *_bottom_tip;
 
     BOOL _scanImageStarted;
     __unsafe_unretained IBOutlet UIImageView *_scanImage;
@@ -22,5 +24,6 @@
     BOOL _allowAccess;
 }
 
+- (IBAction)onBackClicked:(id)sender;
 - (IBAction)onByPassClicked:(id)sender;
 @end
