@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "QuestionSetViewController.h"
 #import "QuestionSet.h"
 #import "Question+Helpers.h"
@@ -41,6 +42,10 @@
     }
     
     return self;
+}
+
+- (IBAction)onBackClicked:(id)sender {
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -156,11 +161,15 @@
 //        [self prepareGameModeChooser];
     }
     
-    self.view.backgroundColor = [UIColor clearColor]; 
+    self.view.backgroundColor = [UIColor clearColor];
+    ;
+    _titleLabel.text = self.title;
+    _titleLabel.font = [UIFont regularChineseFontWithSize:33];
 }
 
 - (void)viewDidUnload
 {
+    _titleLabel = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -169,7 +178,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
     [_questionSetView reloadData];
 }
 
@@ -394,9 +402,11 @@
         img.image = [UIImage imageNamed:@"qn_set_cover_default"];
         [view addSubview:img];
         
-        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 192, 164, 48)];
+        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 192, 144, 48)];
         lbl.font = [UIFont regularChineseFontWithSize:26];
-        lbl.backgroundColor = [UIColor clearColor];
+//        lbl.shadowColor = [UIColor whiteColor];
+//        lbl.shadowOffset = CGSizeMake(0, 1);
+        lbl.backgroundColor = [UIColor colorWithRed:1.0f green:0.41f blue:0.41f alpha:0.6f];
 //        lbl.shadowColor = [UIColor darkTextColor];
 //        lbl.shadowOffset = CGSizeMake(0, -1);
         lbl.adjustsFontSizeToFitWidth = YES;

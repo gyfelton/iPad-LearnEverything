@@ -118,16 +118,14 @@
 
 - (void)accessGranted
 {
-    if (_allowAccess) {
         _topTitle.text = @"扫描成功！";
-        
-        [self performSelector:@selector(pushToQuestionSet) withObject:nil afterDelay:0.6f];
-    }
+        [self performSelector:@selector(pushToQuestionSet) withObject:nil afterDelay:1.0f];
 }
 
 - (void)accessDenied
 {
     _topTitle.text = @"扫描失败！请重新扫描";
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
 }
 
 - (void)showNormalText 
@@ -141,7 +139,7 @@
     if (isAdult) {
         _allowAccess = YES;
         _topTitle.text = @"扫描中...不要移动手指";
-        [self performSelector:@selector(accessGranted) withObject:nil afterDelay:0.5f];
+        [self performSelector:@selector(accessGranted) withObject:nil afterDelay:0.6f];
     } else
     {
         _allowAccess = NO;
@@ -151,23 +149,25 @@
 
 - (void)didDetectFingerMoving:(BOOL)isAdult
 {
-    if (!isAdult) {
-        _allowAccess = NO;
-        [self accessDenied];
-    }
+//    if (!isAdult) {
+//        _allowAccess = NO;
+//        [self accessDenied];
+//    }
 }
 
 - (void)didEndDetectFinger
 {
-    _allowAccess = NO; 
-    [self accessDenied];
-    [self performSelector:@selector(showNormalText) withObject:nil afterDelay:1];
+    if (!_allowAccess) {
+        [self accessDenied];
+        [self performSelector:@selector(showNormalText) withObject:nil afterDelay:1];
+    }
 }
 
 - (IBAction)onByPassClicked:(id)sender {
     _allowAccess = YES;
     [self accessGranted];
 }
+
 - (void)viewDidUnload {
     _tipLbl = nil;
     scanArea_placeholder = nil;

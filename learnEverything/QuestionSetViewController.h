@@ -23,10 +23,12 @@ typedef enum QuestionSetViewControllerType QuestionSetViewControllerType;
     
     QuestionSetViewControllerType _viewControllerType;
     
+    __unsafe_unretained IBOutlet UILabel *_titleLabel;
 //    UIButton *_chooseGameModeBtn;
 }
 
 - (id)initWithViewControllerType:(QuestionSetViewControllerType)type;
+- (IBAction)onBackClicked:(id)sender;
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
