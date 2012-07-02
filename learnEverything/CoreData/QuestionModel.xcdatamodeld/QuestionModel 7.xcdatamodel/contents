@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="872" systemVersion="10K549" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Question" representedClassName="Question" syncable="YES">
+        <attribute name="answer_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="answer_in_text" optional="YES" attributeType="String" defaultValueString="2" syncable="YES"/>
+        <attribute name="create_timestamp" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="is_initial_value" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="question_in_text" optional="YES" attributeType="String" defaultValueString="1+1 = ?" syncable="YES"/>
+        <attribute name="question_type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="belongs_to" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="QuestionSet" inverseName="questions" inverseEntity="QuestionSet" syncable="YES"/>
+    </entity>
+    <entity name="QuestionSet" representedClassName="QuestionSet" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cover_data" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="cover_url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="create_timestamp" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="modify_timestamp" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="question_type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="set_id" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="questions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Question" inverseName="belongs_to" inverseEntity="Question" syncable="YES"/>
+    </entity>
+    <fetchRequest name="fetchQuestions" entity="Question" predicateString="belongs_to.set_id == &quot;basic_english&quot;"/>
+    <elements>
+        <element name="Question" positionX="160" positionY="192" width="128" height="150"/>
+        <element name="QuestionSet" positionX="457" positionY="-9" width="128" height="180"/>
+    </elements>
+</model>

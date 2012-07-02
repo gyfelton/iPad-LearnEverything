@@ -305,7 +305,7 @@
 							<object class="IBUIButton" id="530489887">
 								<reference key="NSNextResponder" ref="373909218"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{85, 262}, {150, 200}}</string>
+								<string key="NSFrame">{{85, 265}, {150, 200}}</string>
 								<reference key="NSSuperview" ref="373909218"/>
 								<reference key="NSNextKeyView" ref="640803876"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -582,6 +582,15 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">onCoverClicked:</string>
+						<reference key="source" ref="530489887"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">57</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">onShareQuestionSetClicked:</string>
 						<reference key="source" ref="398451070"/>
 						<reference key="destination" ref="841351856"/>
@@ -759,7 +768,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">56</int>
+			<int key="maxID">57</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

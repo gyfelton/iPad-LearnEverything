@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "QuestionType.h"
 
 @class Question;
 
@@ -19,8 +18,9 @@
 @property (nonatomic, retain) NSDate * create_timestamp;
 @property (nonatomic, retain) NSDate * modify_timestamp;
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSString * set_id;
 @property (nonatomic, retain) NSNumber * question_type;
+@property (nonatomic, retain) NSString * set_id;
+@property (nonatomic, retain) NSData * cover_data;
 @property (nonatomic, retain) NSSet *questions;
 @end
 

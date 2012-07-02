@@ -17,8 +17,9 @@
 @dynamic create_timestamp;
 @dynamic modify_timestamp;
 @dynamic name;
-@dynamic set_id;
 @dynamic question_type;
+@dynamic set_id;
+@dynamic cover_data;
 @dynamic questions;
 
 @end

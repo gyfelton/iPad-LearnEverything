@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "QuestionSet.h"
+#import "PhotoEditingViewController.h"
+#import "ImageSearchWebViewController.h"
 
 @interface QuestionCellType0 : UITableViewCell {
 }
@@ -33,13 +35,15 @@
 #define ANS_TXT_TAG 3333
 #define ANS_IMG_TAG 3334
 
-@interface QuestionListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, MFMailComposeViewControllerDelegate>
+@interface QuestionListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate, PhotoEditingViewControllerDelegate>
 {
+    UIBarButtonItem *_addButton;
+    
     __unsafe_unretained IBOutlet UIView *_table_header_view;
     __unsafe_unretained IBOutlet UITableView *_questionsTableView;
     __unsafe_unretained IBOutlet UITextField *_set_name_txtfield;
     __unsafe_unretained IBOutlet UITextField *_set_author_txtfield;
-    __unsafe_unretained IBOutlet UIImageView *_cover_img_view;
+    __unsafe_unretained IBOutlet UIButton *_cover_img_view;
     
     NSIndexPath *_indexPathForEditingTextField;
 
@@ -59,11 +63,12 @@
 @property (nonatomic, strong) UINib *questionCellNib; 
 @property (nonatomic, strong) IBOutlet QuestionCellType0 *questionCellType0;   //Txt Plus Txt
 @property (nonatomic, strong) IBOutlet QuestionCellType1 *questionCellType1;   //Txt Plus Pic
-
+@property (nonatomic, strong) UIPopoverController *popoverController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 - (id)initWithManagedContext:(NSManagedObjectContext*)context andQuestionSet:(QuestionSet*)qs;
 - (IBAction)onShareQuestionSetClicked:(id)sender;
 - (IBAction)onBackButtonClicked:(id)sender;
+- (IBAction)onCoverClicked:(id)sender;
 
 @end

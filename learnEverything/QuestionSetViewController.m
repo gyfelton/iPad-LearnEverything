@@ -7,6 +7,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import "NSData+Base64.h"
 #import "QuestionSetViewController.h"
 #import "QuestionSet.h"
 #import "Question+Helpers.h"
@@ -16,11 +17,13 @@
 #import "QuestionListViewController.h"
 #import "AppDelegate.h"
 
+#define QUESTION_SET_DEFAULT_COVER_NAME @"qn_set_cover_default"
+
 @interface QuestionSetViewController (Private) 
 - (void)configureCell:(GMGridViewCell *)cell atIndex:(NSInteger)index;
-- (BOOL)_assignValuesToQuestionSetAndSave:(QuestionSet*)set withContext:(NSManagedObjectContext*)context SetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questionType:(NSNumber*)questionType questions:(NSArray*)questions;
+- (BOOL)_assignValuesToQuestionSetAndSave:(QuestionSet*)set withContext:(NSManagedObjectContext*)context SetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questionType:(NSNumber*)questionType questions:(NSArray*)questions coverImageData:(NSData*)data;
 - (BOOL)_parseQuestionSetDictionary:(NSDictionary*)question_set filePath:(NSString*)path fileNameAsSetID:(NSString*)set_id andInsertToCoreDataIfNil:(QuestionSet*)qnSet;
-- (BOOL)insertNewObjectWithSetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questionType:(NSNumber*)questionType questions:(NSArray*)questions;
+- (BOOL)insertNewObjectWithSetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questionType:(NSNumber*)questionType questions:(NSArray*)questions coverImageData:(NSData*)data;
 - (BOOL)insertNewObject;
 @end
 
@@ -38,14 +41,14 @@
     if (self) {
         // Custom initialization
         _viewControllerType = type;
-        self.title = _viewControllerType == kEditQuestionSet ? @"编辑题库" : @"选择题库开始游戏";
+        self.title = _viewControllerType == kEditQuestionSet ? @"题库列表" : @"选择题库开始游戏";
     }
     
     return self;
 }
 
 - (IBAction)onBackClicked:(id)sender {
-    [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -400,7 +403,7 @@
         UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 144, 192)];
         img.backgroundColor = [UIColor blackColor];
         img.tag = 0;
-        img.image = [UIImage imageNamed:@"qn_set_cover_default"];
+        img.image = [UIImage imageWithData:managedObject.cover_data];
         [view addSubview:img];
         
         UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 192, 144, 48)];
@@ -442,6 +445,10 @@
     NSArray *questionRawData = [question_set objectForKey:@"questions"];
     NSDate *createDate = [question_set objectForKey:@"create_timestamp"];
     NSDate *modifyDate = [question_set objectForKey:@"modify_timestamp"];
+    
+    NSString *cover_data_base64_string = [question_set objectForKey:@"cover_data"];
+    NSData *cover_data = [NSData dataWithBase64EncodedString:cover_data_base64_string];
+    
     NSArray *questions = [Question parseJSONDictionaryArray:questionRawData context:[self.fetchedResultsController managedObjectContext]];
     if (!questions) {
         NSLog(@"FAIL TO PARSE QUESTIONS FROM QSJ FILE");
@@ -450,15 +457,15 @@
     }
     
     if (!qnSet) {
-        return [self insertNewObjectWithSetID:set_id name:name author:author createDate:createDate modifyDate:modifyDate questionType:questionType questions:questions];
+        return [self insertNewObjectWithSetID:set_id name:name author:author createDate:createDate modifyDate:modifyDate questionType:questionType questions:questions coverImageData:cover_data];
     } else
     {
-        return [self _assignValuesToQuestionSetAndSave:qnSet withContext:self.managedObjectContext SetID:set_id name:name author:author createDate:createDate modifyDate:modifyDate questionType:questionType questions:questions];
+        return [self _assignValuesToQuestionSetAndSave:qnSet withContext:self.managedObjectContext SetID:set_id name:name author:author createDate:createDate modifyDate:modifyDate questionType:questionType questions:questions coverImageData:cover_data];
     }
 
 }
 
-- (BOOL)_assignValuesToQuestionSetAndSave:(QuestionSet*)set withContext:(NSManagedObjectContext*)context SetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questionType:(NSNumber*)questionType questions:(NSArray*)questions
+- (BOOL)_assignValuesToQuestionSetAndSave:(QuestionSet*)set withContext:(NSManagedObjectContext*)context SetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questionType:(NSNumber*)questionType questions:(NSArray*)questions coverImageData:(NSData *)data
 {
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
@@ -468,6 +475,8 @@
     [set setValueIfNotNil:name forKey:@"name"];
     [set setValueIfNotNil:author forKey:@"author"];
     [set setValueIfNotNil:questionType forKey:@"question_type"];
+    [set setValueIfNotNil:data forKey:@"cover_data"];
+    
     if (questions) {
         for (Question *question in questions) {
             question.belongs_to = set;
@@ -490,20 +499,23 @@
     return YES;
 }
 
-- (BOOL)insertNewObjectWithSetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questionType:(NSNumber*)questionType questions:(NSArray*)questions
+- (BOOL)insertNewObjectWithSetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questionType:(NSNumber*)questionType questions:(NSArray*)questions coverImageData:(NSData *)data
 {
     // Create a new instance of the entity managed by the fetched results controller.
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
     QuestionSet *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
     
-    return [self _assignValuesToQuestionSetAndSave:newManagedObject withContext:context SetID:set_id name:name author:author createDate:create_date modifyDate:modifyDate questionType:questionType questions:questions];
+    return [self _assignValuesToQuestionSetAndSave:newManagedObject withContext:context SetID:set_id name:name author:author createDate:create_date modifyDate:modifyDate questionType:questionType questions:questions coverImageData:data];
 }
 
 - (BOOL)insertNewObject
 {
     NSString *uniqueID = [NSString stringWithFormat:@"user_%@_on_%d", [OpenUDID value], [[NSDate date] timeIntervalSinceReferenceDate]];
-    return [self insertNewObjectWithSetID:uniqueID name:@"我的题库" author:@"" createDate:[NSDate date] modifyDate:[NSDate date] questionType:[NSNumber numberWithInt:kUnknownQuestionType] questions:nil];
+    
+    NSData *imgData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:QUESTION_SET_DEFAULT_COVER_NAME ofType:@"png"]];
+                       
+    return [self insertNewObjectWithSetID:uniqueID name:@"我的题库" author:@"" createDate:[NSDate date] modifyDate:[NSDate date] questionType:[NSNumber numberWithInt:kUnknownQuestionType] questions:nil coverImageData:imgData];
 }
 
 #pragma mark - NSNotifications
