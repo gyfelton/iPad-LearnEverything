@@ -18,9 +18,9 @@
 
 @interface QuestionSetViewController (Private) 
 - (void)configureCell:(GMGridViewCell *)cell atIndex:(NSInteger)index;
-- (BOOL)_assignValuesToQuestionSetAndSave:(QuestionSet*)set withContext:(NSManagedObjectContext*)context SetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questions:(NSArray*)questions;
+- (BOOL)_assignValuesToQuestionSetAndSave:(QuestionSet*)set withContext:(NSManagedObjectContext*)context SetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questionType:(NSNumber*)questionType questions:(NSArray*)questions;
 - (BOOL)_parseQuestionSetDictionary:(NSDictionary*)question_set filePath:(NSString*)path fileNameAsSetID:(NSString*)set_id andInsertToCoreDataIfNil:(QuestionSet*)qnSet;
-- (BOOL)insertNewObjectWithSetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questions:(NSArray*)questions;
+- (BOOL)insertNewObjectWithSetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questionType:(NSNumber*)questionType questions:(NSArray*)questions;
 - (BOOL)insertNewObject;
 @end
 
@@ -178,6 +178,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
     [_questionSetView reloadData];
 }
 
@@ -437,6 +438,7 @@
     }
     NSString *name = [question_set objectForKey:@"name"];
     NSString *author = [question_set objectForKey:@"author"];
+    NSNumber *questionType = [question_set objectForKey:@"question_type"];
     NSArray *questionRawData = [question_set objectForKey:@"questions"];
     NSDate *createDate = [question_set objectForKey:@"create_timestamp"];
     NSDate *modifyDate = [question_set objectForKey:@"modify_timestamp"];
@@ -448,15 +450,15 @@
     }
     
     if (!qnSet) {
-        return [self insertNewObjectWithSetID:set_id name:name author:author createDate:createDate modifyDate:modifyDate questions:questions];
+        return [self insertNewObjectWithSetID:set_id name:name author:author createDate:createDate modifyDate:modifyDate questionType:questionType questions:questions];
     } else
     {
-        return [self _assignValuesToQuestionSetAndSave:qnSet withContext:self.managedObjectContext SetID:set_id name:name author:author createDate:createDate modifyDate:modifyDate questions:questions];
+        return [self _assignValuesToQuestionSetAndSave:qnSet withContext:self.managedObjectContext SetID:set_id name:name author:author createDate:createDate modifyDate:modifyDate questionType:questionType questions:questions];
     }
 
 }
 
-- (BOOL)_assignValuesToQuestionSetAndSave:(QuestionSet*)set withContext:(NSManagedObjectContext*)context SetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questions:(NSArray*)questions
+- (BOOL)_assignValuesToQuestionSetAndSave:(QuestionSet*)set withContext:(NSManagedObjectContext*)context SetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questionType:(NSNumber*)questionType questions:(NSArray*)questions
 {
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
@@ -465,6 +467,7 @@
     [set setValueIfNotNil:set_id forKey:@"set_id"];
     [set setValueIfNotNil:name forKey:@"name"];
     [set setValueIfNotNil:author forKey:@"author"];
+    [set setValueIfNotNil:questionType forKey:@"question_type"];
     if (questions) {
         for (Question *question in questions) {
             question.belongs_to = set;
@@ -487,20 +490,20 @@
     return YES;
 }
 
-- (BOOL)insertNewObjectWithSetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questions:(NSArray*)questions
+- (BOOL)insertNewObjectWithSetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questionType:(NSNumber*)questionType questions:(NSArray*)questions
 {
     // Create a new instance of the entity managed by the fetched results controller.
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
     QuestionSet *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
     
-    return [self _assignValuesToQuestionSetAndSave:newManagedObject withContext:context SetID:set_id name:name author:author createDate:create_date modifyDate:modifyDate questions:questions];
+    return [self _assignValuesToQuestionSetAndSave:newManagedObject withContext:context SetID:set_id name:name author:author createDate:create_date modifyDate:modifyDate questionType:questionType questions:questions];
 }
 
 - (BOOL)insertNewObject
 {
     NSString *uniqueID = [NSString stringWithFormat:@"user_%@_on_%d", [OpenUDID value], [[NSDate date] timeIntervalSinceReferenceDate]];
-    return [self insertNewObjectWithSetID:uniqueID name:@"我的题库" author:@"" createDate:[NSDate date] modifyDate:[NSDate date] questions:nil];
+    return [self insertNewObjectWithSetID:uniqueID name:@"我的题库" author:@"" createDate:[NSDate date] modifyDate:[NSDate date] questionType:[NSNumber numberWithInt:kUnknownQuestionType] questions:nil];
 }
 
 #pragma mark - NSNotifications

@@ -122,7 +122,8 @@
 - (void)accessGranted
 {
         _topTitle.text = @"扫描成功！";
-        [self performSelector:@selector(pushToQuestionSet) withObject:nil afterDelay:1.0f];
+//        [self performSelector:@selector(pushToQuestionSet) withObject:nil afterDelay:1.0f];
+    [self pushToQuestionSet];
 }
 
 - (void)accessDenied
@@ -144,7 +145,8 @@
     if (isAdult) {
         _allowAccess = YES;
         _topTitle.text = @"扫描中...请不要移动手指";
-        [self performSelector:@selector(accessGranted) withObject:nil afterDelay:0.6f];
+//        [self performSelector:@selector(accessGranted) withObject:nil afterDelay:0.6f];
+        [self accessGranted];
     } else
     {
         _allowAccess = NO;

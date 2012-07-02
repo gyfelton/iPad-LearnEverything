@@ -21,8 +21,6 @@
     if (self) {
         // Initialization code
         
-        [self setBackgroundImage:[UIImage imageNamed:@"green1"] forState:UIControlStateSelected];
-        
         //Put a check mark for now
         checkmark = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark"]];
         checkmark.contentMode = UIViewContentModeScaleAspectFit;
@@ -43,6 +41,8 @@
         _cardBack.image = [UIImage imageNamed:@"card_back"];
         [self addSubview:_cardBack];
         _cardBack.hidden = YES;
+        
+//        [self setBackgroundImage:[UIImage imageNamed:@"wood_bg"] forState:UIControlStateNormal];
     }
     return self;
 }

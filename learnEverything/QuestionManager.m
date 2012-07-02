@@ -80,14 +80,19 @@
     UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 180, 110)]; 
     lbl.center = aCard.center;
     lbl.layer.borderWidth = 3.0f;
-    lbl.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-    lbl.layer.cornerRadius = 5.0f;
+    lbl.layer.borderColor = [[UIColor orangeColor] CGColor];
+    lbl.layer.cornerRadius = 10.0f;
     lbl.font = [UIFont boldSystemFontOfSize:40];
     lbl.text = toShow;
     lbl.textAlignment = UITextAlignmentCenter;
     lbl.backgroundColor = [UIColor clearColor];
+    
+    UIImageView *bg = [[UIImageView alloc] initWithFrame:lbl.frame];
+    bg.image = [UIImage imageNamed:@"card_bg_1"];
     [aCard addSubview:lbl];
     [aCard sendSubviewToBack:lbl];
+    [aCard addSubview:bg];
+    [aCard sendSubviewToBack:bg];
     
     [aCard addTarget:self action:@selector(onUnitClicked:) forControlEvents:UIControlEventTouchUpInside];
     return aCard;

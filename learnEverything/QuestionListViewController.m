@@ -7,19 +7,24 @@
 //
 
 #import "QuestionListViewController.h"
+#import "QuestionType.h"
 #import "Question.h"
 
-@implementation QuestionCell
+@implementation QuestionCellType0
 @synthesize ansTxtField, questionNumber,questionTxtField;
+@end
 
+@implementation QuestionCellType1
+@synthesize ansImageBtn, questionNumber, questionTxtField;
 @end
 
 @interface QuestionListViewController (Private) 
-- (void)configureCell:(QuestionCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+- (void)configureCellType0:(QuestionCellType0 *)cell atIndexPath:(NSIndexPath *)indexPath;
+- (void)configureCellType1:(QuestionCellType1 *)cell atIndexPath:(NSIndexPath *)indexPath;
 @end
 
 @implementation QuestionListViewController
-@synthesize questionCell, questionCellNib;
+@synthesize questionCellType0, questionCellType1, questionCellNib;
 @synthesize managedObjectContext;
 
 - (id)initWithManagedContext:(NSManagedObjectContext*)context andQuestionSet:(QuestionSet *)qs
@@ -68,12 +73,36 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyBoardHeightChange:) name:UIKeyboardDidShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyBoardHeightChange:) name:UIKeyboardDidHideNotification object:nil];
     }
+    
+    //Hide table if quesition type is unknown
+    if ([_questionSet.question_type intValue] == kUnknownQuestionType) {
+        _questionsTableView.hidden = YES;
+        _chooseQnTypeContainer.frame = _questionsTableView.frame;
+        [self.view addSubview:_chooseQnTypeContainer];
+        
+        [_chooseTxtPlusTxt addTarget:self action:@selector(onChooseQuestionTypeClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [_chooseTxtPlusPic addTarget:self action:@selector(onChooseQuestionTypeClicked:) forControlEvents:UIControlEventTouchUpInside];
+    } else
+    {
+        if ([_questionSet.question_type intValue] == kTxtPlusTxt) {
+            [_questionTypeIndiciator setTitle:@"文字＋文字" forState:UIControlStateNormal];
+        } else
+        {
+            [_questionTypeIndiciator setTitle:@"文字＋图片" forState:UIControlStateNormal];
+        }
+    }
+    
+    [self.navigationController setNavigationBarHidden:NO];
 }
 
 - (void)viewDidUnload
 {
     _table_header_view = nil;
-    _questionList = nil;
+    _questionsTableView = nil;
+    _chooseQnTypeContainer = nil;
+    _chooseTxtPlusTxt = nil;
+    _chooseTxtPlusPic = nil;
+    _questionTypeIndiciator = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -83,6 +112,23 @@
 {
     // Return YES for supported orientations
 	return LANDSCAPE_ORIENTATION;
+}
+
+#pragma mark - UITableView Delegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch ([_questionSet.question_type intValue]) {
+        case kUnknownQuestionType:
+        case kTxtPlusTxt:   
+            return 82;
+            break;
+        case kTxtPlusPic:
+            return 120;
+            break;
+        default:
+            break;
+    }
+    return 44;
 }
 
 #pragma mark - UITableView DataSource
@@ -108,24 +154,44 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *questionCellReuseID = @"questionCellReuseID";
-    QuestionCell *cell = [tableView dequeueReusableCellWithIdentifier:questionCellReuseID];
+    if ([_questionSet.question_type intValue] == kTxtPlusTxt || [_questionSet.question_type intValue] == kUnknownQuestionType) {
+        static NSString *questionCellType0ReuseID = @"questionCellType0ReuseID";
+        QuestionCellType0 *cell = [tableView dequeueReusableCellWithIdentifier:questionCellType0ReuseID];
+        if (!cell) {
+            [self.questionCellNib instantiateWithOwner:self options:nil];  
+            cell = questionCellType0;  
+            self.questionCellType0 = nil;  
+        }
+        cell.ansTxtField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        cell.questionTxtField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        
+        cell.questionTxtField.delegate = self;
+        cell.questionTxtField.tag = QUESTION_TXT_TAG;
+        cell.ansTxtField.tag = ANS_TXT_TAG;
+        cell.ansTxtField.delegate = self;
+        
+        [self configureCellType0:cell atIndexPath:indexPath];
+        
+        return cell;
+    } else
+    {
+    static NSString *questionCellType1ReuseID = @"questionCellType1ReuseID";
+    QuestionCellType1 *cell = [tableView dequeueReusableCellWithIdentifier:questionCellType1ReuseID];
     if (!cell) {
         [self.questionCellNib instantiateWithOwner:self options:nil];  
-        cell = questionCell;  
-        self.questionCell = nil;  
+        cell = questionCellType1;  
+        self.questionCellType1 = nil;  
     }
-    cell.ansTxtField.clearButtonMode = UITextFieldViewModeWhileEditing;
     cell.questionTxtField.clearButtonMode = UITextFieldViewModeWhileEditing;
     
     cell.questionTxtField.delegate = self;
     cell.questionTxtField.tag = QUESTION_TXT_TAG;
-    cell.ansTxtField.tag = ANS_TXT_TAG;
-    cell.ansTxtField.delegate = self;
+    cell.ansImageBtn.tag = ANS_IMG_TAG;
     
-    [self configureCell:cell atIndexPath:indexPath];
+    [self configureCellType1:cell atIndexPath:indexPath];
     
     return cell;
+    }
 }
 
 /*
@@ -225,7 +291,7 @@
 }
 */
 
-- (void)configureCell:(QuestionCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)configureCellType0:(QuestionCellType0 *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     cell.questionNumber.text = [NSString stringWithFormat:@"%d.", indexPath.row+1];
     Question *managedObject = [_questions objectAtIndex:indexPath.row];
@@ -241,6 +307,21 @@
     }
 }
 
+- (void)configureCellType1:(QuestionCellType1 *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    cell.questionNumber.text = [NSString stringWithFormat:@"%d.", indexPath.row+1];
+    Question *managedObject = [_questions objectAtIndex:indexPath.row];
+    
+    NSLog(@"set_id %@", managedObject.belongs_to.set_id);
+    if ([managedObject.is_initial_value boolValue]) {
+        cell.questionTxtField.placeholder = managedObject.question_in_text;
+        //TODO give placeholder for image
+    } else
+    {
+        cell.questionTxtField.text = managedObject.question_in_text;
+        //TODO assign image to answer image
+    }
+}
 /*
  // Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed. 
  
@@ -261,7 +342,7 @@
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
     [question setValue:[NSDate date] forKey:@"create_timestamp"];
     //set default value here
-    NSInteger numOfRow = [_questionList numberOfRowsInSection:0];
+    NSInteger numOfRow = [_questionsTableView numberOfRowsInSection:0];
     question.question_in_text = [NSString stringWithFormat:@"1 + %d = ?", numOfRow+1];
     question.answer_in_text = [NSString stringWithFormat:@"%d", numOfRow+2];
     question.is_initial_value = [NSNumber numberWithBool:YES];
@@ -280,7 +361,7 @@
     } else
     {
         //Animate the insertion
-        [_questionList insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[_questions count] inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [_questionsTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[_questions count] inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 
@@ -297,7 +378,7 @@
 {
     id cell = textField.superview.superview;
     if ([cell isKindOfClass:[UITableViewCell class]]) {
-        _indexPathForEditingTextField = [_questionList indexPathForCell:cell];
+        _indexPathForEditingTextField = [_questionsTableView indexPathForCell:cell];
     } else
     {
         
@@ -336,14 +417,33 @@
     CGRect realKeyboardFrame = [self.view convertRect:keyboardFrame toView:nil];
     //CGRect keyBoardRect = keyHeightValues 
     //TODO here we only take care of lanscape mode, need to consider portrait mode or other types of keyboard if possible
-    _questionList.contentInset = UIEdgeInsetsMake(0, 0, realKeyboardFrame.origin.y>=0? realKeyboardFrame.size.height : 0, 0);
+    _questionsTableView.contentInset = UIEdgeInsetsMake(0, 0, realKeyboardFrame.origin.y>=0? realKeyboardFrame.size.height : 0, 0);
     
     if (_indexPathForEditingTextField) {
-        [_questionList scrollRectToVisible:[_questionList rectForRowAtIndexPath:_indexPathForEditingTextField] animated:YES];
+        [_questionsTableView scrollRectToVisible:[_questionsTableView rectForRowAtIndexPath:_indexPathForEditingTextField] animated:YES];
     }
 }
 
 #pragma mark - IBActions
+- (void)onChooseQuestionTypeClicked:(UIButton*)btn
+{
+    if (btn == _chooseTxtPlusTxt) {
+        [_chooseQnTypeContainer removeFromSuperview];
+        _questionSet.question_type = [NSNumber numberWithInt:kTxtPlusTxt];
+        _questionsTableView.hidden = NO;
+        [_questionsTableView reloadData];
+        [_questionTypeIndiciator setTitle:@"文字＋文字" forState:UIControlStateNormal];
+    } else
+    {
+        //Txt Plus Pic
+        [_chooseQnTypeContainer removeFromSuperview];
+        _questionSet.question_type = [NSNumber numberWithInt:kTxtPlusPic];
+        _questionsTableView.hidden = NO;
+        [_questionsTableView reloadData];
+        [_questionTypeIndiciator setTitle:@"文字＋图片" forState:UIControlStateNormal];
+    }
+}
+
 - (IBAction)onShareQuestionSetClicked:(id)sender {
     if ([MFMailComposeViewController canSendMail]) {
         _mailComposeVC = [[MFMailComposeViewController alloc] init];
@@ -359,6 +459,10 @@
     {
         //TODO
     }    
+}
+
+- (IBAction)onBackButtonClicked:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - MFMailCompose Delegate

@@ -1,6 +1,7 @@
 {
     "name" : "一年级英语",
     "author" : "system",
+    "question_type" : "0",
     "questions" :  
                 [
                 {

@@ -44,10 +44,10 @@
     [super viewDidLoad];
 //    self.view.backgroundColor = [UIColor clearColor];
     // Do any additional setup after loading the view from its nib.
-    _singleButton.titleLabel.font = [UIFont regularChineseFontWithSize:33];
+    _singleButton.titleLabel.font = [UIFont regularChineseFontWithSize:35];
     _singleButton.titleLabel.textColor = [UIColor blackColor];
 
-    _dualButton.titleLabel.font = [UIFont regularChineseFontWithSize:33];
+    _dualButton.titleLabel.font = [UIFont regularChineseFontWithSize:35];
     _dualButton.titleLabel.textColor = [UIColor blackColor];
     
     _editQuestionSetButton.titleLabel.font = [UIFont regularChineseFontWithSize:21];
@@ -77,7 +77,7 @@
     animation.type = @"pageCurl";
     animation.subtype = @"fromRight";
     animation.fillMode = kCAFillModeForwards;
-    animation.endProgress = 0.18f;
+    animation.endProgress = 0.185f;
     
     animation.removedOnCompletion = NO;
     

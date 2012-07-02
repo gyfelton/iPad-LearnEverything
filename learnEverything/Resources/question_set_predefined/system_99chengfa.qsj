@@ -1,6 +1,7 @@
 {
     "name" : "九九乘法表",
     "author" : "system",
+    "question_type" : "0",
     "questions" :   
                 [
                 {

@@ -106,6 +106,19 @@
     thesoundFilePath = [[NSBundle mainBundle] pathForResource:@"wrongAnswer" ofType:@"mp3"];
     thesoundURL = (__bridge CFURLRef) [NSURL fileURLWithPath:thesoundFilePath];
     AudioServicesCreateSystemSoundID(thesoundURL, &_wrongAnswerSound);
+    
+    if (!self.audioPlayer) {
+        NSError *error;
+        NSURL *url = [[NSURL alloc] initFileURLWithPath:[[NSBundle mainBundle] pathForResource:@"xj" ofType:@"mp3"]];
+        self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+        if (![self.audioPlayer prepareToPlay]) {
+            //handle error for failure here
+            //            [self showErrorMsg];
+            NSLog(@"Cannot play music!!!reason: %@", error.debugDescription);
+        }
+    }
+    [self.audioPlayer setDelegate:self];
+    self.audioPlayer.volume = 0.6f; //Because it's too loud
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -165,18 +178,6 @@
 
 - (void)playBackgroundMusic
 {
-    if (!self.audioPlayer) {
-        NSError *error;
-        NSURL *url = [[NSURL alloc] initFileURLWithPath:[[NSBundle mainBundle] pathForResource:@"xj" ofType:@"mp3"]];
-        self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
-        if (![self.audioPlayer prepareToPlay]) {
-            //handle error for failure here
-//            [self showErrorMsg];
-            NSLog(@"Cannot play music!!!reason: %@", error.debugDescription);
-        }
-    }
-    [self.audioPlayer setDelegate:self];
-    self.audioPlayer.volume = 0.6f; //Because it's too loud
 	[self.audioPlayer play];
 }
 

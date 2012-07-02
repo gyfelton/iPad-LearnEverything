@@ -70,6 +70,7 @@
 - (void)startMusicAndShowCountDown
 {
     [super playBackgroundMusic];
+    [_animationVC viewDidAppear:NO];
     [self showCountDown:[NSNumber numberWithInt:3]];
 }
 
@@ -84,6 +85,7 @@
     
     _grid_view = [[NonScrollableGridView alloc] initWithFrame:_grid_view_place_holder.frame];
     _grid_view.dataSource = self;
+    _grid_view.backgroundColor = [UIColor clearColor];
     
     [self.view insertSubview:_grid_view aboveSubview:_grid_view_place_holder];
     
@@ -97,6 +99,9 @@
     _questionManager.isFlipCards = NO;//Flip cards is not a good idea for now
     
     [self reinitGame];
+    
+    _animationVC = [[AnimationViewController alloc] initWithNibName:nil bundle:nil];
+    [_animationStageView addSubview:_animationVC.view];
 }
 
 - (void)dismissCountdownAndStartGame
@@ -118,6 +123,7 @@
     _questionList = nil;
     _questionManager = nil;
     _progressBar = nil;
+    _animationStageView = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -131,7 +137,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
     [self startMusicAndShowCountDown];
 }
 
@@ -190,7 +195,7 @@
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          CGFloat scale = 0.2f;
-                         star.frame = CGRectMake(20, 80, star.frame.size.width*scale, star.frame.size.height*scale);
+                         star.frame = CGRectMake(65, 133, star.frame.size.width*scale, star.frame.size.height*scale);
                          //CGAffineTransform movement = CGAffineTransformMakeTranslation(/scale, (80 - star.frame.origin.y)/scale);
                          //CGAffineTransform shrinkDown = CGAffineTransformMakeScale(scale, scale);
                          //star.transform = CGAffineTransformConcat(movement, shrinkDown);
@@ -203,7 +208,8 @@
                              [star removeFromSuperview];
                          }];
                           
-                         _progressBar.progress +=0.025f;
+//                         _progressBar.progress +=0.025f;
+                         _animationVC.score += 0.025f;
                          
                      }];
 }
@@ -214,7 +220,7 @@
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          CGFloat scale = 0.2f;
-                         flame.frame = CGRectMake(920, 80, flame.frame.size.width*scale, flame.frame.size.height*scale);
+                         flame.frame = CGRectMake(930, 130, flame.frame.size.width*scale, flame.frame.size.height*scale);
                          //CGAffineTransform movement = CGAffineTransformMakeTranslation(/scale, (80 - star.frame.origin.y)/scale);
                          //CGAffineTransform shrinkDown = CGAffineTransformMakeScale(scale, scale);
                          //star.transform = CGAffineTransformConcat(movement, shrinkDown);
@@ -226,7 +232,8 @@
                              [flame removeFromSuperview];
                          }];
                          
-                         _progressBar.progress -=0.025f;
+//                         _progressBar.progress -=0.025f;
+                         _animationVC.score -= 0.025f;
                          
                      }];
 }
