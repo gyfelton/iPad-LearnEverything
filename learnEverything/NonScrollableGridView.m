@@ -152,7 +152,7 @@
             delay = 0.1f + ip.column/self.numberOfColumns * 0.1f;
             [UIView animateWithDuration:0.4f 
                                   delay:delay
-                                options:UIViewAnimationOptionAllowAnimatedContent 
+                                options:UIViewAnimationOptionAllowAnimatedContent+UIViewAnimationOptionAllowUserInteraction
                              animations:^(){
                                  view.frame = CGRectOffset(view.frame, 0, -1*self.frame.size.height);
                              }

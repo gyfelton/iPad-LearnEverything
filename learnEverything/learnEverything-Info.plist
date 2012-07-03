@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>勇者斗恶龙</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -47,6 +47,7 @@
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
+		<string>armv6</string>
 		<string>armv7</string>
 	</array>
 	<key>UIStatusBarHidden</key>

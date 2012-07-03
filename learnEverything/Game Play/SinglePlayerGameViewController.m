@@ -203,7 +203,7 @@
 - (void)_animateStarMovement:(UIView*)star
 {
     [UIView animateWithDuration:0.6f delay:0.1f 
-                        options:UIViewAnimationOptionCurveEaseInOut
+                        options:UIViewAnimationOptionCurveEaseInOut + UIViewAnimationOptionAllowUserInteraction
                      animations:^{
                          CGFloat scale = 0.2f;
                          star.frame = CGRectMake(65, 133, star.frame.size.width*scale, star.frame.size.height*scale);
@@ -228,7 +228,7 @@
 - (void)_animateFlameMovement:(UIView*)flame
 {
     [UIView animateWithDuration:0.6f delay:0.1f 
-                        options:UIViewAnimationOptionCurveEaseInOut
+                        options:UIViewAnimationOptionCurveEaseInOut + UIViewAnimationOptionAllowUserInteraction
                      animations:^{
                          CGFloat scale = 0.2f;
                          flame.frame = CGRectMake(930, 130, flame.frame.size.width*scale, flame.frame.size.height*scale);
@@ -237,7 +237,9 @@
                          //star.transform = CGAffineTransformConcat(movement, shrinkDown);
                      } 
                      completion:^(BOOL finished) {
-                         [UIView animateWithDuration:0.2f animations:^{
+                         [UIView animateWithDuration:0.2f delay:0.0f 
+                                             options:UIViewAnimationOptionAllowUserInteraction
+                                          animations:^{
                              //                             star.transform = CGAffineTransformMakeScale(0.1f, 0.1f);
                          } completion:^(BOOL finished) {
                              [flame removeFromSuperview];
@@ -253,6 +255,8 @@
 {
     star.transform = CGAffineTransformMakeScale(0.01, 0.01);
     [UIView animateWithDuration:0.1f 
+                          delay:0.0f 
+                        options:UIViewAnimationOptionAllowUserInteraction
                      animations:^(){
                          star.transform = CGAffineTransformIdentity;
     }
@@ -266,6 +270,8 @@
 {
     flame.transform = CGAffineTransformMakeScale(0.01, 0.01);
     [UIView animateWithDuration:0.1f 
+                          delay:0.0f 
+                        options:UIViewAnimationOptionAllowUserInteraction
                      animations:^(){
                          flame.transform = CGAffineTransformIdentity;
                      }

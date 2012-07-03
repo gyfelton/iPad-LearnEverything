@@ -52,7 +52,7 @@
     if (!_isShowingCardBack) {
         [UIView transitionWithView:self 
                           duration:duration
-                           options:UIViewAnimationOptionTransitionFlipFromRight 
+                           options:UIViewAnimationOptionTransitionFlipFromRight + UIViewAnimationOptionAllowUserInteraction
                         animations:^(){
                             _cardBack.hidden = NO;
                             _isShowingCardBack = YES;
@@ -62,7 +62,7 @@
     {
         [UIView transitionWithView:self 
                           duration:duration
-                           options:UIViewAnimationOptionTransitionFlipFromLeft 
+                           options:UIViewAnimationOptionTransitionFlipFromLeft + UIViewAnimationOptionAllowUserInteraction
                         animations:^(){
                             _cardBack.hidden = YES;
                             _isShowingCardBack = NO;

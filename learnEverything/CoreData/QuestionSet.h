@@ -22,6 +22,7 @@
 @property (nonatomic, retain) NSString * set_id;
 @property (nonatomic, retain) NSData * cover_data;
 @property (nonatomic, retain) NSSet *questions;
+
 @end
 
 @interface QuestionSet (CoreDataGeneratedAccessors)

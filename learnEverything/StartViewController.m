@@ -53,8 +53,6 @@
     _editQuestionSetButton.titleLabel.font = [UIFont regularChineseFontWithSize:21];
     _editQuestionSetButton.titleLabel.textColor = [UIColor blackColor];
     
-    _singleButton.hidden = YES;
-    _dualButton.hidden = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -71,7 +69,7 @@
     
     // Curl the image up or down
     CATransition *animation = [CATransition animation];
-    [animation setDuration:1.5];
+    [animation setDuration:0.8f];
     [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
     animation.delegate = self;
     animation.type = @"pageCurl";
@@ -91,7 +89,7 @@
 {
     [UIView animateWithDuration:1.3f 
                           delay:0.0f 
-                        options:nil
+                        options:UIViewAnimationOptionAllowUserInteraction
                      animations:^{
                          _mainTitle.alpha = 1.0f;
                      } completion:^(BOOL finished) {
@@ -105,7 +103,7 @@
 {
     [UIView animateWithDuration:1.3f 
                           delay:0.0f 
-                        options:nil
+                        options:UIViewAnimationOptionAllowUserInteraction
                      animations:^{
         _mainTitle.alpha = 0.3f;
     } completion:^(BOOL finished) {
@@ -118,16 +116,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    
-    if (_singleButton.hidden || _dualButton.hidden) {
-        [UIView animateWithDuration:1.3f animations:^{
-            _singleButton.hidden = NO;
-            _dualButton.hidden = NO;
-        } completion:^(BOOL finished) {
-            
-        }];
-    }
     
     [self performSelector:@selector(_animateCurl) withObject:nil afterDelay:0.2f];
     [self _breathMainTitleFade];

@@ -68,7 +68,7 @@
 
 - (void)animateScanLightDown
 {
-    [UIView animateWithDuration:2.0f animations:^{
+    [UIView animateWithDuration:2.0f delay:0.0f options:UIViewAnimationOptionAllowUserInteraction animations:^{
         _scanImage.frame = CGRectOffset(_scanImage.frame, 0, 194-22);
     } completion:^(BOOL finished) {
         [self animateScanLightUp];
@@ -77,7 +77,7 @@
 
 - (void)animateScanLightUp
 {
-    [UIView animateWithDuration:2.0f animations:^{
+    [UIView animateWithDuration:2.0f delay:0.0f options:UIViewAnimationOptionAllowUserInteraction  animations:^{
         _scanImage.frame = CGRectOffset(_scanImage.frame, 0, -194+22);
     } 
         completion:^(BOOL finished) {

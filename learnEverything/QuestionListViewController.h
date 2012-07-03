@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "QuestionSet.h"
-#import "PhotoEditingViewController.h"
-#import "ImageSearchWebViewController.h"
 
 @interface QuestionCellType0 : UITableViewCell {
 }
@@ -17,7 +15,8 @@
 @property (nonatomic, strong) IBOutlet UILabel *questionNumber;
 @property (nonatomic, strong) IBOutlet UITextField *questionTxtField;
 @property (nonatomic, strong) IBOutlet UITextField *ansTxtField;
-
+@property (nonatomic, strong) IBOutlet UIImageView *notSelectedView;
+@property (nonatomic, strong) IBOutlet UIImageView *selectedView;
 @end
 
 @interface QuestionCellType1 : UITableViewCell {
@@ -26,16 +25,20 @@
 @property (nonatomic, strong) IBOutlet UILabel *questionNumber;
 @property (nonatomic, strong) IBOutlet UITextField *questionTxtField;
 @property (nonatomic, strong) IBOutlet UIButton *ansImageBtn;
-
+@property (nonatomic, strong) IBOutlet UIImageView *notSelectedView;
+@property (nonatomic, strong) IBOutlet UIImageView *selectedView;
 @end
 
 #import <MessageUI/MFMailComposeViewController.h>
+#import "PhotoEditingViewController.h"
+#import "ImageSearchWebViewController.h"
+#import "ShareOptionsTableViewController.h"
 
 #define QUESTION_TXT_TAG 3332
 #define ANS_TXT_TAG 3333
 #define ANS_IMG_TAG 3334
 
-@interface QuestionListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate, PhotoEditingViewControllerDelegate, UIPopoverControllerDelegate, UIAlertViewDelegate>
+@interface QuestionListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate, PhotoEditingViewControllerDelegate, UIPopoverControllerDelegate, UIAlertViewDelegate, ShareOptionsTableViewControllerDataSourceAndDelegate>
 {
     UIBarButtonItem *_addButton;
     
@@ -66,6 +69,9 @@
     UITextField *_activeTextField;
     
     UIAlertView *_setMailAlert;
+    
+    BOOL _shouldNotShareIncompleteQuestion;
+    BOOL _shouldNotShareUnCheckedQuestion;
 }
 
 @property (nonatomic, strong) UINib *questionCellNib; 

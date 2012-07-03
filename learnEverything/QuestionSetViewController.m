@@ -138,6 +138,7 @@
     // Do any additional setup after loading the view from its nib.
         
     _questionSetView = [[GMGridView alloc] initWithFrame:_questionSetView_placeholder.frame];
+    _questionSetView.clipsToBounds = YES;
     _questionSetView.style = GMGridViewStyleSwap;
     _questionSetView.itemSpacing = 41;
     _questionSetView.minEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20);

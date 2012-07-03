@@ -245,6 +245,8 @@
                     card.checkmark.transform = card1.checkmark.transform;
                     
                     [UIView animateWithDuration:0.2f 
+                                          delay:0.0f 
+                                        options:UIViewAnimationOptionAllowUserInteraction
                                      animations:^{
                                         card.checkmark.transform = card1.checkmark.transform = CGAffineTransformIdentity;
                                     }
@@ -273,6 +275,8 @@
                 card.wrongcross.transform = card1.checkmark.transform;
                 
                 [UIView animateWithDuration:0.3f 
+                                      delay:0.0f 
+                                    options:UIViewAnimationOptionAllowUserInteraction
                                  animations:^{
                                      card.wrongcross.transform = card1.wrongcross.transform = CGAffineTransformIdentity;
                                  }
@@ -283,7 +287,7 @@
                                      if ([questionManagerDelegate respondsToSelector:@selector(QuestionManager:answerWronglyWithCard1:card2:)]) {
                                          [questionManagerDelegate QuestionManager:self answerWronglyWithCard1:card card2:card1];
                                      }
-                                     [UIView animateWithDuration:0.0 delay:0.3f options:nil animations:^{
+                                     [UIView animateWithDuration:0.0 delay:0.3f options:UIViewAnimationOptionAllowUserInteraction animations:^{
                                          card.wrongcross.hidden = YES;
                                          card1.wrongcross.hidden = YES;
                                      } completion:^(BOOL finished) {

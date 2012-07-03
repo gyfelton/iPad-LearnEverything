@@ -7,6 +7,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import "FileIOSharedManager.h"
 #import "NSData+Base64.h"
 #import "QuestionListViewController.h"
 #import "QuestionType.h"
@@ -15,10 +16,12 @@
 
 @implementation QuestionCellType0
 @synthesize ansTxtField, questionNumber,questionTxtField;
+@synthesize notSelectedView, selectedView;
 @end
 
 @implementation QuestionCellType1
 @synthesize ansImageBtn, questionNumber, questionTxtField;
+@synthesize notSelectedView, selectedView;
 @end
 
 @interface QuestionListViewController (Private) 
@@ -65,6 +68,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    _shouldNotShareUnCheckedQuestion = YES;
+    _shouldNotShareIncompleteQuestion = YES;
+    
     //Init question cell from nib
     self.questionCellNib = [UINib nibWithNibName:@"QuestionCell" bundle:nil];
     
@@ -104,7 +110,6 @@
     [self.navigationController setNavigationBarHidden:NO];
     
     _set_name_txtfield.returnKeyType = _set_author_txtfield.returnKeyType = UIReturnKeyNext;
-    
 }
 
 - (void)viewDidUnload
@@ -148,14 +153,30 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if ([cell isKindOfClass:[QuestionCellType0 class]] || [cell isKindOfClass:[QuestionCellType1 class]]) {
         Question *qn = [self questionForIndexPath:indexPath];
-        if ([qn.is_active boolValue])
+        if ([cell isKindOfClass:[QuestionCellType0 class]])
         {
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            qn.is_active = [NSNumber numberWithBool:NO];
-        } else 
+            QuestionCellType0 *c = (QuestionCellType0*)cell;
+            if ([qn.is_active boolValue])
+            {
+                c.accessoryView = c.notSelectedView;
+                qn.is_active = [NSNumber numberWithBool:NO];
+            } else 
+            {
+                c.accessoryView = c.selectedView;
+                qn.is_active = [NSNumber numberWithBool:YES];
+            }
+        } else
         {
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            qn.is_active = [NSNumber numberWithBool:YES];
+            QuestionCellType1 *c = (QuestionCellType1*)cell;
+            if ([qn.is_active boolValue])
+            {
+                c.accessoryView = c.notSelectedView;
+                qn.is_active = [NSNumber numberWithBool:NO];
+            } else 
+            {
+                c.accessoryView = c.selectedView;
+                qn.is_active = [NSNumber numberWithBool:YES];
+            }
         }
     }
 }
@@ -344,10 +365,10 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     if (managedObject.is_active) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        cell.accessoryView = cell.selectedView;
     } else
     {
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.accessoryView = cell.notSelectedView;
     }
     
     cell.questionTxtField.returnKeyType = UIReturnKeyNext;
@@ -376,10 +397,10 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     if ([managedObject.is_active boolValue]) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        cell.accessoryView = cell.selectedView;
     } else
     {
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.accessoryView = cell.notSelectedView;
     }
     
     cell.questionTxtField.returnKeyType = UIReturnKeyNext;
@@ -566,30 +587,20 @@
 }
 
 - (IBAction)onShareQuestionSetClicked:(id)sender {
-    if ([MFMailComposeViewController canSendMail]) {
-        _mailComposeVC = [[MFMailComposeViewController alloc] init];
-        [_mailComposeVC setSubject:@"题库名"];
-        [_mailComposeVC setMessageBody:@"这是一个题库，请使用 “勇者斗恶龙” 打开\nApp Store下载点这里" isHTML:NO];
-        NSArray *array = [[NSBundle mainBundle] pathsForResourcesOfType:@"qsj" inDirectory:nil];
-        NSString *path = [array lastObject]; 
-        NSData *data = [NSData dataWithContentsOfFile:path];
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        NSData *imgData = UIImagePNGRepresentation(_cover_img_view.imageView.image);
-        [dict setValue:[imgData base64EncodingWithLineLength:0] forKey:@"cover_data"];
-        NSError *error = nil;
-        data = [dict JSONDataWithOptions:JKSerializeOptionNone error:&error];
-        [_mailComposeVC addAttachmentData:data mimeType:@"application/x-qsj" fileName:@"test.qsj"];
-        _mailComposeVC.mailComposeDelegate = self;
-        [self presentModalViewController:_mailComposeVC animated:YES];
-    } else
-    {
-        //TODO
+    if (![MFMailComposeViewController canSendMail]) {
         if (!_setMailAlert)
         {
             _setMailAlert = [[UIAlertView alloc] initWithTitle:@"还没有设置邮件帐户吧" message:@"要分享你的题库，你需要设置你的邮箱，点击“设置邮箱”进行设置" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"设置邮件帐户", nil];
         }
         [_setMailAlert show];
-    }    
+        return;
+    }
+    
+    ShareOptionsTableViewController *options = [[ShareOptionsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    options.customDelegate = self;
+    self.popoverController = [[UIPopoverController alloc] initWithContentViewController:options];
+    self.popoverController.popoverContentSize = CGSizeMake(320, 190);
+    [self.popoverController presentPopoverFromRect:((UIButton*)sender).frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
 }
 
 - (IBAction)onBackButtonClicked:(id)sender {
@@ -610,11 +621,19 @@
     [_activeTextField resignFirstResponder];
     QuestionCellType1 *cell = (QuestionCellType1*)answerBtn.superview.superview;
     if ([cell isKindOfClass:[QuestionCellType1 class]]) {
-        if (!_actionSheetForImageBtn) {
-            _actionSheetForImageBtn = [[UIActionSheet alloc] initWithTitle:@"请选择图片来源：" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"网络图片搜索", @"照相机", @"相册",nil];
+        if (_indexPathForEditingImage && [_indexPathForEditingImage compare:[_questionsTableView indexPathForCell:cell]] == NSOrderedSame && !self.popoverController.isPopoverVisible) {
+            //如果点的是相同的cell，把前面的VC再展示遍
+            [self.popoverController presentPopoverFromRect:answerBtn.frame inView:cell permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        } else
+        {
+            //Prepare for new popOver VC
+            self.popoverController = nil;
+            _indexPathForEditingImage = [_questionsTableView indexPathForCell:cell];
+            if (!_actionSheetForImageBtn) {
+                _actionSheetForImageBtn = [[UIActionSheet alloc] initWithTitle:@"请选择图片来源：" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"网络图片搜索", @"照相机", @"相册",nil];
+            }
+            [_actionSheetForImageBtn showFromRect:answerBtn.frame inView:cell animated:YES]; 
         }
-        [_actionSheetForImageBtn showFromRect:answerBtn.frame inView:cell animated:YES]; 
-        _indexPathForEditingImage = [_questionsTableView indexPathForCell:cell];
     }
 }
 
@@ -622,7 +641,6 @@
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     [_mailComposeVC dismissModalViewControllerAnimated:YES];
-    //TODO react according to mail send result?
 }
 
 #pragma mark - UIActionSheet Delegate
@@ -768,5 +786,49 @@
     }
 }
 
+#pragma mark - Share Option Delegate
+- (BOOL)isSwitchOnOnRow:(NSInteger)row
+{
+    if (row == 0) {
+        return _shouldNotShareIncompleteQuestion;
+    } else
+    {
+        return _shouldNotShareUnCheckedQuestion;
+    }
+}
+
+- (void)didToggleSwitchOnRow:(NSInteger)row isOn:(BOOL)on
+{
+    if (row == 0) {
+        _shouldNotShareIncompleteQuestion = on;
+    } else
+    {
+        _shouldNotShareUnCheckedQuestion = on;
+    }
+}
+
+- (void)didSelectCellOnIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section != 1) {
+        return;
+    }
+    
+    if ([MFMailComposeViewController canSendMail]) {
+        _mailComposeVC = [[MFMailComposeViewController alloc] init];
+        [_mailComposeVC setSubject:@"题库名"];
+        [_mailComposeVC setMessageBody:@"这是一个题库，请使用 “勇者斗恶龙” 打开\n\nApp Store下载点这里:" isHTML:NO];
+        
+        NSMutableDictionary *dict = [[FileIOSharedManager sharedManager] jsonCompatitableDictionaryFromQuestionSet:_questionSet filterInCompleteQuestion:_shouldNotShareIncompleteQuestion filterInActiveQuestions:_shouldNotShareUnCheckedQuestion];
+        
+        NSError *error = nil;
+        NSData *data = [dict JSONDataWithOptions:JKSerializeOptionNone error:&error];
+        
+        [_mailComposeVC addAttachmentData:data mimeType:@"application/x-qsj" fileName:@"test.qsj"];
+        _mailComposeVC.mailComposeDelegate = self;
+        [self presentModalViewController:_mailComposeVC animated:YES];
+    }
+    
+    [self.popoverController dismissPopoverAnimated:NO];
+}
 @end
 

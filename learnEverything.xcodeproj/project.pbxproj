@@ -26,6 +26,11 @@
 		FE3DF11A159BC220004924C2 /* RoundedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3DF119159BC21F004924C2 /* RoundedButton.m */; };
 		FE3DF11C159BC695004924C2 /* roundedButton.png in Resources */ = {isa = PBXBuildFile; fileRef = FE3DF11B159BC695004924C2 /* roundedButton.png */; };
 		FE3DF11E159BCDD4004924C2 /* back_button.png in Resources */ = {isa = PBXBuildFile; fileRef = FE3DF11D159BCDD4004924C2 /* back_button.png */; };
+		FE4F96B815A2D7ED0068897B /* IsSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = FE4F96B615A2D7ED0068897B /* IsSelected.png */; };
+		FE4F96B915A2D7ED0068897B /* NotSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = FE4F96B715A2D7ED0068897B /* NotSelected.png */; };
+		FE4F96BD15A2E3D20068897B /* ShareOptionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4F96BB15A2E3D10068897B /* ShareOptionsTableViewController.m */; };
+		FE4F96BE15A2E3D20068897B /* ShareOptionsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4F96BC15A2E3D10068897B /* ShareOptionsTableViewController.xib */; };
+		FE4F96C115A2EFA60068897B /* FileIOSharedManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4F96C015A2EFA50068897B /* FileIOSharedManager.m */; };
 		FE57F1AE1594493F00DD09E4 /* qn_set_cover_default.png in Resources */ = {isa = PBXBuildFile; fileRef = FE57F1AD1594493F00DD09E4 /* qn_set_cover_default.png */; };
 		FE57F1B2159449DE00DD09E4 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = FE57F1B1159449DE00DD09E4 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FE57F1B715944B5000DD09E4 /* system_99chengfa.qsj in Resources */ = {isa = PBXBuildFile; fileRef = FE57F1B615944B5000DD09E4 /* system_99chengfa.qsj */; };
@@ -168,6 +173,13 @@
 		FE3DF119159BC21F004924C2 /* RoundedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundedButton.m; sourceTree = "<group>"; };
 		FE3DF11B159BC695004924C2 /* roundedButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = roundedButton.png; sourceTree = "<group>"; };
 		FE3DF11D159BCDD4004924C2 /* back_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_button.png; sourceTree = "<group>"; };
+		FE4F96B615A2D7ED0068897B /* IsSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IsSelected.png; sourceTree = "<group>"; };
+		FE4F96B715A2D7ED0068897B /* NotSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotSelected.png; sourceTree = "<group>"; };
+		FE4F96BA15A2E3D10068897B /* ShareOptionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareOptionsTableViewController.h; sourceTree = "<group>"; };
+		FE4F96BB15A2E3D10068897B /* ShareOptionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareOptionsTableViewController.m; sourceTree = "<group>"; };
+		FE4F96BC15A2E3D10068897B /* ShareOptionsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareOptionsTableViewController.xib; sourceTree = "<group>"; };
+		FE4F96BF15A2EFA50068897B /* FileIOSharedManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileIOSharedManager.h; path = CoreData/FileIOSharedManager.h; sourceTree = "<group>"; };
+		FE4F96C015A2EFA50068897B /* FileIOSharedManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileIOSharedManager.m; path = CoreData/FileIOSharedManager.m; sourceTree = "<group>"; };
 		FE57F1AD1594493F00DD09E4 /* qn_set_cover_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qn_set_cover_default.png; sourceTree = "<group>"; };
 		FE57F1B0159449DE00DD09E4 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		FE57F1B1159449DE00DD09E4 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
@@ -480,6 +492,8 @@
 		FEDAEA7F1578A21100F2552F /* Learn Everything */ = {
 			isa = PBXGroup;
 			children = (
+				FE4F96BF15A2EFA50068897B /* FileIOSharedManager.h */,
+				FE4F96C015A2EFA50068897B /* FileIOSharedManager.m */,
 				FEDAEA881578A21100F2552F /* AppDelegate.h */,
 				FEDAEA891578A21200F2552F /* AppDelegate.m */,
 				FE82F8DC157CF3890081F81E /* NonScrollableGridView.h */,
@@ -495,6 +509,9 @@
 				FEEACE0615795FBD00698EBB /* QuestionListViewController.m */,
 				FEEACE0715795FBD00698EBB /* QuestionListViewController.xib */,
 				FEEACE0A1579C88300698EBB /* QuestionCell.xib */,
+				FE4F96BA15A2E3D10068897B /* ShareOptionsTableViewController.h */,
+				FE4F96BB15A2E3D10068897B /* ShareOptionsTableViewController.m */,
+				FE4F96BC15A2E3D10068897B /* ShareOptionsTableViewController.xib */,
 				FEFE560115936E6B002EBFD1 /* QuestionSetViewController.h */,
 				FEFE560215936E6B002EBFD1 /* QuestionSetViewController.m */,
 				FEFE560415936E89002EBFD1 /* QuestionSetViewController.xib */,
@@ -536,6 +553,8 @@
 		FEDAEA9A1578A31600F2552F /* images */ = {
 			isa = PBXGroup;
 			children = (
+				FE4F96B615A2D7ED0068897B /* IsSelected.png */,
+				FE4F96B715A2D7ED0068897B /* NotSelected.png */,
 				FEA44A7E159C7B4400DBD606 /* shield.png */,
 				FEA44A7C159C78ED00DBD606 /* card_bg_1.png */,
 				FEA44A7A159C755D00DBD606 /* wood_bg.png */,
@@ -792,6 +811,9 @@
 				FE89566615A198210068DBA2 /* PhotoEditingViewController_3To4Ratio.xib in Resources */,
 				FE89569915A29C1D0068DBA2 /* basic_english_with_pic.qsj in Resources */,
 				FE89569F15A2A02D0068DBA2 /* PhotoEditingViewController_3To2Ratio.xib in Resources */,
+				FE4F96B815A2D7ED0068897B /* IsSelected.png in Resources */,
+				FE4F96B915A2D7ED0068897B /* NotSelected.png in Resources */,
+				FE4F96BE15A2E3D20068897B /* ShareOptionsTableViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -838,6 +860,8 @@
 				FE89568C15A1A30E0068DBA2 /* QuestionSet.m in Sources */,
 				FE89568F15A1C6BD0068DBA2 /* NSData+Base64.m in Sources */,
 				FE89569715A299D80068DBA2 /* Question.m in Sources */,
+				FE4F96BD15A2E3D20068897B /* ShareOptionsTableViewController.m in Sources */,
+				FE4F96C115A2EFA60068897B /* FileIOSharedManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -878,8 +902,8 @@
 					"-all_load",
 					"-ObjC",
 				);
-				SDKROOT = iphoneos5.1;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SDKROOT = iphoneos5.0;
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -903,8 +927,8 @@
 					"-all_load",
 					"-ObjC",
 				);
-				SDKROOT = iphoneos5.1;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SDKROOT = iphoneos5.0;
+				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -912,12 +936,16 @@
 		FEDAEA971578A21200F2552F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					armv6,
+					armv7,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "learnEverything/learnEverything-Prefix.pch";
 				INFOPLIST_FILE = "learnEverything/learnEverything-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos5.1;
+				SDKROOT = iphoneos5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
@@ -926,12 +954,16 @@
 		FEDAEA981578A21200F2552F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					armv6,
+					armv7,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "learnEverything/learnEverything-Prefix.pch";
 				INFOPLIST_FILE = "learnEverything/learnEverything-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos5.1;
+				SDKROOT = iphoneos5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
