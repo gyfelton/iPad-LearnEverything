@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "StartViewController.h"
 
+@class QuestionSet;
 @class TwoPlayersGameViewController;
 @class SinglePlayerGameViewController;
 
@@ -27,7 +28,7 @@
 
 - (void)showStartScreenAnimated;
 
-- (void)prepareForSinglePlayerGame;
+- (void)prepareForSinglePlayerGameWithQuestionSet:(QuestionSet*)questionset;
 - (void)prepareForTwoPlayersGame;
 
 - (void)saveContext;

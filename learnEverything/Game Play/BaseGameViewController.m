@@ -14,7 +14,7 @@
 @synthesize isGameOnPause;
 @synthesize audioPlayer;
 
-- (NSMutableArray*)allQuestions
+- (NSMutableArray*)_questionsWithPredicate:(NSPredicate*)predicate
 {
     NSManagedObjectContext *moc = self.managedObjectContext;
     NSEntityDescription *entityDescription = [NSEntityDescription
@@ -23,7 +23,6 @@
     [request setEntity:entityDescription];
     
     // Set example predicate and sort orderings...
-    NSPredicate *predicate = [NSPredicate predicateWithValue:YES];
     [request setPredicate:predicate];
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
@@ -39,6 +38,26 @@
     }
     
     return [[NSMutableArray alloc] initWithArray:array];
+}
+
+- (NSMutableArray*)allQuestions
+{
+    return [self _questionsWithPredicate:[NSPredicate predicateWithValue:YES]];
+}
+
+- (NSMutableArray*)activeQuestionsFromQuestionSet
+{
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
+                                        initWithKey:@"create_timestamp" ascending:YES];
+    NSArray *questions = [_questionSet.questions sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    NSMutableArray *mutable = [NSMutableArray arrayWithArray:questions];
+    for (int i = 0; i< [mutable count]; i++) {
+        Question *qn = [mutable objectAtIndex:i];
+        if (![qn.is_active boolValue]) {
+            [mutable removeObject:qn];
+        }
+    }
+    return mutable;
 }
 
 - (IBAction)onMenuClicked:(id)sender {

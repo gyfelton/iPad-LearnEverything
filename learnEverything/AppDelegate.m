@@ -26,19 +26,10 @@
     [self.window.rootViewController presentModalViewController:_startVCNav animated:NO];
 }
 
-- (void)prepareForSinglePlayerGame
+- (void)prepareForSinglePlayerGameWithQuestionSet:(QuestionSet*)questionset
 {
     //Not designed for iPhone yet
-    if (false) { //([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        self.singlePlayerGameViewController = [[SinglePlayerGameViewController alloc] initWithNibName:@"SinglePlayerGameViewController_iPhone" bundle:nil];
-    } else {
-        //Only iPad for now
-        self.singlePlayerGameViewController = [[SinglePlayerGameViewController alloc] initWithNibName:@"SinglePlayerGameViewController_iPad" bundle:nil];
-    }
-    
-    self.singlePlayerGameViewController.managedObjectContext = [self managedObjectContext];
-    
-//    [self.singlePlayerGameViewController reinitGame];
+    self.singlePlayerGameViewController = [[SinglePlayerGameViewController alloc] initWithManagedContext:self.managedObjectContext questionSet:questionset];
     
     [self.baseNavigationController pushViewController:self.singlePlayerGameViewController animated:NO];
     [self.singlePlayerGameViewController.navigationController setNavigationBarHidden:YES];

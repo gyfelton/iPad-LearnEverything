@@ -17,6 +17,7 @@
     NSArray *_searchStringArray;
     UIWebView *_webView;
     MBProgressHUD *_hud;
+    SDWebImageDownloader *_imageDownloader;
 }
 - (id)initWithSearchStringArray:(NSArray*)array delegate:(id<UIImagePickerControllerDelegate>)delegate;
 

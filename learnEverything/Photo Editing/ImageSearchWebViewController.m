@@ -50,17 +50,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _webView = [[UIWebView alloc] initWithFrame:self.view.frame];
-    [self.view addSubview:_webView];
-    _webView.delegate = self;
     
     _hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:_hud];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    _webView = [[UIWebView alloc] initWithFrame:self.view.frame];
+    [self.view addSubview:_webView];
+    _webView.delegate = self;
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    [self.view bringSubviewToFront:_hud];
+    
     NSString *searchQuery = @"";
     
     for (NSString *q in _searchStringArray) {
@@ -76,12 +84,13 @@
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:compiledString]]];
 }
 
-- (void)viewDidUnload
+- (void)viewDidDisappear:(BOOL)animated
 {
-    [super viewDidUnload];
+    [super viewDidDisappear:animated];
     _webView.delegate = nil;
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    [_imageDownloader cancel];
+    _imageDownloader.delegate = nil;
+    _imageDownloader = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -100,7 +109,13 @@
         if ([str hasPrefix:@"UR"]) {
             imgURL = [str substringFromIndex:3];
             imgURL = [imgURL stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            [SDWebImageDownloader downloaderWithURL:[NSURL URLWithString:imgURL] delegate:self];
+            if (_imageDownloader)
+            {
+                [_imageDownloader cancel];
+                _imageDownloader.delegate = nil;
+                _imageDownloader = nil;
+            }
+            _imageDownloader = [SDWebImageDownloader downloaderWithURL:[NSURL URLWithString:imgURL] delegate:self];
             _hud.labelText = @"下载图片中...";
             [_hud show:YES];
             break;
@@ -128,7 +143,8 @@
 - (void)imageDownloader:(SDWebImageDownloader *)downloader didFinishWithImage:(UIImage *)image
 {
     NSMutableDictionary *infoDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:image, UIImagePickerControllerOriginalImage, nil];
-    [delegate imagePickerController:self didFinishPickingMediaWithInfo:infoDict]; //fake the callback
+    __unsafe_unretained id s = self;
+    [delegate imagePickerController:s didFinishPickingMediaWithInfo:infoDict]; //fake the callback
     [_hud hide:YES];
 }
 

@@ -62,8 +62,8 @@
     [self.view insertSubview:_grid_view_dark aboveSubview:_grid_view_dark_place_holder];
     [_grid_view_dark_place_holder removeFromSuperview];
     
-    _questionManager_light = [[QuestionManager alloc] initWithGridView:_grid_view_light questionList:_questionList];
-    _questionManager_dark = [[QuestionManager alloc] initWithGridView:_grid_view_dark questionList:_questionList];
+    _questionManager_light = [[QuestionManager alloc] initWithGridView:_grid_view_light questionList:_questionList questionType:[_questionSet.question_type intValue]];
+    _questionManager_dark = [[QuestionManager alloc] initWithGridView:_grid_view_dark questionList:_questionList questionType:[_questionSet.question_type intValue]];
     
     [self reinitGame];
     // Do any additional setup after loading the view from its nib.

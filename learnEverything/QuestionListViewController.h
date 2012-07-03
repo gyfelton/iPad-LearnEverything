@@ -35,7 +35,7 @@
 #define ANS_TXT_TAG 3333
 #define ANS_IMG_TAG 3334
 
-@interface QuestionListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate, PhotoEditingViewControllerDelegate>
+@interface QuestionListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate, PhotoEditingViewControllerDelegate, UIPopoverControllerDelegate, UIAlertViewDelegate>
 {
     UIBarButtonItem *_addButton;
     
@@ -63,6 +63,9 @@
     UIActionSheet *_actionSheetForCover;
     UIActionSheet *_actionSheetForImageBtn;
     UIActionSheet *_activeActionSheet;
+    UITextField *_activeTextField;
+    
+    UIAlertView *_setMailAlert;
 }
 
 @property (nonatomic, strong) UINib *questionCellNib; 

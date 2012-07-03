@@ -14,11 +14,13 @@
 
 @synthesize delegate;
 
-- (id)initWithImage:(UIImage*)image
+- (id)initWithImage:(UIImage*)image using3To4Ratio:(BOOL)is3To4
 {
-    self = [super initWithNibName:@"PhotoEditingViewController" bundle:nil];
+    
+    self = [super initWithNibName:is3To4? @"PhotoEditingViewController_3To4Ratio" : @"PhotoEditingViewController_3To2Ratio" bundle:nil];
     if (self) {
         // Custom initialization
+        _isUsing3To4Ratio = is3To4;
         _image = image;
         self.title = @"裁剪图片";
     }
@@ -121,8 +123,17 @@
 - (void)onDoneClicked:(id)sender
 {
     UIImage *croppedImage = [self getViewShot];
-    //execute cropping, here taking 360 as 540 don't give a nice height value for 3:4 ratio
-    CGRect imageCropRect = CGRectMake(upper_mask_view.frame.origin.x+upper_mask_view.frame.size.width, 0, 360, 480);
+    CGRect imageCropRect;
+    if (_isUsing3To4Ratio)
+    {
+        //execute cropping, here taking 360 as 540 for 3:4 ratio
+        imageCropRect = CGRectMake(upper_mask_view.frame.origin.x+upper_mask_view.frame.size.width, 0, 360, 480);
+    } else
+    {
+        //3:2 ratio, as 480 to 320
+        imageCropRect = CGRectMake(0, upper_mask_view.frame.origin.y+upper_mask_view.frame.size.height, 480, 320);
+    }
+
     CGImageRef imageRef = CGImageCreateWithImageInRect([croppedImage CGImage], imageCropRect);
     croppedImage = [UIImage imageWithCGImage:imageRef];
     

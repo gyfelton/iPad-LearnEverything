@@ -10,6 +10,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
 #import "Question.h"
+#import "QuestionSet.h"
 
 @interface BaseGameViewController : UIViewController <AVAudioPlayerDelegate>
 {
@@ -29,6 +30,8 @@
     SystemSoundID _correctSound;
     SystemSoundID _clickSound;
     SystemSoundID _wrongAnswerSound;
+    
+    QuestionSet *_questionSet;
 }
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
@@ -36,6 +39,7 @@
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer; //You have to retain the player to let it play!
 
 - (NSMutableArray*)allQuestions;
+- (NSMutableArray*)activeQuestionsFromQuestionSet;
 
 - (IBAction)onMenuClicked:(id)sender;
 

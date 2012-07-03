@@ -19,6 +19,7 @@
     NonScrollableGridView *_grid_view;
     
     NSMutableArray *_questionList;
+    
 //    NSMutableArray *_indexPathForQuestion;
 //    NSMutableArray *_indexPathForAnswer;
     
@@ -31,6 +32,6 @@
     
     AnimationViewController *_animationVC;
 }
-
+- (id)initWithManagedContext:(NSManagedObjectContext*)context questionSet:(QuestionSet*)questionSet;
 - (void)reinitGame;
 @end

@@ -16,15 +16,16 @@
 @synthesize questionList = _questionList;
 @synthesize questionManagerDelegate;
 
-- (id)initWithGridView:(NonScrollableGridView*)gv questionList:(NSMutableArray*)list
+- (id)initWithGridView:(NonScrollableGridView*)gv questionList:(NSMutableArray*)list questionType:(QuestionType)type
 {
     self = [super init];
     if (self) {
-        self.questionList = [[NSMutableArray alloc] initWithArray:list];
+        self.questionList = list;
         _grid_view = gv;
         _currentQuestionSetHead = -1;
         _currentQuestionSetTail = -1;
         _answeredCardIndexPaths = [[NSMutableArray alloc] init];
+        _questionType = type;
     }
     return self;
 }
@@ -39,8 +40,8 @@
     }
     
     BOOL hasChosen = NO;
-    NSString *toShow = nil;
-    
+    NSString *toShowText = nil;
+    UIImage *picToShow = nil;
     QuestionCard *aCard = [[QuestionCard alloc] initWithFrame:CGRectMake(0, 0, 200, 123)];
     
     GVIndexPath *indexPath = [GVIndexPath indexPathWithRow:rowIndex andColumn:columnIndex];
@@ -58,13 +59,20 @@
             hasChosen = YES;
             if (![qnHasShown isKindOfClass:[GVIndexPath class]]) {
                 [_indexPathForQuestion replaceObjectAtIndex:index withObject:indexPath];
-                toShow = qn.answer_in_text;
                 aCard.cardType = answer;
                 aCard.questionIndex = index;
+                
+                if (_questionType == kTxtPlusPic) {
+                    picToShow = [UIImage imageWithData:qn.answer_in_image];
+                } else
+                {
+                    //Txt Plus Txt
+                    toShowText = qn.answer_in_text;
+                }
             } else if (![ansHasShown isKindOfClass:[GVIndexPath class]])
             {
                 [_indexPathForAnswer replaceObjectAtIndex:index withObject:indexPath];
-                toShow = qn.question_in_text;
+                toShowText = qn.question_in_text;
                 aCard.cardType = question;
                 aCard.questionIndex = index;
             } else
@@ -77,22 +85,31 @@
     
     aCard.associatedIndexPath = indexPath;
     
-    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 180, 110)]; 
-    lbl.center = aCard.center;
-    lbl.layer.borderWidth = 3.0f;
-    lbl.layer.borderColor = [[UIColor orangeColor] CGColor];
-    lbl.layer.cornerRadius = 10.0f;
-    lbl.font = [UIFont boldSystemFontOfSize:40];
-    lbl.text = toShow;
-    lbl.textAlignment = UITextAlignmentCenter;
-    lbl.backgroundColor = [UIColor clearColor];
-    
-    UIImageView *bg = [[UIImageView alloc] initWithFrame:lbl.frame];
-    bg.image = [UIImage imageNamed:@"card_bg_1"];
-    [aCard addSubview:lbl];
-    [aCard sendSubviewToBack:lbl];
-    [aCard addSubview:bg];
-    [aCard sendSubviewToBack:bg];
+    if (_questionType == kTxtPlusPic && aCard.cardType == answer) {
+        UIImageView *imgView = [[UIImageView alloc] initWithFrame:aCard.frame];
+        imgView.contentMode = UIViewContentModeScaleAspectFit;
+        imgView.image = picToShow;
+        [aCard addSubview:imgView];
+        [aCard sendSubviewToBack:imgView];
+    } else {
+        //need to put txt
+        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 180, 110)]; 
+        lbl.center = aCard.center;
+        lbl.layer.borderWidth = 3.0f;
+        lbl.layer.borderColor = [[UIColor orangeColor] CGColor];
+        lbl.layer.cornerRadius = 10.0f;
+        lbl.font = [UIFont boldSystemFontOfSize:40];
+        lbl.text = toShowText;
+        lbl.textAlignment = UITextAlignmentCenter;
+        lbl.backgroundColor = [UIColor clearColor];
+        [aCard addSubview:lbl];
+        [aCard sendSubviewToBack:lbl];
+        
+        UIImageView *bg = [[UIImageView alloc] initWithFrame:lbl.frame];
+        bg.image = [UIImage imageNamed:@"card_bg_1"];
+        [aCard addSubview:bg];
+        [aCard sendSubviewToBack:bg];
+    }
     
     [aCard addTarget:self action:@selector(onUnitClicked:) forControlEvents:UIControlEventTouchUpInside];
     return aCard;

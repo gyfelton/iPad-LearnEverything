@@ -5,6 +5,8 @@
 //  Created by Yuanfeng on 12-06-02.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
+
+#import <QuartzCore/QuartzCore.h>
 #import "NSData+Base64.h"
 #import "QuestionListViewController.h"
 #import "QuestionType.h"
@@ -20,6 +22,8 @@
 @end
 
 @interface QuestionListViewController (Private) 
+- (Question*)questionForIndexPath:(NSIndexPath*)indexPath;
+- (void)onCellAnswerImageButtonClicked:(UIButton*)answerBtn;
 - (void)configureCellType0:(QuestionCellType0 *)cell atIndexPath:(NSIndexPath *)indexPath;
 - (void)configureCellType1:(QuestionCellType1 *)cell atIndexPath:(NSIndexPath *)indexPath;
 @end
@@ -98,6 +102,9 @@
     [_cover_img_view setImage:[UIImage imageWithData:_questionSet.cover_data] forState:UIControlStateNormal];
     
     [self.navigationController setNavigationBarHidden:NO];
+    
+    _set_name_txtfield.returnKeyType = _set_author_txtfield.returnKeyType = UIReturnKeyNext;
+    
 }
 
 - (void)viewDidUnload
@@ -134,6 +141,23 @@
             break;
     }
     return 44;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if ([cell isKindOfClass:[QuestionCellType0 class]] || [cell isKindOfClass:[QuestionCellType1 class]]) {
+        Question *qn = [self questionForIndexPath:indexPath];
+        if ([qn.is_active boolValue])
+        {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            qn.is_active = [NSNumber numberWithBool:NO];
+        } else 
+        {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            qn.is_active = [NSNumber numberWithBool:YES];
+        }
+    }
 }
 
 #pragma mark - UITableView DataSource
@@ -296,10 +320,16 @@
 }
 */
 
+- (Question*)questionForIndexPath:(NSIndexPath *)indexPath
+{
+    Question *managedObject = [_questions objectAtIndex:indexPath.row];
+    return managedObject;
+}
+
 - (void)configureCellType0:(QuestionCellType0 *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     cell.questionNumber.text = [NSString stringWithFormat:@"%d.", indexPath.row+1];
-    Question *managedObject = [_questions objectAtIndex:indexPath.row];
+    Question *managedObject = [self questionForIndexPath:indexPath];
     
     NSLog(@"set_id %@", managedObject.belongs_to.set_id);
     if ([managedObject.is_initial_value boolValue]) {
@@ -310,13 +340,25 @@
         cell.questionTxtField.text = managedObject.question_in_text;
         cell.ansTxtField.text = managedObject.answer_in_text;
     }
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    if (managedObject.is_active) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else
+    {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
+    cell.questionTxtField.returnKeyType = UIReturnKeyNext;
+    cell.ansTxtField.returnKeyType = UIReturnKeyDone;
 }
 
 //Txt + Pic
 - (void)configureCellType1:(QuestionCellType1 *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     cell.questionNumber.text = [NSString stringWithFormat:@"%d.", indexPath.row+1];
-    Question *managedObject = [_questions objectAtIndex:indexPath.row];
+    Question *managedObject = [self questionForIndexPath:indexPath];
     
     NSLog(@"set_id %@", managedObject.belongs_to.set_id);
     if ([managedObject.is_initial_value boolValue]) {
@@ -326,7 +368,21 @@
     {
         cell.questionTxtField.text = managedObject.question_in_text;
     }
-    [cell.ansImageBtn addTarget:self action:@selector(onCellAnswerImageButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.ansImageBtn setImage:[UIImage imageWithData:managedObject.answer_in_image] forState:UIControlStateNormal];
+    cell.ansImageBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    [cell.ansImageBtn addTarget:self action:@selector(onCellAnswerImageButtonClicked:) forControlEvents:UIControlEventTouchDown];
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    if ([managedObject.is_active boolValue]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else
+    {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
+    cell.questionTxtField.returnKeyType = UIReturnKeyNext;
 }
 
 /*
@@ -383,6 +439,7 @@
 #pragma mark - UITextField Delegate
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    _activeTextField = textField;
     id cell = textField.superview.superview;
     if ([cell isKindOfClass:[UITableViewCell class]]) {
         _indexPathForEditingTextField = [_questionsTableView indexPathForCell:cell];
@@ -401,7 +458,7 @@
     } else if (_indexPathForEditingTextField) {
         NSLog(@"did end editing %@", _indexPathForEditingTextField.description);
         
-        Question *question = [_questions objectAtIndex:_indexPathForEditingTextField.row];
+        Question *question = [self questionForIndexPath:_indexPathForEditingTextField];
         
         question.is_initial_value = [NSNumber numberWithBool:NO];
         
@@ -412,6 +469,53 @@
         }
         _indexPathForEditingTextField = nil;
     }
+}
+
+- (void)activateNextCellQuestionTextField:(NSIndexPath*)currentIndexPath
+                                           
+{
+    NSIndexPath *nextIndexPath = [NSIndexPath indexPathForRow:currentIndexPath.row+1 inSection:currentIndexPath.section];
+    UITableViewCell *cell = [_questionsTableView cellForRowAtIndexPath:nextIndexPath];
+    if (cell) {
+        
+        CGRect rect = [_questionsTableView rectForRowAtIndexPath:nextIndexPath];
+//        [_questionsTableView scrollToRowAtIndexPath:nextIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        [_questionsTableView scrollRectToVisible:rect animated:YES];
+        
+        if ([cell isKindOfClass:[QuestionCellType0 class]]) {
+            [((QuestionCellType0*)cell).questionTxtField becomeFirstResponder];
+        } else if ([cell isKindOfClass:[QuestionCellType1 class]]) {
+            [((QuestionCellType1*)cell).questionTxtField becomeFirstResponder];
+        }
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField == _set_name_txtfield) {
+        [_set_author_txtfield becomeFirstResponder];
+    } else if (textField == _set_author_txtfield ) {
+        [_set_author_txtfield resignFirstResponder];
+        [self onCoverClicked:_cover_img_view];
+    } else
+    {
+        if (_indexPathForEditingTextField) {
+            if (textField.tag == QUESTION_TXT_TAG) {
+                UITableViewCell *cell = [_questionsTableView cellForRowAtIndexPath:_indexPathForEditingTextField];
+                if ([cell isKindOfClass:[QuestionCellType0 class]]) {
+                    [((QuestionCellType0*)cell).ansTxtField becomeFirstResponder];
+                } else if ([cell isKindOfClass:[QuestionCellType1 class]]) {
+                    [textField resignFirstResponder];
+                    [self onCellAnswerImageButtonClicked:((QuestionCellType1*)cell).ansImageBtn];
+                }
+            } else if (textField.tag == ANS_TXT_TAG)
+            {
+                //try to find next question's question textField
+                [self activateNextCellQuestionTextField:_indexPathForEditingTextField];
+            }
+        }
+    }
+    return NO;
 }
 
 #pragma mark - NSNotifications
@@ -465,7 +569,7 @@
     if ([MFMailComposeViewController canSendMail]) {
         _mailComposeVC = [[MFMailComposeViewController alloc] init];
         [_mailComposeVC setSubject:@"题库名"];
-        [_mailComposeVC setMessageBody:@"这是一个题库，请使用 xxx 打开" isHTML:NO];
+        [_mailComposeVC setMessageBody:@"这是一个题库，请使用 “勇者斗恶龙” 打开\nApp Store下载点这里" isHTML:NO];
         NSArray *array = [[NSBundle mainBundle] pathsForResourcesOfType:@"qsj" inDirectory:nil];
         NSString *path = [array lastObject]; 
         NSData *data = [NSData dataWithContentsOfFile:path];
@@ -480,6 +584,11 @@
     } else
     {
         //TODO
+        if (!_setMailAlert)
+        {
+            _setMailAlert = [[UIAlertView alloc] initWithTitle:@"还没有设置邮件帐户吧" message:@"要分享你的题库，你需要设置你的邮箱，点击“设置邮箱”进行设置" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"设置邮件帐户", nil];
+        }
+        [_setMailAlert show];
     }    
 }
 
@@ -491,17 +600,18 @@
     UIButton *cover = (UIButton*)sender;
     
     if (!_actionSheetForCover) {
-        _actionSheetForCover= [[UIActionSheet alloc] initWithTitle:@"修改封面\n请选择图片来源：" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"必应图片搜索", @"照相机", @"相册",nil];
+        _actionSheetForCover= [[UIActionSheet alloc] initWithTitle:@"修改封面\n请选择图片来源：" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"网络图片搜索", @"照相机", @"相册",nil];
     }
     [_actionSheetForCover showFromRect:cover.frame inView:self.view animated:YES];
 }
 
 - (void)onCellAnswerImageButtonClicked:(UIButton*)answerBtn
 {
+    [_activeTextField resignFirstResponder];
     QuestionCellType1 *cell = (QuestionCellType1*)answerBtn.superview.superview;
     if ([cell isKindOfClass:[QuestionCellType1 class]]) {
         if (!_actionSheetForImageBtn) {
-            _actionSheetForImageBtn = [[UIActionSheet alloc] initWithTitle:@"修改封面\n请选择图片来源：" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"必应图片搜索", @"照相机", @"相册",nil];
+            _actionSheetForImageBtn = [[UIActionSheet alloc] initWithTitle:@"请选择图片来源：" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"网络图片搜索", @"照相机", @"相册",nil];
         }
         [_actionSheetForImageBtn showFromRect:answerBtn.frame inView:cell animated:YES]; 
         _indexPathForEditingImage = [_questionsTableView indexPathForCell:cell];
@@ -522,28 +632,32 @@
     CGRect rectForPopover;
     UIView *viewForPopover;
     UIPopoverArrowDirection direction;
+    
+    NSString *searchQuery = nil;
     if (_activeActionSheet == _actionSheetForCover) {
         rectForPopover = _cover_img_view.frame;
         viewForPopover = self.view;
         direction = UIPopoverArrowDirectionLeft;
+        searchQuery = _questionSet.name;
     } else
     {
         QuestionCellType1 *cell = (QuestionCellType1*)[_questionsTableView cellForRowAtIndexPath:_indexPathForEditingImage];
         rectForPopover = cell.ansImageBtn.frame;
         viewForPopover = cell;
         direction = UIPopoverArrowDirectionAny;
+        Question *qn = [self questionForIndexPath:_indexPathForEditingImage];
+        searchQuery = qn.question_in_text;
     }
     
     switch (buttonIndex) {
         case 0:
             //Baidu
         {
-            ImageSearchWebViewController *imgSearchVC = [[ImageSearchWebViewController alloc] initWithSearchStringArray:[NSArray arrayWithObjects:_questionSet.name, nil] delegate:self];
+            ImageSearchWebViewController *imgSearchVC = [[ImageSearchWebViewController alloc] initWithSearchStringArray:[NSArray arrayWithObjects:searchQuery, nil] delegate:self];
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:imgSearchVC];
             
             UIPopoverController *popOver = [[UIPopoverController alloc] initWithContentViewController:nav]; 
             self.popoverController = popOver;
-            
             self.popoverController.popoverContentSize = CGSizeMake(420, 670);
             [self.popoverController presentPopoverFromRect:rectForPopover inView:viewForPopover permittedArrowDirections:direction animated:YES];
         }
@@ -590,6 +704,10 @@
         QuestionCellType1 *cell = (QuestionCellType1*)[_questionsTableView cellForRowAtIndexPath:_indexPathForEditingImage];
         [cell.ansImageBtn setImage:editedImg forState:UIControlStateNormal];
         cell.ansImageBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        Question *qn = [self questionForIndexPath:_indexPathForEditingImage];
+        qn.answer_in_image = UIImagePNGRepresentation(editedImg);
+        
+        [self activateNextCellQuestionTextField:_indexPathForEditingImage];
     }
 
     [self.popoverController dismissPopoverAnimated:YES];
@@ -599,9 +717,12 @@
 
 - (void)imagePickerController:(id/*Either UIImagePickerController or ImageSearchVC*/)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    //For answer image, it's 3:2
+    BOOL is3To4 = _activeActionSheet == _actionSheetForCover ? YES : NO;
+    
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     if (image) {
-        PhotoEditingViewController *photoEditingVC = [[PhotoEditingViewController alloc] initWithImage:image];
+        PhotoEditingViewController *photoEditingVC = [[PhotoEditingViewController alloc] initWithImage:image using3To4Ratio:is3To4];
         photoEditingVC.delegate = self;
         //        [self.popOverController dismissPopoverAnimated:YES];
         //        if ([picker isKindOfClass:[UIImagePickerController class]]) {
@@ -612,8 +733,38 @@
         //        }
         //Have to use this to do the presentation or things can be wrong again
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:photoEditingVC];
+        self.popoverController.delegate = self;
         [self.popoverController setPopoverContentSize:CGSizeMake(480, 517)];
         [self.popoverController setContentViewController:nav animated:YES];
+    }
+}
+
+#pragma mark - UIPopoverController Delegate
+- (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController
+{
+    return YES;
+}
+
+#pragma mark - UIAlertView Delegate
+// Launches the Mail application on the device.
+-(void)launchMailAppOnDevice
+{
+    NSString *recipients = @"mailto:first@example.com?subject=Hello from California!";
+    NSString *body = @"&body=请跳回到“勇者斗恶龙”继续分享题库^_^”";
+    
+    NSString *email = [NSString stringWithFormat:@"%@%@", recipients, body];
+    email = [email stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:email]];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (_setMailAlert) {
+        if (buttonIndex == 1) {
+            //Jump to mail
+            [self launchMailAppOnDevice];
+        }
     }
 }
 

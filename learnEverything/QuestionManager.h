@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "NonScrollableGridView.h"
 #import "QuestionCard.h"
+#import "QuestionType.h"
 
 @class  QuestionManager;
 @protocol QuestionManagerDelegate <NSObject>
@@ -31,13 +32,15 @@
     NonScrollableGridView *_grid_view;
     
     NSMutableArray *_answeredCardIndexPaths;
+    
+    QuestionType _questionType;
 }
 
 @property BOOL isFlipCards;
 @property (nonatomic, strong) NSMutableArray *questionList;
 @property (nonatomic, unsafe_unretained) id<QuestionManagerDelegate> questionManagerDelegate;
 
-- (id)initWithGridView:(NonScrollableGridView*)gv questionList:(NSMutableArray*)list;
+- (id)initWithGridView:(NonScrollableGridView*)gv questionList:(NSMutableArray*)list questionType:(QuestionType)type;
 
 -(UIView*)viewForNonScrollableGridViewAtRowIndex:(NSInteger)rowIndex columnIndex:(NSInteger)columnIndex;
 

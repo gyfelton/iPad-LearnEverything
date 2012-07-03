@@ -17,6 +17,17 @@
 
 @implementation SinglePlayerGameViewController
 
+-(id)initWithManagedContext:(NSManagedObjectContext *)context questionSet:(QuestionSet *)questionSet
+{
+    self = [super initWithNibName:@"SinglePlayerGameViewController_iPad" bundle:nil];
+    if (self)
+    {
+        self.managedObjectContext = context;
+        _questionSet = questionSet;
+    }
+    return self;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -81,7 +92,7 @@
     [super viewDidLoad];
     self.wantsFullScreenLayout = YES;
 	// Do any additional setup after loading the view, typically from a nib.
-    _questionList = [super allQuestions];
+    _questionList = [super activeQuestionsFromQuestionSet];
     
     _grid_view = [[NonScrollableGridView alloc] initWithFrame:_grid_view_place_holder.frame];
     _grid_view.dataSource = self;
@@ -94,7 +105,7 @@
     
     [_grid_view_place_holder removeFromSuperview];
     
-    _questionManager = [[QuestionManager alloc] initWithGridView:_grid_view questionList:_questionList];
+    _questionManager = [[QuestionManager alloc] initWithGridView:_grid_view questionList:_questionList questionType:[_questionSet.question_type intValue]];
     _questionManager.questionManagerDelegate = self;
     _questionManager.isFlipCards = NO;//Flip cards is not a good idea for now
     

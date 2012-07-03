@@ -23,9 +23,11 @@
     UIScrollView *_scroll_view;
     IBOutlet UIView *upper_mask_view;
     IBOutlet UIView *lower_mask_view;
+    
+    BOOL _isUsing3To4Ratio; //If not, for this project it's 3:2
 }
 
-- (id)initWithImage:(UIImage*)image;
+- (id)initWithImage:(UIImage*)image using3To4Ratio:(BOOL)is3To4;
 
 @property (nonatomic, unsafe_unretained) id<PhotoEditingViewControllerDelegate> delegate;
 @end

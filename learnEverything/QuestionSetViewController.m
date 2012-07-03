@@ -245,9 +245,10 @@
         } else
         {
             //Start game here
+            QuestionSet *qn_set = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:position inSection:0]];
             AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
             if (self.isSinglePlayerMode) {
-                [appDelegate prepareForSinglePlayerGame];
+                [appDelegate prepareForSinglePlayerGameWithQuestionSet:qn_set];
                 [self dismissModalViewControllerAnimated:YES];
             } else
             {
