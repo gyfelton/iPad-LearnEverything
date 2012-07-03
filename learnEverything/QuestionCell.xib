@@ -34,7 +34,7 @@
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 			</object>
 			<object class="IBUITableViewCell" id="391686929">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIView" id="336205897">
@@ -82,7 +82,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{386, 8}, {284, 65}}</string>
 								<reference key="NSSuperview" ref="336205897"/>
-								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -149,14 +148,13 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{704, 82}</string>
-				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="336205897"/>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 				<reference key="IBUIContentView" ref="336205897"/>
 				<real value="82" key="IBUIRowHeight"/>
 			</object>
 			<object class="IBUITableViewCell" id="125313441">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIView" id="840907944">
@@ -214,7 +212,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{432, 12}, {213, 96}}</string>
 								<reference key="NSSuperview" ref="840907944"/>
-								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -256,7 +253,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{704, 120}</string>
-				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="840907944"/>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 				<reference key="IBUIContentView" ref="840907944"/>
@@ -267,19 +263,19 @@
 			<array class="NSMutableArray" key="connectionRecords">
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">questionCellType0</string>
+						<string key="label">type0_questionCell</string>
 						<reference key="source" ref="841351856"/>
 						<reference key="destination" ref="391686929"/>
 					</object>
-					<int key="connectionID">11</int>
+					<int key="connectionID">25</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">questionCellType1</string>
+						<string key="label">type1_questionCell</string>
 						<reference key="source" ref="841351856"/>
 						<reference key="destination" ref="125313441"/>
 					</object>
-					<int key="connectionID">24</int>
+					<int key="connectionID">26</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -421,7 +417,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">24</int>
+			<int key="maxID">26</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

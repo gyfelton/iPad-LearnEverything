@@ -25,7 +25,7 @@
 @end
 
 @implementation QuestionListViewController
-@synthesize questionCellType0, questionCellType1, questionCellNib;
+@synthesize type0_questionCell, type1_questionCell, questionCellNib;
 @synthesize managedObjectContext;
 @synthesize popoverController;
 
@@ -164,8 +164,8 @@
         QuestionCellType0 *cell = [tableView dequeueReusableCellWithIdentifier:questionCellType0ReuseID];
         if (!cell) {
             [self.questionCellNib instantiateWithOwner:self options:nil];  
-            cell = questionCellType0;  
-            self.questionCellType0 = nil;  
+            cell = self.type0_questionCell;  
+            self.type0_questionCell = nil;  
         }
         cell.ansTxtField.clearButtonMode = UITextFieldViewModeWhileEditing;
         cell.questionTxtField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -181,21 +181,21 @@
     } else
     {
     static NSString *questionCellType1ReuseID = @"questionCellType1ReuseID";
-    QuestionCellType1 *cell = [tableView dequeueReusableCellWithIdentifier:questionCellType1ReuseID];
-    if (!cell) {
-        [self.questionCellNib instantiateWithOwner:self options:nil];  
-        cell = questionCellType1;  
-        self.questionCellType1 = nil;  
-    }
-    cell.questionTxtField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    
-    cell.questionTxtField.delegate = self;
-    cell.questionTxtField.tag = QUESTION_TXT_TAG;
-    cell.ansImageBtn.tag = ANS_IMG_TAG;
-    
-    [self configureCellType1:cell atIndexPath:indexPath];
-    
-    return cell;
+        QuestionCellType1 *cell = [tableView dequeueReusableCellWithIdentifier:questionCellType1ReuseID];
+        if (!cell) {
+            [self.questionCellNib instantiateWithOwner:self options:nil];  
+            cell = self.type1_questionCell;  
+            self.type1_questionCell = nil;  
+        }
+        cell.questionTxtField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        
+        cell.questionTxtField.delegate = self;
+        cell.questionTxtField.tag = QUESTION_TXT_TAG;
+        cell.ansImageBtn.tag = ANS_IMG_TAG;
+        
+        [self configureCellType1:cell atIndexPath:indexPath];
+        
+        return cell;
     }
 }
 
@@ -312,6 +312,7 @@
     }
 }
 
+//Txt + Pic
 - (void)configureCellType1:(QuestionCellType1 *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     cell.questionNumber.text = [NSString stringWithFormat:@"%d.", indexPath.row+1];
@@ -324,8 +325,8 @@
     } else
     {
         cell.questionTxtField.text = managedObject.question_in_text;
-        //TODO assign image to answer image
     }
+    [cell.ansImageBtn addTarget:self action:@selector(onCellAnswerImageButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 /*
@@ -489,9 +490,22 @@
 - (IBAction)onCoverClicked:(id)sender {
     UIButton *cover = (UIButton*)sender;
     
-    UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"修改封面\n请选择图片来源：" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"必应图片搜索", @"照相机", @"相册",nil];
-    
-    [action showFromRect:cover.frame inView:self.view animated:YES];
+    if (!_actionSheetForCover) {
+        _actionSheetForCover= [[UIActionSheet alloc] initWithTitle:@"修改封面\n请选择图片来源：" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"必应图片搜索", @"照相机", @"相册",nil];
+    }
+    [_actionSheetForCover showFromRect:cover.frame inView:self.view animated:YES];
+}
+
+- (void)onCellAnswerImageButtonClicked:(UIButton*)answerBtn
+{
+    QuestionCellType1 *cell = (QuestionCellType1*)answerBtn.superview.superview;
+    if ([cell isKindOfClass:[QuestionCellType1 class]]) {
+        if (!_actionSheetForImageBtn) {
+            _actionSheetForImageBtn = [[UIActionSheet alloc] initWithTitle:@"修改封面\n请选择图片来源：" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"必应图片搜索", @"照相机", @"相册",nil];
+        }
+        [_actionSheetForImageBtn showFromRect:answerBtn.frame inView:cell animated:YES]; 
+        _indexPathForEditingImage = [_questionsTableView indexPathForCell:cell];
+    }
 }
 
 #pragma mark - MFMailCompose Delegate
@@ -504,6 +518,22 @@
 #pragma mark - UIActionSheet Delegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    _activeActionSheet = actionSheet;
+    CGRect rectForPopover;
+    UIView *viewForPopover;
+    UIPopoverArrowDirection direction;
+    if (_activeActionSheet == _actionSheetForCover) {
+        rectForPopover = _cover_img_view.frame;
+        viewForPopover = self.view;
+        direction = UIPopoverArrowDirectionLeft;
+    } else
+    {
+        QuestionCellType1 *cell = (QuestionCellType1*)[_questionsTableView cellForRowAtIndexPath:_indexPathForEditingImage];
+        rectForPopover = cell.ansImageBtn.frame;
+        viewForPopover = cell;
+        direction = UIPopoverArrowDirectionAny;
+    }
+    
     switch (buttonIndex) {
         case 0:
             //Baidu
@@ -515,7 +545,7 @@
             self.popoverController = popOver;
             
             self.popoverController.popoverContentSize = CGSizeMake(420, 670);
-            [self.popoverController presentPopoverFromRect:_cover_img_view.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
+            [self.popoverController presentPopoverFromRect:rectForPopover inView:viewForPopover permittedArrowDirections:direction animated:YES];
         }
             break;
         case 1:
@@ -534,7 +564,7 @@
             popOver.delegate = (id)self;
             
             self.popoverController = popOver;
-            [self.popoverController presentPopoverFromRect:_cover_img_view.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
+            [self.popoverController presentPopoverFromRect:rectForPopover inView:viewForPopover permittedArrowDirections:direction animated:YES];
         }
             break;
         default:
@@ -545,16 +575,23 @@
 #pragma mark - PhotoEditingViewController Delegate
 - (void)PhotoEditingVC:(PhotoEditingViewController *)vc didFinishCropWithOriginalImage:(UIImage *)originalImg editedImage:(UIImage *)editedImg
 {
-    [UIView beginAnimations:@"transition" context:NULL];
-    [UIView setAnimationDuration:0.5f];
-    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:_cover_img_view cache:YES];
-    [_cover_img_view setImage:editedImg forState:UIControlStateNormal];
-    _cover_img_view.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [UIView commitAnimations];
+    if (_activeActionSheet == _actionSheetForCover) {
+        [UIView beginAnimations:@"transition" context:NULL];
+        [UIView setAnimationDuration:0.5f];
+        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:_cover_img_view cache:YES];
+        [_cover_img_view setImage:editedImg forState:UIControlStateNormal];
+        _cover_img_view.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [UIView commitAnimations];
+        
+        //cover_url should not be used
+        _questionSet.cover_data = UIImagePNGRepresentation(editedImg);
+    } else
+    {
+        QuestionCellType1 *cell = (QuestionCellType1*)[_questionsTableView cellForRowAtIndexPath:_indexPathForEditingImage];
+        [cell.ansImageBtn setImage:editedImg forState:UIControlStateNormal];
+        cell.ansImageBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    }
 
-    //cover_url should not be used
-    _questionSet.cover_data = UIImagePNGRepresentation(editedImg);
-    
     [self.popoverController dismissPopoverAnimated:YES];
 }
 

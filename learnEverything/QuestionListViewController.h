@@ -46,7 +46,8 @@
     __unsafe_unretained IBOutlet UIButton *_cover_img_view;
     
     NSIndexPath *_indexPathForEditingTextField;
-
+    NSIndexPath *_indexPathForEditingImage;
+    
     QuestionSet *_questionSet;
     NSArray *_questions;
     
@@ -58,11 +59,15 @@
     IBOutlet UIView *_chooseQnTypeContainer;
     __unsafe_unretained IBOutlet UIButton *_chooseTxtPlusTxt;
     __unsafe_unretained IBOutlet UIButton *_chooseTxtPlusPic;
+    
+    UIActionSheet *_actionSheetForCover;
+    UIActionSheet *_actionSheetForImageBtn;
+    UIActionSheet *_activeActionSheet;
 }
 
 @property (nonatomic, strong) UINib *questionCellNib; 
-@property (nonatomic, strong) IBOutlet QuestionCellType0 *questionCellType0;   //Txt Plus Txt
-@property (nonatomic, strong) IBOutlet QuestionCellType1 *questionCellType1;   //Txt Plus Pic
+@property (nonatomic, strong) IBOutlet QuestionCellType0 *type0_questionCell;   //Txt Plus Txt
+@property (nonatomic, strong) IBOutlet QuestionCellType1 *type1_questionCell;   //Txt Plus Pic
 @property (nonatomic, strong) UIPopoverController *popoverController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
