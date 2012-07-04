@@ -11,6 +11,7 @@
 #import "SinglePlayerGameViewController.h"
 #import "TwoPlayersGameViewController.h"
 #import "ParentControlViewController.h"
+#import "FileIOSharedManager.h"
 
 @implementation AppDelegate
 @synthesize managedObjectContext = __managedObjectContext;
@@ -51,6 +52,7 @@
         //Handle qsj file here
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Received a qsj file!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
+        [[FileIOSharedManager sharedManager] parseQSJFileWithURL:url];
     } else
     {
         //Handle url scheme here
@@ -75,8 +77,9 @@
 //    [self.window addSubview:baseBackground];
 //    [self.window sendSubviewToBack:baseBackground];
     
-    NSURL *url = (NSURL *)[launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
-    [self processURLIfIsFileURL:url];
+    //Should not call here
+//    NSURL *url = (NSURL *)[launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
+//    [self processURLIfIsFileURL:url];
     
     StartViewController *startVC = [[StartViewController alloc] initWithNibName:nil bundle:nil];
     _startVCNav = [[UINavigationController alloc] initWithRootViewController:startVC];

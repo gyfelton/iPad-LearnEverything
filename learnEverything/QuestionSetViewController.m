@@ -7,22 +7,16 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import "NSData+Base64.h"
+#import "QuestionListViewController.h"
+
 #import "QuestionSetViewController.h"
 #import "QuestionSet.h"
-#import "Question+Helpers.h"
-#import "NSManagedObject+Helpers.h"
-#import "JSONKit.h"
-#import "QuestionListViewController.h"
+
 #import "AppDelegate.h"
 #import "FileIOSharedManager.h"
 
 @interface QuestionSetViewController (Private) 
 - (void)configureCell:(GMGridViewCell *)cell atIndex:(NSInteger)index;
-- (BOOL)_assignValuesToQuestionSetAndSave:(QuestionSet*)set withContext:(NSManagedObjectContext*)context SetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questionType:(NSNumber*)questionType questions:(NSArray*)questions coverImageData:(NSData*)data;
-- (BOOL)_parseQuestionSetDictionary:(NSDictionary*)question_set filePath:(NSString*)path fileNameAsSetID:(NSString*)set_id andInsertToCoreDataIfNil:(QuestionSet*)qnSet;
-- (BOOL)insertNewObjectWithSetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questionType:(NSNumber*)questionType questions:(NSArray*)questions coverImageData:(NSData*)data;
-- (BOOL)insertNewObject;
 @end
 
 @implementation QuestionSetViewController
@@ -59,49 +53,6 @@
 
 #pragma mark - View lifecycle
 
-- (void)checkCachedQuestionSets
-{
-    //Check for existing qsj files to load question set if need
-    
-    NSArray *array = [[NSBundle mainBundle] pathsForResourcesOfType:@"qsj" inDirectory:nil];
-    NSError *error = nil;
-    NSString *pathForQuestionSet;
-    for (NSString *path in array) {
-        NSString *set_id = [[path lastPathComponent] stringByDeletingPathExtension];
-        NSArray *questionSetArr = [self.fetchedResultsController fetchedObjects];
-        BOOL alreadyExists = NO;
-        QuestionSet *questionSet = nil;
-        for (QuestionSet *set in questionSetArr) {
-            if ([set.set_id isEqualToString:set_id]) {
-                alreadyExists = YES;
-                questionSet = set;
-                pathForQuestionSet = path;
-                break;
-            }
-        }
-        if (!alreadyExists) {
-            NSString *jsonStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
-            NSDictionary *resultDict = [jsonStr objectFromJSONString];
-            BOOL success = [self _parseQuestionSetDictionary:resultDict filePath:path fileNameAsSetID:set_id andInsertToCoreDataIfNil:nil];
-        } else
-        {
-            NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&error];
-            if ([questionSet.modify_timestamp compare:[attributes objectForKey:NSFileModificationDate]] == NSOrderedAscending) {
-                //TODO need testing on this
-                //modification date is later, should update
-                NSString *jsonStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
-                
-                NSMutableDictionary *resultDict = [NSMutableDictionary dictionaryWithDictionary:[jsonStr objectFromJSONString]];
-                
-                //Assign dates info to dict to update the questionSet
-                [resultDict setValue:[attributes objectForKey:NSFileModificationDate] forKey:@"modify_date"];
-                [resultDict setValue:[attributes objectForKey:NSFileCreationDate] forKey:@"create_date"];
-                
-                [self _parseQuestionSetDictionary:resultDict filePath:path fileNameAsSetID:set_id andInsertToCoreDataIfNil:questionSet];
-            }
-        }
-    }
-}
 
 /*
 - (void)prepareGameModeChooser
@@ -170,6 +121,12 @@
     _titleLabel.font = [UIFont regularChineseFontWithSize:33];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self fetchedResultsController]; //Specify the delegate
+}
+
 - (void)viewDidUnload
 {
     _titleLabel = nil;
@@ -183,6 +140,14 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
     [_questionSetView reloadData];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    if ([FileIOSharedManager sharedManager].fetchedResultsController.delegate == self) {
+        [FileIOSharedManager sharedManager].fetchedResultsController.delegate = nil;
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -295,6 +260,10 @@
 {
     //If exists, just return it
     if (__fetchedResultsController != nil) {
+        if (__fetchedResultsController.delegate != self)
+        {
+            __fetchedResultsController.delegate = self;
+        }
         return __fetchedResultsController;
     }
     
@@ -362,7 +331,8 @@
 {
     switch(type) {
         case NSFetchedResultsChangeInsert:
-            [_questionSetView insertObjectAtIndex:newIndexPath.row withAnimation:GMGridViewItemAnimationScroll];
+            //Don't do this for now
+//            [_questionSetView insertObjectAtIndex:newIndexPath.row withAnimation:GMGridViewItemAnimationScroll];
             break;
             
         case NSFetchedResultsChangeDelete:
@@ -437,91 +407,6 @@
  [self.tableView reloadData];
  }
  */
-
-- (BOOL)_parseQuestionSetDictionary:(NSDictionary*)question_set filePath:(NSString*)path fileNameAsSetID:(NSString*)set_id andInsertToCoreDataIfNil:(QuestionSet*)qnSet
-{
-    if (!set_id) {
-        return NO;
-    }
-    NSString *name = [question_set objectForKey:@"name"];
-    NSString *author = [question_set objectForKey:@"author"];
-    NSNumber *questionType = [question_set objectForKey:@"question_type"];
-    NSArray *questionRawData = [question_set objectForKey:@"questions"];
-    NSDate *createDate = [question_set objectForKey:@"create_timestamp"];
-    NSDate *modifyDate = [question_set objectForKey:@"modify_timestamp"];
-    
-    NSString *cover_data_base64_string = [question_set objectForKey:@"cover_data"];
-    NSData *cover_data = [NSData dataWithBase64EncodedString:cover_data_base64_string];
-    
-    NSArray *questions = [Question parseJSONDictionaryArray:questionRawData context:[self.fetchedResultsController managedObjectContext]];
-    if (!questions) {
-        NSLog(@"FAIL TO PARSE QUESTIONS FROM QSJ FILE");
-    } else
-    {
-    }
-    
-    if (!qnSet) {
-        return [self insertNewObjectWithSetID:set_id name:name author:author createDate:createDate modifyDate:modifyDate questionType:questionType questions:questions coverImageData:cover_data];
-    } else
-    {
-        return [self _assignValuesToQuestionSetAndSave:qnSet withContext:self.managedObjectContext SetID:set_id name:name author:author createDate:createDate modifyDate:modifyDate questionType:questionType questions:questions coverImageData:cover_data];
-    }
-
-}
-
-- (BOOL)_assignValuesToQuestionSetAndSave:(QuestionSet*)set withContext:(NSManagedObjectContext*)context SetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questionType:(NSNumber*)questionType questions:(NSArray*)questions coverImageData:(NSData *)data
-{
-    // If appropriate, configure the new managed object.
-    // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    [set setValueIfNotNil:create_date forKey:@"create_timestamp"];
-    [set setValueIfNotNil:modifyDate forKey:@"modify_timestamp"];
-    [set setValueIfNotNil:set_id forKey:@"set_id"];
-    [set setValueIfNotNil:name forKey:@"name"];
-    [set setValueIfNotNil:author forKey:@"author"];
-    [set setValueIfNotNil:questionType forKey:@"question_type"];
-    [set setValueIfNotNil:data forKey:@"cover_data"];
-    
-    if (questions) {
-        for (Question *question in questions) {
-            question.belongs_to = set;
-        }
-        [set addQuestions:[NSSet setWithArray:questions]];
-    }
-    
-    // Save the context.
-    NSError *error = nil;
-    if (![context save:&error]) {
-        /*
-         Replace this implementation with code to handle the error appropriately.
-         
-         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-         */
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort(); //TODO
-        return NO;
-    }
-    return YES;
-}
-
-- (BOOL)insertNewObjectWithSetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questionType:(NSNumber*)questionType questions:(NSArray*)questions coverImageData:(NSData *)data
-{
-    // Create a new instance of the entity managed by the fetched results controller.
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    QuestionSet *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-    
-    return [self _assignValuesToQuestionSetAndSave:newManagedObject withContext:context SetID:set_id name:name author:author createDate:create_date modifyDate:modifyDate questionType:questionType questions:questions coverImageData:data];
-}
-
-- (BOOL)insertNewObject
-{
-    return [[FileIOSharedManager sharedManager] insertNewObject];
-//    NSString *uniqueID = [NSString stringWithFormat:@"user_%@_on_%d", [OpenUDID value], [[NSDate date] timeIntervalSinceReferenceDate]];
-//    
-//    NSData *imgData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:QUESTION_SET_DEFAULT_COVER_NAME ofType:@"png"]];
-//                       
-//    return [self insertNewObjectWithSetID:uniqueID name:@"我的题库" author:@"" createDate:[NSDate date] modifyDate:[NSDate date] questionType:[NSNumber numberWithInt:kUnknownQuestionType] questions:nil coverImageData:imgData];
-}
 
 #pragma mark - NSNotifications
 

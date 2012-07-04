@@ -364,7 +364,7 @@
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    if (managedObject.is_active) {
+    if ([managedObject.is_active boolValue]) {
         cell.accessoryView = cell.selectedView;
     } else
     {
@@ -640,6 +640,9 @@
 #pragma mark - MFMailCompose Delegate
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
+    if (result == MFMailComposeResultSent) {
+        //TODO change to sending...
+    }
     [_mailComposeVC dismissModalViewControllerAnimated:YES];
 }
 
@@ -817,11 +820,8 @@
         _mailComposeVC = [[MFMailComposeViewController alloc] init];
         [_mailComposeVC setSubject:@"题库名"];
         [_mailComposeVC setMessageBody:@"这是一个题库，请使用 “勇者斗恶龙” 打开\n\nApp Store下载点这里:" isHTML:NO];
-        
-        NSMutableDictionary *dict = [[FileIOSharedManager sharedManager] jsonCompatitableDictionaryFromQuestionSet:_questionSet filterInCompleteQuestion:_shouldNotShareIncompleteQuestion filterInActiveQuestions:_shouldNotShareUnCheckedQuestion];
-        
-        NSError *error = nil;
-        NSData *data = [dict JSONDataWithOptions:JKSerializeOptionNone error:&error];
+                
+        NSData *data = [[FileIOSharedManager sharedManager] dataFromJSONParsedQuestionSet:_questionSet filterInCompleteQuestion:_shouldNotShareIncompleteQuestion filterInActiveQuestions:_shouldNotShareUnCheckedQuestion];
         
         [_mailComposeVC addAttachmentData:data mimeType:@"application/x-qsj" fileName:@"test.qsj"];
         _mailComposeVC.mailComposeDelegate = self;

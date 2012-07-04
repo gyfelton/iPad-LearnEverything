@@ -19,11 +19,14 @@
 
 - (NSMutableDictionary*)jsonCompatitableDictionaryFromQuestion:(Question*)question;
 - (NSMutableDictionary*)jsonCompatitableDictionaryFromQuestionSet:(QuestionSet*)set filterInCompleteQuestion:(BOOL)filterIncomplete filterInActiveQuestions:(BOOL)filterInActive;
+- (NSData*)dataFromJSONParsedQuestionSet:(QuestionSet*)set filterInCompleteQuestion:(BOOL)filterIncomplete filterInActiveQuestions:(BOOL)filterInActive;
 - (void)checkCachedQuestionSets;
 - (BOOL)insertNewObject;
+- (void)parseQSJFileWithURL:(NSURL*)url;
 
 + (FileIOSharedManager*)sharedManager;
 
+@property (nonatomic, strong) NSDateFormatter *dateFormatterUsed;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, readonly, getter = getFetchedResultsController) NSFetchedResultsController *fetchedResultsController;
 
