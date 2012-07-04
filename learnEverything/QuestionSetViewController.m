@@ -12,12 +12,10 @@
 #import "QuestionSet.h"
 #import "Question+Helpers.h"
 #import "NSManagedObject+Helpers.h"
-#import "OpenUDID.h"
 #import "JSONKit.h"
 #import "QuestionListViewController.h"
 #import "AppDelegate.h"
-
-#define QUESTION_SET_DEFAULT_COVER_NAME @"qn_set_cover_default"
+#import "FileIOSharedManager.h"
 
 @interface QuestionSetViewController (Private) 
 - (void)configureCell:(GMGridViewCell *)cell atIndex:(NSInteger)index;
@@ -159,7 +157,8 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyBoardHeightChange:) name:UIKeyboardDidHideNotification object:nil];
     }
     
-    [self checkCachedQuestionSets];
+//    [self checkCachedQuestionSets];
+    [[FileIOSharedManager sharedManager] checkCachedQuestionSets];
     
     if (_viewControllerType == kChooseGameSet) {
 //        [self prepareGameModeChooser];
@@ -299,6 +298,13 @@
         return __fetchedResultsController;
     }
     
+    __fetchedResultsController = [FileIOSharedManager sharedManager].fetchedResultsController;
+    __fetchedResultsController.delegate = self;
+    
+    //Set up the fetch result controller with SharedManager
+    //Set the delegate, very important
+
+    /*
     // Set up the fetched results controller.
     // Create the fetch request for the entity.
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -322,14 +328,10 @@
     
 	NSError *error = nil;
 	if (![self.fetchedResultsController performFetch:&error]) {
-	    /*
-	     Replace this implementation with code to handle the error appropriately.
-         
-	     abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-	     */
 	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 	    abort();
 	}
+    */
     
     return __fetchedResultsController;
 }    
@@ -513,11 +515,12 @@
 
 - (BOOL)insertNewObject
 {
-    NSString *uniqueID = [NSString stringWithFormat:@"user_%@_on_%d", [OpenUDID value], [[NSDate date] timeIntervalSinceReferenceDate]];
-    
-    NSData *imgData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:QUESTION_SET_DEFAULT_COVER_NAME ofType:@"png"]];
-                       
-    return [self insertNewObjectWithSetID:uniqueID name:@"我的题库" author:@"" createDate:[NSDate date] modifyDate:[NSDate date] questionType:[NSNumber numberWithInt:kUnknownQuestionType] questions:nil coverImageData:imgData];
+    return [[FileIOSharedManager sharedManager] insertNewObject];
+//    NSString *uniqueID = [NSString stringWithFormat:@"user_%@_on_%d", [OpenUDID value], [[NSDate date] timeIntervalSinceReferenceDate]];
+//    
+//    NSData *imgData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:QUESTION_SET_DEFAULT_COVER_NAME ofType:@"png"]];
+//                       
+//    return [self insertNewObjectWithSetID:uniqueID name:@"我的题库" author:@"" createDate:[NSDate date] modifyDate:[NSDate date] questionType:[NSNumber numberWithInt:kUnknownQuestionType] questions:nil coverImageData:imgData];
 }
 
 #pragma mark - NSNotifications

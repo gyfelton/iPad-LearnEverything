@@ -352,7 +352,7 @@
     cell.questionNumber.text = [NSString stringWithFormat:@"%d.", indexPath.row+1];
     Question *managedObject = [self questionForIndexPath:indexPath];
     
-    NSLog(@"set_id %@", managedObject.belongs_to.set_id);
+//    NSLog(@"set_id %@", managedObject.belongs_to.set_id);
     if ([managedObject.is_initial_value boolValue]) {
         cell.questionTxtField.placeholder = managedObject.question_in_text;
         cell.ansTxtField.placeholder = managedObject.answer_in_text;
@@ -381,7 +381,7 @@
     cell.questionNumber.text = [NSString stringWithFormat:@"%d.", indexPath.row+1];
     Question *managedObject = [self questionForIndexPath:indexPath];
     
-    NSLog(@"set_id %@", managedObject.belongs_to.set_id);
+//    NSLog(@"set_id %@", managedObject.belongs_to.set_id);
     if ([managedObject.is_initial_value boolValue]) {
         cell.questionTxtField.placeholder = managedObject.question_in_text;
         //TODO give placeholder for image

@@ -119,7 +119,6 @@
 		FEEACE0B1579C88300698EBB /* QuestionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEEACE0A1579C88300698EBB /* QuestionCell.xib */; };
 		FEEACE111579CAF900698EBB /* QuestionModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FEEACE0F1579CAF800698EBB /* QuestionModel.xcdatamodeld */; };
 		FEEACE191579DA3000698EBB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEEACE181579DA3000698EBB /* CoreData.framework */; };
-		FEF224A3159472B90093A9D6 /* Question+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF224A2159472B90093A9D6 /* Question+Helpers.m */; };
 		FEF224A6159475270093A9D6 /* NSManagedObject+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF224A5159475270093A9D6 /* NSManagedObject+Helpers.m */; };
 		FEFE560315936E6B002EBFD1 /* QuestionSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEFE560215936E6B002EBFD1 /* QuestionSetViewController.m */; };
 		FEFE560515936E89002EBFD1 /* QuestionSetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEFE560415936E89002EBFD1 /* QuestionSetViewController.xib */; };
@@ -305,8 +304,6 @@
 		FEEACE0A1579C88300698EBB /* QuestionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionCell.xib; sourceTree = "<group>"; };
 		FEEACE101579CAF900698EBB /* QuestionModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = QuestionModel.xcdatamodel; sourceTree = "<group>"; };
 		FEEACE181579DA3000698EBB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
-		FEF224A1159472B90093A9D6 /* Question+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Question+Helpers.h"; path = "learnEverything/Question+Helpers.h"; sourceTree = "<group>"; };
-		FEF224A2159472B90093A9D6 /* Question+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Question+Helpers.m"; path = "learnEverything/Question+Helpers.m"; sourceTree = "<group>"; };
 		FEF224A4159475270093A9D6 /* NSManagedObject+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+Helpers.h"; path = "learnEverything/CoreData/NSManagedObject+Helpers.h"; sourceTree = "<group>"; };
 		FEF224A5159475270093A9D6 /* NSManagedObject+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+Helpers.m"; path = "learnEverything/CoreData/NSManagedObject+Helpers.m"; sourceTree = "<group>"; };
 		FEF224A7159477370093A9D6 /* QuestionModel 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "QuestionModel 4.xcdatamodel"; sourceTree = "<group>"; };
@@ -456,8 +453,6 @@
 				FE89568A15A1A30D0068DBA2 /* QuestionSet.h */,
 				FE89568B15A1A30E0068DBA2 /* QuestionSet.m */,
 				FEA8C6C215A152AD009FAAE9 /* QuestionType.h */,
-				FEF224A1159472B90093A9D6 /* Question+Helpers.h */,
-				FEF224A2159472B90093A9D6 /* Question+Helpers.m */,
 				FEF224A4159475270093A9D6 /* NSManagedObject+Helpers.h */,
 				FEF224A5159475270093A9D6 /* NSManagedObject+Helpers.m */,
 				FEDAEA7F1578A21100F2552F /* Learn Everything */,
@@ -835,7 +830,6 @@
 				FEFE560315936E6B002EBFD1 /* QuestionSetViewController.m in Sources */,
 				FEFE56091593F674002EBFD1 /* OpenUDID.m in Sources */,
 				FE57F1B2159449DE00DD09E4 /* JSONKit.m in Sources */,
-				FEF224A3159472B90093A9D6 /* Question+Helpers.m in Sources */,
 				FEF224A6159475270093A9D6 /* NSManagedObject+Helpers.m in Sources */,
 				FE08F16615980116009E981C /* ParentControlViewController.m in Sources */,
 				FE08F16A15980126009E981C /* FakeScannerView.m in Sources */,
