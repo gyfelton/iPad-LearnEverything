@@ -20,6 +20,7 @@
 		FE08F16A15980126009E981C /* FakeScannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE08F16915980126009E981C /* FakeScannerView.m */; };
 		FE08F17015984BA8009E981C /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = FE08F16D15984BA8009E981C /* NSMutableArray+Shuffling.m */; };
 		FE08F17115984BA8009E981C /* UIViewController+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = FE08F16F15984BA8009E981C /* UIViewController+Util.m */; };
+		FE14D0B015A5CFC300994619 /* wood_big_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FE14D0AF15A5CFC300994619 /* wood_big_bg.jpg */; };
 		FE1B921A159567D50090A127 /* basic_english.qsj in Resources */ = {isa = PBXBuildFile; fileRef = FE1B9219159567D50090A127 /* basic_english.qsj */; };
 		FE2AB105159989B20095BAB6 /* dialog-left.png in Resources */ = {isa = PBXBuildFile; fileRef = FE2AB103159989B20095BAB6 /* dialog-left.png */; };
 		FE2AB106159989B20095BAB6 /* dialog-right.png in Resources */ = {isa = PBXBuildFile; fileRef = FE2AB104159989B20095BAB6 /* dialog-right.png */; };
@@ -179,6 +180,7 @@
 		FE08F16D15984BA8009E981C /* NSMutableArray+Shuffling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffling.m"; sourceTree = "<group>"; };
 		FE08F16E15984BA8009E981C /* UIViewController+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Util.h"; sourceTree = "<group>"; };
 		FE08F16F15984BA8009E981C /* UIViewController+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Util.m"; sourceTree = "<group>"; };
+		FE14D0AF15A5CFC300994619 /* wood_big_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wood_big_bg.jpg; sourceTree = "<group>"; };
 		FE1B9219159567D50090A127 /* basic_english.qsj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_english.qsj; sourceTree = "<group>"; };
 		FE29E72015A138DA006EC6B9 /* QuestionModel 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "QuestionModel 6.xcdatamodel"; sourceTree = "<group>"; };
 		FE2AB103159989B20095BAB6 /* dialog-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dialog-left.png"; sourceTree = "<group>"; };
@@ -627,6 +629,7 @@
 				FE54744A15A5741E004DB6EF /* question_set_add_new.png */,
 				FE54744C15A585CC004DB6EF /* edit_btn.png */,
 				FEAE506315A58D5500CFFA80 /* leather_texture.png */,
+				FE14D0AF15A5CFC300994619 /* wood_big_bg.jpg */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -870,6 +873,7 @@
 				FE54744B15A5741E004DB6EF /* question_set_add_new.png in Resources */,
 				FE54744D15A585CC004DB6EF /* edit_btn.png in Resources */,
 				FEAE506415A58D5500CFFA80 /* leather_texture.png in Resources */,
+				FE14D0B015A5CFC300994619 /* wood_big_bg.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -77,7 +77,7 @@
     label.text=self.title;  
     self.navigationItem.titleView = label; 
     
-    _header_view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"leather_texture"]];
+    //_header_view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"leather_texture"]];
                                     
     _shouldNotShareUnCheckedQuestion = YES;
     _shouldNotShareIncompleteQuestion = YES;
