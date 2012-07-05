@@ -41,6 +41,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.79f green:0.60 blue:0.29f alpha:1.0f];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 400, 44)];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont regularChineseFontWithSize:26.0];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.textAlignment = UITextAlignmentCenter;
+    label.textColor = [UIColor whiteColor]; //[UIColor colorWithRed:0.52f green:0.38f blue:0.11f alpha:1.0f];
+    label.text=self.title;  
+    self.navigationItem.titleView = label;
+    
     // Do any additional setup after loading the view from its nib.
     _fakeScannerView = [[FakeScannerView alloc] initWithFrame:scanArea_placeholder.frame];
     _fakeScannerView.delegate = self;
@@ -62,7 +74,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    self.navigationController.navigationBarHidden = NO;
     _topTitle.text = DEFAULT_TEXT;
 }
 

@@ -86,6 +86,18 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
         
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.79f green:0.60 blue:0.29f alpha:1.0f];
+    self.navigationController.navigationBarHidden = NO;
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 400, 44)];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont regularChineseFontWithSize:26.0];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.textAlignment = UITextAlignmentCenter;
+    label.textColor = [UIColor whiteColor]; //[UIColor colorWithRed:0.52f green:0.38f blue:0.11f alpha:1.0f];
+    label.text=self.title;  
+    self.navigationItem.titleView = label;      
+    
     _questionSetView = [[GMGridView alloc] initWithFrame:_questionSetView_placeholder.frame];
     _questionSetView.clipsToBounds = YES;
     _questionSetView.style = GMGridViewStyleSwap;
@@ -138,7 +150,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(onBackClicked:)];
+    self.navigationItem.hidesBackButton = YES;
+    
+//    [self.navigationController setNavigationBarHidden:YES];
     [_questionSetView reloadData];
 }
 

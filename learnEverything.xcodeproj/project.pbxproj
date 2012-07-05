@@ -35,6 +35,7 @@
 		FE54744815A572F8004DB6EF /* dual_game_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = FE54744615A572F8004DB6EF /* dual_game_btn.png */; };
 		FE54744915A572F8004DB6EF /* edit_question_set_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = FE54744715A572F8004DB6EF /* edit_question_set_btn.png */; };
 		FE54744B15A5741E004DB6EF /* question_set_add_new.png in Resources */ = {isa = PBXBuildFile; fileRef = FE54744A15A5741E004DB6EF /* question_set_add_new.png */; };
+		FE54744D15A585CC004DB6EF /* edit_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = FE54744C15A585CC004DB6EF /* edit_btn.png */; };
 		FE57F1AE1594493F00DD09E4 /* qn_set_cover_default.png in Resources */ = {isa = PBXBuildFile; fileRef = FE57F1AD1594493F00DD09E4 /* qn_set_cover_default.png */; };
 		FE57F1B2159449DE00DD09E4 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = FE57F1B1159449DE00DD09E4 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FE57F1B715944B5000DD09E4 /* system_99chengfa.qsj in Resources */ = {isa = PBXBuildFile; fileRef = FE57F1B615944B5000DD09E4 /* system_99chengfa.qsj */; };
@@ -70,6 +71,7 @@
 		FEA44A7B159C755E00DBD606 /* wood_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = FEA44A7A159C755D00DBD606 /* wood_bg.png */; };
 		FEA44A7D159C78ED00DBD606 /* card_bg_1.png in Resources */ = {isa = PBXBuildFile; fileRef = FEA44A7C159C78ED00DBD606 /* card_bg_1.png */; };
 		FEA44A7F159C7B4400DBD606 /* shield.png in Resources */ = {isa = PBXBuildFile; fileRef = FEA44A7E159C7B4400DBD606 /* shield.png */; };
+		FEAE506415A58D5500CFFA80 /* leather_texture.png in Resources */ = {isa = PBXBuildFile; fileRef = FEAE506315A58D5500CFFA80 /* leather_texture.png */; };
 		FEC18E76159AFCC3001ED526 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = FEC18E75159AFCC3001ED526 /* click.wav */; };
 		FEC18E78159AFCE2001ED526 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEC18E77159AFCE2001ED526 /* AudioToolbox.framework */; };
 		FEC18E7A159AFD7F001ED526 /* correct.caf in Resources */ = {isa = PBXBuildFile; fileRef = FEC18E79159AFD7F001ED526 /* correct.caf */; };
@@ -196,6 +198,7 @@
 		FE54744615A572F8004DB6EF /* dual_game_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dual_game_btn.png; sourceTree = "<group>"; };
 		FE54744715A572F8004DB6EF /* edit_question_set_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit_question_set_btn.png; sourceTree = "<group>"; };
 		FE54744A15A5741E004DB6EF /* question_set_add_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = question_set_add_new.png; sourceTree = "<group>"; };
+		FE54744C15A585CC004DB6EF /* edit_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit_btn.png; sourceTree = "<group>"; };
 		FE57F1AD1594493F00DD09E4 /* qn_set_cover_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qn_set_cover_default.png; sourceTree = "<group>"; };
 		FE57F1B0159449DE00DD09E4 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		FE57F1B1159449DE00DD09E4 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
@@ -257,6 +260,7 @@
 		FEA44A7C159C78ED00DBD606 /* card_bg_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card_bg_1.png; sourceTree = "<group>"; };
 		FEA44A7E159C7B4400DBD606 /* shield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shield.png; sourceTree = "<group>"; };
 		FEA8C6C215A152AD009FAAE9 /* QuestionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuestionType.h; path = learnEverything/CoreData/QuestionType.h; sourceTree = "<group>"; };
+		FEAE506315A58D5500CFFA80 /* leather_texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leather_texture.png; sourceTree = "<group>"; };
 		FEC18E75159AFCC3001ED526 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
 		FEC18E77159AFCE2001ED526 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		FEC18E79159AFD7F001ED526 /* correct.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = correct.caf; sourceTree = "<group>"; };
@@ -621,6 +625,8 @@
 				FE54744615A572F8004DB6EF /* dual_game_btn.png */,
 				FE54744715A572F8004DB6EF /* edit_question_set_btn.png */,
 				FE54744A15A5741E004DB6EF /* question_set_add_new.png */,
+				FE54744C15A585CC004DB6EF /* edit_btn.png */,
+				FEAE506315A58D5500CFFA80 /* leather_texture.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -862,6 +868,8 @@
 				FE54744815A572F8004DB6EF /* dual_game_btn.png in Resources */,
 				FE54744915A572F8004DB6EF /* edit_question_set_btn.png in Resources */,
 				FE54744B15A5741E004DB6EF /* question_set_add_new.png in Resources */,
+				FE54744D15A585CC004DB6EF /* edit_btn.png in Resources */,
+				FEAE506415A58D5500CFFA80 /* leather_texture.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -68,6 +68,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 400, 44)];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont regularChineseFontWithSize:26.0];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.textAlignment = UITextAlignmentCenter;
+    label.textColor = [UIColor whiteColor]; //[UIColor colorWithRed:0.52f green:0.38f blue:0.11f alpha:1.0f];
+    label.text=self.title;  
+    self.navigationItem.titleView = label; 
+    
+    _header_view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"leather_texture"]];
+                                    
     _shouldNotShareUnCheckedQuestion = YES;
     _shouldNotShareIncompleteQuestion = YES;
     
@@ -107,8 +118,6 @@
     
     [_cover_img_view setImage:[UIImage imageWithData:_questionSet.cover_data] forState:UIControlStateNormal];
     
-    [self.navigationController setNavigationBarHidden:NO];
-    
     _set_name_txtfield.returnKeyType = _set_author_txtfield.returnKeyType = UIReturnKeyNext;
 }
 
@@ -120,6 +129,7 @@
     _chooseTxtPlusTxt = nil;
     _chooseTxtPlusPic = nil;
     _questionTypeIndiciator = nil;
+    _header_view = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -188,9 +198,14 @@
     return 1;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0;
+}
+
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return _table_header_view;
+    return nil; //_table_header_view;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

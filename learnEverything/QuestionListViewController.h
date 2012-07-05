@@ -42,7 +42,10 @@
 {
     UIBarButtonItem *_addButton;
     
+    
+    __unsafe_unretained IBOutlet UIView *_header_view;
     __unsafe_unretained IBOutlet UIView *_table_header_view;
+    
     __unsafe_unretained IBOutlet UITableView *_questionsTableView;
     __unsafe_unretained IBOutlet UITextField *_set_name_txtfield;
     __unsafe_unretained IBOutlet UITextField *_set_author_txtfield;
