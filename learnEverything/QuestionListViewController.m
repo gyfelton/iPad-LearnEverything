@@ -445,7 +445,9 @@
     } else
     {
         //Animate the insertion
-        [_questionsTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[_questions count] inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:[_questions count] inSection:0];
+        [_questionsTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [_questionsTableView scrollToRowAtIndexPath:newIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
 }
 
@@ -599,7 +601,7 @@
     ShareOptionsTableViewController *options = [[ShareOptionsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     options.customDelegate = self;
     self.popoverController = [[UIPopoverController alloc] initWithContentViewController:options];
-    self.popoverController.popoverContentSize = CGSizeMake(320, 190);
+    self.popoverController.popoverContentSize = CGSizeMake(320, 220);
     [self.popoverController presentPopoverFromRect:((UIButton*)sender).frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
 }
 
@@ -621,9 +623,9 @@
     [_activeTextField resignFirstResponder];
     QuestionCellType1 *cell = (QuestionCellType1*)answerBtn.superview.superview;
     if ([cell isKindOfClass:[QuestionCellType1 class]]) {
-        if (_indexPathForEditingImage && [_indexPathForEditingImage compare:[_questionsTableView indexPathForCell:cell]] == NSOrderedSame && !self.popoverController.isPopoverVisible) {
-            //如果点的是相同的cell，把前面的VC再展示遍
-            [self.popoverController presentPopoverFromRect:answerBtn.frame inView:cell permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        if (false) {//(_indexPathForEditingImage && [_indexPathForEditingImage compare:[_questionsTableView indexPathForCell:cell]] == NSOrderedSame && !self.popoverController.isPopoverVisible && self.popoverController) {
+            //如果点的是相同的cell，把前面的VC再展示遍 (目前这个功能不行）
+//            [self.popoverController presentPopoverFromRect:answerBtn.frame inView:cell permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         } else
         {
             //Prepare for new popOver VC
@@ -732,6 +734,7 @@
     }
 
     [self.popoverController dismissPopoverAnimated:YES];
+    self.popoverController = nil;
 }
 
 #pragma mark - UIImagePicker delegate

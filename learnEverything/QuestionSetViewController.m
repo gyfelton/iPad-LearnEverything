@@ -166,7 +166,7 @@
 
 - (CGSize)GMGridView:(GMGridView *)gridView sizeForItemsInInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
-    return CGSizeMake(164, 240);
+    return CGSizeMake(210, 260);
 }
 
 - (GMGridViewCell*)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
@@ -195,7 +195,7 @@
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:0];
     if (position >= [sectionInfo numberOfObjects]) { 
-        [self performSelector:@selector(insertNewObject)];
+        [[FileIOSharedManager sharedManager] performSelector:@selector(insertNewObject)];
         
         QuestionSet *qn_set = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:position inSection:0]];
         QuestionListViewController *listVC = [[QuestionListViewController alloc] initWithManagedContext:self.managedObjectContext andQuestionSet:qn_set];
@@ -371,14 +371,16 @@
     {
         QuestionSet *managedObject = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
         
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 164, 240)];
+        UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 210, 260)];
+        view.image = [UIImage imageNamed:@"question_set_bg"];
+        view.userInteractionEnabled = YES;
 //        view.backgroundColor = [UIColor redColor];
         
         UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 144, 192)];
         img.backgroundColor = [UIColor blackColor];
         img.tag = 0;
         img.image = [UIImage imageWithData:managedObject.cover_data];
-        [view addSubview:img];
+        //[view addSubview:img];
         
         UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 192, 144, 48)];
         lbl.font = [UIFont regularChineseFontWithSize:26];
@@ -392,7 +394,7 @@
         lbl.textAlignment = UITextAlignmentCenter;
         lbl.text = managedObject.name;
         lbl.tag = 1;
-        [view addSubview:lbl];
+        //[view addSubview:lbl];
         
         cell.contentView = view;
     }

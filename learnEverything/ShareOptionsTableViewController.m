@@ -76,6 +76,26 @@
 
 #pragma mark - Table view data source
 
+- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return @"分享选项";
+    } else
+    {
+        return nil;
+    }
+}
+
+- (NSString*)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return @"分享后其他人还可以继续编辑题库";
+    } else
+    {
+        return nil;
+    }
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
@@ -108,9 +128,9 @@
         
         cell.accessoryView = s;
         if (indexPath.row == 0) {
-            cell.textLabel.text = @"不分享不完整的题目";
+            cell.textLabel.text = @"只分享完整的题目";
         } else {
-            cell.textLabel.text = @"不分享没有启用的题目";
+            cell.textLabel.text = @"只分享启用的题目";
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     } else {
@@ -173,6 +193,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.textLabel.text = @"打包题库中...";
+    cell.accessoryView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     if ([customDelegate respondsToSelector:@selector(didSelectCellOnIndexPath:)]) {
         [customDelegate didSelectCellOnIndexPath:indexPath];
     }
