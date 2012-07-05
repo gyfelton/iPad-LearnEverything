@@ -89,8 +89,8 @@
     _questionSetView = [[GMGridView alloc] initWithFrame:_questionSetView_placeholder.frame];
     _questionSetView.clipsToBounds = YES;
     _questionSetView.style = GMGridViewStyleSwap;
-    _questionSetView.itemSpacing = 41;
-    _questionSetView.minEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20);
+    _questionSetView.itemSpacing = 0;
+    _questionSetView.minEdgeInsets = UIEdgeInsetsMake(10, 92, 10, 92);
     _questionSetView.centerGrid = NO;
     _questionSetView.actionDelegate = self;
 //    _questionSetView.sortingDelegate = self;
@@ -166,7 +166,7 @@
 
 - (CGSize)GMGridView:(GMGridView *)gridView sizeForItemsInInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
-    return CGSizeMake(210, 260);
+    return CGSizeMake(210, 290);
 }
 
 - (GMGridViewCell*)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
@@ -360,41 +360,39 @@
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:0];
     if (index >= [sectionInfo numberOfObjects]) {
         //Add Button
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 140, 210)];
-        view.backgroundColor = [UIColor redColor];
-        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 180, 140, 30)];
-        lbl.textAlignment = UITextAlignmentCenter;
-        lbl.text = @"+";
+        UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 210, 290)];
+        view.image = [UIImage imageNamed:@"question_set_add_new"];
+        view.userInteractionEnabled = YES;
         
         cell.contentView = view;
     } else
     {
         QuestionSet *managedObject = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
         
-        UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 210, 260)];
-        view.image = [UIImage imageNamed:@"question_set_bg"];
+        UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 210, 290)];
+        view.image = [UIImage imageNamed:@"question_set_bg_2"];
         view.userInteractionEnabled = YES;
 //        view.backgroundColor = [UIColor redColor];
         
-        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 144, 192)];
-        img.backgroundColor = [UIColor blackColor];
+        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(30, 16, 153, 204)];
+        img.backgroundColor = [UIColor clearColor];
+        img.contentMode = UIViewContentModeScaleAspectFit;
         img.tag = 0;
         img.image = [UIImage imageWithData:managedObject.cover_data];
-        //[view addSubview:img];
+        [view addSubview:img];
         
-        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(10, 192, 144, 48)];
-        lbl.font = [UIFont regularChineseFontWithSize:26];
-//        lbl.shadowColor = [UIColor whiteColor];
-//        lbl.shadowOffset = CGSizeMake(0, 1);
-        lbl.backgroundColor = [UIColor colorWithRed:1.0f green:0.41f blue:0.41f alpha:0.6f];
-//        lbl.shadowColor = [UIColor darkTextColor];
-//        lbl.shadowOffset = CGSizeMake(0, -1);
+        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(21, 224, 176, 40)];
+        lbl.font = [UIFont regularChineseFontWithSize:33];
+        lbl.shadowColor = [UIColor blackColor];
+        lbl.shadowOffset = CGSizeMake(1, -1);
+        lbl.backgroundColor = [UIColor clearColor];
+        lbl.textColor = [UIColor whiteColor];
         lbl.adjustsFontSizeToFitWidth = YES;
         lbl.minimumFontSize = 9;
         lbl.textAlignment = UITextAlignmentCenter;
         lbl.text = managedObject.name;
         lbl.tag = 1;
-        //[view addSubview:lbl];
+        [view addSubview:lbl];
         
         cell.contentView = view;
     }
