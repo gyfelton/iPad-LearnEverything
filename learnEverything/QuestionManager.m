@@ -85,6 +85,16 @@
     
     aCard.associatedIndexPath = indexPath;
     
+    UIImageView *bg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 180, 110)];
+    bg.image = [UIImage imageNamed:@"card_bg_1"];
+    bg.backgroundColor = [UIColor whiteColor];
+//    bg.layer.borderWidth = 3.0f;
+//    bg.layer.borderColor = [[UIColor orangeColor] CGColor];
+//    bg.layer.cornerRadius = 0.0f;
+    bg.center = aCard.center;
+    [aCard addSubview:bg];
+    [aCard sendSubviewToBack:bg];
+    
     if (_questionType == kTxtPlusPic && aCard.cardType == answer) {
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:aCard.frame];
         imgView.contentMode = UIViewContentModeScaleAspectFit;
@@ -93,22 +103,13 @@
         [aCard sendSubviewToBack:imgView];
     } else {
         //need to put txt
-        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 180, 110)]; 
+        UILabel *lbl = [[UILabel alloc] initWithFrame:bg.frame]; 
         lbl.center = aCard.center;
-        lbl.layer.borderWidth = 3.0f;
-        lbl.layer.borderColor = [[UIColor orangeColor] CGColor];
-        lbl.layer.cornerRadius = 10.0f;
         lbl.font = [UIFont boldSystemFontOfSize:40];
         lbl.text = toShowText;
         lbl.textAlignment = UITextAlignmentCenter;
         lbl.backgroundColor = [UIColor clearColor];
         [aCard addSubview:lbl];
-        [aCard sendSubviewToBack:lbl];
-        
-        UIImageView *bg = [[UIImageView alloc] initWithFrame:lbl.frame];
-        bg.image = [UIImage imageNamed:@"card_bg_1"];
-        [aCard addSubview:bg];
-        [aCard sendSubviewToBack:bg];
     }
     
     [aCard addTarget:self action:@selector(onUnitClicked:) forControlEvents:UIControlEventTouchUpInside];

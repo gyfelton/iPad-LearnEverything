@@ -115,14 +115,14 @@
     CGFloat left_factor = 1;
     CGFloat right_factor = 1;
     if (s>0) {
-        left_factor = 1.1f;
+        left_factor = (_left_bo.frame.size.width+10)/_left_bo.frame.size.width;
     } else
     {
-        left_factor = 0.9f;
+        left_factor = (_left_bo.frame.size.width-10)/_left_bo.frame.size.width;
     }
     
     CGFloat leftNewWidth = _left_bo.frame.size.width*left_factor;
-    CGFloat rightNewWidth = 751-leftNewWidth;
+    CGFloat rightNewWidth = 759 - leftNewWidth;
     right_factor = rightNewWidth/_right_flame.frame.size.width;
     
     [UIView animateWithDuration:0.2f animations:^{

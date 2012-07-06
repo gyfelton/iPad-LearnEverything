@@ -36,11 +36,12 @@
         [self addSubview:wrongcross];
         wrongcross.hidden = YES;
         
-        _cardBack = [[UIImageView alloc] initWithFrame:frame];
-        _cardBack.frame = CGRectMake(0, 0, _cardBack.frame.size.width, _cardBack.frame.size.height);
-        _cardBack.image = [UIImage imageNamed:@"card_back"];
-        [self addSubview:_cardBack];
-        _cardBack.hidden = YES;
+        //[self setBackgroundImage:[UIImage imageNamed:@"wood_card_bg"] forState:UIControlStateNormal];
+//        _cardBack = [[UIImageView alloc] initWithFrame:frame];
+//        _cardBack.frame = CGRectMake(0, 0, _cardBack.frame.size.width, _cardBack.frame.size.height);
+//        _cardBack.image = [UIImage imageNamed:@"card_back"];
+//        [self addSubview:_cardBack];
+//        _cardBack.hidden = YES;
         
 //        [self setBackgroundImage:[UIImage imageNamed:@"wood_bg"] forState:UIControlStateNormal];
     }
