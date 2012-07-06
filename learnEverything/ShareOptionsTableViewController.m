@@ -194,8 +194,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    cell.textLabel.text = @"打包题库中...";
-    cell.accessoryView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    cell.textLabel.text = @"打包题库中...请稍等";
+    
     if ([customDelegate respondsToSelector:@selector(didSelectCellOnIndexPath:)]) {
         [customDelegate didSelectCellOnIndexPath:indexPath];
     }

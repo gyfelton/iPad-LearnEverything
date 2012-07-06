@@ -14,6 +14,7 @@
     __unsafe_unretained IBOutlet UIImageView *left_hero;
     __unsafe_unretained IBOutlet UIImageView *_right_flame;
     __unsafe_unretained IBOutlet UIImageView *_shield;
+    __unsafe_unretained IBOutlet UIImageView *_left_bo;
     
     CGFloat _score;
 }

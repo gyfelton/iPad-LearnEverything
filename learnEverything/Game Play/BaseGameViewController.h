@@ -32,6 +32,8 @@
     SystemSoundID _wrongAnswerSound;
     
     QuestionSet *_questionSet;
+    
+    IBOutlet UIButton *_speakerBtn;
 }
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
@@ -56,4 +58,6 @@
 - (void)showRightDialogAtPosition:(CGPoint)originPosition withText:(NSString*)text;
 - (void)dismissLeftDialog;
 - (void)dismissRightDialog;
+
+- (BOOL)allowSound;
 @end

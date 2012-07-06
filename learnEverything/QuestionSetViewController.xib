@@ -41,9 +41,9 @@
 					<object class="IBUIImageView" id="155863304">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrameSize">{1024, 768}</string>
+						<string key="NSFrame">{{0, -44}, {1024, 768}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
-						<reference key="NSNextKeyView" ref="377113559"/>
+						<reference key="NSNextKeyView" ref="477668021"/>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
@@ -56,6 +56,7 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrameSize">{1024, 704}</string>
 						<reference key="NSSuperview" ref="766721923"/>
+						<reference key="NSNextKeyView" ref="377113559"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="449577871">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -75,7 +76,7 @@
 						<int key="NSvFlags">-2147483356</int>
 						<string key="NSFrame">{{207, 11}, {609, 57}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
-						<reference key="NSNextKeyView" ref="477668021"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>

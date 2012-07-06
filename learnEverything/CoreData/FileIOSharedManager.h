@@ -20,7 +20,7 @@
 - (NSMutableDictionary*)jsonCompatitableDictionaryFromQuestion:(Question*)question;
 - (NSMutableDictionary*)jsonCompatitableDictionaryFromQuestionSet:(QuestionSet*)set filterInCompleteQuestion:(BOOL)filterIncomplete filterInActiveQuestions:(BOOL)filterInActive;
 - (NSData*)dataFromJSONParsedQuestionSet:(QuestionSet*)set filterInCompleteQuestion:(BOOL)filterIncomplete filterInActiveQuestions:(BOOL)filterInActive;
-- (void)checkCachedQuestionSets;
+- (void)checkCachedQuestionSetsWithCompletion:(void (^)(BOOL finished))completion;;
 - (BOOL)insertNewObject;
 - (void)parseQSJFileWithURL:(NSURL*)url;
 

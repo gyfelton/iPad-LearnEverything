@@ -120,8 +120,6 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyBoardHeightChange:) name:UIKeyboardDidHideNotification object:nil];
     }
     
-//    [self checkCachedQuestionSets];
-    [[FileIOSharedManager sharedManager] checkCachedQuestionSets];
     
     if (_viewControllerType == kChooseGameSet) {
 //        [self prepareGameModeChooser];

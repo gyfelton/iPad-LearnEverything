@@ -9,6 +9,8 @@
 #import "BaseGameViewController.h"
 #import "AppDelegate.h"
 
+#define REGULAR_VOLUME 0.5f
+
 @implementation BaseGameViewController
 @synthesize managedObjectContext;
 @synthesize isGameOnPause;
@@ -60,9 +62,43 @@
     return mutable;
 }
 
+- (NSMutableArray*)activeAndCompleteQuestionsFromQuestionSet
+{
+    NSMutableArray *activeArray = [self activeQuestionsFromQuestionSet];
+    for (int i = 0; i< [activeArray count]; i++) {
+        Question *qn = [activeArray objectAtIndex:i];
+        if ([qn.question_type intValue] == kTxtPlusTxt) {
+            if (!qn.question_in_text || (!qn.answer_in_text || !qn.answer_id)) {
+                [activeArray removeObjectAtIndex:i];
+            }
+        } else
+        {
+            if (!qn.question_in_text || !qn.answer_in_image) {
+                [activeArray removeObjectAtIndex:i];
+            }
+        }
+    }
+    return activeArray;
+}
+
 - (IBAction)onMenuClicked:(id)sender {
-    self.audioPlayer.volume = 0.2f;
+    if ([self allowSound]) {
+        self.audioPlayer.volume = 0.2f;
+    }
+    
     [self.view addSubview:_pauseMenuBackground];
+}
+
+- (IBAction)onSpeakerClicked:(id)sender
+{
+    _speakerBtn.selected = !_speakerBtn.selected;
+    BOOL speakerON = !_speakerBtn.selected;
+    if (speakerON) {
+        self.audioPlayer.volume = REGULAR_VOLUME;
+    } else
+    {
+        self.audioPlayer.volume = 0.0f;
+    }
 }
 
 - (void)onMainMenuClicked:(id)sender
@@ -74,9 +110,18 @@
 
 - (void)onResumeGameClicked:(id)sender
 {
-    self.audioPlayer.volume = 1.0f;
+    if ([self allowSound])
+    {
+        self.audioPlayer.volume = REGULAR_VOLUME;
+    }
+    
     self.isGameOnPause = NO;
     [_pauseMenuBackground removeFromSuperview];
+}
+
+- (BOOL)allowSound
+{
+    return !_speakerBtn.selected;
 }
 
 - (void)viewDidLoad
@@ -137,7 +182,7 @@
         }
     }
     [self.audioPlayer setDelegate:self];
-    self.audioPlayer.volume = 0.6f; //Because it's too loud
+    self.audioPlayer.volume = REGULAR_VOLUME; //Because it's too loud
 }
 
 - (void)viewWillAppear:(BOOL)animated

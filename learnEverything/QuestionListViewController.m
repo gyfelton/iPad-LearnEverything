@@ -788,7 +788,7 @@
 // Launches the Mail application on the device.
 -(void)launchMailAppOnDevice
 {
-    NSString *recipients = @"mailto:first@example.com?subject=Hello from California!";
+    NSString *recipients = @"mailto:example@example.com?subject=Hello from California!";
     NSString *body = @"&body=请跳回到“勇者斗恶龙”继续分享题库^_^”";
     
     NSString *email = [NSString stringWithFormat:@"%@%@", recipients, body];
@@ -828,17 +828,13 @@
     }
 }
 
-- (void)didSelectCellOnIndexPath:(NSIndexPath *)indexPath
+- (void)prepareDataAndShowMailComposer
 {
-    if (indexPath.section != 1) {
-        return;
-    }
-    
     if ([MFMailComposeViewController canSendMail]) {
         _mailComposeVC = [[MFMailComposeViewController alloc] init];
         [_mailComposeVC setSubject:@"题库名"];
         [_mailComposeVC setMessageBody:@"这是一个题库，请使用 “勇者斗恶龙” 打开\n\nApp Store下载点这里:" isHTML:NO];
-                
+        
         NSData *data = [[FileIOSharedManager sharedManager] dataFromJSONParsedQuestionSet:_questionSet filterInCompleteQuestion:_shouldNotShareIncompleteQuestion filterInActiveQuestions:_shouldNotShareUnCheckedQuestion];
         
         [_mailComposeVC addAttachmentData:data mimeType:@"application/x-qsj" fileName:@"test.qsj"];
@@ -847,6 +843,15 @@
     }
     
     [self.popoverController dismissPopoverAnimated:NO];
+}
+
+- (void)didSelectCellOnIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section != 1) {
+        return;
+    }
+    
+    [self performSelector:@selector(prepareDataAndShowMailComposer) withObject:nil afterDelay:0.1f];
 }
 @end
 

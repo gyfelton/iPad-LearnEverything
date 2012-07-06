@@ -332,7 +332,7 @@ static FileIOSharedManager *sharedManager;
     [self _parseQSJFileOnPath:[url path]];
 }
 
-- (void)checkCachedQuestionSets
+- (void)checkCachedQuestionSetsWithCompletion:(void (^)(BOOL))completion
 {
     //Check for existing qsj files to load question set if need
 
@@ -340,6 +340,7 @@ static FileIOSharedManager *sharedManager;
     for (NSString *path in array) {
         [self _parseQSJFileOnPath:path];
     }
+    completion(YES);
 }
 
 - (BOOL)insertNewObject

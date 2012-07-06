@@ -12,6 +12,7 @@
 #import "SinglePlayerGameViewController.h"
 #import "ParentControlViewController.h"
 #import "QuestionSetViewController.h"
+#import "FileIOSharedManager.h"
 
 @interface StartViewController (Private)
 - (void)_breathMainTitleFade;
@@ -53,6 +54,14 @@
     _editQuestionSetButton.titleLabel.font = [UIFont regularChineseFontWithSize:21];
     _editQuestionSetButton.titleLabel.textColor = [UIColor blackColor];
     
+    _hud = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:_hud];
+    
+    _hud.yOffset = 300;
+    _hud.labelText = @"检查题库更新";
+    [_hud show:YES];
+    
+    [self performSelector:@selector(checkQSJFiles) withObject:nil afterDelay:1.3f];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -63,6 +72,17 @@
     [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 
+- (void)checkQSJFiles
+{
+    [[FileIOSharedManager sharedManager] checkCachedQuestionSetsWithCompletion:^(BOOL finished) {[_hud hide:YES];}];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self performSelector:@selector(_animateCurl) withObject:nil afterDelay:0.2f];
+    [self _breathMainTitleFade];
+}
 
 - (void)_animateCurl
 {
@@ -111,14 +131,6 @@
             [self _breathMainTitleOut];
         }
     }];
-}
-     
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    [self performSelector:@selector(_animateCurl) withObject:nil afterDelay:0.2f];
-    [self _breathMainTitleFade];
 }
 
 - (void)viewDidDisappear:(BOOL)animated

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBProgressHUD.h"
 
 @interface StartViewController : UIViewController
 {
@@ -18,6 +19,8 @@
     __unsafe_unretained IBOutlet UIButton *_dualButton;
     
     __unsafe_unretained IBOutlet UIButton *_editQuestionSetButton;
+    
+    MBProgressHUD *_hud;
 }
 
 - (IBAction)onSinglePlayerGameClicked:(id)sender;
