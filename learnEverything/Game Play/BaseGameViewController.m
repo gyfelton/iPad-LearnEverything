@@ -67,7 +67,7 @@
     NSMutableArray *activeArray = [self activeQuestionsFromQuestionSet];
     for (int i = 0; i< [activeArray count]; i++) {
         Question *qn = [activeArray objectAtIndex:i];
-        if ([qn.question_type intValue] == kTxtPlusTxt) {
+        if ([_questionSet.question_type intValue] == kTxtPlusTxt) {
             if (!qn.question_in_text || (!qn.answer_in_text || !qn.answer_id)) {
                 [activeArray removeObjectAtIndex:i];
             }
@@ -167,9 +167,13 @@
     thesoundURL = (__bridge CFURLRef) [NSURL fileURLWithPath:thesoundFilePath];
     AudioServicesCreateSystemSoundID(thesoundURL, &_clickSound);
     
-    thesoundFilePath = [[NSBundle mainBundle] pathForResource:@"wrongAnswer" ofType:@"mp3"];
+    thesoundFilePath = [[NSBundle mainBundle] pathForResource:@"wrong_music" ofType:@"wav"];
     thesoundURL = (__bridge CFURLRef) [NSURL fileURLWithPath:thesoundFilePath];
     AudioServicesCreateSystemSoundID(thesoundURL, &_wrongAnswerSound);
+    
+    thesoundFilePath = [[NSBundle mainBundle] pathForResource:@"errorSound" ofType:@"mp3"];
+    thesoundURL = (__bridge CFURLRef) [NSURL fileURLWithPath:thesoundFilePath];
+    AudioServicesCreateSystemSoundID(thesoundURL, &_errorSound);
     
     if (!self.audioPlayer) {
         NSError *error;

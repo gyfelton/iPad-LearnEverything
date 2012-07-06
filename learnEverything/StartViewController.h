@@ -21,6 +21,8 @@
     __unsafe_unretained IBOutlet UIButton *_editQuestionSetButton;
     
     MBProgressHUD *_hud;
+    
+    BOOL _breathTitle;
 }
 
 - (IBAction)onSinglePlayerGameClicked:(id)sender;

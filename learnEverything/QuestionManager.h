@@ -14,6 +14,7 @@
 @class  QuestionManager;
 @protocol QuestionManagerDelegate <NSObject>
 
+- (void)QuestionManager:(QuestionManager*)manager clickOnSameTypeCardsWithCard1:(QuestionCard*)card1 card2:(QuestionCard*)card2;
 - (void)QuestionManager:(QuestionManager*)manager answerCorrectlyWithCard1:(QuestionCard*)card1 card2:(QuestionCard*)card2;
 - (void)QuestionManager:(QuestionManager *)manager answerWronglyWithCard1:(QuestionCard *)card1 card2:(QuestionCard *)card2;
 - (void)QuestionManager:(QuestionManager *)manager clickOnCard:(QuestionCard*)card;

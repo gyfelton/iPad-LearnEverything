@@ -209,7 +209,7 @@
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:0];
     if (position >= [sectionInfo numberOfObjects]) { 
-        [[FileIOSharedManager sharedManager] performSelector:@selector(insertNewObject)];
+        [[FileIOSharedManager sharedManager] insertNewQuestionSet];
         
         QuestionSet *qn_set = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:position inSection:0]];
         QuestionListViewController *listVC = [[QuestionListViewController alloc] initWithManagedContext:self.managedObjectContext andQuestionSet:qn_set];

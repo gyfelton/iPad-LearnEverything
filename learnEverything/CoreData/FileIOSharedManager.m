@@ -343,7 +343,7 @@ static FileIOSharedManager *sharedManager;
     completion(YES);
 }
 
-- (BOOL)insertNewObject
+- (BOOL)insertNewQuestionSet
 {
     //Create a unique ID
     NSString *uniqueID = [NSString stringWithFormat:@"user_%@_on_%d", [OpenUDID value], [[NSDate date] timeIntervalSinceReferenceDate]];

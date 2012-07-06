@@ -13,6 +13,7 @@
 #import "QuestionType.h"
 #import "Question.h"
 #import "JSONKit.h"
+#import "UIResponder+InsertText.h"
 
 @implementation QuestionCellType0
 @synthesize ansTxtField, questionNumber,questionTxtField;
@@ -66,7 +67,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view from its nib.
+    
+    _uthor_lbl.font = _cover_lbl.font = _title_lbl.font = [UIFont regularChineseFontWithSize:29];
+    _set_author_txtfield.font = _set_name_txtfield.font = [UIFont regularChineseFontWithSize:33];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 400, 44)];
     label.backgroundColor = [UIColor clearColor];
@@ -98,19 +103,53 @@
     
     //Hide table if quesition type is unknown
     if ([_questionSet.question_type intValue] == kUnknownQuestionType) {
+        //显示选择题库类型
+        _header_img_view.hidden = YES;
         _questionsTableView.hidden = YES;
+        
         _chooseQnTypeContainer.frame = _questionsTableView.frame;
         [self.view addSubview:_chooseQnTypeContainer];
         
-        [_chooseTxtPlusTxt addTarget:self action:@selector(onChooseQuestionTypeClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [_chooseTxtPlusPic addTarget:self action:@selector(onChooseQuestionTypeClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [_chooseSubtypeMathQn addTarget:self action:@selector(onChooseQuestionTypeClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [_chooseSubtypeChiEng addTarget:self action:@selector(onChooseQuestionTypeClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [_chooseSubtypeChiPic addTarget:self action:@selector(onChooseQuestionTypeClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [_chooseSubtypeEngPic addTarget:self action:@selector(onChooseQuestionTypeClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
     } else
     {
-        if ([_questionSet.question_type intValue] == kTxtPlusTxt) {
-            [_questionTypeIndiciator setTitle:@"文字＋文字" forState:UIControlStateNormal];
+        _header_img_view.hidden = NO;
+        
+        if (!_questionSet.question_subtype || [_questionSet.question_subtype intValue] == subtype_UnknownQuestionSubType) {
+            
+            switch ([_questionSet.question_type intValue]) {
+                case kTxtPlusTxt:
+                case kUnknownQuestionType:
+                    _header_img_view.image = [UIImage imageNamed:@"table_header_calc"];
+                    break;
+                case kTxtPlusPic:
+                    _header_img_view.image = [UIImage imageNamed:@"table_header_EngPic"];
+                default:
+                    break;
+            }
         } else
         {
-            [_questionTypeIndiciator setTitle:@"文字＋图片" forState:UIControlStateNormal];
+            //[_questionTypeIndiciator setTitle:@"文字＋图片" forState:UIControlStateNormal];
+            switch ([_questionSet.question_subtype intValue]) {
+                case subtype_MathQuestion:
+                    _header_img_view.image = [UIImage imageNamed:@"table_header_calc"];
+                    break;
+                case subtype_ChineseEnglishTranslation:
+                    _header_img_view.image = [UIImage imageNamed:@"table_header_ChiEng"];
+                    break;
+                case subtype_ChinesePicture:
+                    _header_img_view.image = [UIImage imageNamed:@"table_header_ChiPic"];
+                    break;
+                case subtype_EnglishPicture:
+                    _header_img_view.image = [UIImage imageNamed:@"table_header_EngPic"];
+                    break;
+                default:
+                    break;
+            }
         }
         
         [self.navigationItem setRightBarButtonItem:_addButton];
@@ -123,13 +162,18 @@
 
 - (void)viewDidUnload
 {
-    _table_header_view = nil;
     _questionsTableView = nil;
+    
     _chooseQnTypeContainer = nil;
-    _chooseTxtPlusTxt = nil;
-    _chooseTxtPlusPic = nil;
-    _questionTypeIndiciator = nil;
-    _header_view = nil;
+    _chooseSubtypeChiEng = nil;
+    _chooseSubtypeChiPic = nil;
+    _chooseSubtypeEngPic = nil;
+    _chooseSubtypeMathQn = nil;
+    
+    _header_img_view = nil;
+    _title_lbl = nil;
+    _uthor_lbl = nil;
+    _cover_lbl = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -211,7 +255,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     //refresh the new question list
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"create_timestamp" ascending:YES];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"create_timestamp" ascending:NO];
     _questions = [_questionSet.questions sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     
     return [_questions count];
@@ -364,18 +408,11 @@
 
 - (void)configureCellType0:(QuestionCellType0 *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    cell.questionNumber.text = [NSString stringWithFormat:@"%d.", indexPath.row+1];
+    cell.questionNumber.text = [NSString stringWithFormat:@"%d.", [_questions count] - indexPath.row];
     Question *managedObject = [self questionForIndexPath:indexPath];
     
-//    NSLog(@"set_id %@", managedObject.belongs_to.set_id);
-    if ([managedObject.is_initial_value boolValue]) {
-        cell.questionTxtField.placeholder = managedObject.question_in_text;
-        cell.ansTxtField.placeholder = managedObject.answer_in_text;
-    } else
-    {
-        cell.questionTxtField.text = managedObject.question_in_text;
-        cell.ansTxtField.text = managedObject.answer_in_text;
-    }
+    cell.questionTxtField.text = managedObject.question_in_text;
+    cell.ansTxtField.text = managedObject.answer_in_text;
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -388,22 +425,28 @@
     
     cell.questionTxtField.returnKeyType = UIReturnKeyNext;
     cell.ansTxtField.returnKeyType = UIReturnKeyDone;
+    
+    //Config fonts
+    cell.questionNumber.font = [UIFont regularChineseFontWithSize:33];
+    cell.questionTxtField.font = cell.ansTxtField.font = [UIFont regularChineseFontWithSize:38];
+    
+    //config keyboard
+    cell.questionTxtField.autocapitalizationType = cell.ansTxtField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    
+    if ([_questionSet.question_subtype intValue] == subtype_MathQuestion) {
+        cell.questionTxtField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        cell.ansTxtField.keyboardType = UIKeyboardTypeNumberPad;
+    }
 }
 
 //Txt + Pic
 - (void)configureCellType1:(QuestionCellType1 *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    cell.questionNumber.text = [NSString stringWithFormat:@"%d.", indexPath.row+1];
+    cell.questionNumber.text = [NSString stringWithFormat:@"%d.", [_questions count] - indexPath.row];
     Question *managedObject = [self questionForIndexPath:indexPath];
     
-//    NSLog(@"set_id %@", managedObject.belongs_to.set_id);
-    if ([managedObject.is_initial_value boolValue]) {
-        cell.questionTxtField.placeholder = managedObject.question_in_text;
-        //TODO give placeholder for image
-    } else
-    {
-        cell.questionTxtField.text = managedObject.question_in_text;
-    }
+    cell.questionTxtField.text = managedObject.question_in_text;
+    
     [cell.ansImageBtn setImage:[UIImage imageWithData:managedObject.answer_in_image] forState:UIControlStateNormal];
     cell.ansImageBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
@@ -419,6 +462,11 @@
     }
     
     cell.questionTxtField.returnKeyType = UIReturnKeyNext;
+    
+    cell.questionNumber.font = [UIFont regularChineseFontWithSize:33];
+    cell.questionTxtField.font = [UIFont regularChineseFontWithSize:38];
+    
+    cell.questionTxtField.autocapitalizationType = UITextAutocapitalizationTypeWords;
 }
 
 /*
@@ -440,11 +488,11 @@
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
     [question setValue:[NSDate date] forKey:@"create_timestamp"];
-    //set default value here
-    NSInteger numOfRow = [_questionsTableView numberOfRowsInSection:0];
-    question.question_in_text = [NSString stringWithFormat:@"1 + %d = ?", numOfRow+1];
-    question.answer_in_text = [NSString stringWithFormat:@"%d", numOfRow+2];
+
+//    question.question_in_text = [NSString stringWithFormat:@" = ?"];
+    
     question.is_initial_value = [NSNumber numberWithBool:YES];
+    question.is_active = [NSNumber numberWithBool:NO];
     question.belongs_to = _questionSet;
     
     // Save the context.
@@ -460,7 +508,7 @@
     } else
     {
         //Animate the insertion
-        NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:[_questions count] inSection:0];
+        NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:0/*[_questions count]*/ inSection:0];
         [_questionsTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [_questionsTableView scrollToRowAtIndexPath:newIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
@@ -478,9 +526,17 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     _activeTextField = textField;
+    
     id cell = textField.superview.superview;
     if ([cell isKindOfClass:[UITableViewCell class]]) {
         _indexPathForEditingTextField = [_questionsTableView indexPathForCell:cell];
+//        if ([_questionSet.question_subtype intValue] == subtype_MathQuestion)
+//        {
+//            if (textField.tag == QUESTION_TXT_TAG) {
+//                textField.text = @"";
+//                [textField insertText:@" = ?"];
+//            }
+//        }
     } else
     {
         
@@ -494,16 +550,22 @@
     } else if (textField == _set_author_txtfield) {
         _questionSet.author = textField.text;
     } else if (_indexPathForEditingTextField) {
-        NSLog(@"did end editing %@", _indexPathForEditingTextField.description);
+//        NSLog(@"did end editing %@", _indexPathForEditingTextField.description);
         
         Question *question = [self questionForIndexPath:_indexPathForEditingTextField];
         
         question.is_initial_value = [NSNumber numberWithBool:NO];
-        
+
         if (textField.tag == QUESTION_TXT_TAG) {
             question.question_in_text = textField.text;
         } else if (textField.tag == ANS_TXT_TAG) {
+            
             question.answer_in_text = textField.text;
+            
+            if (question.question_in_text) {
+                question.is_active = [NSNumber numberWithBool:YES];
+                [_questionsTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:_indexPathForEditingTextField] withRowAnimation:UITableViewRowAnimationNone];
+            }
         }
         _indexPathForEditingTextField = nil;
     }
@@ -581,26 +643,40 @@
 
 - (void)onChooseQuestionTypeClicked:(UIButton*)btn
 {
-    if (btn == _chooseTxtPlusTxt) {
-        [_chooseQnTypeContainer removeFromSuperview];
+    if (btn == _chooseSubtypeMathQn) {
+        _questionSet.question_type = [NSNumber numberWithInt:kTxtPlusTxt];
+        _questionSet.question_subtype = [NSNumber numberWithInt:subtype_MathQuestion];
+        _questionsTableView.hidden = NO;
+        _header_img_view.image = [UIImage imageNamed:@"table_header_calc"];
+    } 
+    if (btn == _chooseSubtypeChiEng)
+    {
         _questionSet.question_type = [NSNumber numberWithInt:kTxtPlusTxt];
         _questionsTableView.hidden = NO;
-        [_questionsTableView reloadData];
-        [_questionTypeIndiciator setTitle:@"文字＋文字" forState:UIControlStateNormal];
-    } else
-    {
-        //Txt Plus Pic
-        [_chooseQnTypeContainer removeFromSuperview];
+        _questionSet.question_subtype = [NSNumber numberWithInt:subtype_ChineseEnglishTranslation];
+        _header_img_view.image = [UIImage imageNamed:@"table_header_ChiEng"];
+    }
+    if (btn == _chooseSubtypeChiPic) {
         _questionSet.question_type = [NSNumber numberWithInt:kTxtPlusPic];
         _questionsTableView.hidden = NO;
-        [_questionsTableView reloadData];
-        [_questionTypeIndiciator setTitle:@"文字＋图片" forState:UIControlStateNormal];
+        _questionSet.question_subtype = [NSNumber numberWithInt:subtype_ChinesePicture];
+        _header_img_view.image = [UIImage imageNamed:@"table_header_ChiPic"];
     }
+    if (btn == _chooseSubtypeEngPic) {
+        _questionSet.question_type = [NSNumber numberWithInt:kTxtPlusPic];
+        _questionsTableView.hidden = NO;
+        _questionSet.question_subtype = [NSNumber numberWithInt:subtype_EnglishPicture];
+        _header_img_view.image = [UIImage imageNamed:@"table_header_EngPic"];
+    }
+    
+    _header_img_view.hidden = NO;
+    [_chooseQnTypeContainer removeFromSuperview];
+    [_questionsTableView reloadData];
     
     [self.navigationItem setRightBarButtonItem:_addButton];
     UIActionSheet *temp = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:nil destructiveButtonTitle:@"点击上面的加号添加第一道题目" otherButtonTitles:nil];
     [temp showFromBarButtonItem:_addButton animated:YES];
-    [self performSelector:@selector(dismissActionSheet:) withObject:temp afterDelay:2.0f];
+    [self performSelector:@selector(dismissActionSheet:) withObject:temp afterDelay:1.0f];
 }
 
 - (IBAction)onShareQuestionSetClicked:(id)sender {
@@ -745,6 +821,10 @@
         Question *qn = [self questionForIndexPath:_indexPathForEditingImage];
         qn.answer_in_image = UIImagePNGRepresentation(editedImg);
         
+        if (qn.question_in_text) {
+            qn.is_active = [NSNumber numberWithBool:YES];
+            cell.accessoryView = cell.selectedView;
+        }
         [self activateNextCellQuestionTextField:_indexPathForEditingImage];
     }
 

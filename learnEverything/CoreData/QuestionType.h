@@ -15,3 +15,14 @@ enum QuestionType {
 };
 
 typedef enum QuestionType QuestionType;
+
+
+enum QuestionSubType {
+    subtype_UnknownQuestionSubType = -1,
+    subtype_MathQuestion = 0,
+    subtype_ChineseEnglishTranslation = 1,
+    subtype_ChinesePicture = 2,
+    subtype_EnglishPicture = 3
+};
+
+typedef enum QuestionSubType QuestionSubType;

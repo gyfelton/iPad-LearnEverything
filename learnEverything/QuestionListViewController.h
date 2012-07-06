@@ -42,9 +42,9 @@
 {
     UIBarButtonItem *_addButton;
     
-    
-    __unsafe_unretained IBOutlet UIView *_header_view;
-    __unsafe_unretained IBOutlet UIView *_table_header_view;
+    __unsafe_unretained IBOutlet UILabel *_title_lbl;
+    __unsafe_unretained IBOutlet UILabel *_uthor_lbl;
+    __unsafe_unretained IBOutlet UILabel *_cover_lbl;
     
     __unsafe_unretained IBOutlet UITableView *_questionsTableView;
     __unsafe_unretained IBOutlet UITextField *_set_name_txtfield;
@@ -57,14 +57,17 @@
     QuestionSet *_questionSet;
     NSArray *_questions;
     
-    __unsafe_unretained IBOutlet UIButton *_questionTypeIndiciator;
     MFMailComposeViewController *_mailComposeVC;
     
     //Choose question type views
     
+    IBOutlet UIImageView *_header_img_view;
+    
     IBOutlet UIView *_chooseQnTypeContainer;
-    __unsafe_unretained IBOutlet UIButton *_chooseTxtPlusTxt;
-    __unsafe_unretained IBOutlet UIButton *_chooseTxtPlusPic;
+    IBOutlet UIButton *_chooseSubtypeMathQn;
+    IBOutlet UIButton *_chooseSubtypeChiEng;
+    IBOutlet UIButton *_chooseSubtypeChiPic;
+    IBOutlet UIButton *_chooseSubtypeEngPic;
     
     UIActionSheet *_actionSheetForCover;
     UIActionSheet *_actionSheetForImageBtn;

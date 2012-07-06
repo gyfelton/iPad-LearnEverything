@@ -81,7 +81,15 @@
 {
     [super viewDidAppear:animated];
     [self performSelector:@selector(_animateCurl) withObject:nil afterDelay:0.2f];
+    _breathTitle = YES;
     [self _breathMainTitleFade];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    _breathTitle = NO;
+    [_main_bg.layer removeAllAnimations];
 }
 
 - (void)_animateCurl
@@ -128,15 +136,13 @@
         _mainTitle.alpha = 0.3f;
     } completion:^(BOOL finished) {
         if (finished) {
-            [self _breathMainTitleOut];
+            if (_breathTitle)
+            {
+                [self _breathMainTitleOut];
+        
+            }
         }
     }];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    [_main_bg.layer removeAllAnimations];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

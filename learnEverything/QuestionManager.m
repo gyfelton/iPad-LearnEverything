@@ -96,20 +96,23 @@
     [aCard sendSubviewToBack:bg];
     
     if (_questionType == kTxtPlusPic && aCard.cardType == answer) {
-        UIImageView *imgView = [[UIImageView alloc] initWithFrame:aCard.frame];
+        UIImageView *imgView = [[UIImageView alloc] initWithFrame:bg.frame];
         imgView.contentMode = UIViewContentModeScaleAspectFit;
         imgView.image = picToShow;
-        [aCard addSubview:imgView];
-        [aCard sendSubviewToBack:imgView];
+        [aCard insertSubview:imgView aboveSubview:bg];
     } else {
         //need to put txt
         UILabel *lbl = [[UILabel alloc] initWithFrame:bg.frame]; 
+        lbl.numberOfLines = 0;
+        lbl.lineBreakMode = UILineBreakModeWordWrap;
         lbl.center = aCard.center;
         lbl.font = [UIFont boldSystemFontOfSize:40];
+        lbl.adjustsFontSizeToFitWidth = YES;
+        lbl.minimumFontSize = 15;
         lbl.text = toShowText;
         lbl.textAlignment = UITextAlignmentCenter;
         lbl.backgroundColor = [UIColor clearColor];
-        [aCard addSubview:lbl];
+        [aCard insertSubview:lbl aboveSubview:bg];
     }
     
     [aCard addTarget:self action:@selector(onUnitClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -174,8 +177,7 @@
     }
     
     if (!_clickedBtnIndexPath || (_clickedBtnIndexPath.row == nowClickIndexPath.row && _clickedBtnIndexPath.column == nowClickIndexPath.column)) {
-        
-        //click on the same card
+    
         if (!_clickedBtnIndexPath) {
             _clickedBtnIndexPath = nowClickIndexPath;
         
@@ -198,7 +200,11 @@
             //Same card type, revert pressed state
             card.pressed = NO;
             card1.pressed = NO;
-            //TODO play the DU sound
+            
+            //Play DU sound
+            if ([self.questionManagerDelegate respondsToSelector:@selector(QuestionManager:clickOnSameTypeCardsWithCard1:card2:)]) {
+                [self.questionManagerDelegate QuestionManager:self clickOnSameTypeCardsWithCard1:card card2:(QuestionCard*)[_grid_view viewForIndexPath:_clickedBtnIndexPath]];
+            }
             
             //Not used
             if (isFlipCards) {

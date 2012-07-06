@@ -30,6 +30,7 @@
     SystemSoundID _correctSound;
     SystemSoundID _clickSound;
     SystemSoundID _wrongAnswerSound;
+    SystemSoundID _errorSound;
     
     QuestionSet *_questionSet;
     
@@ -42,6 +43,7 @@
 
 - (NSMutableArray*)allQuestions;
 - (NSMutableArray*)activeQuestionsFromQuestionSet;
+- (NSMutableArray*)activeAndCompleteQuestionsFromQuestionSet;
 
 - (IBAction)onMenuClicked:(id)sender;
 - (IBAction)onSpeakerClicked:(id)sender;

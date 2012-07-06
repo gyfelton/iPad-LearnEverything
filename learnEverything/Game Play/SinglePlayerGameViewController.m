@@ -92,7 +92,7 @@
     [super viewDidLoad];
     self.wantsFullScreenLayout = YES;
 	// Do any additional setup after loading the view, typically from a nib.
-    _questionList = [super activeQuestionsFromQuestionSet];
+    _questionList = [super activeAndCompleteQuestionsFromQuestionSet];
     
     _grid_view = [[NonScrollableGridView alloc] initWithFrame:_grid_view_place_holder.frame];
     _grid_view.dataSource = self;
@@ -328,5 +328,10 @@
 - (void)QuestionManager:(QuestionManager *)manager clickOnCard:(QuestionCard *)card
 {
     if ([self allowSound]) AudioServicesPlaySystemSound(_clickSound);  // 播放SoundID声音
+}
+
+- (void)QuestionManager:(QuestionManager *)manager clickOnSameTypeCardsWithCard1:(QuestionCard *)card1 card2:(QuestionCard *)card2
+{
+    if ([self allowSound]) AudioServicesPlaySystemSound(_errorSound);  // 播放SoundID声音
 }
 @end

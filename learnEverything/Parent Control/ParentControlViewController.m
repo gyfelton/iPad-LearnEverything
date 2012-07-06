@@ -83,7 +83,10 @@
     [UIView animateWithDuration:2.0f delay:0.0f options:UIViewAnimationOptionAllowUserInteraction animations:^{
         _scanImage.frame = CGRectOffset(_scanImage.frame, 0, 194-22);
     } completion:^(BOOL finished) {
-        [self animateScanLightUp];
+        if (_scanImageStarted)
+        {
+            [self animateScanLightUp];
+        }
     }];
 }
 
@@ -105,6 +108,11 @@
         _scanImageStarted = YES;
         [self animateScanLightUp];
     }
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    _scanImageStarted = NO;
 }
 
 - (void)dealloc

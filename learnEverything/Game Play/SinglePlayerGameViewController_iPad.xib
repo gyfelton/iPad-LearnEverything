@@ -41,6 +41,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrameSize">{1024, 768}</string>
 						<reference key="NSSuperview" ref="766721923"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="483715949"/>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -54,12 +55,13 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrameSize">{1024, 754}</string>
 						<reference key="NSSuperview" ref="766721923"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="174537818"/>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">play_bg.png</string>
+							<string key="NSResourceName">play_bg_2.png</string>
 						</object>
 					</object>
 					<object class="IBUIView" id="174537818">
@@ -67,6 +69,7 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrameSize">{1024, 250}</string>
 						<reference key="NSSuperview" ref="766721923"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="220428333"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="220719933">
 							<int key="NSColorSpace">3</int>
@@ -79,6 +82,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{11, 11}, {37, 37}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="268838986"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -120,6 +124,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{55, 11}, {37, 37}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="615756197"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -147,6 +152,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 270}, {1024, 488}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
 						<reference key="IBUIBackgroundColor" ref="220719933"/>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -154,6 +160,7 @@
 				</array>
 				<string key="NSFrameSize">{1024, 748}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="695235576"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
@@ -309,7 +316,51 @@
 			<nil key="sourceID"/>
 			<int key="maxID">32</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">BaseGameViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="onMenuClicked:">id</string>
+						<string key="onSpeakerClicked:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="onMenuClicked:">
+							<string key="name">onMenuClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onSpeakerClicked:">
+							<string key="name">onSpeakerClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">_speakerBtn</string>
+						<string key="NS.object.0">UIButton</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">_speakerBtn</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">_speakerBtn</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BaseGameViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">SinglePlayerGameViewController</string>
+					<string key="superclassName">BaseGameViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/SinglePlayerGameViewController.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
@@ -317,7 +368,7 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="pause.png">{144, 144}</string>
 			<string key="pause_pressed.png">{144, 144}</string>
-			<string key="play_bg.png">{1024, 768}</string>
+			<string key="play_bg_2.png">{1024, 768}</string>
 			<string key="play_bg_top.png">{1024, 768}</string>
 			<string key="speaker_off.png">{34, 34}</string>
 			<string key="speaker_on.png">{44, 44}</string>
