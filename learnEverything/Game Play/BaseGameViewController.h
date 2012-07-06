@@ -44,6 +44,7 @@
 - (NSMutableArray*)activeQuestionsFromQuestionSet;
 
 - (IBAction)onMenuClicked:(id)sender;
+- (IBAction)onSpeakerClicked:(id)sender;
 
 - (void)playBackgroundMusic;
 
