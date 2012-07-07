@@ -55,6 +55,8 @@
 		FE36AF7115A80584002CE9BF /* AnimationViewController_SinglePlayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE36AF6F15A80583002CE9BF /* AnimationViewController_SinglePlayer.xib */; };
 		FE36AF7215A80584002CE9BF /* AnimationViewController_TwoPlayers.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE36AF7015A80584002CE9BF /* AnimationViewController_TwoPlayers.xib */; };
 		FE36AF7415A80A3C002CE9BF /* dinasour_flipped.png in Resources */ = {isa = PBXBuildFile; fileRef = FE36AF7315A80A3C002CE9BF /* dinasour_flipped.png */; };
+		FE36AF7615A85D69002CE9BF /* backToMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = FE36AF7515A85D69002CE9BF /* backToMenu.png */; };
+		FE36AF7815A85D6F002CE9BF /* continueGame.png in Resources */ = {isa = PBXBuildFile; fileRef = FE36AF7715A85D6F002CE9BF /* continueGame.png */; };
 		FE3AE4A515A682E100C9D58D /* animation_static.png in Resources */ = {isa = PBXBuildFile; fileRef = FE3AE4A415A682E100C9D58D /* animation_static.png */; };
 		FE3AE4A815A6853B00C9D58D /* left_bo1.png in Resources */ = {isa = PBXBuildFile; fileRef = FE3AE4A615A6853B00C9D58D /* left_bo1.png */; };
 		FE3AE4A915A6853B00C9D58D /* left_bo2.png in Resources */ = {isa = PBXBuildFile; fileRef = FE3AE4A715A6853B00C9D58D /* left_bo2.png */; };
@@ -249,6 +251,8 @@
 		FE36AF6F15A80583002CE9BF /* AnimationViewController_SinglePlayer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnimationViewController_SinglePlayer.xib; sourceTree = "<group>"; };
 		FE36AF7015A80584002CE9BF /* AnimationViewController_TwoPlayers.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnimationViewController_TwoPlayers.xib; sourceTree = "<group>"; };
 		FE36AF7315A80A3C002CE9BF /* dinasour_flipped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dinasour_flipped.png; sourceTree = "<group>"; };
+		FE36AF7515A85D69002CE9BF /* backToMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backToMenu.png; sourceTree = "<group>"; };
+		FE36AF7715A85D6F002CE9BF /* continueGame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = continueGame.png; sourceTree = "<group>"; };
 		FE3AE4A415A682E100C9D58D /* animation_static.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = animation_static.png; sourceTree = "<group>"; };
 		FE3AE4A615A6853B00C9D58D /* left_bo1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left_bo1.png; sourceTree = "<group>"; };
 		FE3AE4A715A6853B00C9D58D /* left_bo2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left_bo2.png; sourceTree = "<group>"; };
@@ -720,6 +724,8 @@
 				FE36AF6115A7D1F6002CE9BF /* badge_subtype_Math.png */,
 				FE36AF6B15A7EB5E002CE9BF /* speaker_off_flipped.png */,
 				FE36AF6C15A7EB5E002CE9BF /* speaker_on_flipped.png */,
+				FE36AF7515A85D69002CE9BF /* backToMenu.png */,
+				FE36AF7715A85D6F002CE9BF /* continueGame.png */,
 				FE36AF6615A7E8A2002CE9BF /* two_players */,
 			);
 			path = images;
@@ -999,6 +1005,8 @@
 				FE36AF7115A80584002CE9BF /* AnimationViewController_SinglePlayer.xib in Resources */,
 				FE36AF7215A80584002CE9BF /* AnimationViewController_TwoPlayers.xib in Resources */,
 				FE36AF7415A80A3C002CE9BF /* dinasour_flipped.png in Resources */,
+				FE36AF7615A85D69002CE9BF /* backToMenu.png in Resources */,
+				FE36AF7815A85D6F002CE9BF /* continueGame.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

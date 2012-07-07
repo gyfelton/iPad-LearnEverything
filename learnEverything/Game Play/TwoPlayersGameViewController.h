@@ -34,6 +34,9 @@
     NonScrollableGridView *_grid_view_dark;
     
     IBOutlet UIView *_animation_place_holder;
+    
+    UIView *_menuContainer1;
+    UIView *_menuContainer2;
 }
 
 - (id)initWithManagedContext:(NSManagedObjectContext *)context questionSet:(QuestionSet *)questionSet;

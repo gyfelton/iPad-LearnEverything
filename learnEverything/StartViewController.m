@@ -45,20 +45,14 @@
     [super viewDidLoad];
 //    self.view.backgroundColor = [UIColor clearColor];
     // Do any additional setup after loading the view from its nib.
-    _singleButton.titleLabel.font = [UIFont regularChineseFontWithSize:35];
-    _singleButton.titleLabel.textColor = [UIColor blackColor];
-
-    _dualButton.titleLabel.font = [UIFont regularChineseFontWithSize:35];
-    _dualButton.titleLabel.textColor = [UIColor blackColor];
-    
-    _editQuestionSetButton.titleLabel.font = [UIFont regularChineseFontWithSize:21];
-    _editQuestionSetButton.titleLabel.textColor = [UIColor blackColor];
+    _singleButton.hidden = YES;
+    _dualButton.hidden = YES;
     
     _hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:_hud];
     
-    _hud.yOffset = 300;
-    _hud.labelText = @"检查题库更新";
+    _hud.yOffset = 50;
+    _hud.labelText = @"检查题库更新中，请稍等";
     [_hud show:YES];
     
     [self performSelector:@selector(checkQSJFiles) withObject:nil afterDelay:1.3f];
@@ -74,15 +68,22 @@
 
 - (void)checkQSJFiles
 {
-    [[FileIOSharedManager sharedManager] checkCachedQuestionSetsWithCompletion:^(BOOL finished) {[_hud hide:YES];}];
+    [[FileIOSharedManager sharedManager] checkCachedQuestionSetsWithCompletion:^(BOOL finished) {
+        [_hud hide:YES];
+        [self performSelector:@selector(_animateCurl) withObject:nil afterDelay:0.1f];
+        _breathTitle = YES;
+        [self _breathMainTitleFade];
+        [UIView animateWithDuration:0.6f 
+                         animations:^{
+            _singleButton.hidden = NO;
+            _dualButton.hidden = NO;
+        }];
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self performSelector:@selector(_animateCurl) withObject:nil afterDelay:0.2f];
-    _breathTitle = YES;
-    [self _breathMainTitleFade];
 }
 
 - (void)viewDidDisappear:(BOOL)animated

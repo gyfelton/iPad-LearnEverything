@@ -181,6 +181,25 @@
     return nil;
 }
 
+#pragma mark - Super class methods override
+- (void)onPauseClicked:(id)sender
+{
+    //Config the pause view
+    [_pauseMenuContainer removeFromSuperview];
+    _pauseMenuBackground.frame = CGRectMake(0, 0, 768, 1024);
+    _pauseMenuContainer.center = CGPointMake(384, 830);
+    [_pauseMenuBackground addSubview:_pauseMenuContainer];
+    
+    NSArray *array = [[NSBundle mainBundle] loadNibNamed:@"PauseMenuView" owner:nil options:nil];
+    UIView *secondMenu = [array lastObject];
+    secondMenu.backgroundColor = [UIColor clearColor];
+    secondMenu.center = CGPointMake(384, 183);
+    [_pauseMenuBackground addSubview:secondMenu];
+    secondMenu.transform = CGAffineTransformMakeRotation(M_PI);
+    
+    [super onPauseClicked:sender];
+}
+
 #pragma mark - QuestionManager Delegate
 - (void)_animateStarMovement:(UIView*)star
 {

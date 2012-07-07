@@ -38,15 +38,15 @@
 					<object class="IBUIButton" id="117549586">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{82, 138}, {236, 46}}</string>
+						<string key="NSFrame">{{64, 85}, {274, 102}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="959722870"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUITag">33</int>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">主菜单</string>
 						<object class="NSColor" key="IBUIHighlightedTitleColor" id="476235156">
 							<int key="NSColorSpace">3</int>
@@ -59,6 +59,10 @@
 						<object class="NSColor" key="IBUINormalTitleShadowColor" id="917227624">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
+						</object>
+						<object class="NSCustomResource" key="IBUINormalImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">backToMenu.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription" id="609332316">
 							<int key="type">2</int>
@@ -73,15 +77,15 @@
 					<object class="IBUIButton" id="959722870">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{82, 216}, {236, 46}}</string>
+						<string key="NSFrame">{{63, 195}, {275, 106}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUITag">36</int>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">继续游戏</string>
 						<reference key="IBUIHighlightedTitleColor" ref="476235156"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
@@ -89,12 +93,17 @@
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="917227624"/>
+						<object class="NSCustomResource" key="IBUINormalImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">continueGame.png</string>
+						</object>
 						<reference key="IBUIFontDescription" ref="609332316"/>
 						<reference key="IBUIFont" ref="637750864"/>
 					</object>
 				</array>
 				<string key="NSFrameSize">{400, 400}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="117549586"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
@@ -168,6 +177,10 @@
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="backToMenu.png">{274, 102}</string>
+			<string key="continueGame.png">{275, 106}</string>
+		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">933</string>
 	</data>
 </archive>

@@ -128,8 +128,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _pauseMenuBackground = [[UIView alloc] initWithFrame:self.view.frame];
-    _pauseMenuBackground.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    _pauseMenuBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
     _pauseMenuBackground.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.6f];
     
     NSArray *array = [[NSBundle mainBundle] loadNibNamed:@"PauseMenuView" owner:nil options:nil];
