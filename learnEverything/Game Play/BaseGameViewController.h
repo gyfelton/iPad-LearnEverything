@@ -11,6 +11,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "Question.h"
 #import "QuestionSet.h"
+#import "AnimationViewController.h"
 
 @interface BaseGameViewController : UIViewController <AVAudioPlayerDelegate>
 {
@@ -35,6 +36,9 @@
     QuestionSet *_questionSet;
     
     IBOutlet UIButton *_speakerBtn;
+    IBOutlet UIButton *_speakerBtn2;
+    
+    AnimationViewController *_animationVC;
 }
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
@@ -45,7 +49,7 @@
 - (NSMutableArray*)activeQuestionsFromQuestionSet;
 - (NSMutableArray*)activeAndCompleteQuestionsFromQuestionSet;
 
-- (IBAction)onMenuClicked:(id)sender;
+- (IBAction)onPauseClicked:(id)sender;
 - (IBAction)onSpeakerClicked:(id)sender;
 
 - (void)playBackgroundMusic;

@@ -81,7 +81,7 @@
     return activeArray;
 }
 
-- (IBAction)onMenuClicked:(id)sender {
+- (IBAction)onPauseClicked:(id)sender {
     if ([self allowSound]) {
         self.audioPlayer.volume = 0.2f;
     }
@@ -93,6 +93,7 @@
 {
     _speakerBtn.selected = !_speakerBtn.selected;
     BOOL speakerON = !_speakerBtn.selected;
+    _speakerBtn2.selected = _speakerBtn.selected;
     if (speakerON) {
         self.audioPlayer.volume = REGULAR_VOLUME;
     } else

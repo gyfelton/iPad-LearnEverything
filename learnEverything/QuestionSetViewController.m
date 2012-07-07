@@ -231,7 +231,7 @@
                 [self dismissModalViewControllerAnimated:YES];
             } else
             {
-                [appDelegate prepareForTwoPlayersGame];
+                [appDelegate prepareForTwoPlayersGameQuestionSet:qn_set];
                 [self dismissModalViewControllerAnimated:YES];
             }
         }
@@ -381,19 +381,54 @@
         cell.contentView = view;
     } else
     {
-        QuestionSet *managedObject = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+        QuestionSet *questionSet = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
         
-        UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 210, 290)];
-        view.image = [UIImage imageNamed:@"question_set_bg_2"];
-        view.userInteractionEnabled = YES;
+        UIImageView *imageContainer = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 210, 290)];
+        imageContainer.image = [UIImage imageNamed:@"question_set_bg_2"];
+        imageContainer.userInteractionEnabled = YES;
 //        view.backgroundColor = [UIColor redColor];
         
         UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(30, 16, 153, 204)];
         img.backgroundColor = [UIColor clearColor];
         img.contentMode = UIViewContentModeScaleAspectFit;
         img.tag = 0;
-        img.image = [UIImage imageWithData:managedObject.cover_data];
-        [view addSubview:img];
+        img.image = [UIImage imageWithData:questionSet.cover_data];
+        [imageContainer addSubview:img];
+            
+        if (!questionSet.question_subtype || [questionSet.question_subtype intValue] == subtype_UnknownQuestionSubType) {
+            switch ([questionSet.question_type intValue]) {
+                case kTxtPlusTxt:
+                case kUnknownQuestionType:
+                    questionSet.question_subtype = [NSNumber numberWithInt:subtype_MathQuestion];
+                    break;
+                case kTxtPlusPic:
+                    questionSet.question_subtype = [NSNumber numberWithInt:subtype_EnglishPicture];
+                default:
+                    break;
+            }
+        }
+        
+        //Assign the badges    
+        UIImageView *badgeOverlay = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, img.frame.size.width, img.frame.size.height)];        
+        
+        switch ([questionSet.question_subtype intValue]) {
+            case subtype_MathQuestion:
+                badgeOverlay.image = [UIImage imageNamed:@"badge_subtype_Math"];
+                break;
+            case subtype_ChineseEnglishTranslation:
+                badgeOverlay.image = [UIImage imageNamed:@"badge_subtype_ChiEng"];
+                break;
+            case subtype_ChinesePicture:
+                badgeOverlay.image = [UIImage imageNamed:@"badge_subtype_ChiPic"];
+                break;
+            case subtype_EnglishPicture:
+                badgeOverlay.image = [UIImage imageNamed:@"badge_subtype_EngPic"];
+                break;
+            default:
+                badgeOverlay.image = [UIImage imageNamed:@"badge_subtype_Math"];
+            break; 
+        }
+        [img addSubview:badgeOverlay];
         
         UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(21, 224, 176, 40)];
         lbl.font = [UIFont regularChineseFontWithSize:33];
@@ -404,11 +439,11 @@
         lbl.adjustsFontSizeToFitWidth = YES;
         lbl.minimumFontSize = 9;
         lbl.textAlignment = UITextAlignmentCenter;
-        lbl.text = managedObject.name;
+        lbl.text = questionSet.name;
         lbl.tag = 1;
-        [view addSubview:lbl];
+        [imageContainer addSubview:lbl];
         
-        cell.contentView = view;
+        cell.contentView = imageContainer;
     }
 }
 

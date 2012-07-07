@@ -119,39 +119,25 @@
     {
         _header_img_view.hidden = NO;
         
-        if (!_questionSet.question_subtype || [_questionSet.question_subtype intValue] == subtype_UnknownQuestionSubType) {
-            
-            switch ([_questionSet.question_type intValue]) {
-                case kTxtPlusTxt:
-                case kUnknownQuestionType:
-                    _header_img_view.image = [UIImage imageNamed:@"table_header_calc"];
-                    break;
-                case kTxtPlusPic:
-                    _header_img_view.image = [UIImage imageNamed:@"table_header_EngPic"];
-                default:
-                    break;
-            }
-        } else
-        {
-            //[_questionTypeIndiciator setTitle:@"文字＋图片" forState:UIControlStateNormal];
-            switch ([_questionSet.question_subtype intValue]) {
-                case subtype_MathQuestion:
-                    _header_img_view.image = [UIImage imageNamed:@"table_header_calc"];
-                    break;
-                case subtype_ChineseEnglishTranslation:
-                    _header_img_view.image = [UIImage imageNamed:@"table_header_ChiEng"];
-                    break;
-                case subtype_ChinesePicture:
-                    _header_img_view.image = [UIImage imageNamed:@"table_header_ChiPic"];
-                    break;
-                case subtype_EnglishPicture:
-                    _header_img_view.image = [UIImage imageNamed:@"table_header_EngPic"];
-                    break;
-                default:
-                    break;
-            }
+        //Here we will know the subtype for sure
+        //[_questionTypeIndiciator setTitle:@"文字＋图片" forState:UIControlStateNormal];
+        switch ([_questionSet.question_subtype intValue]) {
+            case subtype_MathQuestion:
+                _header_img_view.image = [UIImage imageNamed:@"table_header_calc"];
+                break;
+            case subtype_ChineseEnglishTranslation:
+                _header_img_view.image = [UIImage imageNamed:@"table_header_ChiEng"];
+                break;
+            case subtype_ChinesePicture:
+                _header_img_view.image = [UIImage imageNamed:@"table_header_ChiPic"];
+                break;
+            case subtype_EnglishPicture:
+                _header_img_view.image = [UIImage imageNamed:@"table_header_EngPic"];
+                break;
+            default:
+                _header_img_view.image = [UIImage imageNamed:@"table_header_calc"];
+                break;
         }
-        
         [self.navigationItem setRightBarButtonItem:_addButton];
     }
     

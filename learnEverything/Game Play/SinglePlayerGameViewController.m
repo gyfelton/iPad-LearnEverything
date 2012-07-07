@@ -59,7 +59,7 @@
 {
     int number = [num intValue];
     if (!_countdownImageView) {
-        _countdownImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 200, 300)];
+        _countdownImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 300, 450)];
         [self.view addSubview:_countdownImageView];
     }
     
@@ -90,8 +90,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     self.wantsFullScreenLayout = YES;
 	// Do any additional setup after loading the view, typically from a nib.
+    
     _questionList = [super activeAndCompleteQuestionsFromQuestionSet];
     
     _grid_view = [[NonScrollableGridView alloc] initWithFrame:_grid_view_place_holder.frame];
@@ -111,7 +113,7 @@
     
     [self reinitGame];
     
-    _animationVC = [[AnimationViewController alloc] initWithNibName:nil bundle:nil];
+    _animationVC = [[AnimationViewController alloc] initWithNibName:@"AnimationViewController_SinglePlayer" bundle:nil];
     [_animationStageView addSubview:_animationVC.view];
 }
 
@@ -198,7 +200,6 @@
     return [_questionManager viewForNonScrollableGridViewAtRowIndex:rowIndex columnIndex:columnIndex];
 }
 
-
 #pragma mark - QuestionManager Delegate
 - (void)_animateStarMovement:(UIView*)star
 {
@@ -266,7 +267,7 @@
     ];
 }
 
-- (void)animateStarToDarkSideAndDecrementScore:(UIView*)flame
+- (void)animateFlameToDarkSideAndDecrementScore:(UIView*)flame
 {
     flame.transform = CGAffineTransformMakeScale(0.01, 0.01);
     [UIView animateWithDuration:0.1f 
@@ -312,7 +313,7 @@
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     
     [self.view addSubview:imageView];
-    [self animateStarToDarkSideAndDecrementScore:imageView];
+    [self animateFlameToDarkSideAndDecrementScore:imageView];
     
     
     CGRect rect2 = [card2 convertRect:card2.bounds toView:self.view];
@@ -320,7 +321,7 @@
     imageView2.image = [UIImage imageNamed:@"flame"];
     imageView2.contentMode = UIViewContentModeScaleAspectFit;
     [self.view addSubview:imageView2];
-    [self animateStarToDarkSideAndDecrementScore:imageView2];
+    [self animateFlameToDarkSideAndDecrementScore:imageView2];
     
     if ([self allowSound]) AudioServicesPlaySystemSound(_wrongAnswerSound);  // 播放SoundID声音
 }

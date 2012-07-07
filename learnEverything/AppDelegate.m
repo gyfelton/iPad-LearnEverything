@@ -32,14 +32,14 @@
     //Not designed for iPhone yet
     self.singlePlayerGameViewController = [[SinglePlayerGameViewController alloc] initWithManagedContext:self.managedObjectContext questionSet:questionset];
     
+    [self.baseNavigationController popToRootViewControllerAnimated:NO];
     [self.baseNavigationController pushViewController:self.singlePlayerGameViewController animated:NO];
     [self.singlePlayerGameViewController.navigationController setNavigationBarHidden:YES];
 }
 
-- (void)prepareForTwoPlayersGame
+- (void)prepareForTwoPlayersGameQuestionSet:(QuestionSet*)questionset
 {
-    self.twoPlayersGameViewController = [[TwoPlayersGameViewController alloc] initWithNibName:nil bundle:nil];
-    self.twoPlayersGameViewController.managedObjectContext = [self managedObjectContext];
+    self.twoPlayersGameViewController = [[TwoPlayersGameViewController alloc] initWithManagedContext:self.managedObjectContext questionSet:questionset];
     
     [self.baseNavigationController popToRootViewControllerAnimated:NO];
     [self.baseNavigationController pushViewController:self.twoPlayersGameViewController animated:NO];

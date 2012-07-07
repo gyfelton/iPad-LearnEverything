@@ -10,12 +10,14 @@
 
 @implementation AnimationViewController
 @synthesize score = _score;
+@synthesize isSinglePlayerMode = _isSinglePlayerMode;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initInSinglePlayerMode:(BOOL)singlePlayer
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName: singlePlayer ? @"AnimationViewController_SinglePlayer" : @"AnimationViewController_TwoPlayers" bundle:nil];
     if (self) {
-        // Custom initialization
+        // Custom initializations
+        _isSinglePlayerMode = singlePlayer;
     }
     return self;
 }
@@ -89,7 +91,6 @@
 {
     left_hero = nil;
     _right_flame = nil;
-    _shield = nil;
     _left_bo = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
@@ -114,15 +115,16 @@
 //    }
     CGFloat left_factor = 1;
     CGFloat right_factor = 1;
+    CGFloat offsetAmound = self.isSinglePlayerMode ? 10 : 5;
     if (s>0) {
-        left_factor = (_left_bo.frame.size.width+10)/_left_bo.frame.size.width;
+        left_factor = (_left_bo.frame.size.width+offsetAmound)/_left_bo.frame.size.width;
     } else
     {
-        left_factor = (_left_bo.frame.size.width-10)/_left_bo.frame.size.width;
+        left_factor = (_left_bo.frame.size.width-offsetAmound)/_left_bo.frame.size.width;
     }
     
     CGFloat leftNewWidth = _left_bo.frame.size.width*left_factor;
-    CGFloat rightNewWidth = 759 - leftNewWidth;
+    CGFloat rightNewWidth = self.isSinglePlayerMode ? 759 : 566 - leftNewWidth;
     right_factor = rightNewWidth/_right_flame.frame.size.width;
     
     [UIView animateWithDuration:0.2f animations:^{

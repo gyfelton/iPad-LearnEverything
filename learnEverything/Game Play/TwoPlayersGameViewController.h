@@ -14,11 +14,13 @@
 #import "Question.h"
 #import "NonScrollableGridView.h"
 
-@interface TwoPlayersGameViewController : BaseGameViewController <NonScrollableGridViewDataSource>
+@interface TwoPlayersGameViewController : BaseGameViewController <NonScrollableGridViewDataSource, QuestionManagerDelegate>
 {
     NonScrollableGridView *_grid_view;
 
     NSMutableArray *_questionList;
+    
+    UIImageView *_countdownImageView;
     
     //Light side
 //    NSMutableArray *_questionList_light;
@@ -30,5 +32,10 @@
     QuestionManager *_questionManager_dark;  
     IBOutlet UIView *_grid_view_dark_place_holder;
     NonScrollableGridView *_grid_view_dark;
+    
+    IBOutlet UIView *_animation_place_holder;
 }
+
+- (id)initWithManagedContext:(NSManagedObjectContext *)context questionSet:(QuestionSet *)questionSet;
+
 @end

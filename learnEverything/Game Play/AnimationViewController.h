@@ -11,14 +11,16 @@
 @interface AnimationViewController : UIViewController
 {
     
-    __unsafe_unretained IBOutlet UIImageView *left_hero;
-    __unsafe_unretained IBOutlet UIImageView *_right_flame;
-    __unsafe_unretained IBOutlet UIImageView *_shield;
-    __unsafe_unretained IBOutlet UIImageView *_left_bo;
+    IBOutlet UIImageView *left_hero;
+    IBOutlet UIImageView *_right_flame;
+    IBOutlet UIImageView *_left_bo;
     
     CGFloat _score;
+    
+    BOOL _isSinglePlayerMode;
 }
 
+@property (nonatomic, readonly) BOOL isSinglePlayerMode;
 @property (nonatomic, setter = setScore: ) CGFloat score; //Range from 0 to 1
 
 @end

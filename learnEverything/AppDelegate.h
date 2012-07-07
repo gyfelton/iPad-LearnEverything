@@ -29,7 +29,7 @@
 - (void)showStartScreenAnimated;
 
 - (void)prepareForSinglePlayerGameWithQuestionSet:(QuestionSet*)questionset;
-- (void)prepareForTwoPlayersGame;
+- (void)prepareForTwoPlayersGameQuestionSet:(QuestionSet*)questionset;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

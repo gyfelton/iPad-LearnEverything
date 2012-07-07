@@ -29,8 +29,6 @@
     
     __unsafe_unretained IBOutlet UIProgressView *_progressBar;
     __unsafe_unretained IBOutlet UIView *_animationStageView;
-    
-    AnimationViewController *_animationVC;
 }
 - (id)initWithManagedContext:(NSManagedObjectContext*)context questionSet:(QuestionSet*)questionSet;
 - (void)reinitGame;
