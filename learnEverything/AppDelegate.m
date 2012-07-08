@@ -46,16 +46,51 @@
     [self.twoPlayersGameViewController.navigationController setNavigationBarHidden:YES];
 }
 
+- (void)beginParseQSJFileWithURL:(NSURL*)url
+{
+    BOOL success = [[FileIOSharedManager sharedManager] parseQSJFileWithURL:url];
+    NSString *path = [url absoluteString];
+    path = [path lastPathComponent];
+    path = [path stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    if ([path length] > 7) {
+        path = [[path substringToIndex:7] stringByAppendingString:@"...qsj"];
+    }
+    UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 37, 37)];
+    _hud.customView = img;
+    _hud.mode = MBProgressHUDModeCustomView;
+    if (success)
+    {
+        img.image = [UIImage imageNamed:@"tick_s"];
+        _hud.labelText = [NSString stringWithFormat:@"载入 %@ 题库成功", path];
+        [[NSNotificationCenter defaultCenter] postNotificationName:QSJ_FILE_RECEIVED_AND_PARSE_SUCCESSFULL_NOTIFICATION object:url];
+    } else
+    {
+        img.image = [UIImage imageNamed:@"cross_s"];
+        _hud.labelText = @"载入题库失败，请重试";
+    }
+    [_hud hide:YES afterDelay:1.6f];
+}
+
 - (BOOL)processURLIfIsFileURL:(NSURL*)url
 {
     if ([url isFileURL]) {
         //Handle qsj file here
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Received a qsj file!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-        [[FileIOSharedManager sharedManager] parseQSJFileWithURL:url];
-    } else
-    {
-        //Handle url scheme here
+        if (!_hud) {
+            _hud = [[MBProgressHUD alloc] initWithWindow:self.window];
+            _hud.dimBackground = YES;
+            [self.window addSubview:_hud];
+            _hud.yOffset = 50;
+        }
+        NSString *path = [url absoluteString];
+        path = [path lastPathComponent];
+        path = [path stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        if ([path length] > 7) {
+            path = [[path substringToIndex:7] stringByAppendingString:@"...qsj"];
+        }
+        _hud.mode = MBProgressHUDModeIndeterminate;
+        _hud.labelText = [NSString stringWithFormat:@"载入 %@ 题库中...", path];
+        [_hud show:YES];
+        [self performSelector:@selector(beginParseQSJFileWithURL:) withObject:url afterDelay:0.3f];
     }
     return YES;
 }

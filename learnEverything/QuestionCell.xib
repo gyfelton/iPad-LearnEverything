@@ -47,7 +47,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{71, 5}, {340, 73}}</string>
 								<reference key="NSSuperview" ref="336205897"/>
-								<reference key="NSNextKeyView" ref="108475689"/>
+								<reference key="NSNextKeyView" ref="575312755"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<object class="NSCustomResource" key="IBUIImage" id="1050035116">
@@ -60,7 +60,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{417, 6}, {239, 73}}</string>
 								<reference key="NSSuperview" ref="336205897"/>
-								<reference key="NSNextKeyView" ref="575312755"/>
+								<reference key="NSNextKeyView" ref="808728693"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<reference key="IBUIImage" ref="1050035116"/>
@@ -70,7 +70,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{100, 15}, {284, 53}}</string>
 								<reference key="NSSuperview" ref="336205897"/>
-								<reference key="NSNextKeyView" ref="808728693"/>
+								<reference key="NSNextKeyView" ref="108475689"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -90,13 +90,13 @@
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								</object>
 								<int key="IBUIClearButtonMode">1</int>
-								<object class="IBUIFontDescription" key="IBUIFontDescription" id="745898506">
+								<object class="IBUIFontDescription" key="IBUIFontDescription" id="479348020">
 									<int key="type">1</int>
-									<double key="pointSize">38</double>
+									<double key="pointSize">50</double>
 								</object>
-								<object class="NSFont" key="IBUIFont" id="231345585">
+								<object class="NSFont" key="IBUIFont" id="361563485">
 									<string key="NSName">Helvetica</string>
-									<double key="NSSize">38</double>
+									<double key="NSSize">50</double>
 									<int key="NSfFlags">16</int>
 								</object>
 							</object>
@@ -105,6 +105,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{432, 15}, {213, 52}}</string>
 								<reference key="NSSuperview" ref="336205897"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -122,8 +123,15 @@
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								</object>
 								<int key="IBUIClearButtonMode">1</int>
-								<reference key="IBUIFontDescription" ref="745898506"/>
-								<reference key="IBUIFont" ref="231345585"/>
+								<object class="IBUIFontDescription" key="IBUIFontDescription">
+									<int key="type">1</int>
+									<double key="pointSize">38</double>
+								</object>
+								<object class="NSFont" key="IBUIFont">
+									<string key="NSName">Helvetica</string>
+									<double key="NSSize">38</double>
+									<int key="NSfFlags">16</int>
+								</object>
 							</object>
 							<object class="IBUILabel" id="148505350">
 								<reference key="NSNextResponder" ref="336205897"/>
@@ -195,6 +203,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{72, 20}, {342, 79}}</string>
 								<reference key="NSSuperview" ref="840907944"/>
+								<reference key="NSNextKeyView" ref="593754608"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<reference key="IBUIImage" ref="1050035116"/>
@@ -222,15 +231,15 @@
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								</object>
 								<int key="IBUIClearButtonMode">1</int>
-								<reference key="IBUIFontDescription" ref="745898506"/>
-								<reference key="IBUIFont" ref="231345585"/>
+								<reference key="IBUIFontDescription" ref="479348020"/>
+								<reference key="IBUIFont" ref="361563485"/>
 							</object>
 							<object class="IBUILabel" id="346720924">
 								<reference key="NSNextResponder" ref="840907944"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{1, 24}, {62, 72}}</string>
 								<reference key="NSSuperview" ref="840907944"/>
-								<reference key="NSNextKeyView" ref="593754608"/>
+								<reference key="NSNextKeyView" ref="946403143"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -252,6 +261,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{432, 12}, {213, 96}}</string>
 								<reference key="NSSuperview" ref="840907944"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -303,6 +313,7 @@
 				<int key="NSvFlags">292</int>
 				<string key="NSFrameSize">{80, 80}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSNextKeyView"/>
 				<int key="IBUIContentMode">4</int>
 				<bool key="IBUIUserInteractionEnabled">NO</bool>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -316,6 +327,7 @@
 				<int key="NSvFlags">292</int>
 				<string key="NSFrameSize">{80, 80}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSNextKeyView"/>
 				<int key="IBUIContentMode">4</int>
 				<bool key="IBUIUserInteractionEnabled">NO</bool>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>

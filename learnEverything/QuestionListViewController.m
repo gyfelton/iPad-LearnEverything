@@ -71,7 +71,7 @@
     // Do any additional setup after loading the view from its nib.
     
     _uthor_lbl.font = _cover_lbl.font = _title_lbl.font = [UIFont regularChineseFontWithSize:29];
-    _set_author_txtfield.font = _set_name_txtfield.font = [UIFont regularChineseFontWithSize:33];
+    _set_author_txtfield.font = _set_name_txtfield.font = [UIFont regularChineseFontWithSize:38];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 400, 44)];
     label.backgroundColor = [UIColor clearColor];
@@ -163,6 +163,14 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    if (_activeTextField) {
+        [_activeTextField resignFirstResponder];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -413,8 +421,8 @@
     cell.ansTxtField.returnKeyType = UIReturnKeyDone;
     
     //Config fonts
-    cell.questionNumber.font = [UIFont regularChineseFontWithSize:33];
-    cell.questionTxtField.font = cell.ansTxtField.font = [UIFont regularChineseFontWithSize:38];
+    cell.questionNumber.font = [UIFont regularChineseFontWithSize:38];
+    cell.questionTxtField.font = cell.ansTxtField.font = [UIFont regularChineseFontWithSize:50];
     
     //config keyboard
     cell.questionTxtField.autocapitalizationType = cell.ansTxtField.autocapitalizationType = UITextAutocapitalizationTypeWords;
@@ -433,7 +441,9 @@
     
     cell.questionTxtField.text = managedObject.question_in_text;
     
-    [cell.ansImageBtn setImage:[UIImage imageWithData:managedObject.answer_in_image] forState:UIControlStateNormal];
+    NSData *data = managedObject.answer_in_image;
+    UIImage *image = [UIImage imageWithData:data];
+    [cell.ansImageBtn setImage:image forState:UIControlStateNormal];
     cell.ansImageBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
     [cell.ansImageBtn addTarget:self action:@selector(onCellAnswerImageButtonClicked:) forControlEvents:UIControlEventTouchDown];
@@ -449,8 +459,8 @@
     
     cell.questionTxtField.returnKeyType = UIReturnKeyNext;
     
-    cell.questionNumber.font = [UIFont regularChineseFontWithSize:33];
-    cell.questionTxtField.font = [UIFont regularChineseFontWithSize:38];
+    cell.questionNumber.font = [UIFont regularChineseFontWithSize:38];
+    cell.questionTxtField.font = [UIFont regularChineseFontWithSize:50];
     
     cell.questionTxtField.autocapitalizationType = UITextAutocapitalizationTypeWords;
 }
@@ -806,7 +816,7 @@
         [cell.ansImageBtn setImage:editedImg forState:UIControlStateNormal];
         cell.ansImageBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
         Question *qn = [self questionForIndexPath:_indexPathForEditingImage];
-        qn.answer_in_image = UIImagePNGRepresentation(editedImg);
+        qn.answer_in_image = UIImageJPEGRepresentation(editedImg, 0.8);
         
         if (qn.question_in_text) {
             qn.is_active = [NSNumber numberWithBool:YES];
@@ -903,8 +913,8 @@
         [_mailComposeVC setMessageBody:@"这是一个题库，请使用 “勇者斗恶龙” 打开\n\nApp Store下载点这里:" isHTML:NO];
         
         NSData *data = [[FileIOSharedManager sharedManager] dataFromJSONParsedQuestionSet:_questionSet filterInCompleteQuestion:_shouldNotShareIncompleteQuestion filterInActiveQuestions:_shouldNotShareUnCheckedQuestion];
-        
-        [_mailComposeVC addAttachmentData:data mimeType:@"application/x-qsj" fileName:@"test.qsj"];
+        NSString *fileName = [_questionSet.set_id stringByAppendingString:@".qsj"];
+        [_mailComposeVC addAttachmentData:data mimeType:@"application/x-qsj" fileName:fileName];
         _mailComposeVC.mailComposeDelegate = self;
         [self presentModalViewController:_mailComposeVC animated:YES];
     }

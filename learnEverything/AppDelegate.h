@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "StartViewController.h"
+#import "MBProgressHUD.h"
 
 @class QuestionSet;
 @class TwoPlayersGameViewController;
@@ -16,6 +17,7 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 {
     UINavigationController *_startVCNav;
+    MBProgressHUD *_hud;
 }
 @property (strong, nonatomic) UIWindow *window;
 

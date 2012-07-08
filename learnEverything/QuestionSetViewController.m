@@ -129,6 +129,8 @@
     ;
     _titleLabel.text = self.title;
     _titleLabel.font = [UIFont regularChineseFontWithSize:33];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onQSJFileParsedSuccessfulReceived:) name:QSJ_FILE_RECEIVED_AND_PARSE_SUCCESSFULL_NOTIFICATION object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -141,6 +143,8 @@
 {
     _titleLabel = nil;
     [super viewDidUnload];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:QSJ_FILE_RECEIVED_AND_PARSE_SUCCESSFULL_NOTIFICATION
+                                                  object:nil];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -469,6 +473,11 @@
     //TODO here we only take care of lanscape mode, need to consider portrait mode or other types of keyboard if possible
     _questionSetView.contentInset = UIEdgeInsetsMake(0, 0, realKeyboardFrame.origin.y>=0? realKeyboardFrame.size.height : 0, 0);
 //    [_questionSetListView scrollRectToVisible:[_questionSetListView rectForRowAtIndexPath:_indexPathForEditingTextField] animated:YES];
+}
+
+- (void)onQSJFileParsedSuccessfulReceived:(NSNotification*)notification
+{
+    [_questionSetView reloadData];
 }
 
 @end

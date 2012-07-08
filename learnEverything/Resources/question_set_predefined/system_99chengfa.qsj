@@ -1,7 +1,8 @@
 {
     "name" : "九九乘法表",
-    "author" : "system",
+    "author" : "勇者斗恶龙",
     "question_type" : 0,
+	"question_subtype" : 0,
     "questions" :   
                 [
                 {

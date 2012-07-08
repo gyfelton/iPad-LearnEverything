@@ -106,6 +106,9 @@
 		FEA44A7D159C78ED00DBD606 /* card_bg_1.png in Resources */ = {isa = PBXBuildFile; fileRef = FEA44A7C159C78ED00DBD606 /* card_bg_1.png */; };
 		FEA44A7F159C7B4400DBD606 /* shield.png in Resources */ = {isa = PBXBuildFile; fileRef = FEA44A7E159C7B4400DBD606 /* shield.png */; };
 		FEAE506415A58D5500CFFA80 /* leather_texture.png in Resources */ = {isa = PBXBuildFile; fileRef = FEAE506315A58D5500CFFA80 /* leather_texture.png */; };
+		FEB8CC7215A95DAA0041D93C /* UIImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB8CC7115A95DAA0041D93C /* UIImage+Scale.m */; };
+		FEB8CC7515A961390041D93C /* cross_s.png in Resources */ = {isa = PBXBuildFile; fileRef = FEB8CC7315A961390041D93C /* cross_s.png */; };
+		FEB8CC7615A961390041D93C /* tick_s.png in Resources */ = {isa = PBXBuildFile; fileRef = FEB8CC7415A961390041D93C /* tick_s.png */; };
 		FEC18E76159AFCC3001ED526 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = FEC18E75159AFCC3001ED526 /* click.wav */; };
 		FEC18E78159AFCE2001ED526 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEC18E77159AFCE2001ED526 /* AudioToolbox.framework */; };
 		FEC18E7A159AFD7F001ED526 /* correct.caf in Resources */ = {isa = PBXBuildFile; fileRef = FEC18E79159AFD7F001ED526 /* correct.caf */; };
@@ -329,6 +332,10 @@
 		FEA44A7E159C7B4400DBD606 /* shield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shield.png; sourceTree = "<group>"; };
 		FEA8C6C215A152AD009FAAE9 /* QuestionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuestionType.h; path = learnEverything/CoreData/QuestionType.h; sourceTree = "<group>"; };
 		FEAE506315A58D5500CFFA80 /* leather_texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leather_texture.png; sourceTree = "<group>"; };
+		FEB8CC7015A95DAA0041D93C /* UIImage+Scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Scale.h"; sourceTree = "<group>"; };
+		FEB8CC7115A95DAA0041D93C /* UIImage+Scale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Scale.m"; sourceTree = "<group>"; };
+		FEB8CC7315A961390041D93C /* cross_s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cross_s.png; sourceTree = "<group>"; };
+		FEB8CC7415A961390041D93C /* tick_s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tick_s.png; sourceTree = "<group>"; };
 		FEC18E75159AFCC3001ED526 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
 		FEC18E77159AFCE2001ED526 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		FEC18E79159AFD7F001ED526 /* correct.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = correct.caf; sourceTree = "<group>"; };
@@ -726,6 +733,8 @@
 				FE36AF6C15A7EB5E002CE9BF /* speaker_on_flipped.png */,
 				FE36AF7515A85D69002CE9BF /* backToMenu.png */,
 				FE36AF7715A85D6F002CE9BF /* continueGame.png */,
+				FEB8CC7315A961390041D93C /* cross_s.png */,
+				FEB8CC7415A961390041D93C /* tick_s.png */,
 				FE36AF6615A7E8A2002CE9BF /* two_players */,
 			);
 			path = images;
@@ -809,6 +818,8 @@
 				FE89568515A19F910068DBA2 /* MBProgressHUD */,
 				FE16807A15A74D29004E95EE /* UIResponder+InsertText.h */,
 				FE16807B15A74D29004E95EE /* UIResponder+InsertText.m */,
+				FEB8CC7015A95DAA0041D93C /* UIImage+Scale.h */,
+				FEB8CC7115A95DAA0041D93C /* UIImage+Scale.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1007,6 +1018,8 @@
 				FE36AF7415A80A3C002CE9BF /* dinasour_flipped.png in Resources */,
 				FE36AF7615A85D69002CE9BF /* backToMenu.png in Resources */,
 				FE36AF7815A85D6F002CE9BF /* continueGame.png in Resources */,
+				FEB8CC7515A961390041D93C /* cross_s.png in Resources */,
+				FEB8CC7615A961390041D93C /* tick_s.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1055,6 +1068,7 @@
 				FE16806315A72D46004E95EE /* Question.m in Sources */,
 				FE16807115A733D0004E95EE /* QuestionSet.m in Sources */,
 				FE16807C15A74D29004E95EE /* UIResponder+InsertText.m in Sources */,
+				FEB8CC7215A95DAA0041D93C /* UIImage+Scale.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

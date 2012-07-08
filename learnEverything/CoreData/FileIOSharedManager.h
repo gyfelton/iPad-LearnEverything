@@ -11,6 +11,7 @@
 #import "QuestionSet.h"
 
 #define QUESTION_SET_DEFAULT_COVER_NAME @"qn_set_cover_default"
+#define QSJ_FILE_RECEIVED_AND_PARSE_SUCCESSFULL_NOTIFICATION @"QSJ_FILE_RECEIVED_AND_PARSE_SUCCESSFULL_NOTIFICATION"
 
 @interface FileIOSharedManager : NSObject
 {
@@ -22,7 +23,7 @@
 - (NSData*)dataFromJSONParsedQuestionSet:(QuestionSet*)set filterInCompleteQuestion:(BOOL)filterIncomplete filterInActiveQuestions:(BOOL)filterInActive;
 - (void)checkCachedQuestionSetsWithCompletion:(void (^)(BOOL finished))completion;;
 - (BOOL)insertNewQuestionSet;
-- (void)parseQSJFileWithURL:(NSURL*)url;
+- (BOOL)parseQSJFileWithURL:(NSURL*)url;
 
 + (FileIOSharedManager*)sharedManager;
 

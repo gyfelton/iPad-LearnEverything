@@ -182,7 +182,7 @@ static FileIOSharedManager *sharedManager;
         
         //For now we put invalid question
         if (!validQuestion) {
-            NSLog(@"Detect a invalid question %@", newQn.description);
+//            NSLog(@"Detect a invalid question %@", newQn.description);
         }
         
         [array addObject:newQn];
@@ -191,7 +191,7 @@ static FileIOSharedManager *sharedManager;
 }
 
 //When the attributes of QuestionSet updates, update here as well
-- (BOOL)_assignValuesToQuestionSetAndSave:(QuestionSet*)set withContext:(NSManagedObjectContext*)context SetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questionType:(NSNumber*)questionType questions:(NSArray*)questions coverImageData:(NSData *)data
+- (BOOL)_assignValuesToQuestionSetAndSave:(QuestionSet*)set withContext:(NSManagedObjectContext*)context SetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questionType:(NSNumber*)questionType questions:(NSArray*)questions coverImageData:(NSData *)data questionSubtype:(NSNumber*)questionSubtype
 {
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
@@ -201,6 +201,7 @@ static FileIOSharedManager *sharedManager;
     [set setValueIfNotNil:name forKey:@"name"];
     [set setValueIfNotNil:author forKey:@"author"];
     [set setValueIfNotNil:questionType forKey:@"question_type"];
+    [set setValueIfNotNil:questionSubtype forKey:@"question_subtype"];
     [set setValueIfNotNil:data forKey:@"cover_data"];
     //cover_url not implemented yet
     
@@ -218,17 +219,18 @@ static FileIOSharedManager *sharedManager;
         //TODO notify the user about er1ror
         return NO;
     }
+
     return YES;
 }
 
-- (BOOL)_insertNewQuestionSetWithSetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questionType:(NSNumber*)questionType questions:(NSArray*)questions coverImageData:(NSData *)data
+- (BOOL)_insertNewQuestionSetWithSetID:(NSString*)set_id name:(NSString*)name author:(NSString*)author createDate:(NSDate*)create_date modifyDate:(NSDate*)modifyDate questionType:(NSNumber*)questionType questions:(NSArray*)questions coverImageData:(NSData *)data questionSubtype:(NSNumber*)question_subtype
 {
     // Create a new instance of the entity managed by the fetched results controller.
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+    NSManagedObjectContext *context = self.managedObjectContext;
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
     QuestionSet *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
     
-    return [self _assignValuesToQuestionSetAndSave:newManagedObject withContext:context SetID:set_id name:name author:author createDate:create_date modifyDate:modifyDate questionType:questionType questions:questions coverImageData:data];
+    return [self _assignValuesToQuestionSetAndSave:newManagedObject withContext:context SetID:set_id name:name author:author createDate:create_date modifyDate:modifyDate questionType:questionType questions:questions coverImageData:data questionSubtype:question_subtype];
 }
 
 - (BOOL)_parseQuestionSetDictionary:(NSDictionary*)question_set filePath:(NSString*)path fileNameAsSetID:(NSString*)set_id andInsertToCoreDataIfNil:(QuestionSet*)qnSet
@@ -240,6 +242,7 @@ static FileIOSharedManager *sharedManager;
     NSString *name = [question_set objectForKey:@"name"];
     NSString *author = [question_set objectForKey:@"author"];
     NSNumber *questionType = [question_set objectForKey:@"question_type"];
+    NSNumber *questionSubtype = [question_set objectForKey:@"question_subtype"];
     
     if (!questionType) {
         questionType = [NSNumber numberWithInt:kUnknownQuestionType];
@@ -257,7 +260,6 @@ static FileIOSharedManager *sharedManager;
     if (!modifyDate) {
         modifyDate = [NSDate date];
     }
-    NSLog(@"%@", [question_set allKeys].description);
     
     NSString *cover_data_base64_string = [question_set objectForKey:@"cover_data"];
     NSData *cover_data = [NSData dataWithBase64EncodedString:cover_data_base64_string];
@@ -272,10 +274,10 @@ static FileIOSharedManager *sharedManager;
     }
     
     if (!qnSet) {
-        return [self _insertNewQuestionSetWithSetID:set_id name:name author:author createDate:createDate modifyDate:modifyDate questionType:questionType questions:questions coverImageData:cover_data];
+        return [self _insertNewQuestionSetWithSetID:set_id name:name author:author createDate:createDate modifyDate:modifyDate questionType:questionType questions:questions coverImageData:cover_data questionSubtype:questionSubtype];
     } else
     {
-        return [self _assignValuesToQuestionSetAndSave:qnSet withContext:self.managedObjectContext SetID:set_id name:name author:author createDate:createDate modifyDate:modifyDate questionType:questionType questions:questions coverImageData:cover_data];
+        return [self _assignValuesToQuestionSetAndSave:qnSet withContext:self.managedObjectContext SetID:set_id name:name author:author createDate:createDate modifyDate:modifyDate questionType:questionType questions:questions coverImageData:cover_data questionSubtype:questionSubtype];
     }
     
 }
@@ -298,37 +300,48 @@ static FileIOSharedManager *sharedManager;
         }
     }
     
-    @autoreleasepool {
-        if (!alreadyExists) {
-            NSString *jsonStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
-            NSDictionary *resultDict = [jsonStr objectFromJSONString];
-            BOOL success = [self _parseQuestionSetDictionary:resultDict filePath:path fileNameAsSetID:set_id andInsertToCoreDataIfNil:nil];
-        } else
-        {
-            //TODO 如果set_id已存在，该怎么办？
-            NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&error];
-            if ([questionSet.modify_timestamp compare:[attributes objectForKey:NSFileModificationDate]] == NSOrderedAscending) {
-                //TODO need testing on this
-                //modification date is later, should update
-                NSString *jsonStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
-                
-                NSMutableDictionary *resultDict = [NSMutableDictionary dictionaryWithDictionary:[jsonStr objectFromJSONString]];
-                
-                //Assign dates info to dict to update the questionSet
-                [resultDict setValue:[attributes objectForKey:NSFileModificationDate] forKey:@"modify_date"];
-                [resultDict setValue:[attributes objectForKey:NSFileCreationDate] forKey:@"create_date"];
-                
-                [self _parseQuestionSetDictionary:resultDict filePath:path fileNameAsSetID:set_id andInsertToCoreDataIfNil:questionSet];
-            }
-        }   
-    }
+    BOOL success;
+    if (!alreadyExists) {
+        NSString *jsonStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
+        NSDictionary *resultDict = [jsonStr objectFromJSONString];
+        success = [self _parseQuestionSetDictionary:resultDict filePath:path fileNameAsSetID:set_id andInsertToCoreDataIfNil:nil];
+    } else
+    {
+        NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&error];
+        if ([questionSet.modify_timestamp compare:[attributes objectForKey:NSFileModificationDate]] == NSOrderedSame) {
+            //如果时间一样，则跳过插入
+            return NO;
+        }
+        
+        //如果set_id已存在，该怎么办？
+        //目前方法：set_id后面加时间戳,name加时间戳
+        set_id = [set_id stringByAppendingFormat:@"%d", [[NSDate date] timeIntervalSinceReferenceDate]];
+        
+        NSString *jsonStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
+        
+        NSMutableDictionary *resultDict = [NSMutableDictionary dictionaryWithDictionary:[jsonStr objectFromJSONString]];
+        
+        //改变name
+        NSString *name = [resultDict objectForKey:@"name"];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateStyle:NSDateFormatterShortStyle];
+        
+        name = [name stringByAppendingString:[formatter stringFromDate:[NSDate date]]];
+        [resultDict setObject:name forKey:@"name"];
+        
+        //Assign dates info to dict to update the questionSet
+        [resultDict setValue:[attributes objectForKey:NSFileModificationDate] forKey:@"modify_date"];
+        [resultDict setValue:[attributes objectForKey:NSFileCreationDate] forKey:@"create_date"];
+        
+        success = [self _parseQuestionSetDictionary:resultDict filePath:path fileNameAsSetID:set_id andInsertToCoreDataIfNil:nil];
+    }   
     
-    return YES;
+    return success;
 }
 
-- (void)parseQSJFileWithURL:(NSURL*)url
+- (BOOL)parseQSJFileWithURL:(NSURL*)url
 {
-    [self _parseQSJFileOnPath:[url path]];
+    return [self _parseQSJFileOnPath:[url path]];
 }
 
 - (void)checkCachedQuestionSetsWithCompletion:(void (^)(BOOL))completion
@@ -349,7 +362,7 @@ static FileIOSharedManager *sharedManager;
     
     NSData *imgData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:QUESTION_SET_DEFAULT_COVER_NAME ofType:@"png"]];
     
-    return [self _insertNewQuestionSetWithSetID:uniqueID name:@"我的题库" author:@"用户" createDate:[NSDate date] modifyDate:[NSDate date] questionType:[NSNumber numberWithInt:kUnknownQuestionType] questions:nil coverImageData:imgData];
+    return [self _insertNewQuestionSetWithSetID:uniqueID name:@"我的题库" author:@"用户" createDate:[NSDate date] modifyDate:[NSDate date] questionType:[NSNumber numberWithInt:kUnknownQuestionType] questions:nil coverImageData:imgData questionSubtype:nil];
 }
 
 #pragma mark - Serialize Managed objects to NSDitionary
@@ -361,6 +374,10 @@ static FileIOSharedManager *sharedManager;
         case NSBinaryDataAttributeType:
         {
             NSData *data = [object valueForKey:aKey];
+//            UIImage *img = [UIImage imageWithData:data];
+//            if (img) {
+//                data = UIImageJPEGRepresentation(img, 0.7);
+//            }
             return [data base64EncodingWithLineLength:0];
         }
             break;

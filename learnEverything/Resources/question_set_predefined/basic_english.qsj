@@ -1,7 +1,8 @@
 {
-    "name" : "一年级英语_配图",
-    "author" : "system",
-    "question_type" : 1,
+    "name" : "一年级英语",
+    "author" : "勇者斗恶龙",
+    "question_type" : 0,
+	"question_subtype" : 1,
     "questions" :  
                 [
                 {
