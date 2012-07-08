@@ -27,10 +27,9 @@ typedef enum cardType cardType;
 @property (nonatomic, strong) UIImageView *wrongcross;
 
 @property (nonatomic, strong) GVIndexPath *associatedIndexPath;
+@property NSInteger arrayIndex;
 
 @property cardType cardType;
-
-@property NSInteger questionIndex;
 
 @property BOOL isShowingCardBack;
 

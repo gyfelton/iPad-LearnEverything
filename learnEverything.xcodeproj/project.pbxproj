@@ -1091,6 +1091,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "learnEverything/Utils/GMGridView/**";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -1115,6 +1116,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "learnEverything/Utils/GMGridView/**";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -1137,6 +1139,7 @@
 				GCC_PREFIX_HEADER = "learnEverything/learnEverything-Prefix.pch";
 				INFOPLIST_FILE = "learnEverything/learnEverything-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos5.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -1155,6 +1158,7 @@
 				GCC_PREFIX_HEADER = "learnEverything/learnEverything-Prefix.pch";
 				INFOPLIST_FILE = "learnEverything/learnEverything-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos5.0;
 				TARGETED_DEVICE_FAMILY = 2;

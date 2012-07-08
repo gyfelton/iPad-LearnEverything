@@ -11,7 +11,7 @@
 @implementation QuestionCard
 @synthesize cardType, associatedIndexPath;
 @synthesize checkmark, wrongcross;
-@synthesize questionIndex;
+@synthesize arrayIndex;
 @synthesize isShowingCardBack = _isShowingCardBack;
 @synthesize pressed = _pressed;
 

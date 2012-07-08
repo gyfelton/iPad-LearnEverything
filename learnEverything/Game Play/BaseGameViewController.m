@@ -15,7 +15,8 @@
 @synthesize managedObjectContext;
 @synthesize isGameOnPause;
 @synthesize audioPlayer;
-
+@synthesize expandedQuestionList = _expandedQuestionList;
+ 
 - (NSMutableArray*)_questionsWithPredicate:(NSPredicate*)predicate
 {
     NSManagedObjectContext *moc = self.managedObjectContext;
@@ -52,11 +53,11 @@
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
                                         initWithKey:@"create_timestamp" ascending:YES];
     NSArray *questions = [_questionSet.questions sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-    NSMutableArray *mutable = [NSMutableArray arrayWithArray:questions];
-    for (int i = 0; i< [mutable count]; i++) {
-        Question *qn = [mutable objectAtIndex:i];
-        if (![qn.is_active boolValue]) {
-            [mutable removeObject:qn];
+    NSMutableArray *mutable = [[NSMutableArray alloc] init];
+    for (int i = 0; i< [questions count]; i++) {
+        Question *qn = [questions objectAtIndex:i];
+        if ([qn.is_active boolValue]) {
+            [mutable addObject:qn];
         }
     }
     return mutable;
@@ -65,20 +66,21 @@
 - (NSMutableArray*)activeAndCompleteQuestionsFromQuestionSet
 {
     NSMutableArray *activeArray = [self activeQuestionsFromQuestionSet];
+    NSMutableArray *activeAndCompleteArray = [[NSMutableArray alloc] init];
     for (int i = 0; i< [activeArray count]; i++) {
         Question *qn = [activeArray objectAtIndex:i];
         if ([_questionSet.question_type intValue] == kTxtPlusTxt) {
-            if (!qn.question_in_text || (!qn.answer_in_text || !qn.answer_id)) {
-                [activeArray removeObjectAtIndex:i];
+            if (qn.question_in_text && (qn.answer_in_text || qn.answer_id)) {
+                [activeAndCompleteArray addObject:qn];
             }
         } else
         {
-            if (!qn.question_in_text || !qn.answer_in_image) {
-                [activeArray removeObjectAtIndex:i];
+            if (qn.question_in_text && qn.answer_in_image) {
+                [activeAndCompleteArray addObject:qn];
             }
         }
     }
-    return activeArray;
+    return activeAndCompleteArray;
 }
 
 - (IBAction)onPauseClicked:(id)sender {

@@ -9,6 +9,7 @@
 #import "TwoPlayersGameViewController.h"
 #import "AnimationViewController.h"
 #import "AppDelegate.h"
+#import "NSMutableArray+Shuffling.h"
 
 #define ROW_NUMBER 3
 #define COLUMN_NUMBER 4
@@ -38,8 +39,20 @@
 
 - (void)reinitGame
 {
-    [_questionManager_dark reinitGame];
-    [_questionManager_light reinitGame];
+    //Prepare the expandedQuestionList
+    _questionList = [super activeAndCompleteQuestionsFromQuestionSet];
+    
+    _expandedQuestionList = [[NSMutableArray alloc] initWithArray:_questionList];
+    [_expandedQuestionList shuffle];
+    
+    _questionManager_light = [[QuestionManager alloc] initWithGridView:_grid_view_light questionList:_questionList questionType:[_questionSet.question_type intValue] numberOfCardsInGridView:ROW_NUMBER*COLUMN_NUMBER];
+    _questionManager_light.questionManagerDelegate = self;
+    
+    _questionManager_dark = [[QuestionManager alloc] initWithGridView:_grid_view_dark questionList:_questionList questionType:[_questionSet.question_type intValue] numberOfCardsInGridView:ROW_NUMBER*COLUMN_NUMBER];
+    _questionManager_dark.questionManagerDelegate = self;
+    
+    [_grid_view_dark reloadData];
+    [_grid_view_light reloadData];
 }
 
 - (void)viewDidLoad
@@ -48,8 +61,6 @@
     
     self.wantsFullScreenLayout = YES;
 	// Do any additional setup after loading the view, typically from a nib.
-    
-    _questionList = [super activeAndCompleteQuestionsFromQuestionSet];
     
     _grid_view_light = [[NonScrollableGridView alloc] initWithFrame:_grid_view_light_place_holder.frame];
     _grid_view_light.dataSource = self;
@@ -64,12 +75,6 @@
     
     [_grid_view_dark_place_holder.superview insertSubview:_grid_view_dark aboveSubview:_grid_view_dark_place_holder];
     [_grid_view_dark_place_holder removeFromSuperview];
-    
-    _questionManager_light = [[QuestionManager alloc] initWithGridView:_grid_view_light questionList:_questionList questionType:[_questionSet.question_type intValue]];
-    _questionManager_light.questionManagerDelegate = self;
-    
-    _questionManager_dark = [[QuestionManager alloc] initWithGridView:_grid_view_dark questionList:_questionList questionType:[_questionSet.question_type intValue]];
-    _questionManager_dark.questionManagerDelegate = self;
     
     [self reinitGame];
     
@@ -141,10 +146,10 @@
 - (NSInteger)numberOfRowsForNonScrollableGridView:(NonScrollableGridView *)gridView
 {
     if (_grid_view_dark == gridView) {
-        return [_questionList count]>0? ROW_NUMBER : 0;
+        return [_expandedQuestionList count]>0? ROW_NUMBER : 0;
     } else if (gridView == _grid_view_light)
     {
-        return [_questionList count]>0? ROW_NUMBER : 0;
+        return [_expandedQuestionList count]>0? ROW_NUMBER : 0;
     }
     return 0;
 }
@@ -152,10 +157,10 @@
 - (NSInteger)numberOfColumnsForNonScrollableGridView:(NonScrollableGridView *)gridView
 {
     if (_grid_view_dark == gridView) {
-        return [_questionList count]>0? COLUMN_NUMBER : 0;
+        return [_expandedQuestionList count]>0? COLUMN_NUMBER : 0;
     } else if (gridView == _grid_view_light)
     {
-        return [_questionList count]>0? COLUMN_NUMBER : 0;
+        return [_expandedQuestionList count]>0? COLUMN_NUMBER : 0;
     }
     return 0;
 }

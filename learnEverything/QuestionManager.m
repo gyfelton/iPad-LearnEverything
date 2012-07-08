@@ -12,74 +12,127 @@
 #import "NSMutableArray+Shuffling.h"
 
 @implementation QuestionManager
-@synthesize isFlipCards;
-@synthesize questionList = _questionList;
+//@synthesize isFlipCards;
+//@synthesize questionList = _questionList;
 @synthesize questionManagerDelegate;
 
-- (id)initWithGridView:(NonScrollableGridView*)gv questionList:(NSMutableArray*)list questionType:(QuestionType)type
+- (void)incrementLastUsedQuestionPointer
+{
+    _lastUsedQuestionPointer++;
+    if (_lastUsedQuestionPointer >= [_expandedQuestionList count]) {
+        _lastUsedQuestionPointer = 0; //防止数组超界
+    }
+}
+
+- (void)initCurrentQuestionsOnView
+{
+    for (int i = 0 ; i < _numberOfCardsInGridView; i++) {
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [_dictForCurrentQuestionsOnView addObject:dict];
+    }
+    
+    _lastUsedQuestionPointer = 0;
+    for (int i = 0; i < _numberOfQuestionsNeeded; i++) {
+        //Insert the question's q and a to two random places
+        BOOL hadFoundForQn = NO;
+        NSInteger indexForQn;
+        NSInteger indexForAns;
+        BOOL hadFoundForAns = NO;
+        do {
+            int indexToInsert = arc4random() % _numberOfCardsInGridView;
+            if (indexToInsert != indexForQn) {
+                NSMutableDictionary *dict = [_dictForCurrentQuestionsOnView objectAtIndex:indexToInsert];
+                if ([[dict allKeys] count] == 0) {
+                    //找到个位置
+                    if (!hadFoundForQn) {
+                        indexForQn = indexToInsert;
+                        hadFoundForQn = YES;
+                    } else
+                    {
+                        indexForAns = indexToInsert;
+                        hadFoundForAns = YES;
+                    }
+                }
+            }
+        } while (!hadFoundForQn || !hadFoundForAns);
+        
+        //插入到对应位置
+        NSMutableDictionary *dict = [_dictForCurrentQuestionsOnView objectAtIndex:indexForQn];
+        NSMutableDictionary *dictAns = [_dictForCurrentQuestionsOnView objectAtIndex:indexForAns];
+        
+        [dict setObject:[NSNumber numberWithInt:_lastUsedQuestionPointer] forKey:@"index"];
+        [dictAns setObject:[NSNumber numberWithInt:_lastUsedQuestionPointer] forKey:@"index"];
+        
+        [dict setObject:[NSNumber numberWithBool:YES] forKey:@"is_question"];
+        [dictAns setObject:[NSNumber numberWithBool:NO] forKey:@"is_question"];
+        
+        [self incrementLastUsedQuestionPointer];
+    }
+}
+
+- (void)refillAnsweredQuestions
+{
+    BOOL hasUsedQuestion = NO;
+    for (GVIndexPath *indexPath in _answeredCardIndexPaths) {
+        NSInteger targetIndex = indexPath.row * _grid_view.numberOfColumns + indexPath.column;
+        NSMutableDictionary *dict = [_dictForCurrentQuestionsOnView objectAtIndex:targetIndex];
+        [dict setObject:[NSNumber numberWithInt:_lastUsedQuestionPointer] forKey:@"index"];
+        if (!hasUsedQuestion) {
+            [dict setObject:[NSNumber numberWithBool:YES] forKey:@"is_question"];
+            hasUsedQuestion = YES;
+        } else
+        {
+            [dict setObject:[NSNumber numberWithBool:NO] forKey:@"is_question"];
+            [self incrementLastUsedQuestionPointer];
+            hasUsedQuestion = NO;
+        }
+    }
+}
+
+- (id)initWithGridView:(NonScrollableGridView*)gv questionList:(NSMutableArray*)list questionType:(QuestionType)type numberOfCardsInGridView:(NSInteger)numCards
 {
     self = [super init];
     if (self) {
-        self.questionList = list;
+        _expandedQuestionList = list;
         _grid_view = gv;
-        _currentQuestionSetHead = -1;
-        _currentQuestionSetTail = -1;
-        _answeredCardIndexPaths = [[NSMutableArray alloc] init];
+        _numberOfCardsInGridView = numCards;
+        _numberOfQuestionsNeeded = _numberOfCardsInGridView/2;
+        if (numCards % 2 != 0) {
+            abort(); //Campulsory: even number of cards
+        }
+        
         _questionType = type;
+        _answeredCardIndexPaths = [[NSMutableArray alloc] init];
+        _dictForCurrentQuestionsOnView = [[NSMutableArray alloc] initWithCapacity:_numberOfCardsInGridView];
+        [self initCurrentQuestionsOnView];
     }
     return self;
 }
 
 - (UIView*)viewForNonScrollableGridViewAtRowIndex:(NSInteger)rowIndex columnIndex:(NSInteger)columnIndex
 {
-    //if _currentQuestionSetTail and _currentQuestionSetHead not set yet, init them
-    if (_currentQuestionSetHead == _currentQuestionSetTail && _currentQuestionSetHead == -1) {
-        //first time visit here
-        _currentQuestionSetHead = 0;
-        _currentQuestionSetTail = _grid_view.numberOfRows*_grid_view.numberOfColumns/2;
-    }
+    NSInteger targetIndex = rowIndex*_grid_view.numberOfColumns + columnIndex;
     
-    BOOL hasChosen = NO;
     NSString *toShowText = nil;
     UIImage *picToShow = nil;
     QuestionCard *aCard = [[QuestionCard alloc] initWithFrame:CGRectMake(0, 0, 200, 123)];
-    
     GVIndexPath *indexPath = [GVIndexPath indexPathWithRow:rowIndex andColumn:columnIndex];
     
-    while (!hasChosen) {
-        int index = _currentQuestionSetHead + arc4random() % (_currentQuestionSetTail-_currentQuestionSetHead);
-        Question *qn = [_questionList objectAtIndex:index];
-        id qnHasShown = [_indexPathForQuestion objectAtIndex:index];
-        id ansHasShown = [_indexPathForAnswer objectAtIndex:index];
-        if ([qnHasShown isKindOfClass:[GVIndexPath class]] && [ansHasShown isKindOfClass:[GVIndexPath class]]) {
-            continue;
+    NSDictionary *dict = [_dictForCurrentQuestionsOnView objectAtIndex:targetIndex];
+    aCard.cardType = [[dict objectForKey:@"is_question"] boolValue] ? question : answer;
+    aCard.arrayIndex = targetIndex; //card指向对应的数组
+    
+    Question *qn = [_expandedQuestionList objectAtIndex:[[dict objectForKey:@"index"] intValue]];
+    if (aCard.cardType == question) {
+        toShowText = qn.question_in_text;
+    } else
+    {
+        if (_questionType == kTxtPlusPic) {
+            picToShow = [UIImage imageWithData:qn.answer_in_image];
         } else
         {
-            //Found one available qn/answer to put in
-            hasChosen = YES;
-            if (![qnHasShown isKindOfClass:[GVIndexPath class]]) {
-                [_indexPathForQuestion replaceObjectAtIndex:index withObject:indexPath];
-                aCard.cardType = answer;
-                aCard.questionIndex = index;
-                
-                if (_questionType == kTxtPlusPic) {
-                    picToShow = [UIImage imageWithData:qn.answer_in_image];
-                } else
-                {
-                    //Txt Plus Txt
-                    toShowText = qn.answer_in_text;
-                }
-            } else if (![ansHasShown isKindOfClass:[GVIndexPath class]])
-            {
-                [_indexPathForAnswer replaceObjectAtIndex:index withObject:indexPath];
-                toShowText = qn.question_in_text;
-                aCard.cardType = question;
-                aCard.questionIndex = index;
-            } else
-            {
-                //Should never reach here
-                [NSException raise:@"Exception at getting question/ans for card" format:nil];
-            }
+            //Txt Plus Txt
+            toShowText = qn.answer_in_text;
         }
     }
     
@@ -121,7 +174,7 @@
 
 - (void)reloadAnsweredCardsHelper
 {
-    [_answeredCardIndexPaths shuffle];
+    [self refillAnsweredQuestions];
     [_grid_view reloadUnitsWithIndexPathArray:_answeredCardIndexPaths withReloadMode:kGridViewReloadAnimationModeDefault];
     [_answeredCardIndexPaths removeAllObjects];
 }
@@ -145,9 +198,6 @@
     //When clicked cards are more than half of total
     
     if ([_answeredCardIndexPaths count]*2 >= _grid_view.numberOfRows*_grid_view.numberOfColumns) {
-        
-        _currentQuestionSetHead = (_currentQuestionSetTail+1)%[_questionList count];
-        _currentQuestionSetTail = (_currentQuestionSetHead+[_answeredCardIndexPaths count]/2)%[_questionList count];
         
         [UIView animateWithDuration:0.15f 
                          animations:^(){
@@ -185,12 +235,6 @@
         {
             _clickedBtnIndexPath = nil;
         }
-        
-        //Not used
-        //Flip card since it's first card (or click on same card)
-        if (isFlipCards) {
-            [card flipCardWithDuration:0.5f completion:NULL];
-        }
     } else
     {
         //Clicked on second btn, react corrdingly
@@ -206,76 +250,58 @@
                 [self.questionManagerDelegate QuestionManager:self clickOnSameTypeCardsWithCard1:card card2:(QuestionCard*)[_grid_view viewForIndexPath:_clickedBtnIndexPath]];
             }
             
-            //Not used
-            if (isFlipCards) {
-                //Flip second one, then both flip back
-                [card flipCardWithDuration:0.5f 
-                                 completion:^(BOOL finished){
-                                    [card flipCardWithDuration:0.5f completion:NULL];
-                                    [card1 flipCardWithDuration:0.5f completion:NULL];
-                                 }
-                ];
-            }
-            
             //Seet clicked to nil
             _clickedBtnIndexPath = nil;
             
         } else
         {
-            if (card1.questionIndex == card.questionIndex) {
-                if (isFlipCards) {
-                    //Not used
-                    /*
-                    [card flipCardWithDuration:0.5f 
-                                    completion:^(BOOL finished){
-                                        //same block as below!!!
-                                        //Answer is correct
-                                        card1.checkmark.hidden = NO;
-                                        card.checkmark.hidden = NO;
-                                        
-                                        //Register answered cards
-                                        [_answeredCardIndexPaths addObject:_clickedBtnIndexPath];
-                                        [_answeredCardIndexPaths addObject:nowClickIndexPath];
-                                        
-                                        [self clearUsedUnitsIfNeeded];
-                                        
-                                        _clickedBtnIndexPath = nil;
-                                    }
-                     ];
-                     */
-                } else
-                {
-                    //Answer is correct
-                    card1.checkmark.hidden = NO;
-                    card1.checkmark.transform = CGAffineTransformMakeScale(0.1f, 0.1f);
-                    card.checkmark.hidden = NO;
-                    card.checkmark.transform = card1.checkmark.transform;
-                    
-                    [UIView animateWithDuration:0.2f 
-                                          delay:0.0f 
-                                        options:UIViewAnimationOptionAllowUserInteraction
-                                     animations:^{
-                                        card.checkmark.transform = card1.checkmark.transform = CGAffineTransformIdentity;
-                                    }
-                                    completion:^(BOOL finished) {
-                                        //Animate stars
-                                        if ([questionManagerDelegate respondsToSelector:@selector(QuestionManager:answerCorrectlyWithCard1:card2:)]) {
-                                            [questionManagerDelegate QuestionManager:self answerCorrectlyWithCard1:card card2:card1];
-                                        }
-                                        [self clearUsedUnitsIfNeeded];
-                                    }
-                     ];
-                    
-                    //Register answered cards
-                    [_answeredCardIndexPaths addObject:_clickedBtnIndexPath];
-                    [_answeredCardIndexPaths addObject:nowClickIndexPath];
-                    
-                    _clickedBtnIndexPath = nil;
+            BOOL answerCorrectly = NO;
+            NSDictionary *dict1 = [_dictForCurrentQuestionsOnView objectAtIndex:card.arrayIndex];
+            NSDictionary *dict2 = [_dictForCurrentQuestionsOnView objectAtIndex:card1.arrayIndex];
+            NSInteger index1 = [[dict1 objectForKey:@"index"] intValue];
+            NSInteger index2 = [[dict2 objectForKey:@"index"] intValue];
+            if (index1 == index2) {
+                answerCorrectly = YES;
+            } else
+            {
+                Question *q1 = [_expandedQuestionList objectAtIndex:index1];
+                Question *q2 = [_expandedQuestionList objectAtIndex:index2];
+                if ([q1.answer_id isEqualToString:q2.answer_id]) {
+                    answerCorrectly = YES;
                 }
+            }
+            
+            if (answerCorrectly) {
+                //Answer is correct
+                card1.checkmark.hidden = NO;
+                card1.checkmark.transform = CGAffineTransformMakeScale(0.1f, 0.1f);
+                card.checkmark.hidden = NO;
+                card.checkmark.transform = card1.checkmark.transform;
+                
+                [UIView animateWithDuration:0.2f 
+                                      delay:0.0f 
+                                    options:UIViewAnimationOptionAllowUserInteraction
+                                 animations:^{
+                                     card.checkmark.transform = card1.checkmark.transform = CGAffineTransformIdentity;
+                                 }
+                                 completion:^(BOOL finished) {
+                                     //Animate stars
+                                     if ([questionManagerDelegate respondsToSelector:@selector(QuestionManager:answerCorrectlyWithCard1:card2:)]) {
+                                         [questionManagerDelegate QuestionManager:self answerCorrectlyWithCard1:card card2:card1];
+                                     }
+                                     [self clearUsedUnitsIfNeeded];
+                                 }
+                 ];
+                
+                //Register answered cards
+                [_answeredCardIndexPaths addObject:_clickedBtnIndexPath];
+                [_answeredCardIndexPaths addObject:nowClickIndexPath];
+                
+                _clickedBtnIndexPath = nil;
             } else
             {
                 //Wrong answer
-                //TODO show cross and DU sound
+                //show cross and DU sound
                 card1.wrongcross.hidden = NO;
                 card1.wrongcross.transform = CGAffineTransformMakeScale(0.1f, 0.1f);
                 card.wrongcross.hidden = NO;
@@ -303,23 +329,13 @@
                                  }
                  ];
                 
-                //Not used
-                if (isFlipCards) {
-                    //Flip second one, then both flip back
-                    [card flipCardWithDuration:0.5f 
-                                     completion:^(BOOL finished){
-                                         [card flipCardWithDuration:0.5f completion:NULL];
-                                         [card1 flipCardWithDuration:0.5f completion:NULL];
-                                     }
-                     ];
-                }
-                
                 _clickedBtnIndexPath = nil;
             }
         }
     }
 }
 
+/*
 - (void)reinitGame
 {
     //Init the question list
@@ -333,11 +349,13 @@
     }
     
     //Shuffle the question list 
-    [_questionList shuffle];
+//    [_questionList shuffle];
     
     [_grid_view reloadData];
 }
+*/
 
+/*
 - (void)flipAllCardsWithAnimation:(BOOL)animation
 {
     if (isFlipCards) {
@@ -347,4 +365,6 @@
         }
     }
 }
+ */
+
 @end

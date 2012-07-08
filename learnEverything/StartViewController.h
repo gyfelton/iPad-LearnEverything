@@ -23,6 +23,8 @@
     MBProgressHUD *_hud;
     
     BOOL _breathTitle;
+    
+    BOOL _checkQSJFile;
 }
 
 - (IBAction)onSinglePlayerGameClicked:(id)sender;

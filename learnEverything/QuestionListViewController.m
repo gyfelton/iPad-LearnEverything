@@ -547,6 +547,7 @@
         } else if (textField.tag == ANS_TXT_TAG) {
             
             question.answer_in_text = textField.text;
+            question.answer_id = textField.text;
             
             if (question.question_in_text) {
                 question.is_active = [NSNumber numberWithBool:YES];

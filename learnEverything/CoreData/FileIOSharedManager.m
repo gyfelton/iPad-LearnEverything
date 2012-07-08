@@ -318,7 +318,6 @@ static FileIOSharedManager *sharedManager;
                 [resultDict setValue:[attributes objectForKey:NSFileModificationDate] forKey:@"modify_date"];
                 [resultDict setValue:[attributes objectForKey:NSFileCreationDate] forKey:@"create_date"];
                 
-                return YES;
                 [self _parseQuestionSetDictionary:resultDict filePath:path fileNameAsSetID:set_id andInsertToCoreDataIfNil:questionSet];
             }
         }   

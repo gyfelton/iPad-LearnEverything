@@ -12,6 +12,7 @@
 #import "Question.h"
 #import "QuestionCard.h"
 
+//Make sure ROW_NUMBER * COLUMN_NUMBER gives a even number!
 #define ROW_NUMBER 4
 #define COLUMN_NUMBER 5
 
@@ -94,8 +95,6 @@
     self.wantsFullScreenLayout = YES;
 	// Do any additional setup after loading the view, typically from a nib.
     
-    _questionList = [super activeAndCompleteQuestionsFromQuestionSet];
-    
     _grid_view = [[NonScrollableGridView alloc] initWithFrame:_grid_view_place_holder.frame];
     _grid_view.dataSource = self;
     _grid_view.backgroundColor = [UIColor clearColor];
@@ -106,10 +105,6 @@
     _grid_view.hidden = YES;
     
     [_grid_view_place_holder removeFromSuperview];
-    
-    _questionManager = [[QuestionManager alloc] initWithGridView:_grid_view questionList:_questionList questionType:[_questionSet.question_type intValue]];
-    _questionManager.questionManagerDelegate = self;
-    _questionManager.isFlipCards = NO;//Flip cards is not a good idea for now
     
     [self reinitGame];
     
@@ -170,19 +165,27 @@
 
 - (void)reinitGame
 {
-    //Init the question list
-    [_questionManager reinitGame];
+    //Prepare the expandedQuestionList
+    _questionList = [super activeAndCompleteQuestionsFromQuestionSet];
+    _expandedQuestionList = [[NSMutableArray alloc] initWithArray:_questionList];
+    [_expandedQuestionList shuffle];
+    
+    //Assign a new questionManager
+    _questionManager = [[QuestionManager alloc] initWithGridView:_grid_view questionList:self.expandedQuestionList questionType:[_questionSet.question_type intValue] numberOfCardsInGridView:ROW_NUMBER*COLUMN_NUMBER];
+    _questionManager.questionManagerDelegate = self;
+    
+    [_grid_view reloadData];
 }
 
 #pragma mark - NonScrollableGridView DataSource
 - (NSInteger)numberOfRowsForNonScrollableGridView:(NonScrollableGridView *)gridView
 {
-    return [_questionList count]>0? ROW_NUMBER : 0;
+    return [_expandedQuestionList count]>0? ROW_NUMBER : 0;
 }
 
 - (NSInteger)numberOfColumnsForNonScrollableGridView:(NonScrollableGridView *)gridView
 {
-    return [_questionList count]>0? COLUMN_NUMBER : 0;
+    return [_expandedQuestionList count]>0? COLUMN_NUMBER : 0;
 }
 
 - (CGFloat)widthForEachUnit:(NonScrollableGridView *)gridView

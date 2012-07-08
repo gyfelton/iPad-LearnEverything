@@ -55,6 +55,7 @@
     _hud.labelText = @"检查题库更新中，请稍等";
     [_hud show:YES];
     
+    _checkQSJFile = YES;
     [self performSelector:@selector(checkQSJFiles) withObject:nil afterDelay:1.3f];
 }
 
@@ -66,13 +67,19 @@
     [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 
+- (void)aniamteViews
+{
+    [self performSelector:@selector(_animateCurl) withObject:nil afterDelay:0.1f];
+    _breathTitle = YES;
+    [self _breathMainTitleFade];
+}
+
 - (void)checkQSJFiles
 {
     [[FileIOSharedManager sharedManager] checkCachedQuestionSetsWithCompletion:^(BOOL finished) {
         [_hud hide:YES];
-        [self performSelector:@selector(_animateCurl) withObject:nil afterDelay:0.1f];
-        _breathTitle = YES;
-        [self _breathMainTitleFade];
+        _checkQSJFile = NO;
+        [self aniamteViews];
         [UIView animateWithDuration:0.6f 
                          animations:^{
             _singleButton.hidden = NO;
@@ -84,6 +91,9 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    if (!_checkQSJFile) {
+        [self aniamteViews];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated

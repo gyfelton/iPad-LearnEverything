@@ -39,9 +39,14 @@
     IBOutlet UIButton *_speakerBtn2;
     
     AnimationViewController *_animationVC;
+    
+    //把传进的question list扩展成卡片数倍数长度的数组，并且在这上面做shuffle
+    //保证对于manager是只读的
+    NSMutableArray *_expandedQuestionList;
 }
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, readonly) NSMutableArray *expandedQuestionList;
 @property BOOL isGameOnPause;
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer; //You have to retain the player to let it play!
 
