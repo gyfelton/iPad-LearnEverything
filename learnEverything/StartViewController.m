@@ -166,9 +166,7 @@
 {
     QuestionSetViewController *chooseQuestionSet = [[QuestionSetViewController alloc] initWithViewControllerType:kChooseGameSet];
     
-    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    chooseQuestionSet.managedObjectContext = appDelegate.managedObjectContext;
-    
+    chooseQuestionSet.managedObjectContext = [FileIOSharedManager sharedManager].managedObjectContext;
     chooseQuestionSet.isSinglePlayerMode = isSinglePlayer;
     
     [self.navigationController pushViewController:chooseQuestionSet animated:NO];

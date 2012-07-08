@@ -115,7 +115,7 @@
     //Should not call here
 //    NSURL *url = (NSURL *)[launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
 //    [self processURLIfIsFileURL:url];
-    
+    NSManagedObjectContext *context = self.managedObjectContext;
     StartViewController *startVC = [[StartViewController alloc] initWithNibName:nil bundle:nil];
     _startVCNav = [[UINavigationController alloc] initWithRootViewController:startVC];
     [self showStartScreenAnimated];

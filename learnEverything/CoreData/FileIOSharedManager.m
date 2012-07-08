@@ -48,7 +48,8 @@ static FileIOSharedManager *sharedManager;
         @synchronized(self) {
             if (sharedManager == nil) {
                 sharedManager = [[self alloc] init];
-                sharedManager.managedObjectContext = ((AppDelegate*)[UIApplication sharedApplication].delegate).managedObjectContext;
+                NSManagedObjectContext *context = ((AppDelegate*)[UIApplication sharedApplication].delegate).managedObjectContext;
+                sharedManager.managedObjectContext = context;
                 sharedManager.dateFormatterUsed = [[NSDateFormatter alloc] init];
                 [sharedManager.dateFormatterUsed setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZZZ"];
             }
@@ -219,7 +220,7 @@ static FileIOSharedManager *sharedManager;
         //TODO notify the user about er1ror
         return NO;
     }
-
+    
     return YES;
 }
 

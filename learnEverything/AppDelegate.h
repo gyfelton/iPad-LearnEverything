@@ -24,12 +24,12 @@
 @property (strong, nonatomic) UINavigationController *baseNavigationController;
 @property (strong, nonatomic) SinglePlayerGameViewController *singlePlayerGameViewController;
 @property (strong, nonatomic) TwoPlayersGameViewController *twoPlayersGameViewController;
+
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 - (void)showStartScreenAnimated;
-
 - (void)prepareForSinglePlayerGameWithQuestionSet:(QuestionSet*)questionset;
 - (void)prepareForTwoPlayersGameQuestionSet:(QuestionSet*)questionset;
 
