@@ -36,7 +36,9 @@
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 
+- (void)showMailHUD:(BOOL)sent;
 - (void)showCheckQSJFilesHUD;
+- (void)showLoadingGameHUD;
 
 - (void)dismissHUDAfterDelay:(CGFloat)delay;
 @end

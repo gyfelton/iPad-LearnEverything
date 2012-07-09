@@ -10,7 +10,6 @@
 #import "QuestionListViewController.h"
 
 #import "QuestionSetViewController.h"
-#import "QuestionSet.h"
 
 #import "AppDelegate.h"
 #import "FileIOSharedManager.h"
@@ -195,6 +194,22 @@
 	return LANDSCAPE_ORIENTATION;
 }
 
+#pragma mark - Game related
+
+- (void)startGame
+{
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    if (self.isSinglePlayerMode) {
+        [appDelegate prepareForSinglePlayerGameWithQuestionSet:_questionSet];
+        [self dismissModalViewControllerAnimated:YES];
+    } else
+    {
+        [appDelegate prepareForTwoPlayersGameQuestionSet:_questionSet];
+        [self dismissModalViewControllerAnimated:YES];
+    }
+    [appDelegate dismissHUDAfterDelay:0.1f];
+}
+
 #pragma mark - GMGridView DataSource
 - (NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView
 {
@@ -249,15 +264,16 @@
         } else
         {
             //Start game here
-            QuestionSet *qn_set = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:position inSection:0]];
-            AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-            if (self.isSinglePlayerMode) {
-                [appDelegate prepareForSinglePlayerGameWithQuestionSet:qn_set];
-                [self dismissModalViewControllerAnimated:YES];
+            _questionSet = (QuestionSet*)[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:position inSection:0]];
+            if ([_questionSet.questions count] < 20) {
+                //TODO should check active and complete questions
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"题目数目不足，是否继续？" message:@"题目数量不足会导致重复题目的出现哦" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"继续游戏", nil];
+                [alert show];
             } else
             {
-                [appDelegate prepareForTwoPlayersGameQuestionSet:qn_set];
-                [self dismissModalViewControllerAnimated:YES];
+                AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+                [appDelegate showLoadingGameHUD];
+                [self performSelector:@selector(startGame) withObject:nil afterDelay:0.1f];
             }
         }
     }
@@ -499,6 +515,14 @@
 - (void)onQSJFileParsedSuccessfulReceived:(NSNotification*)notification
 {
     [_questionSetView reloadData];
+}
+
+#pragma mark - UIAlertView Delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [self startGame];
+    }
 }
 
 @end

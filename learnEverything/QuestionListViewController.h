@@ -98,6 +98,8 @@
 - (IBAction)onPlusClicked:(id)sender;
 - (IBAction)onMinusClicked:(id)sender;
 - (IBAction)onMultiplyClicked:(id)sender;
+- (IBAction)onQuestionSignClicked:(id)sender;
 - (IBAction)onDivisionClicked:(id)sender;
+- (IBAction)onEqualQuestionSignClicked:(id)sender;
 - (IBAction)onEqualSignClicked:(id)sender;
 @end

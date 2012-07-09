@@ -363,18 +363,25 @@
 #pragma mark - Game Progress
 - (void)showLeftDialogCritical
 {
-    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"快配对正确的卡片！\n我快撑不住了！" dismissAfterDelay:2.0f];
+    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"快配对正确的卡片！" dismissAfterDelay:2.0f];
     [super performSelector:@selector(showLeftDialogCritical2) withObject:nil afterDelay:2.0f];
 }
 
+
 - (void)showLeftDialogCritical2
+{
+    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"我快撑不住了！" dismissAfterDelay:2.0f];
+    [super performSelector:@selector(showLeftDialogCritical3) withObject:nil afterDelay:2.0f];
+}
+
+- (void)showLeftDialogCritical3
 {
     [super showRightDialogAtPosition:CGPointMake(700, 133) withText:@"哈哈哈哈哈!" dismissAfterDelay:2.0f];
 }
 
 - (void)showLeftDialogNearlyWin
 {
-    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"就差一点了，加油！" dismissAfterDelay:2.0f];
+    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"就差一点了，\nCome on！" dismissAfterDelay:2.0f];
 }
 
 - (void)onGameProgressDictReceived:(NSNotification*)notification
@@ -384,10 +391,10 @@
     CGFloat rightWidth = [[info objectForKey:@"right_width"] floatValue];
     CGFloat totalWidth = [[info objectForKey:@"total_width"] floatValue];
 
-    if (leftWidth <= 95) {
+    if (leftWidth <= 2555) {
         [self showLeftDialogCritical];
     }
-    if (rightWidth <= 95) {
+    if (rightWidth <= 255) {
         [self showLeftDialogNearlyWin];
     }
     

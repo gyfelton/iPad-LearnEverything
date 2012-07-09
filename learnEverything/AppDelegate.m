@@ -72,6 +72,31 @@
     [_hud hide:YES afterDelay:1.6f];
 }
 
+- (void)showMailHUD:(BOOL)sent
+{
+    UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 37, 37)];
+    if (sent) {
+        img.image = [UIImage imageNamed:@"tick_s"];
+        _hud.labelText = [NSString stringWithFormat:@"题库发送成功！"];
+    } else
+    {
+        img.image = [UIImage imageNamed:@"cross_s"];
+        _hud.labelText = [NSString stringWithFormat:@"题库发送失败！请重试"];
+
+    }
+    _hud.customView = img;
+    _hud.mode = MBProgressHUDModeCustomView;
+    [_hud show:YES];
+    [_hud hide:YES afterDelay:1.0f];
+}
+    
+- (void)showLoadingGameHUD
+{
+    _hud.mode = MBProgressHUDModeIndeterminate;
+    _hud.labelText = @"载入游戏中...";
+    [_hud show:NO];
+}
+
 - (void)showCheckQSJFilesHUD
 {
     _hud.mode = MBProgressHUDModeIndeterminate;

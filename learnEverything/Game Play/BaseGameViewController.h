@@ -22,13 +22,14 @@
     SimulatePressButton *_resumeGameButton;
     SimulatePressButton *_resrartGameButton;
     
+@protected
+    BOOL _gameDidTerminate;
+    
     UIView *_leftDialog;
     UILabel *_leftDialogLbl;
     UIView *_rightDialog;
     UILabel *_rightDialogLbl;
     
-@protected
-    BOOL _gameDidTerminate;
     
     SystemSoundID _correctSound;
     SystemSoundID _clickSound;

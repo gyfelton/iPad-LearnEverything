@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GMGridView.h"
 #import "GMGridViewCell.h"
+#import "QuestionSet.h"
 
 enum QuestionSetViewControllerType {
     kEditQuestionSet = 0,
@@ -16,7 +17,7 @@ enum QuestionSetViewControllerType {
     };
 typedef enum QuestionSetViewControllerType QuestionSetViewControllerType;
 
-@interface QuestionSetViewController : UIViewController <GMGridViewDataSource, GMGridViewActionDelegate, NSFetchedResultsControllerDelegate>
+@interface QuestionSetViewController : UIViewController <GMGridViewDataSource, GMGridViewActionDelegate, NSFetchedResultsControllerDelegate, UIAlertViewDelegate>
 {
     GMGridView *_questionSetView;
     IBOutlet UIView *_questionSetView_placeholder;
@@ -24,7 +25,8 @@ typedef enum QuestionSetViewControllerType QuestionSetViewControllerType;
     QuestionSetViewControllerType _viewControllerType;
     
     __unsafe_unretained IBOutlet UILabel *_titleLabel;
-//    UIButton *_chooseGameModeBtn;
+    
+    QuestionSet *_questionSet;
 }
 
 - (id)initWithViewControllerType:(QuestionSetViewControllerType)type;
