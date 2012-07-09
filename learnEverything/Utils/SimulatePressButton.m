@@ -12,9 +12,9 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+    [super setHighlighted:highlighted];
     if (highlighted) {
         [UIView animateWithDuration:0.1f delay:0.0f options:UIViewAnimationOptionAllowUserInteraction animations:^{self.transform = CGAffineTransformMakeScale(0.9f, 0.9f);} completion:^(BOOL finished) {
-            
         }];
     } else
     {

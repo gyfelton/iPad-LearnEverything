@@ -149,7 +149,8 @@
     [aCard sendSubviewToBack:bg];
     
     if (_questionType == kTxtPlusPic && aCard.cardType == answer) {
-        UIImageView *imgView = [[UIImageView alloc] initWithFrame:bg.frame];
+        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 180, 104)];
+        imgView.center = bg.center;
         imgView.contentMode = UIViewContentModeScaleAspectFit;
         imgView.image = picToShow;
         [aCard insertSubview:imgView aboveSubview:bg];

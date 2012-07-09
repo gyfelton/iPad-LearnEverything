@@ -126,6 +126,7 @@
 		FEBF08BB15AB51590051B1B4 /* xj_4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FEBF08B515AB51590051B1B4 /* xj_4.mp3 */; };
 		FEBF08BC15AB51590051B1B4 /* xj_5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FEBF08B615AB51590051B1B4 /* xj_5.mp3 */; };
 		FEBF08BD15AB51590051B1B4 /* xj_6.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FEBF08B715AB51590051B1B4 /* xj_6.mp3 */; };
+		FEBF08C315AB5E4D0051B1B4 /* two_play_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = FEBF08C215AB5E4D0051B1B4 /* two_play_bg.png */; };
 		FEC18E76159AFCC3001ED526 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = FEC18E75159AFCC3001ED526 /* click.wav */; };
 		FEC18E78159AFCE2001ED526 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEC18E77159AFCE2001ED526 /* AudioToolbox.framework */; };
 		FEC18E7A159AFD7F001ED526 /* correct.caf in Resources */ = {isa = PBXBuildFile; fileRef = FEC18E79159AFD7F001ED526 /* correct.caf */; };
@@ -370,6 +371,7 @@
 		FEBF08B515AB51590051B1B4 /* xj_4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = xj_4.mp3; sourceTree = "<group>"; };
 		FEBF08B615AB51590051B1B4 /* xj_5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = xj_5.mp3; sourceTree = "<group>"; };
 		FEBF08B715AB51590051B1B4 /* xj_6.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = xj_6.mp3; sourceTree = "<group>"; };
+		FEBF08C215AB5E4D0051B1B4 /* two_play_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = two_play_bg.png; sourceTree = "<group>"; };
 		FEC18E75159AFCC3001ED526 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
 		FEC18E77159AFCE2001ED526 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		FEC18E79159AFD7F001ED526 /* correct.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = correct.caf; sourceTree = "<group>"; };
@@ -522,6 +524,7 @@
 		FE36AF6615A7E8A2002CE9BF /* two_players */ = {
 			isa = PBXGroup;
 			children = (
+				FEBF08C215AB5E4D0051B1B4 /* two_play_bg.png */,
 				FE48DFB115AA7DA4003A9FE2 /* two_players_lose_screen.png */,
 				FE48DFB215AA7DA4003A9FE2 /* two_players_win_screen_1.png */,
 				FE48DFB315AA7DA4003A9FE2 /* two_players_win_screen_2.png */,
@@ -1090,6 +1093,7 @@
 				FEBF08BB15AB51590051B1B4 /* xj_4.mp3 in Resources */,
 				FEBF08BC15AB51590051B1B4 /* xj_5.mp3 in Resources */,
 				FEBF08BD15AB51590051B1B4 /* xj_6.mp3 in Resources */,
+				FEBF08C315AB5E4D0051B1B4 /* two_play_bg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

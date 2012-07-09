@@ -188,9 +188,9 @@
     CFURLRef thesoundURL = (__bridge CFURLRef) [NSURL fileURLWithPath:thesoundFilePath];
     AudioServicesCreateSystemSoundID(thesoundURL, &_correctSound);
     
-    thesoundFilePath = [[NSBundle mainBundle] pathForResource:@"click" ofType:@"wav"];
-    thesoundURL = (__bridge CFURLRef) [NSURL fileURLWithPath:thesoundFilePath];
-    AudioServicesCreateSystemSoundID(thesoundURL, &_clickSound);
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    
+    _clickSound = delegate.clickSound;
     
     thesoundFilePath = [[NSBundle mainBundle] pathForResource:@"wrong_music" ofType:@"wav"];
     thesoundURL = (__bridge CFURLRef) [NSURL fileURLWithPath:thesoundFilePath];
@@ -202,7 +202,6 @@
     
     if (!self.audioPlayer) {
         NSError *error;
-        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
         NSString *path = [delegate getBattleMusicPath];
         NSURL *url = [[NSURL alloc] initFileURLWithPath:path];
         self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];

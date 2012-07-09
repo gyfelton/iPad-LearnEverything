@@ -256,6 +256,9 @@
 #pragma mark - GMGridView Delegate
 - (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [delegate playClickSound];
+    
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:0];
     if (position >= [sectionInfo numberOfObjects]) { 
         [[FileIOSharedManager sharedManager] insertNewQuestionSet];

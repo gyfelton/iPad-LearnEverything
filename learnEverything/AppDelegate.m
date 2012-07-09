@@ -24,9 +24,14 @@
 @synthesize baseNavigationController;
 @synthesize singlePlayerGameViewController;
 @synthesize twoPlayersGameViewController;
+@synthesize clickSound = _clickSound;
 
-- (void)initAvailableBattleMusic
+- (void)initMusics
 {
+    NSString *thesoundFilePath = [[NSBundle mainBundle] pathForResource:@"click" ofType:@"wav"];
+    CFURLRef thesoundURL = (__bridge CFURLRef) [NSURL fileURLWithPath:thesoundFilePath];
+    AudioServicesCreateSystemSoundID(thesoundURL, &_clickSound);
+    
     NSArray *array = [[NSBundle mainBundle] pathsForResourcesOfType:@"mp3" inDirectory:nil];
     _battleMusicPathArray = [[NSMutableArray alloc] initWithCapacity:[array count]];
     for (NSString* path in array) {
@@ -43,6 +48,11 @@
         NSLog(@"ERROR！没有战斗音乐");
         [[NSUserDefaults standardUserDefaults] setInteger:-1 forKey:BATTLE_CURRENT_MUSIC_KEY];
     }
+}
+
+- (void)playClickSound
+{
+    AudioServicesPlaySystemSound(self.clickSound);
 }
 
 - (NSString*)getBattleMusicPath
@@ -162,7 +172,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {   
-    [self initAvailableBattleMusic];
+    [self initMusics];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
