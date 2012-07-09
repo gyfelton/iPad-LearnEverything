@@ -16,6 +16,9 @@
 		FE08B46015AA8DD700D06233 /* battle_lose.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FE08B45E15AA8DD700D06233 /* battle_lose.mp3 */; };
 		FE08B46115AA8DD700D06233 /* battle_win.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FE08B45F15AA8DD700D06233 /* battle_win.mp3 */; };
 		FE08B46315AA96E200D06233 /* baby_learn_car_brand.qsj in Resources */ = {isa = PBXBuildFile; fileRef = FE08B46215AA96E100D06233 /* baby_learn_car_brand.qsj */; };
+		FE08B46615AAACB300D06233 /* simple_jiajian.qsj in Resources */ = {isa = PBXBuildFile; fileRef = FE08B46415AAACB300D06233 /* simple_jiajian.qsj */; };
+		FE08B46715AAACB300D06233 /* yiyuan_yici_fangcheng.qsj in Resources */ = {isa = PBXBuildFile; fileRef = FE08B46515AAACB300D06233 /* yiyuan_yici_fangcheng.qsj */; };
+		FE08B46B15AAAF1000D06233 /* ForceLandscapeEmptyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE08B46915AAAF1000D06233 /* ForceLandscapeEmptyViewController.m */; };
 		FE08F1571596C38E009E981C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE08F1561596C38E009E981C /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		FE08F16615980116009E981C /* ParentControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE08F16415980116009E981C /* ParentControlViewController.m */; };
 		FE08F16715980116009E981C /* ParentControlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE08F16515980116009E981C /* ParentControlViewController.xib */; };
@@ -215,6 +218,10 @@
 		FE08B45E15AA8DD700D06233 /* battle_lose.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = battle_lose.mp3; sourceTree = "<group>"; };
 		FE08B45F15AA8DD700D06233 /* battle_win.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = battle_win.mp3; sourceTree = "<group>"; };
 		FE08B46215AA96E100D06233 /* baby_learn_car_brand.qsj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = baby_learn_car_brand.qsj; sourceTree = "<group>"; };
+		FE08B46415AAACB300D06233 /* simple_jiajian.qsj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = simple_jiajian.qsj; sourceTree = "<group>"; };
+		FE08B46515AAACB300D06233 /* yiyuan_yici_fangcheng.qsj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yiyuan_yici_fangcheng.qsj; sourceTree = "<group>"; };
+		FE08B46815AAAF0F00D06233 /* ForceLandscapeEmptyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForceLandscapeEmptyViewController.h; sourceTree = "<group>"; };
+		FE08B46915AAAF1000D06233 /* ForceLandscapeEmptyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForceLandscapeEmptyViewController.m; sourceTree = "<group>"; };
 		FE08F1561596C38E009E981C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		FE08F16315980116009E981C /* ParentControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParentControlViewController.h; path = "Parent Control/ParentControlViewController.h"; sourceTree = "<group>"; };
 		FE08F16415980116009E981C /* ParentControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParentControlViewController.m; path = "Parent Control/ParentControlViewController.m"; sourceTree = "<group>"; };
@@ -514,6 +521,8 @@
 		FE57F1B315944B1E00DD09E4 /* question_set_predefined */ = {
 			isa = PBXGroup;
 			children = (
+				FE08B46415AAACB300D06233 /* simple_jiajian.qsj */,
+				FE08B46515AAACB300D06233 /* yiyuan_yici_fangcheng.qsj */,
 				FE08B46215AA96E100D06233 /* baby_learn_car_brand.qsj */,
 				FE48DFA715AA6122003A9FE2 /* china_geography.qsj */,
 				FE48DFA815AA6122003A9FE2 /* chinese_primary_school_grade1.qsj */,
@@ -629,6 +638,8 @@
 			children = (
 				FE4F96BF15A2EFA50068897B /* FileIOSharedManager.h */,
 				FE4F96C015A2EFA50068897B /* FileIOSharedManager.m */,
+				FE08B46815AAAF0F00D06233 /* ForceLandscapeEmptyViewController.h */,
+				FE08B46915AAAF1000D06233 /* ForceLandscapeEmptyViewController.m */,
 				FEDAEA881578A21100F2552F /* AppDelegate.h */,
 				FEDAEA891578A21200F2552F /* AppDelegate.m */,
 				FE82F8DC157CF3890081F81E /* NonScrollableGridView.h */,
@@ -1057,6 +1068,8 @@
 				FE08B46015AA8DD700D06233 /* battle_lose.mp3 in Resources */,
 				FE08B46115AA8DD700D06233 /* battle_win.mp3 in Resources */,
 				FE08B46315AA96E200D06233 /* baby_learn_car_brand.qsj in Resources */,
+				FE08B46615AAACB300D06233 /* simple_jiajian.qsj in Resources */,
+				FE08B46715AAACB300D06233 /* yiyuan_yici_fangcheng.qsj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1107,6 +1120,7 @@
 				FE16807C15A74D29004E95EE /* UIResponder+InsertText.m in Sources */,
 				FEB8CC7215A95DAA0041D93C /* UIImage+Scale.m in Sources */,
 				FE48DFA615A9A738003A9FE2 /* SimulatePressButton.m in Sources */,
+				FE08B46B15AAAF1000D06233 /* ForceLandscapeEmptyViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

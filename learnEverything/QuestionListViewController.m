@@ -429,7 +429,9 @@
     
     if ([_questionSet.question_subtype intValue] == subtype_MathQuestion) {
         cell.questionTxtField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        cell.questionTxtField.inputAccessoryView = _inputAcessoryToolBar;
         cell.ansTxtField.keyboardType = UIKeyboardTypeNumberPad;
+        cell.ansTxtField.inputAccessoryView = _inputAcessoryToolBar;
     }
 }
 
@@ -930,5 +932,55 @@
     
     [self performSelector:@selector(prepareDataAndShowMailComposer) withObject:nil afterDelay:0.1f];
 }
+
+- (IBAction)onPlusClicked:(id)sender
+{
+    if (_activeTextField) {
+        [_activeTextField insertText:@" + "];
+    }
+}
+
+- (IBAction)onMinusClicked:(id)sender
+{
+    if (_activeTextField) {
+        [_activeTextField insertText:@" - "];
+    }
+}
+
+- (IBAction)onMultiplyClicked:(id)sender
+{
+    if (_activeTextField) {
+        [_activeTextField insertText:@" × "];
+    }
+}
+
+- (IBAction)onDivisionClicked:(id)sender
+{
+    if (_activeTextField) {
+        [_activeTextField insertText:@" ÷ "];
+    }
+}
+
+- (IBAction)onEqualSignClicked:(id)sender
+{
+    if (_activeTextField) {
+        [_activeTextField insertText:@" = ?"];
+    }
+}
+
+- (IBAction)onLeftBraketClicked:(id)sender
+{
+    if (_activeTextField) {
+        [_activeTextField insertText:@"("];
+    }
+}
+
+- (IBAction)onRightBraketClicked:(id)sender
+{
+    if (_activeTextField) {
+        [_activeTextField insertText:@")"];
+    }
+}
+
 @end
 

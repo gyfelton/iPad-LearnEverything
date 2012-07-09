@@ -12,6 +12,7 @@
 #import "TwoPlayersGameViewController.h"
 #import "ParentControlViewController.h"
 #import "FileIOSharedManager.h"
+#import "ForceLandscapeEmptyViewController.h"
 
 @implementation AppDelegate
 @synthesize managedObjectContext = __managedObjectContext;
@@ -105,7 +106,7 @@
 {   
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    self.baseNavigationController = [[UINavigationController alloc] initWithRootViewController:[[UIViewController alloc] initWithNibName:nil bundle:nil]];
+    self.baseNavigationController = [[UINavigationController alloc] initWithRootViewController:[[ForceLandscapeEmptyViewController alloc] initWithNibName:nil bundle:nil]];
     
     self.window.rootViewController = self.baseNavigationController;
     

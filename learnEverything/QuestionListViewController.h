@@ -78,6 +78,9 @@
     
     BOOL _shouldNotShareIncompleteQuestion;
     BOOL _shouldNotShareUnCheckedQuestion;
+    
+    IBOutlet UIToolbar *_inputAcessoryToolBar;
+    
 }
 
 @property (nonatomic, strong) UINib *questionCellNib; 
@@ -91,4 +94,11 @@
 - (IBAction)onBackButtonClicked:(id)sender;
 - (IBAction)onCoverClicked:(id)sender;
 
+- (IBAction)onLeftBraketClicked:(id)sender;
+- (IBAction)onRightBraketClicked:(id)sender;
+- (IBAction)onPlusClicked:(id)sender;
+- (IBAction)onMinusClicked:(id)sender;
+- (IBAction)onMultiplyClicked:(id)sender;
+- (IBAction)onDivisionClicked:(id)sender;
+- (IBAction)onEqualSignClicked:(id)sender;
 @end
