@@ -130,6 +130,8 @@
     
     _animationVC = [[AnimationViewController alloc] initInSinglePlayerMode:YES];
     [_animationStageView addSubview:_animationVC.view];
+    
+    [self performSelector:@selector(startMusicAndShowCountDown) withObject:nil afterDelay:1.0f];
 }
 
 - (void)dismissCountdownAndStartGame
@@ -165,7 +167,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self startMusicAndShowCountDown];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -391,7 +392,7 @@
     CGFloat rightWidth = [[info objectForKey:@"right_width"] floatValue];
     CGFloat totalWidth = [[info objectForKey:@"total_width"] floatValue];
 
-    if (leftWidth <= 2555) {
+    if (leftWidth <= 255) {
         [self showLeftDialogCritical];
     }
     if (rightWidth <= 255) {

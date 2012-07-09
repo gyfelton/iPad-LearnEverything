@@ -36,9 +36,6 @@
     SystemSoundID _wrongAnswerSound;
     SystemSoundID _errorSound;
     
-    SystemSoundID _battleWinSound;
-    SystemSoundID _battleLoseSound;
-    
     QuestionSet *_questionSet;
     
     IBOutlet UIButton *_speakerBtn;

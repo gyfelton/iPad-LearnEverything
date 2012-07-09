@@ -14,6 +14,8 @@
 #import "FileIOSharedManager.h"
 #import "ForceLandscapeEmptyViewController.h"
 
+#define BATTLE_CURRENT_MUSIC_KEY @"BATTLE_CURRENT_MUSIC_KEY"
+
 @implementation AppDelegate
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
@@ -22,6 +24,37 @@
 @synthesize baseNavigationController;
 @synthesize singlePlayerGameViewController;
 @synthesize twoPlayersGameViewController;
+
+- (void)initAvailableBattleMusic
+{
+    NSArray *array = [[NSBundle mainBundle] pathsForResourcesOfType:@"mp3" inDirectory:nil];
+    _battleMusicPathArray = [[NSMutableArray alloc] initWithCapacity:[array count]];
+    for (NSString* path in array) {
+        if ([[path lastPathComponent] hasPrefix:@"xj"]) {
+            [_battleMusicPathArray addObject:path];
+        }
+    }
+    [_battleMusicPathArray sortUsingSelector:@selector(compare:)];
+    
+    if ([_battleMusicPathArray count] >= 1) {
+        [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:BATTLE_CURRENT_MUSIC_KEY];
+    } else
+    {
+        NSLog(@"ERROR！没有战斗音乐");
+        [[NSUserDefaults standardUserDefaults] setInteger:-1 forKey:BATTLE_CURRENT_MUSIC_KEY];
+    }
+}
+
+- (NSString*)getBattleMusicPath
+{
+    int index = [[NSUserDefaults standardUserDefaults] integerForKey:BATTLE_CURRENT_MUSIC_KEY];
+    if (index == -1) {
+        return nil;
+    }
+    NSString *path = [_battleMusicPathArray objectAtIndex:index];
+    [[NSUserDefaults standardUserDefaults] setInteger:(index+1)%[_battleMusicPathArray count] forKey:BATTLE_CURRENT_MUSIC_KEY];
+    return path;
+}
 
 - (void)showStartScreenAnimated
 {
@@ -129,6 +162,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {   
+    [self initAvailableBattleMusic];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     self.baseNavigationController = [[UINavigationController alloc] initWithRootViewController:[[ForceLandscapeEmptyViewController alloc] initWithNibName:nil bundle:nil]];

@@ -200,17 +200,11 @@
     thesoundURL = (__bridge CFURLRef) [NSURL fileURLWithPath:thesoundFilePath];
     AudioServicesCreateSystemSoundID(thesoundURL, &_errorSound);
     
-    thesoundFilePath = [[NSBundle mainBundle] pathForResource:@"battle_lose" ofType:@"mp3"];
-    thesoundURL = (__bridge CFURLRef) [NSURL fileURLWithPath:thesoundFilePath];
-    AudioServicesCreateSystemSoundID(thesoundURL, &_battleLoseSound);
-    
-    thesoundFilePath = [[NSBundle mainBundle] pathForResource:@"battle_win" ofType:@"mp3"];
-    thesoundURL = (__bridge CFURLRef) [NSURL fileURLWithPath:thesoundFilePath];
-    AudioServicesCreateSystemSoundID(thesoundURL, &_battleWinSound);
-    
     if (!self.audioPlayer) {
         NSError *error;
-        NSURL *url = [[NSURL alloc] initFileURLWithPath:[[NSBundle mainBundle] pathForResource:@"xj" ofType:@"mp3"]];
+        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+        NSString *path = [delegate getBattleMusicPath];
+        NSURL *url = [[NSURL alloc] initFileURLWithPath:path];
         self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
         if (![self.audioPlayer prepareToPlay]) {
             //handle error for failure here
@@ -300,17 +294,39 @@
 
 - (void)playBattleWinMusic
 {
+    [self gameDidTerminate];
     [self.audioPlayer stop];
     if ([self allowSound]) {
-        AudioServicesPlaySystemSound(_battleWinSound);
+        NSError *error;
+        NSURL *url = [[NSURL alloc] initFileURLWithPath:[[NSBundle mainBundle] pathForResource:@"battle_win" ofType:@"mp3"]];
+        self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+        if (![self.audioPlayer prepareToPlay]) {
+            //handle error for failure here
+            //            [self showErrorMsg];
+            NSLog(@"Cannot play music!!!reason: %@", error.debugDescription);
+        }
+        [self.audioPlayer setDelegate:self];
+        self.audioPlayer.volume = REGULAR_VOLUME; //Because it's too loud
+        [self.audioPlayer play];
     }
 }
 
 - (void)playBattleLoseMusic
 {
+    [self gameDidTerminate];
     [self.audioPlayer stop];
     if ([self allowSound]) {
-        AudioServicesPlaySystemSound(_battleLoseSound);
+        NSError *error;
+        NSURL *url = [[NSURL alloc] initFileURLWithPath:[[NSBundle mainBundle] pathForResource:@"battle_lose" ofType:@"mp3"]];
+        self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+        if (![self.audioPlayer prepareToPlay]) {
+            //handle error for failure here
+            //            [self showErrorMsg];
+            NSLog(@"Cannot play music!!!reason: %@", error.debugDescription);
+        }
+        [self.audioPlayer setDelegate:self];
+        self.audioPlayer.volume = REGULAR_VOLUME; //Because it's too loud
+        [self.audioPlayer play];
     }
 }
 

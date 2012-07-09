@@ -20,6 +20,8 @@
 {
     UINavigationController *_startVCNav;
     MBProgressHUD *_hud;
+    
+    NSMutableArray *_battleMusicPathArray;
 }
 @property (strong, nonatomic) UIWindow *window;
 
@@ -34,6 +36,8 @@
 - (void)showStartScreenAnimated;
 - (void)prepareForSinglePlayerGameWithQuestionSet:(QuestionSet*)questionset;
 - (void)prepareForTwoPlayersGameQuestionSet:(QuestionSet*)questionset;
+
+- (NSString*)getBattleMusicPath;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

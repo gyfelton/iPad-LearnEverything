@@ -37,6 +37,8 @@
     
     UIView *_menuContainer1;
     UIView *_menuContainer2;
+    
+    UIImageView *_countdownImageView2;
 }
 
 - (id)initWithManagedContext:(NSManagedObjectContext *)context questionSet:(QuestionSet *)questionSet;

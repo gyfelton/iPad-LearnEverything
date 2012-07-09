@@ -67,12 +67,13 @@
     
     [_grid_view_light_place_holder.superview insertSubview:_grid_view_light aboveSubview:_grid_view_light_place_holder];
     [_grid_view_light_place_holder removeFromSuperview];
+    _grid_view_light.hidden = YES;
     
     _grid_view_dark = [[NonScrollableGridView alloc] initWithFrame:_grid_view_dark_place_holder.frame];
     _grid_view_dark.dataSource = self;
     
     _grid_view_dark.transform = CGAffineTransformMakeRotation(M_PI);
-    
+    _grid_view_dark.hidden = YES;
     [_grid_view_dark_place_holder.superview insertSubview:_grid_view_dark aboveSubview:_grid_view_dark_place_holder];
     [_grid_view_dark_place_holder removeFromSuperview];
     
@@ -85,32 +86,49 @@
     [_animation_place_holder removeFromSuperview];
 }
 
+- (void)presentCardsAnimated
+{
+    _grid_view_light.hidden = NO;
+    [_grid_view_light layoutUnitsAnimatedWithAnimationDirection:kGridViewAnimationFlowFromBottom];
+    _grid_view_dark.hidden = NO;
+    [_grid_view_dark layoutUnitsAnimatedWithAnimationDirection:kGridViewAnimationFlowFromBottom];
+}
+
 - (void)dismissCountdownAndStartGame
 {
     [_countdownImageView removeFromSuperview];
+    [_countdownImageView2 removeFromSuperview];
+    
+    _countdownImageView2 = nil;
     _countdownImageView = nil;
     
-   // [self presentCardsAnimated];
+    [self presentCardsAnimated];
 }
 
 - (void)showCountDown:(NSNumber*)num
 {
     int number = [num intValue];
     if (!_countdownImageView) {
-        _countdownImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 300, 450)];
+        _countdownImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 150, 225)];
         [self.view addSubview:_countdownImageView];
+        _countdownImageView.center = CGPointMake(384, 841);
     }
     
-    _countdownImageView.center = self.view.center;
+    if (!_countdownImageView2) {
+        _countdownImageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 150, 225)];
+        [self.view addSubview:_countdownImageView2];
+        _countdownImageView2.center = CGPointMake(384, 183);
+        _countdownImageView2.transform = CGAffineTransformMakeRotation(M_PI);
+    }
     
     if (number == 1) {
-        _countdownImageView.image = [UIImage imageNamed:@"countdown_one"];
+        _countdownImageView2.image = _countdownImageView.image = [UIImage imageNamed:@"countdown_one"];
         [self performSelector:@selector(dismissCountdownAndStartGame) withObject:nil afterDelay:1.0f];
     } else if (number == 2) {
-        _countdownImageView.image = [UIImage imageNamed:@"countdown_two"];
+        _countdownImageView2.image = _countdownImageView.image = [UIImage imageNamed:@"countdown_two"];
         [self performSelector:@selector(showCountDown:) withObject:[NSNumber numberWithInt:1] afterDelay:1.0f];
     } else if (number == 3) {
-        _countdownImageView.image = [UIImage imageNamed:@"countdown_three"];
+        _countdownImageView2.image = _countdownImageView.image = [UIImage imageNamed:@"countdown_three"];
         [self performSelector:@selector(showCountDown:) withObject:[NSNumber numberWithInt:2] afterDelay:1.0f];
     }
     

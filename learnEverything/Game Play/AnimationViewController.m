@@ -71,7 +71,7 @@
     _score = 0;
 }
 
-- (void)stopShieldAnimationAndStartFlame
+- (void)startAnimations
 {
     [_right_flame startAnimating];
     [_left_bo startAnimating];
@@ -82,7 +82,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self stopShieldAnimationAndStartFlame];
+    [self startAnimations];
 //    [left_hero startAnimating];
 //    [self performSelector:@selector(stopShieldAnimationAndStartFlame) withObject:nil afterDelay:1.2f];
 }
