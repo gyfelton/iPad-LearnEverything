@@ -361,14 +361,14 @@
             container.backgroundColor = [UIColor clearColor];
             
             //Back to menu btn
-            UIButton *backToMenu = [UIButton buttonWithType:UIButtonTypeCustom];
+            SimulatePressButton *backToMenu = [SimulatePressButton buttonWithType:UIButtonTypeCustom];
             [backToMenu setImage:[UIImage imageNamed:@"backToMenu"] forState:UIControlStateNormal];
             backToMenu.frame = CGRectMake(0, 0, 274, 102);
             backToMenu.center = CGPointMake(container.center.x, container.center.y+100);
             [backToMenu addTarget:self action:@selector(onMainMenuClicked:) forControlEvents:UIControlEventTouchUpInside];
             [container addSubview:backToMenu];
             
-            UIButton *restartGame = [UIButton buttonWithType:UIButtonTypeCustom];
+            SimulatePressButton *restartGame = [SimulatePressButton buttonWithType:UIButtonTypeCustom];
             [restartGame setImage:[UIImage imageNamed:@"restartGame"] forState:UIControlStateNormal];
             restartGame.frame = CGRectMake(0, 0, 300, 100);
             restartGame.center = CGPointMake(container.center.x,container.center.y+190);
@@ -420,14 +420,14 @@
                     winScreen2.transform = CGAffineTransformIdentity;
                 }
                                  completion:^(BOOL finished) {
-                                     UIButton *backToMenu = [UIButton buttonWithType:UIButtonTypeCustom];
+                                     SimulatePressButton *backToMenu = [SimulatePressButton buttonWithType:UIButtonTypeCustom];
                                      [backToMenu setImage:[UIImage imageNamed:@"backToMenu"] forState:UIControlStateNormal];
                                      backToMenu.frame = CGRectMake(0, 0, 274, 102);
                                      backToMenu.center = CGPointMake(container.center.x, container.center.y+100);
                                      [backToMenu addTarget:self action:@selector(onMainMenuClicked:) forControlEvents:UIControlEventTouchUpInside];
                                      [container addSubview:backToMenu];
                                      
-                                     UIButton *restartGame = [UIButton buttonWithType:UIButtonTypeCustom];
+                                     SimulatePressButton *restartGame = [SimulatePressButton buttonWithType:UIButtonTypeCustom];
                                      [restartGame setImage:[UIImage imageNamed:@"restartGame"] forState:UIControlStateNormal];
                                      restartGame.frame = CGRectMake(0, 0, 300, 100);
                                      restartGame.center = CGPointMake(container.center.x,container.center.y+190);
