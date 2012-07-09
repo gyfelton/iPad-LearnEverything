@@ -959,7 +959,7 @@
 {
     if ([MFMailComposeViewController canSendMail]) {
         _mailComposeVC = [[MFMailComposeViewController alloc] init];
-        [_mailComposeVC setSubject:[NSString stringWithFormat:@"分享题库：%@", _questionSet.name]];
+        [_mailComposeVC setSubject:[NSString stringWithFormat:@"由“勇者斗恶龙”分享的题库：%@", _questionSet.name]];
         [_mailComposeVC setMessageBody:@"附件是一个题库，请下载后使用 “勇者斗恶龙” 打开\n\nApp Store下载点这里:" isHTML:NO];
         
         NSData *data = [[FileIOSharedManager sharedManager] dataFromJSONParsedQuestionSet:_questionSet filterInCompleteQuestion:_shouldNotShareIncompleteQuestion filterInActiveQuestions:_shouldNotShareUnCheckedQuestion];

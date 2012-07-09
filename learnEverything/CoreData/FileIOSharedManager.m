@@ -348,7 +348,8 @@ static FileIOSharedManager *sharedManager;
 - (void)checkCachedQuestionSetsWithCompletion:(void (^)(BOOL))completion
 {
     //Check for existing qsj files to load question set if need
-
+    //这个应该不会再使用了，因为已实现preload数据库： http://www.raywenderlich.com/12170/core-data-tutorial-how-to-preloadimport-existing-data-updated
+    
     NSArray *array = [[NSBundle mainBundle] pathsForResourcesOfType:@"qsj" inDirectory:nil];
     for (NSString *path in array) {
         [self _parseQSJFileOnPath:path];

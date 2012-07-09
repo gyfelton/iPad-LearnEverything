@@ -16,4 +16,6 @@
     #import "SimulatePressButton.h"
 #endif
 
+#define IS_PRE_LOAD_NEW_QSJ NO
+
 #define LANDSCAPE_ORIENTATION UIInterfaceOrientationIsLandscape(interfaceOrientation)

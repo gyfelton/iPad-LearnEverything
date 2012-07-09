@@ -133,16 +133,25 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onQSJFileParsedSuccessfulReceived:) name:QSJ_FILE_RECEIVED_AND_PARSE_SUCCESSFULL_NOTIFICATION object:nil];
     
-    BOOL hasInit = [[NSUserDefaults standardUserDefaults] boolForKey:HAS_INIT_USER_DEFAULT_KEY_FOR_THIS_VERSION_0_9];
-    if (!hasInit) {
-        [self fetchedResultsController]; //Specify the delegate
-        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-        [delegate showCheckQSJFilesHUD];
-        _questionSetView.hidden = YES;
-        [self performSelector:@selector(checkQSJFiles) withObject:nil afterDelay:0.2f];
+    [self fetchedResultsController]; //Specify the delegate
+    
+    /*注意！仅在添加新的数据库的时候启用！
+     */
+    if (IS_PRE_LOAD_NEW_QSJ)
+    {
+        BOOL hasInit = [[NSUserDefaults standardUserDefaults] boolForKey:HAS_INIT_USER_DEFAULT_KEY_FOR_THIS_VERSION_0_9];
+        if (!hasInit) {
+            AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+            [delegate showCheckQSJFilesHUD];
+            _questionSetView.hidden = YES;
+            [self performSelector:@selector(checkQSJFiles) withObject:nil afterDelay:0.2f];
+        }
     }
+     
 }
 
+/*注意！仅在添加新的数据库的时候使用！
+ */
 - (void)checkQSJFiles
 {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;

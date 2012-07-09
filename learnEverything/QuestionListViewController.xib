@@ -400,6 +400,7 @@
 								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								</object>
+								<int key="IBUIClearButtonMode">1</int>
 								<reference key="IBUIFontDescription" ref="709775606"/>
 								<reference key="IBUIFont" ref="297498174"/>
 							</object>
@@ -611,27 +612,27 @@
 						<reference key="IBUIToolbar" ref="167899158"/>
 						<int key="IBUISystemItemIdentifier">6</int>
 					</object>
-					<object class="IBUIBarButtonItem" id="231135220">
+					<object class="IBUIBarButtonItem" id="276903195">
 						<string key="IBUITitle"> = </string>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<float key="IBUIWidth">44</float>
 						<int key="IBUIStyle">2</int>
 						<reference key="IBUIToolbar" ref="167899158"/>
 					</object>
-					<object class="IBUIBarButtonItem" id="792823134">
+					<object class="IBUIBarButtonItem" id="834003998">
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<float key="IBUIWidth">33</float>
 						<reference key="IBUIToolbar" ref="167899158"/>
 						<int key="IBUISystemItemIdentifier">6</int>
 					</object>
-					<object class="IBUIBarButtonItem" id="737433129">
+					<object class="IBUIBarButtonItem" id="1003798799">
 						<string key="IBUITitle">?</string>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<float key="IBUIWidth">44</float>
 						<int key="IBUIStyle">2</int>
 						<reference key="IBUIToolbar" ref="167899158"/>
 					</object>
-					<object class="IBUIBarButtonItem" id="195749887">
+					<object class="IBUIBarButtonItem" id="210799860">
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<float key="IBUIWidth">33</float>
 						<reference key="IBUIToolbar" ref="167899158"/>
@@ -883,7 +884,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">onEqualSignClicked:</string>
-						<reference key="source" ref="231135220"/>
+						<reference key="source" ref="276903195"/>
 						<reference key="destination" ref="841351856"/>
 					</object>
 					<int key="connectionID">123</int>
@@ -891,7 +892,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">onQuestionSignClicked:</string>
-						<reference key="source" ref="737433129"/>
+						<reference key="source" ref="1003798799"/>
 						<reference key="destination" ref="841351856"/>
 					</object>
 					<int key="connectionID">127</int>
@@ -1075,10 +1076,10 @@
 							<reference ref="515749457"/>
 							<reference ref="27734391"/>
 							<reference ref="840805140"/>
-							<reference ref="231135220"/>
-							<reference ref="792823134"/>
-							<reference ref="737433129"/>
-							<reference ref="195749887"/>
+							<reference ref="276903195"/>
+							<reference ref="834003998"/>
+							<reference ref="1003798799"/>
+							<reference ref="210799860"/>
 						</array>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">InputAccessoryView</string>
@@ -1160,22 +1161,22 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">119</int>
-						<reference key="object" ref="231135220"/>
+						<reference key="object" ref="276903195"/>
 						<reference key="parent" ref="167899158"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">120</int>
-						<reference key="object" ref="792823134"/>
+						<reference key="object" ref="834003998"/>
 						<reference key="parent" ref="167899158"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">125</int>
-						<reference key="object" ref="737433129"/>
+						<reference key="object" ref="1003798799"/>
 						<reference key="parent" ref="167899158"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">126</int>
-						<reference key="object" ref="195749887"/>
+						<reference key="object" ref="210799860"/>
 						<reference key="parent" ref="167899158"/>
 					</object>
 				</array>
