@@ -78,7 +78,7 @@
     
     [self reinitGame];
     
-    _animationVC = [[AnimationViewController alloc] initWithNibName:@"AnimationViewController_TwoPlayers" bundle:nil];
+    _animationVC = [[AnimationViewController alloc] initInSinglePlayerMode:NO];
     _animationVC.view.center = self.view.center;
     
     [self.view insertSubview:_animationVC.view aboveSubview:_animation_place_holder];

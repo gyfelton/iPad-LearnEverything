@@ -64,10 +64,10 @@
     IBOutlet UIImageView *_header_img_view;
     
     IBOutlet UIView *_chooseQnTypeContainer;
-    IBOutlet UIButton *_chooseSubtypeMathQn;
-    IBOutlet UIButton *_chooseSubtypeChiEng;
-    IBOutlet UIButton *_chooseSubtypeChiPic;
-    IBOutlet UIButton *_chooseSubtypeEngPic;
+    IBOutlet SimulatePressButton *_chooseSubtypeMathQn;
+    IBOutlet SimulatePressButton *_chooseSubtypeChiEng;
+    IBOutlet SimulatePressButton *_chooseSubtypeChiPic;
+    IBOutlet SimulatePressButton *_chooseSubtypeEngPic;
     
     UIActionSheet *_actionSheetForCover;
     UIActionSheet *_actionSheetForImageBtn;

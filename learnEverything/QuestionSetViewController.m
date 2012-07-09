@@ -15,6 +15,8 @@
 #import "AppDelegate.h"
 #import "FileIOSharedManager.h"
 
+#define HAS_INIT_USER_DEFAULT_KEY_FOR_THIS_VERSION_0_9 @"v0.9_has_init_question_set"
+
 @interface QuestionSetViewController (Private) 
 - (void)configureCell:(GMGridViewCell *)cell atIndex:(NSInteger)index;
 @end
@@ -131,12 +133,31 @@
     _titleLabel.font = [UIFont regularChineseFontWithSize:33];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onQSJFileParsedSuccessfulReceived:) name:QSJ_FILE_RECEIVED_AND_PARSE_SUCCESSFULL_NOTIFICATION object:nil];
+    
+    BOOL hasInit = [[NSUserDefaults standardUserDefaults] boolForKey:HAS_INIT_USER_DEFAULT_KEY_FOR_THIS_VERSION_0_9];
+    if (!hasInit) {
+        [self fetchedResultsController]; //Specify the delegate
+        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+        [delegate showCheckQSJFilesHUD];
+        _questionSetView.hidden = YES;
+        [self performSelector:@selector(checkQSJFiles) withObject:nil afterDelay:0.2f];
+    }
+}
+
+- (void)checkQSJFiles
+{
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [[FileIOSharedManager sharedManager] checkCachedQuestionSetsWithCompletion:^(BOOL finished) {
+        [delegate dismissHUDAfterDelay:0.1f]; 
+        _questionSetView.hidden = NO;
+        [_questionSetView reloadData];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HAS_INIT_USER_DEFAULT_KEY_FOR_THIS_VERSION_0_9];
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self fetchedResultsController]; //Specify the delegate
 }
 
 - (void)viewDidUnload

@@ -45,24 +45,14 @@
     [super viewDidLoad];
 //    self.view.backgroundColor = [UIColor clearColor];
     // Do any additional setup after loading the view from its nib.
-    _singleButton.hidden = YES;
-    _dualButton.hidden = YES;
-    
-    _hud = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:_hud];
-    
-    _hud.yOffset = 50;
-    _hud.labelText = @"检查题库更新中，请稍等";
-    [_hud show:YES];
-    
-    _checkQSJFile = YES;
-    [self performSelector:@selector(checkQSJFiles) withObject:nil afterDelay:1.3f];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     _editQuestionSetButton.hidden = YES;
+    _singleButton.hidden = YES;
+    _dualButton.hidden = YES;
     _mainTitle.alpha = 1.0f;
     [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
@@ -72,28 +62,17 @@
     [self performSelector:@selector(_animateCurl) withObject:nil afterDelay:0.1f];
     _breathTitle = YES;
     [self _breathMainTitleFade];
-}
-
-- (void)checkQSJFiles
-{
-    [[FileIOSharedManager sharedManager] checkCachedQuestionSetsWithCompletion:^(BOOL finished) {
-        [_hud hide:YES];
-        _checkQSJFile = NO;
-        [self aniamteViews];
-        [UIView animateWithDuration:0.6f 
-                         animations:^{
-            _singleButton.hidden = NO;
-            _dualButton.hidden = NO;
-        }];
-    }];
+    [UIView animateWithDuration:0.6f 
+                     animations:^{
+                         _singleButton.hidden = NO;
+                         _dualButton.hidden = NO;
+                     }];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if (!_checkQSJFile) {
-        [self aniamteViews];
-    }
+    [self aniamteViews];
 }
 
 - (void)viewDidDisappear:(BOOL)animated

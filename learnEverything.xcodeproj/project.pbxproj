@@ -63,6 +63,7 @@
 		FE3DF11A159BC220004924C2 /* RoundedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3DF119159BC21F004924C2 /* RoundedButton.m */; };
 		FE3DF11C159BC695004924C2 /* roundedButton.png in Resources */ = {isa = PBXBuildFile; fileRef = FE3DF11B159BC695004924C2 /* roundedButton.png */; };
 		FE3DF11E159BCDD4004924C2 /* back_button.png in Resources */ = {isa = PBXBuildFile; fileRef = FE3DF11D159BCDD4004924C2 /* back_button.png */; };
+		FE48DFA615A9A738003A9FE2 /* SimulatePressButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FE48DFA515A9A738003A9FE2 /* SimulatePressButton.m */; };
 		FE4F96B815A2D7ED0068897B /* IsSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = FE4F96B615A2D7ED0068897B /* IsSelected.png */; };
 		FE4F96B915A2D7ED0068897B /* NotSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = FE4F96B715A2D7ED0068897B /* NotSelected.png */; };
 		FE4F96BD15A2E3D20068897B /* ShareOptionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4F96BB15A2E3D10068897B /* ShareOptionsTableViewController.m */; };
@@ -263,6 +264,8 @@
 		FE3DF119159BC21F004924C2 /* RoundedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundedButton.m; sourceTree = "<group>"; };
 		FE3DF11B159BC695004924C2 /* roundedButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = roundedButton.png; sourceTree = "<group>"; };
 		FE3DF11D159BCDD4004924C2 /* back_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_button.png; sourceTree = "<group>"; };
+		FE48DFA415A9A738003A9FE2 /* SimulatePressButton.h */ = {isa = PBXFileReference; fileEncoding = 4; path = SimulatePressButton.h; sourceTree = "<group>"; };
+		FE48DFA515A9A738003A9FE2 /* SimulatePressButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimulatePressButton.m; sourceTree = "<group>"; };
 		FE4F96B615A2D7ED0068897B /* IsSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IsSelected.png; sourceTree = "<group>"; };
 		FE4F96B715A2D7ED0068897B /* NotSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotSelected.png; sourceTree = "<group>"; };
 		FE4F96BA15A2E3D10068897B /* ShareOptionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareOptionsTableViewController.h; sourceTree = "<group>"; };
@@ -820,6 +823,8 @@
 				FE16807B15A74D29004E95EE /* UIResponder+InsertText.m */,
 				FEB8CC7015A95DAA0041D93C /* UIImage+Scale.h */,
 				FEB8CC7115A95DAA0041D93C /* UIImage+Scale.m */,
+				FE48DFA415A9A738003A9FE2 /* SimulatePressButton.h */,
+				FE48DFA515A9A738003A9FE2 /* SimulatePressButton.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1069,6 +1074,7 @@
 				FE16807115A733D0004E95EE /* QuestionSet.m in Sources */,
 				FE16807C15A74D29004E95EE /* UIResponder+InsertText.m in Sources */,
 				FEB8CC7215A95DAA0041D93C /* UIImage+Scale.m in Sources */,
+				FE48DFA615A9A738003A9FE2 /* SimulatePressButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

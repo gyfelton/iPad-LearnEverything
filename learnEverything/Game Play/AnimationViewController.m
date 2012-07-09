@@ -115,7 +115,7 @@
 //    }
     CGFloat left_factor = 1;
     CGFloat right_factor = 1;
-    CGFloat offsetAmound = self.isSinglePlayerMode ? 10 : 5;
+    CGFloat offsetAmound = self.isSinglePlayerMode ? 15 : 10;
     if (s>0) {
         left_factor = (_left_bo.frame.size.width+offsetAmound)/_left_bo.frame.size.width;
     } else
@@ -124,7 +124,7 @@
     }
     
     CGFloat leftNewWidth = _left_bo.frame.size.width*left_factor;
-    CGFloat rightNewWidth = self.isSinglePlayerMode ? 759 : 566 - leftNewWidth;
+    CGFloat rightNewWidth = (self.isSinglePlayerMode ? 759 : 566) - leftNewWidth;
     right_factor = rightNewWidth/_right_flame.frame.size.width;
     
     [UIView animateWithDuration:0.2f animations:^{

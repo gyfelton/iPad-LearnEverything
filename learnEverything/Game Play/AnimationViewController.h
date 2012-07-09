@@ -19,6 +19,7 @@
     
     BOOL _isSinglePlayerMode;
 }
+- (id)initInSinglePlayerMode:(BOOL)singlePlayer;
 
 @property (nonatomic, readonly) BOOL isSinglePlayerMode;
 @property (nonatomic, setter = setScore: ) CGFloat score; //Range from 0 to 1

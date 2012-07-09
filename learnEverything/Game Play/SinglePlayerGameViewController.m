@@ -108,7 +108,7 @@
     
     [self reinitGame];
     
-    _animationVC = [[AnimationViewController alloc] initWithNibName:@"AnimationViewController_SinglePlayer" bundle:nil];
+    _animationVC = [[AnimationViewController alloc] initInSinglePlayerMode:YES];
     [_animationStageView addSubview:_animationVC.view];
 }
 

@@ -14,17 +14,13 @@
     __unsafe_unretained IBOutlet UIImageView *_mainTitle;
     __unsafe_unretained IBOutlet UIImageView *_main_bg;
     
-    __unsafe_unretained IBOutlet UIButton *_singleButton;
+    __unsafe_unretained IBOutlet SimulatePressButton *_singleButton;
 
-    __unsafe_unretained IBOutlet UIButton *_dualButton;
+    __unsafe_unretained IBOutlet SimulatePressButton *_dualButton;
     
-    __unsafe_unretained IBOutlet UIButton *_editQuestionSetButton;
-    
-    MBProgressHUD *_hud;
+    __unsafe_unretained IBOutlet SimulatePressButton *_editQuestionSetButton;
     
     BOOL _breathTitle;
-    
-    BOOL _checkQSJFile;
 }
 
 - (IBAction)onSinglePlayerGameClicked:(id)sender;

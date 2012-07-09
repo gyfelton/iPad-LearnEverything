@@ -71,16 +71,22 @@
     [_hud hide:YES afterDelay:1.6f];
 }
 
+- (void)showCheckQSJFilesHUD
+{
+    _hud.mode = MBProgressHUDModeIndeterminate;
+    _hud.labelText = @"初始化题库数据中，请稍等";
+    [_hud show:YES];
+}
+
+- (void)dismissHUDAfterDelay:(CGFloat)delay
+{
+    [_hud hide:YES afterDelay:delay];
+}
+
 - (BOOL)processURLIfIsFileURL:(NSURL*)url
 {
     if ([url isFileURL]) {
         //Handle qsj file here
-        if (!_hud) {
-            _hud = [[MBProgressHUD alloc] initWithWindow:self.window];
-            _hud.dimBackground = YES;
-            [self.window addSubview:_hud];
-            _hud.yOffset = 50;
-        }
         NSString *path = [url absoluteString];
         path = [path lastPathComponent];
         path = [path stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -98,7 +104,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {   
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-
     
     self.baseNavigationController = [[UINavigationController alloc] initWithRootViewController:[[UIViewController alloc] initWithNibName:nil bundle:nil]];
     
@@ -115,11 +120,16 @@
     //Should not call here
 //    NSURL *url = (NSURL *)[launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
 //    [self processURLIfIsFileURL:url];
-    NSManagedObjectContext *context = self.managedObjectContext;
     StartViewController *startVC = [[StartViewController alloc] initWithNibName:nil bundle:nil];
     _startVCNav = [[UINavigationController alloc] initWithRootViewController:startVC];
     [self showStartScreenAnimated];
     
+    if (!_hud) {
+        _hud = [[MBProgressHUD alloc] initWithWindow:self.window];
+        _hud.dimBackground = YES;
+        [self.window addSubview:_hud];
+        _hud.yOffset = 50;
+    }
     return YES;
 }
 

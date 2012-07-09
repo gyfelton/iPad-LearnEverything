@@ -36,4 +36,7 @@
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 
+- (void)showCheckQSJFilesHUD;
+
+- (void)dismissHUDAfterDelay:(CGFloat)delay;
 @end

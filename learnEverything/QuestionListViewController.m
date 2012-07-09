@@ -422,7 +422,7 @@
     
     //Config fonts
     cell.questionNumber.font = [UIFont regularChineseFontWithSize:38];
-    cell.questionTxtField.font = cell.ansTxtField.font = [UIFont regularChineseFontWithSize:50];
+    cell.questionTxtField.font = cell.ansTxtField.font = [UIFont systemFontOfSize:46];
     
     //config keyboard
     cell.questionTxtField.autocapitalizationType = cell.ansTxtField.autocapitalizationType = UITextAutocapitalizationTypeWords;
@@ -460,7 +460,7 @@
     cell.questionTxtField.returnKeyType = UIReturnKeyNext;
     
     cell.questionNumber.font = [UIFont regularChineseFontWithSize:38];
-    cell.questionTxtField.font = [UIFont regularChineseFontWithSize:50];
+    cell.questionTxtField.font = [UIFont systemFontOfSize:46];
     
     cell.questionTxtField.autocapitalizationType = UITextAutocapitalizationTypeWords;
 }
