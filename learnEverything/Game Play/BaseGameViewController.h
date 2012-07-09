@@ -12,13 +12,15 @@
 #import "Question.h"
 #import "QuestionSet.h"
 #import "AnimationViewController.h"
+#import "SimulatePressButton.h"
 
 @interface BaseGameViewController : UIViewController <AVAudioPlayerDelegate>
 {
     UIView *_pauseMenuContainer;
     UIView *_pauseMenuBackground;
-    UIButton *_mainMenuButton;
-    UIButton *_resumeGameButton;
+    SimulatePressButton *_mainMenuButton;
+    SimulatePressButton *_resumeGameButton;
+    SimulatePressButton *_resrartGameButton;
     
     UIView *_leftDialog;
     UILabel *_leftDialogLbl;

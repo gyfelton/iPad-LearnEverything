@@ -208,6 +208,9 @@
     UIButton *resumeBtn = (UIButton*)[secondMenu viewWithTag:36];
     [resumeBtn addTarget:self action:@selector(onResumeGameClicked:) forControlEvents:UIControlEventTouchUpInside];
     
+    UIButton *restartBtn = (UIButton*)[secondMenu viewWithTag:35];
+    [restartBtn addTarget:self action:@selector(onRestartGameClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
     [super onPauseClicked:sender];
 }
 
@@ -397,6 +400,7 @@
             
             UIImageView *loseImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"two_players_lose_screen"]];
             [loseScreenContainer addSubview:loseImg];
+            
             //输家的主菜单按钮
             UIButton *backToMenu = [UIButton buttonWithType:UIButtonTypeCustom];
             [backToMenu setImage:[UIImage imageNamed:@"backToMenu"] forState:UIControlStateNormal];
@@ -404,6 +408,13 @@
             backToMenu.center = CGPointMake(loseScreenContainer.center.x, loseScreenContainer.center.y+60);
             [backToMenu addTarget:self action:@selector(onMainMenuClicked:) forControlEvents:UIControlEventTouchUpInside];
             [loseScreenContainer addSubview:backToMenu];
+            
+            UIButton *restartGame = [UIButton buttonWithType:UIButtonTypeCustom];
+            [restartGame setImage:[UIImage imageNamed:@"restartGame"] forState:UIControlStateNormal];
+            restartGame.frame = CGRectMake(0, 0, 300, 100);
+            restartGame.center = CGPointMake(loseScreenContainer.center.x, loseScreenContainer.center.y+140);
+            [restartGame addTarget:self action:@selector(onRestartGameClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [loseScreenContainer addSubview:restartGame];
             
             [super playBattleWinMusic];
             
@@ -435,6 +446,13 @@
                                          backToMenu.center = CGPointMake(winScreenContainer.center.x, 257);
                                          [backToMenu addTarget:self action:@selector(onMainMenuClicked:) forControlEvents:UIControlEventTouchUpInside];
                                          [winScreenContainer addSubview:backToMenu];
+                                         
+                                         UIButton *restartGame = [UIButton buttonWithType:UIButtonTypeCustom];
+                                         [restartGame setImage:[UIImage imageNamed:@"restartGame"] forState:UIControlStateNormal];
+                                         restartGame.frame = CGRectMake(0, 0, 300, 100);
+                                         restartGame.center = CGPointMake(loseScreenContainer.center.x,330);
+                                         [restartGame addTarget:self action:@selector(onRestartGameClicked:) forControlEvents:UIControlEventTouchUpInside];
+                                         [winScreenContainer addSubview:restartGame];
                                      }];
                 }];
             } else if (rightWidth <= 10) {
@@ -454,6 +472,13 @@
                                          backToMenu.center = CGPointMake(winScreenContainer.center.x, 257);
                                          [backToMenu addTarget:self action:@selector(onMainMenuClicked:) forControlEvents:UIControlEventTouchUpInside];
                                          [winScreenContainer addSubview:backToMenu];
+                                         
+                                         UIButton *restartGame = [UIButton buttonWithType:UIButtonTypeCustom];
+                                         [restartGame setImage:[UIImage imageNamed:@"restartGame"] forState:UIControlStateNormal];
+                                         restartGame.frame = CGRectMake(0, 0, 300, 100);
+                                         restartGame.center = CGPointMake(loseScreenContainer.center.x,330);
+                                         [restartGame addTarget:self action:@selector(onRestartGameClicked:) forControlEvents:UIControlEventTouchUpInside];
+                                         [winScreenContainer addSubview:restartGame];
                                      }];
                 }];
                 

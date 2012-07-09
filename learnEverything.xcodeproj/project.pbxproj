@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FE014F4F157DD155003BE31E /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = FE014F4E157DD155003BE31E /* checkmark.png */; };
+		FE04FAF715AAC104006961B0 /* restartGame.png in Resources */ = {isa = PBXBuildFile; fileRef = FE04FAF615AAC104006961B0 /* restartGame.png */; };
 		FE05A7AA1598A987006F1FAC /* FangZhengZhiYiJianTi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE05A7A91598A987006F1FAC /* FangZhengZhiYiJianTi.ttf */; };
 		FE05A7B11598AC4C006F1FAC /* UIFont+Additionals.m in Sources */ = {isa = PBXBuildFile; fileRef = FE05A7B01598AC4C006F1FAC /* UIFont+Additionals.m */; };
 		FE082ABB159B093800188848 /* scanlight.png in Resources */ = {isa = PBXBuildFile; fileRef = FE082ABA159B093800188848 /* scanlight.png */; };
@@ -210,6 +211,7 @@
 
 /* Begin PBXFileReference section */
 		FE014F4E157DD155003BE31E /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
+		FE04FAF615AAC104006961B0 /* restartGame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restartGame.png; sourceTree = "<group>"; };
 		FE05A7A91598A987006F1FAC /* FangZhengZhiYiJianTi.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FangZhengZhiYiJianTi.ttf; sourceTree = "<group>"; };
 		FE05A7AF1598AC4C006F1FAC /* UIFont+Additionals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Additionals.h"; sourceTree = "<group>"; };
 		FE05A7B01598AC4C006F1FAC /* UIFont+Additionals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Additionals.m"; sourceTree = "<group>"; };
@@ -774,6 +776,7 @@
 				FE48DFAD15AA777C003A9FE2 /* win_screen_1.png */,
 				FE48DFAE15AA777C003A9FE2 /* win_screen_2.png */,
 				FE08B47515AAB88600D06233 /* question_list_default_pic.png */,
+				FE04FAF615AAC104006961B0 /* restartGame.png */,
 				FE36AF6615A7E8A2002CE9BF /* two_players */,
 			);
 			path = images;
@@ -1074,6 +1077,7 @@
 				FE08B46615AAACB300D06233 /* simple_jiajian.qsj in Resources */,
 				FE08B46715AAACB300D06233 /* yiyuan_yici_fangcheng.qsj in Resources */,
 				FE08B47615AAB88600D06233 /* question_list_default_pic.png in Resources */,
+				FE04FAF715AAC104006961B0 /* restartGame.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

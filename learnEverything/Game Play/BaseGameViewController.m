@@ -8,6 +8,8 @@
 
 #import "BaseGameViewController.h"
 #import "AppDelegate.h"
+#import "SinglePlayerGameViewController.h"
+#import "TwoPlayersGameViewController.h"
 
 #define REGULAR_VOLUME 0.5f
 
@@ -111,6 +113,19 @@
     [appDelegate showStartScreenAnimated];
 }
 
+- (void)onRestartGameClicked:(id)sender
+{
+    [self gameDidTerminate];
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    BOOL singlePlayerGame = [self isMemberOfClass:[SinglePlayerGameViewController class]];
+    if (singlePlayerGame) {
+        [appDelegate prepareForSinglePlayerGameWithQuestionSet:_questionSet];
+    } else
+    {
+        [appDelegate prepareForTwoPlayersGameQuestionSet:_questionSet];
+    }
+}
+
 - (void)onResumeGameClicked:(id)sender
 {
     if ([self allowSound])
@@ -139,13 +154,16 @@
     _pauseMenuContainer.center = _pauseMenuBackground.center;
     [_pauseMenuBackground addSubview:_pauseMenuContainer];
     
-    _mainMenuButton = (UIButton*)[_pauseMenuContainer viewWithTag:33];
+    _mainMenuButton = (SimulatePressButton*)[_pauseMenuContainer viewWithTag:33];
     [_mainMenuButton addTarget:self action:@selector(onMainMenuClicked:) forControlEvents:UIControlEventTouchUpInside];
     _mainMenuButton.titleLabel.font = [UIFont regularChineseFontWithSize:22];
     
-    _resumeGameButton = (UIButton*)[_pauseMenuContainer viewWithTag:36];
+    _resumeGameButton = (SimulatePressButton*)[_pauseMenuContainer viewWithTag:36];
     [_resumeGameButton addTarget:self action:@selector(onResumeGameClicked:) forControlEvents:UIControlEventTouchUpInside];
     _resumeGameButton.titleLabel.font = [UIFont regularChineseFontWithSize:22];
+    
+    _resrartGameButton = (SimulatePressButton*)[_pauseMenuContainer viewWithTag:35];
+    [_resrartGameButton addTarget:self action:@selector(onRestartGameClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     array = [[NSBundle mainBundle] loadNibNamed:@"DialogViews" owner:nil options:nil];
     _leftDialog = [array objectAtIndex:0];
@@ -220,6 +238,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [self.audioPlayer stop];
+    self.audioPlayer = nil;
         [[NSNotificationCenter defaultCenter] removeObserver:self name:GameProgressNotificationWithInfoDictionry_KEY object:nil];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
 }
@@ -227,8 +247,6 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [self.audioPlayer stop];
-    self.audioPlayer = nil;
 }
 
 #pragma mark - Dialog related
