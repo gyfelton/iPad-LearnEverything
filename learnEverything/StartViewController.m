@@ -169,7 +169,7 @@
 }
 
 - (IBAction)onInfoBtnClicked:(id)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"“勇者斗恶龙”\nv0.9" message:@"开发者：高元丰，罗泽响，陈团安\n本应用仅供参加网易“有道难题”比赛，禁止用于任何商业用途\n©2012 高元丰 保留所有权利" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"“勇者斗恶龙”\nv0.9" message:@"开发者：高元丰，罗泽响，陈团安\n本应用仅供参加网易“有道难题”比赛，禁止用于任何商业用途\n音乐使用“新仙剑奇侠传”背景音乐，这里向永恒的“仙剑”系列致敬！\n©2012 高元丰 保留所有权利" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
 }
 

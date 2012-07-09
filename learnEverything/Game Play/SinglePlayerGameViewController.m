@@ -156,11 +156,7 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-    } else {
-        return LANDSCAPE_ORIENTATION;
-    }
+    return LANDSCAPE_ORIENTATION;
 }
 
 - (void)reinitGame
@@ -217,7 +213,10 @@
                          star.transform = CGAffineTransformMakeRotation(M_PI);
                      } 
                      completion:^(BOOL finished) {
-                         [UIView animateWithDuration:0.2f animations:^{
+                         [UIView animateWithDuration:0.2f 
+                                               delay:0.0f 
+                                             options:UIViewAnimationOptionAllowUserInteraction
+                                          animations:^{
 //                             star.transform = CGAffineTransformMakeScale(0.1f, 0.1f);
                          } completion:^(BOOL finished) {
                              [star removeFromSuperview];
@@ -327,6 +326,7 @@
     [self animateFlameToDarkSideAndDecrementScore:imageView2];
     
     if ([self allowSound]) AudioServicesPlaySystemSound(_wrongAnswerSound);  // 播放SoundID声音
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 }
 
 - (void)QuestionManager:(QuestionManager *)manager clickOnCard:(QuestionCard *)card
@@ -337,5 +337,92 @@
 - (void)QuestionManager:(QuestionManager *)manager clickOnSameTypeCardsWithCard1:(QuestionCard *)card1 card2:(QuestionCard *)card2
 {
     if ([self allowSound]) AudioServicesPlaySystemSound(_errorSound);  // 播放SoundID声音
+}
+
+
+#pragma mark - Game Progress
+- (void)onGameProgressDictReceived:(NSNotification*)notification
+{
+    NSDictionary *info = [notification object];
+    CGFloat leftWidth = [[info objectForKey:@"left_width"] floatValue];
+    CGFloat rightWidth = [[info objectForKey:@"right_width"] floatValue];
+    CGFloat totalWidth = [[info objectForKey:@"total_width"] floatValue];
+
+    if (leftWidth <= 10) {
+        //Lose
+        if (!_hasShowResultScreen) {
+            _hasShowResultScreen = YES;
+            
+            UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
+            UIView *bg = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
+            bg.backgroundColor = [UIColor colorWithRed:0.87f green:0.18f blue:0.12f alpha:1.0f];
+            bg.alpha = 0.0f;
+            [container addSubview:bg];
+            container.backgroundColor = [UIColor clearColor];
+            
+            //Back to menu btn
+            UIButton *backToMenu = [UIButton buttonWithType:UIButtonTypeCustom];
+            [backToMenu setImage:[UIImage imageNamed:@"backToMenu"] forState:UIControlStateNormal];
+            backToMenu.frame = CGRectMake(0, 0, 274, 102);
+            backToMenu.center = CGPointMake(container.center.x, container.center.y+200);
+            [backToMenu addTarget:self action:@selector(onMainMenuClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [container addSubview:backToMenu];
+            
+            [self.view addSubview:container];
+            
+            UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lose_Screen"]];
+            [container addSubview:img];
+            [UIView animateWithDuration:3.2f 
+                                  delay:0.0f 
+                                options:UIViewAnimationOptionAllowUserInteraction
+                             animations:^{
+                                 bg.alpha = 0.8f;
+                             } completion:^(BOOL finished) {
+                                 
+                             }];
+        }
+        [super playBattleLoseMusic];
+    } else if (rightWidth <= 10) {
+        //Win
+        if (!_hasShowResultScreen) {
+            _hasShowResultScreen = YES;
+            
+            UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
+            [self.view addSubview:container];
+            container.backgroundColor =  [UIColor clearColor];
+            UIView *bg = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
+            bg.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.4f];
+            [container addSubview:bg];
+            
+            UIImageView *winScreen1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"win_screen_1"]];
+            UIImageView *winScreen2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"win_screen_2"]];
+            winScreen1.backgroundColor = [UIColor clearColor];
+            winScreen2.backgroundColor = [UIColor clearColor];
+            winScreen1.transform = CGAffineTransformMakeScale(0.01f, 0.01f);
+            winScreen2.transform = CGAffineTransformMakeScale(0.01f, 0.01f);
+            [container addSubview:winScreen1];
+            [container addSubview:winScreen2];
+            
+            [UIView animateWithDuration:0.3f animations:^{
+                winScreen1.transform = CGAffineTransformIdentity;
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.3f 
+                                      delay:0.2f 
+                                    options:UIViewAnimationOptionAllowAnimatedContent
+                                 animations:^{
+                    winScreen2.transform = CGAffineTransformIdentity;
+                }
+                                 completion:^(BOOL finished) {
+                                     UIButton *backToMenu = [UIButton buttonWithType:UIButtonTypeCustom];
+                                     [backToMenu setImage:[UIImage imageNamed:@"backToMenu"] forState:UIControlStateNormal];
+                                     backToMenu.frame = CGRectMake(0, 0, 274, 102);
+                                     backToMenu.center = CGPointMake(container.center.x, container.center.y+200);
+                                     [backToMenu addTarget:self action:@selector(onMainMenuClicked:) forControlEvents:UIControlEventTouchUpInside];
+                                     [container addSubview:backToMenu];
+                                 }];
+            }];
+            [super playBattleWinMusic];
+        }
+    }
 }
 @end

@@ -33,6 +33,9 @@
     SystemSoundID _wrongAnswerSound;
     SystemSoundID _errorSound;
     
+    SystemSoundID _battleWinSound;
+    SystemSoundID _battleLoseSound;
+    
     QuestionSet *_questionSet;
     
     IBOutlet UIButton *_speakerBtn;
@@ -43,6 +46,8 @@
     //把传进的question list扩展成卡片数倍数长度的数组，并且在这上面做shuffle
     //保证对于manager是只读的
     NSMutableArray *_expandedQuestionList;
+    
+    BOOL _hasShowResultScreen;
 }
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
@@ -58,6 +63,9 @@
 - (IBAction)onSpeakerClicked:(id)sender;
 
 - (void)playBackgroundMusic;
+
+- (void)playBattleWinMusic;
+- (void)playBattleLoseMusic;
 
 //For subclasses
 - (void)onWillResignAvtiveNotificationReceived:(NSNotification*)notification;

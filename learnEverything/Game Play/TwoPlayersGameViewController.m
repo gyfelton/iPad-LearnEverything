@@ -202,6 +202,12 @@
     [_pauseMenuBackground addSubview:secondMenu];
     secondMenu.transform = CGAffineTransformMakeRotation(M_PI);
     
+    UIButton *pauseBtn = (UIButton*)[secondMenu viewWithTag:33];
+    [pauseBtn addTarget:self action:@selector(onMainMenuClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *resumeBtn = (UIButton*)[secondMenu viewWithTag:36];
+    [resumeBtn addTarget:self action:@selector(onResumeGameClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
     [super onPauseClicked:sender];
 }
 
@@ -209,7 +215,7 @@
 - (void)_animateStarMovement:(UIView*)star
 {
     [UIView animateWithDuration:0.6f delay:0.1f 
-                        options:UIViewAnimationOptionCurveEaseInOut + UIViewAnimationOptionAllowUserInteraction
+                        options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction)
                      animations:^{
                          CGFloat scale = 0.2f;
                          star.frame = CGRectMake(53, 516, star.frame.size.width*scale, star.frame.size.height*scale);
@@ -234,7 +240,7 @@
 - (void)_animateFlameMovement:(UIView*)flame
 {
     [UIView animateWithDuration:0.6f delay:0.1f 
-                        options:UIViewAnimationOptionCurveEaseInOut + UIViewAnimationOptionAllowUserInteraction
+                        options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction)
                      animations:^{
                          CGFloat scale = 0.2f;
                          flame.frame = CGRectMake(710, 499, flame.frame.size.width*scale, flame.frame.size.height*scale);
@@ -335,6 +341,7 @@
 {
     //双人游戏，我们不惩罚答错
     if ([self allowSound]) AudioServicesPlaySystemSound(_errorSound);  // 播放SoundID声音
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     return;
     
 }
@@ -349,5 +356,120 @@
     if ([self allowSound]) AudioServicesPlaySystemSound(_errorSound);  // 播放SoundID声音
 }
 
+#pragma mark - Game Progress
+- (void)onGameProgressDictReceived:(NSNotification*)notification
+{
+    NSDictionary *info = [notification object];
+    CGFloat leftWidth = [[info objectForKey:@"left_width"] floatValue];
+    CGFloat rightWidth = [[info objectForKey:@"right_width"] floatValue];
+    CGFloat totalWidth = [[info objectForKey:@"total_width"] floatValue];
+    //NSLog(@"%f, %f, %f", leftWidth, rightWidth, totalWidth)
+    
+    if (!_hasShowResultScreen)
+    {
+        if (leftWidth <= 10 || rightWidth <= 10) {
+            _hasShowResultScreen = YES;
+            //准备两个view
+            UIView *winScreenContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 768, 366)];
+            [self.view addSubview:winScreenContainer];
+            
+            winScreenContainer.backgroundColor =  [UIColor clearColor];
+            UIView *bg = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 768, 366)];
+            bg.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.4f];
+            [winScreenContainer addSubview:bg];
+            UIImageView *winScreen1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"two_players_win_screen_1"]];
+            UIImageView *winScreen2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"two_players_win_screen_2"]];
+            winScreen1.backgroundColor = [UIColor clearColor];
+            winScreen2.backgroundColor = [UIColor clearColor];
+            winScreen1.transform = CGAffineTransformMakeScale(0.01f, 0.01f);
+            winScreen2.transform = CGAffineTransformMakeScale(0.01f, 0.01f);
+            [winScreenContainer addSubview:winScreen1];
+            [winScreenContainer addSubview:winScreen2];
+            
+            //输的
+            UIView *loseScreenContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 768, 366)];
+            UIView *lose_bg = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 768, 366)];
+            lose_bg.backgroundColor = [UIColor colorWithRed:0.87f green:0.18f blue:0.12f alpha:1.0f];
+            lose_bg.alpha = 0.0f;
+            [loseScreenContainer addSubview:lose_bg];
+            loseScreenContainer.backgroundColor = [UIColor clearColor];
+            [self.view addSubview:loseScreenContainer];
+            
+            UIImageView *loseImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"two_players_lose_screen"]];
+            [loseScreenContainer addSubview:loseImg];
+            //输家的主菜单按钮
+            UIButton *backToMenu = [UIButton buttonWithType:UIButtonTypeCustom];
+            [backToMenu setImage:[UIImage imageNamed:@"backToMenu"] forState:UIControlStateNormal];
+            backToMenu.frame = CGRectMake(0, 0, 274, 102);
+            backToMenu.center = CGPointMake(loseScreenContainer.center.x, loseScreenContainer.center.y+60);
+            [backToMenu addTarget:self action:@selector(onMainMenuClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [loseScreenContainer addSubview:backToMenu];
+            
+            [super playBattleWinMusic];
+            
+            if (leftWidth <= 10) {
+                //邪恶方赢了
+                //正义方的输界面
+                loseScreenContainer.center = CGPointMake(384, 841);
+                [UIView animateWithDuration:3.2f 
+                                      delay:0.0f 
+                                    options:UIViewAnimationOptionAllowUserInteraction
+                                 animations:^{
+                                     lose_bg.alpha = 0.8f;
+                                 } completion:^(BOOL finished) {
+                                     
+                                 }];
+                
+                //邪恶方的赢界面，需要rotate
+                winScreenContainer.transform = CGAffineTransformMakeRotation(M_PI);
+                [UIView animateWithDuration:0.3f animations:^{
+                    winScreen1.transform = CGAffineTransformIdentity;
+                } completion:^(BOOL finished) {
+                    [UIView animateWithDuration:0.3f animations:^{
+                        winScreen2.transform = CGAffineTransformIdentity;
+                    }
+                                     completion:^(BOOL finished) {
+                                         UIButton *backToMenu = [UIButton buttonWithType:UIButtonTypeCustom];
+                                         [backToMenu setImage:[UIImage imageNamed:@"backToMenu"] forState:UIControlStateNormal];
+                                         backToMenu.frame = CGRectMake(0, 0, 274, 102);
+                                         backToMenu.center = CGPointMake(winScreenContainer.center.x, 257);
+                                         [backToMenu addTarget:self action:@selector(onMainMenuClicked:) forControlEvents:UIControlEventTouchUpInside];
+                                         [winScreenContainer addSubview:backToMenu];
+                                     }];
+                }];
+            } else if (rightWidth <= 10) {
+                //正义方赢了
+                //正义方的赢界面
+                winScreenContainer.center = CGPointMake(384, 841);
+                [UIView animateWithDuration:0.3f animations:^{
+                    winScreen1.transform = CGAffineTransformIdentity;
+                } completion:^(BOOL finished) {
+                    [UIView animateWithDuration:0.3f animations:^{
+                        winScreen2.transform = CGAffineTransformIdentity;
+                    }
+                                     completion:^(BOOL finished) {
+                                         UIButton *backToMenu = [UIButton buttonWithType:UIButtonTypeCustom];
+                                         [backToMenu setImage:[UIImage imageNamed:@"backToMenu"] forState:UIControlStateNormal];
+                                         backToMenu.frame = CGRectMake(0, 0, 274, 102);
+                                         backToMenu.center = CGPointMake(winScreenContainer.center.x, 257);
+                                         [backToMenu addTarget:self action:@selector(onMainMenuClicked:) forControlEvents:UIControlEventTouchUpInside];
+                                         [winScreenContainer addSubview:backToMenu];
+                                     }];
+                }];
+                
+                //邪恶方的输界面，需要旋转
+                loseScreenContainer.transform = CGAffineTransformMakeRotation(M_PI);
+                [UIView animateWithDuration:3.2f 
+                                      delay:0.0f 
+                                    options:UIViewAnimationOptionAllowUserInteraction
+                                 animations:^{
+                                     lose_bg.alpha = 0.8f;
+                                 } completion:^(BOOL finished) {
+                                     
+                                 }];
+            }
+        }
+    }
+}
 
 @end

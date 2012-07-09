@@ -182,6 +182,8 @@
 - (void)shrinkAnsweredCardsHelper
 {
     [UIView animateWithDuration:0.5f 
+                          delay:0.0f
+                        options:UIViewAnimationOptionAllowUserInteraction
                      animations:^(){
         for (GVIndexPath *ip in _answeredCardIndexPaths) {
             UIView *view = [_grid_view viewForIndexPath:ip];
@@ -200,6 +202,8 @@
     if ([_answeredCardIndexPaths count]*2 >= _grid_view.numberOfRows*_grid_view.numberOfColumns) {
         
         [UIView animateWithDuration:0.15f 
+                              delay:0.0f   
+                            options:UIViewAnimationOptionAllowUserInteraction
                          animations:^(){
                 for (GVIndexPath *ip in _answeredCardIndexPaths) {
                     UIView *view = [_grid_view viewForIndexPath:ip];

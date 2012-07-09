@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define GameProgressNotificationWithInfoDictionry_KEY @"GameProgressNotificationWithInfoDictionry_KEY"
+
 @interface AnimationViewController : UIViewController
 {
     

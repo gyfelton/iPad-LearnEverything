@@ -40,7 +40,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{64, 85}, {274, 102}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="959722870"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUITag">33</int>
@@ -79,8 +78,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{63, 195}, {275, 106}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUITag">36</int>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -103,7 +100,6 @@
 				</array>
 				<string key="NSFrameSize">{400, 400}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="117549586"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>

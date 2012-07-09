@@ -161,6 +161,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onDidBecomeAvtiveNotificationReceived:) name:UIApplicationDidBecomeActiveNotification object:nil];
     
     //store sounds needed
+    // Set the sound to always play
+    int setTo0 = 0;
+    AudioServicesSetProperty( kAudioServicesPropertyIsUISound,0,nil,
+                             4,&setTo0 );
+    
     NSString *thesoundFilePath = [[NSBundle mainBundle] pathForResource:@"correct" ofType:@"caf"];    //创建音乐文件路径
     CFURLRef thesoundURL = (__bridge CFURLRef) [NSURL fileURLWithPath:thesoundFilePath];
     AudioServicesCreateSystemSoundID(thesoundURL, &_correctSound);
@@ -177,6 +182,14 @@
     thesoundURL = (__bridge CFURLRef) [NSURL fileURLWithPath:thesoundFilePath];
     AudioServicesCreateSystemSoundID(thesoundURL, &_errorSound);
     
+    thesoundFilePath = [[NSBundle mainBundle] pathForResource:@"battle_lose" ofType:@"mp3"];
+    thesoundURL = (__bridge CFURLRef) [NSURL fileURLWithPath:thesoundFilePath];
+    AudioServicesCreateSystemSoundID(thesoundURL, &_battleLoseSound);
+    
+    thesoundFilePath = [[NSBundle mainBundle] pathForResource:@"battle_win" ofType:@"mp3"];
+    thesoundURL = (__bridge CFURLRef) [NSURL fileURLWithPath:thesoundFilePath];
+    AudioServicesCreateSystemSoundID(thesoundURL, &_battleWinSound);
+    
     if (!self.audioPlayer) {
         NSError *error;
         NSURL *url = [[NSURL alloc] initFileURLWithPath:[[NSBundle mainBundle] pathForResource:@"xj" ofType:@"mp3"]];
@@ -189,6 +202,8 @@
     }
     [self.audioPlayer setDelegate:self];
     self.audioPlayer.volume = REGULAR_VOLUME; //Because it's too loud
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onGameProgressDictReceived:) name:GameProgressNotificationWithInfoDictionry_KEY object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -205,6 +220,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:GameProgressNotificationWithInfoDictionry_KEY object:nil];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
 }
 
@@ -251,6 +267,22 @@
 	[self.audioPlayer play];
 }
 
+- (void)playBattleWinMusic
+{
+    [self.audioPlayer stop];
+    if ([self allowSound]) {
+        AudioServicesPlaySystemSound(_battleWinSound);
+    }
+}
+
+- (void)playBattleLoseMusic
+{
+    [self.audioPlayer stop];
+    if ([self allowSound]) {
+        AudioServicesPlaySystemSound(_battleLoseSound);
+    }
+}
+
 - (void)onWillResignAvtiveNotificationReceived:(NSNotification*)notification
 {
     [self.audioPlayer pause];
@@ -279,4 +311,12 @@
     }
 }
 
+- (void)onGameProgressDictReceived:(NSNotification*)notification
+{
+//    NSDictionary *info = [notification object];
+//    CGFloat leftWidth = [[info objectForKey:@"left_width"] floatValue];
+//    CGFloat rightWidth = [[info objectForKey:@"right_width"] floatValue];
+//    CGFloat totalWidth = [[info objectForKey:@"total_width"] floatValue];
+//    NSLog(@"%f, %f, %f", leftWidth, rightWidth, totalWidth);
+}
 @end

@@ -115,7 +115,7 @@
 //    }
     CGFloat left_factor = 1;
     CGFloat right_factor = 1;
-    CGFloat offsetAmound = self.isSinglePlayerMode ? 15 : 10;
+    CGFloat offsetAmound = self.isSinglePlayerMode ? 20 : 15; //15:10
     if (s>0) {
         left_factor = (_left_bo.frame.size.width+offsetAmound)/_left_bo.frame.size.width;
     } else
@@ -124,7 +124,8 @@
     }
     
     CGFloat leftNewWidth = _left_bo.frame.size.width*left_factor;
-    CGFloat rightNewWidth = (self.isSinglePlayerMode ? 759 : 566) - leftNewWidth;
+    CGFloat totoalWidth = (self.isSinglePlayerMode ? 759 : 566);
+    CGFloat rightNewWidth = totoalWidth - leftNewWidth;
     right_factor = rightNewWidth/_right_flame.frame.size.width;
     
     [UIView animateWithDuration:0.2f animations:^{
@@ -136,5 +137,10 @@
         origin = CGPointMake(_right_flame.frame.origin.x-_right_flame.frame.size.width*(right_factor-1.0f), _right_flame.frame.origin.y-(_right_flame.frame.size.height*right_factor-_right_flame.frame.size.height)/2);
         _right_flame.frame = CGRectMake(origin.x, origin.y, _right_flame.frame.size.width*right_factor, _right_flame.frame.size.height*right_factor);
     }];
+    
+    //Notify输赢情况
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:leftNewWidth], @"left_width", [NSNumber numberWithFloat:rightNewWidth], @"right_width", [NSNumber numberWithFloat:totoalWidth], @"total_width", nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:GameProgressNotificationWithInfoDictionry_KEY object:dict];
 }
 @end
