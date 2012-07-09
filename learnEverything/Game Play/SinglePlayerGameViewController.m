@@ -36,24 +36,44 @@
 }
 
 #pragma mark - Animations
-- (void)showInitialDialogs
+- (void)showInitialDialog1
 {
-    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"小朋友快来帮忙！\n正确配对下面的英文和图片，\n就能给我力量帮助打倒怪兽！"];
-    [self performSelector:@selector(showInitialRightDialog) withObject:nil afterDelay:2.0f];
+    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"小朋友快来帮忙!"];
+    [self performSelector:@selector(showInitialDialog2) withObject:nil afterDelay:2.0f];
 }
 
-- (void)showInitialRightDialog
+- (void)showInitialDialog2
+{
+    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"正确配对下面的英文和图片,"];
+    [self performSelector:@selector(showInitialDialog3) withObject:nil afterDelay:2.0f];
+}
+
+- (void)showInitialDialog3
+{
+    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"就能给我力量帮助打倒怪兽!"];
+    [self performSelector:@selector(dismissLeftDialog) withObject:nil afterDelay:2.0f];
+    [self performSelector:@selector(showInitialRightDialog1) withObject:nil afterDelay:2.0f];
+}
+
+- (void)showInitialRightDialog1
 {
     [super dismissLeftDialog];
-    [super showRightDialogAtPosition:CGPointMake(700, 133) withText:@"ARR....\nARRRRR....."];
-    [super performSelector:@selector(dismissRightDialog) withObject:nil afterDelay:2.0f];
+    [super showRightDialogAtPosition:CGPointMake(700, 133) withText:@"哈哈哈哈哈!"];
+    [super performSelector:@selector(showInitialRightDialog2) withObject:nil afterDelay:2.0f];
 }
 
+- (void)showInitialRightDialog2
+{
+    [super dismissLeftDialog];
+    [super showRightDialogAtPosition:CGPointMake(700, 133) withText:@"你打不倒我的!!!"];
+    [super performSelector:@selector(dismissRightDialog) withObject:nil afterDelay:2.0f];
+}
+ 
 - (void)presentCardsAnimated
 {   
     _grid_view.hidden = NO;
     [_grid_view layoutUnitsAnimatedWithAnimationDirection:kGridViewAnimationFlowFromBottom];
-    [self performSelector:@selector(showInitialDialogs) withObject:nil afterDelay:0.1f];
+    [self performSelector:@selector(showInitialDialog1) withObject:nil afterDelay:0.1f];
 }
 
 - (void)showCountDown:(NSNumber*)num
@@ -341,6 +361,22 @@
 
 
 #pragma mark - Game Progress
+- (void)showLeftDialogCritical
+{
+    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"快配对正确的卡片！\n我快撑不住了！" dismissAfterDelay:2.0f];
+    [super performSelector:@selector(showLeftDialogCritical2) withObject:nil afterDelay:2.0f];
+}
+
+- (void)showLeftDialogCritical2
+{
+    [super showRightDialogAtPosition:CGPointMake(700, 133) withText:@"哈哈哈哈哈!" dismissAfterDelay:2.0f];
+}
+
+- (void)showLeftDialogNearlyWin
+{
+    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"就差一点了，加油！" dismissAfterDelay:2.0f];
+}
+
 - (void)onGameProgressDictReceived:(NSNotification*)notification
 {
     NSDictionary *info = [notification object];
@@ -348,6 +384,13 @@
     CGFloat rightWidth = [[info objectForKey:@"right_width"] floatValue];
     CGFloat totalWidth = [[info objectForKey:@"total_width"] floatValue];
 
+    if (leftWidth <= 95) {
+        [self showLeftDialogCritical];
+    }
+    if (rightWidth <= 95) {
+        [self showLeftDialogNearlyWin];
+    }
+    
     if (leftWidth <= 10) {
         //Lose
         if (!_hasShowResultScreen) {
@@ -387,6 +430,7 @@
                              } completion:^(BOOL finished) {
                                  
                              }];
+            [_animationVC showLeftHeroDown];
             [super playBattleLoseMusic];
         }
     } else if (rightWidth <= 10) {
@@ -435,6 +479,7 @@
                                      [container addSubview:restartGame];
                                  }];
             }];
+            [_animationVC showRightDinasourDown];
             [super playBattleWinMusic];
         }
     }

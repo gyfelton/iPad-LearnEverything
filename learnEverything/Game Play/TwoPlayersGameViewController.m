@@ -417,9 +417,9 @@
             [loseScreenContainer addSubview:restartGame];
             
             [super playBattleWinMusic];
-            
             if (leftWidth <= 10) {
                 //邪恶方赢了
+                [_animationVC showLeftHeroDown];
                 //正义方的输界面
                 loseScreenContainer.center = CGPointMake(384, 841);
                 [UIView animateWithDuration:3.2f 
@@ -457,6 +457,7 @@
                 }];
             } else if (rightWidth <= 10) {
                 //正义方赢了
+                [_animationVC showRightDinasourDown];
                 //正义方的赢界面
                 winScreenContainer.center = CGPointMake(384, 841);
                 [UIView animateWithDuration:0.3f animations:^{

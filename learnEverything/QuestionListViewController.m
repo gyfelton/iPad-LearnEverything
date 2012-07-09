@@ -544,10 +544,18 @@
         abort();
     } else
     {
-        //Animate the insertion
+        //Animate the insertion (insert at top)
         NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:0/*[_questions count]*/ inSection:0];
+        //Need to update the indexPath being tracked right now
         [_questionsTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [_questionsTableView scrollToRowAtIndexPath:newIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        if (_indexPathForEditingImage)
+        {
+            _indexPathForEditingImage = [NSIndexPath indexPathForRow:_indexPathForEditingImage.row+1 inSection:_indexPathForEditingImage.section];
+        }
+        if (_indexPathForEditingTextField) {
+            _indexPathForEditingTextField = [NSIndexPath indexPathForRow:_indexPathForEditingTextField.row+1 inSection:_indexPathForEditingTextField.section];
+        }
     }
 }
 

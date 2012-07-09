@@ -170,10 +170,10 @@
     _rightDialog = [array objectAtIndex:1];
     
     _leftDialogLbl = (UILabel*)[_leftDialog viewWithTag:22];
-    _leftDialogLbl.font = [UIFont regularChineseFontWithSize:16];
+    _leftDialogLbl.font = [UIFont regularChineseFontWithSize:30];
     
     _rightDialogLbl = (UILabel*)[_rightDialog viewWithTag:22];
-    _rightDialogLbl.font = [UIFont regularChineseFontWithSize:16];
+    _rightDialogLbl.font = [UIFont regularChineseFontWithSize:30];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onWillResignAvtiveNotificationReceived:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onDidBecomeAvtiveNotificationReceived:) name:UIApplicationDidBecomeActiveNotification object:nil];
@@ -252,6 +252,7 @@
 #pragma mark - Dialog related
 - (void)showLeftDialogAtPosition:(CGPoint)originPosition withText:(NSString*)text
 {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismissLeftDialog) object:nil];
     _leftDialog.frame = CGRectMake(originPosition.x, originPosition.y, _leftDialog.frame.size.width, _leftDialog.frame.size.height);
     if (!_leftDialog.superview) {
         [self.view addSubview:_leftDialog];
@@ -259,8 +260,15 @@
     _leftDialogLbl.text = text;
 }
 
+- (void)showLeftDialogAtPosition:(CGPoint)originPosition withText:(NSString*)text dismissAfterDelay:(NSTimeInterval)delay
+{
+    [self showLeftDialogAtPosition:originPosition withText:text];
+    [self performSelector:@selector(dismissLeftDialog) withObject:nil afterDelay:delay];
+}
+
 - (void)showRightDialogAtPosition:(CGPoint)originPosition withText:(NSString*)text
 {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismissRightDialog) object:nil];
     _rightDialog.frame = CGRectMake(originPosition.x, originPosition.y, _rightDialog.frame.size.width, _rightDialog.frame.size.height);
     if (!_rightDialog.superview)
     {
@@ -269,6 +277,11 @@
     _rightDialogLbl.text = text;
 }
 
+- (void)showRightDialogAtPosition:(CGPoint)originPosition withText:(NSString*)text dismissAfterDelay:(NSTimeInterval)delay
+{
+    [self showRightDialogAtPosition:originPosition withText:text];
+    [self performSelector:@selector(dismissRightDialog) withObject:nil afterDelay:delay];
+}
 
 - (void)dismissLeftDialog
 {

@@ -98,7 +98,7 @@
 						<reference key="IBUIFontDescription" ref="609332316"/>
 						<reference key="IBUIFont" ref="637750864"/>
 					</object>
-					<object class="IBUIButton" id="293868278">
+					<object class="IBUIButton" id="92225777">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{51, 153}, {300, 100}}</string>
@@ -125,14 +125,10 @@
 				</array>
 				<string key="NSFrameSize">{400, 400}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSNextKeyView" ref="293868278"/>
+				<reference key="NSNextKeyView" ref="92225777"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MCAwAA</bytes>
-				</object>
-				<object class="IBUISimulatedSizeMetrics" key="IBUISimulatedDestinationMetrics">
-					<string key="IBUISimulatedSizeMetricsClass">IBUISimulatedFreeformSizeMetricsSentinel</string>
-					<string key="IBUIDisplayName">Freeform</string>
 				</object>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 			</object>
@@ -153,7 +149,7 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="959722870"/>
 							<reference ref="117549586"/>
-							<reference ref="293868278"/>
+							<reference ref="92225777"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -180,7 +176,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">6</int>
-						<reference key="object" ref="293868278"/>
+						<reference key="object" ref="92225777"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</array>

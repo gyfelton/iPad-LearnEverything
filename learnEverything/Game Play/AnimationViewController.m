@@ -92,6 +92,7 @@
     left_hero = nil;
     _right_flame = nil;
     _left_bo = nil;
+    _left_hero_down = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -142,5 +143,19 @@
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:leftNewWidth], @"left_width", [NSNumber numberWithFloat:rightNewWidth], @"right_width", [NSNumber numberWithFloat:totoalWidth], @"total_width", nil];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:GameProgressNotificationWithInfoDictionry_KEY object:dict];
+}
+
+- (void)showLeftHeroDown
+{
+    left_hero.hidden = YES;
+    _left_bo.hidden = YES;
+    _left_hero_down.hidden = NO;
+}
+
+- (void)showRightDinasourDown
+{
+    _right_flame.hidden = YES;
+    _right_dinasour.hidden = YES;
+    _right_dinasour_down.hidden = NO;
 }
 @end

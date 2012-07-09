@@ -78,6 +78,12 @@
 
 - (void)showLeftDialogAtPosition:(CGPoint)originPosition withText:(NSString*)text;
 - (void)showRightDialogAtPosition:(CGPoint)originPosition withText:(NSString*)text;
+
+//- (void)showLeftDialogAtPosition:(CGPoint)originPosition withText:(NSString*)text afterDelay:(NSTimeInterval)delay dismissAfterDelay:(NSTimeInterval)delay;
+//- (void)showRightDialogAtPosition:(CGPoint)originPosition withText:(NSString*)text afterDelay:(NSTimeInterval)delay dismissAfterDelay:(NSTimeInterval)delay;
+
+- (void)showLeftDialogAtPosition:(CGPoint)originPosition withText:(NSString*)text dismissAfterDelay:(NSTimeInterval)delay;
+- (void)showRightDialogAtPosition:(CGPoint)originPosition withText:(NSString*)text dismissAfterDelay:(NSTimeInterval)delay;
 - (void)dismissLeftDialog;
 - (void)dismissRightDialog;
 
