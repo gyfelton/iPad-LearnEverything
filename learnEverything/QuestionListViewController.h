@@ -91,7 +91,6 @@
 
 - (id)initWithManagedContext:(NSManagedObjectContext*)context andQuestionSet:(QuestionSet*)qs;
 - (IBAction)onShareQuestionSetClicked:(id)sender;
-- (IBAction)onBackButtonClicked:(id)sender;
 - (IBAction)onCoverClicked:(id)sender;
 
 - (IBAction)onLeftBraketClicked:(id)sender;

@@ -29,7 +29,8 @@
 - (Question*)questionForIndexPath:(NSIndexPath*)indexPath;
 - (void)onCellAnswerImageButtonClicked:(UIButton*)answerBtn;
 - (void)configureCellType0:(QuestionCellType0 *)cell atIndexPath:(NSIndexPath *)indexPath;
-- (void)configureCellType1:(QuestionCellType1 *)cell atIndexPath:(NSIndexPath *)indexPath;
+- (void)configureCellType1:(QuestionCellType1 *)cell atIndexPath:(NSIndexPath *)indexPath canLoadImage:(BOOL)canLoad;
+- (void)loadDataForOnScreenRows;
 @end
 
 @implementation QuestionListViewController
@@ -229,6 +230,33 @@
     }
 }
 
+#pragma mark - Lazy Loading
+- (void)loadDataForOnscreenRows
+{
+    NSArray *array = [_questionsTableView indexPathsForVisibleRows];
+    for (NSIndexPath *indexPath in array) {
+        UITableViewCell *cell = [_questionsTableView cellForRowAtIndexPath:indexPath];
+        if ([cell isKindOfClass:[QuestionCellType1 class]]) {
+            QuestionCellType1 *type1 = (QuestionCellType1*)cell;
+            [self configureCellType1:type1 atIndexPath:indexPath canLoadImage:YES];
+        }
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (!decelerate) {
+        //load images
+        [self loadDataForOnscreenRows];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    //load images
+    [self loadDataForOnscreenRows];
+}
+
 #pragma mark - UITableView DataSource
 // Customize the number of sections in the table view.
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -291,7 +319,9 @@
         cell.questionTxtField.tag = QUESTION_TXT_TAG;
         cell.ansImageBtn.tag = ANS_IMG_TAG;
         
-        [self configureCellType1:cell atIndexPath:indexPath];
+        BOOL canLoadImage = (tableView.dragging == NO && tableView.decelerating == NO);
+        
+        [self configureCellType1:cell atIndexPath:indexPath canLoadImage:canLoadImage];
         
         return cell;
     }
@@ -436,18 +466,27 @@
 }
 
 //Txt + Pic
-- (void)configureCellType1:(QuestionCellType1 *)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)configureCellType1:(QuestionCellType1 *)cell atIndexPath:(NSIndexPath *)indexPath canLoadImage:(BOOL)canLoad
 {
     cell.questionNumber.text = [NSString stringWithFormat:@"%d.", [_questions count] - indexPath.row];
     Question *managedObject = [self questionForIndexPath:indexPath];
     
     cell.questionTxtField.text = managedObject.question_in_text;
     
-    NSData *data = managedObject.answer_in_image;
-    UIImage *image = [UIImage imageWithData:data];
-    [cell.ansImageBtn setImage:image forState:UIControlStateNormal];
     cell.ansImageBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    
+    NSData *data = managedObject.answer_in_image;
+    if (data) {
+        if (canLoad) {
+            UIImage *image = [UIImage imageWithData:data];
+            [cell.ansImageBtn setImage:image forState:UIControlStateNormal];
+        } else
+        {
+            UIImage *img = [UIImage imageNamed:@"question_list_default_pic"];
+            [cell.ansImageBtn setImage:img forState:UIControlStateNormal];
+        }
+    }
+
+
     [cell.ansImageBtn addTarget:self action:@selector(onCellAnswerImageButtonClicked:) forControlEvents:UIControlEventTouchDown];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -693,10 +732,6 @@
     self.popoverController = [[UIPopoverController alloc] initWithContentViewController:options];
     self.popoverController.popoverContentSize = CGSizeMake(320, 220);
     [self.popoverController presentPopoverFromRect:((UIButton*)sender).frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
-}
-
-- (IBAction)onBackButtonClicked:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)onCoverClicked:(id)sender {

@@ -19,6 +19,7 @@
 		FE08B46615AAACB300D06233 /* simple_jiajian.qsj in Resources */ = {isa = PBXBuildFile; fileRef = FE08B46415AAACB300D06233 /* simple_jiajian.qsj */; };
 		FE08B46715AAACB300D06233 /* yiyuan_yici_fangcheng.qsj in Resources */ = {isa = PBXBuildFile; fileRef = FE08B46515AAACB300D06233 /* yiyuan_yici_fangcheng.qsj */; };
 		FE08B46B15AAAF1000D06233 /* ForceLandscapeEmptyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE08B46915AAAF1000D06233 /* ForceLandscapeEmptyViewController.m */; };
+		FE08B47615AAB88600D06233 /* question_list_default_pic.png in Resources */ = {isa = PBXBuildFile; fileRef = FE08B47515AAB88600D06233 /* question_list_default_pic.png */; };
 		FE08F1571596C38E009E981C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE08F1561596C38E009E981C /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		FE08F16615980116009E981C /* ParentControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE08F16415980116009E981C /* ParentControlViewController.m */; };
 		FE08F16715980116009E981C /* ParentControlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE08F16515980116009E981C /* ParentControlViewController.xib */; };
@@ -222,6 +223,7 @@
 		FE08B46515AAACB300D06233 /* yiyuan_yici_fangcheng.qsj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yiyuan_yici_fangcheng.qsj; sourceTree = "<group>"; };
 		FE08B46815AAAF0F00D06233 /* ForceLandscapeEmptyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForceLandscapeEmptyViewController.h; sourceTree = "<group>"; };
 		FE08B46915AAAF1000D06233 /* ForceLandscapeEmptyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForceLandscapeEmptyViewController.m; sourceTree = "<group>"; };
+		FE08B47515AAB88600D06233 /* question_list_default_pic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = question_list_default_pic.png; sourceTree = "<group>"; };
 		FE08F1561596C38E009E981C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		FE08F16315980116009E981C /* ParentControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParentControlViewController.h; path = "Parent Control/ParentControlViewController.h"; sourceTree = "<group>"; };
 		FE08F16415980116009E981C /* ParentControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParentControlViewController.m; path = "Parent Control/ParentControlViewController.m"; sourceTree = "<group>"; };
@@ -771,6 +773,7 @@
 				FE48DFAB15AA6FD8003A9FE2 /* lose_Screen.png */,
 				FE48DFAD15AA777C003A9FE2 /* win_screen_1.png */,
 				FE48DFAE15AA777C003A9FE2 /* win_screen_2.png */,
+				FE08B47515AAB88600D06233 /* question_list_default_pic.png */,
 				FE36AF6615A7E8A2002CE9BF /* two_players */,
 			);
 			path = images;
@@ -1070,6 +1073,7 @@
 				FE08B46315AA96E200D06233 /* baby_learn_car_brand.qsj in Resources */,
 				FE08B46615AAACB300D06233 /* simple_jiajian.qsj in Resources */,
 				FE08B46715AAACB300D06233 /* yiyuan_yici_fangcheng.qsj in Resources */,
+				FE08B47615AAB88600D06233 /* question_list_default_pic.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

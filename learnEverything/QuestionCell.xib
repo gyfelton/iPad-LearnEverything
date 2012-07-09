@@ -263,6 +263,7 @@
 								<reference key="NSSuperview" ref="840907944"/>
 								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
+								<int key="IBUIContentMode">1</int>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
@@ -275,10 +276,12 @@
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
 								</object>
-								<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+								<object class="NSCustomResource" key="IBUIHighlightedBackgroundImage" id="954506929">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">add_new_pic.png</string>
 								</object>
+								<reference key="IBUISelectedBackgroundImage" ref="954506929"/>
+								<reference key="IBUINormalBackgroundImage" ref="954506929"/>
 								<object class="IBUIFontDescription" key="IBUIFontDescription">
 									<int key="type">2</int>
 									<double key="pointSize">15</double>
@@ -487,9 +490,9 @@
 						<reference key="object" ref="125313441"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="346720924"/>
-							<reference ref="915213637"/>
 							<reference ref="593754608"/>
 							<reference ref="946403143"/>
+							<reference ref="915213637"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -548,6 +551,7 @@
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="22.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<real value="0.0" key="22.IBUIButtonInspectorSelectedEdgeInsetMetadataKey"/>
+				<real value="0.0" key="22.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="27.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="28.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
