@@ -341,7 +341,7 @@
         //Animate flame
         CGRect rect = [card1 convertRect:card1.bounds toView:self.view];
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
-        imageView.image = [UIImage imageNamed:@"flame"];
+        imageView.image = [UIImage imageNamed:@"two_player_flame"];
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         
         [self.view addSubview:imageView];
@@ -350,7 +350,7 @@
         
         CGRect rect2 = [card2 convertRect:card2.bounds toView:self.view];
         UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:rect2];
-        imageView2.image = [UIImage imageNamed:@"flame"];
+        imageView2.image = [UIImage imageNamed:@"two_player_flame"];
         imageView2.contentMode = UIViewContentModeScaleAspectFit;
         [self.view addSubview:imageView2];
         [self animateFlameToDarkSideAndDecrementScore:imageView2];

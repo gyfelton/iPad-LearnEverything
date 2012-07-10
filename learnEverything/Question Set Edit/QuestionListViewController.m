@@ -621,7 +621,7 @@
     [self.navigationItem setRightBarButtonItem:_addButton];
     UIActionSheet *temp = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:nil destructiveButtonTitle:@"点击上面的加号添加第一道题目" otherButtonTitles:nil];
     [temp showFromBarButtonItem:_addButton animated:YES];
-    [self performSelector:@selector(dismissActionSheet:) withObject:temp afterDelay:0.6f];
+    [self performSelector:@selector(dismissActionSheet:) withObject:temp afterDelay:1.2f];
     
     //新建题库时干脆先插入一题目
     [self insertNewQuestion];
