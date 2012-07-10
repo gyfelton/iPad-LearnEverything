@@ -409,12 +409,12 @@
     NSDictionary *info = [notification object];
     CGFloat leftWidth = [[info objectForKey:@"left_width"] floatValue];
     CGFloat rightWidth = [[info objectForKey:@"right_width"] floatValue];
-    CGFloat totalWidth = [[info objectForKey:@"total_width"] floatValue];
+//    CGFloat totalWidth = [[info objectForKey:@"total_width"] floatValue];
 
-    if (leftWidth >= 245 && leftWidth < 255) {
+    if (leftWidth >= 160 && leftWidth < 180) {
         [self showLeftDialogCritical];
     }
-    if (rightWidth >= 245 && rightWidth < 255) {
+    if (rightWidth >= 160 && rightWidth < 180) {
         [self showLeftDialogNearlyWin];
     }
     
