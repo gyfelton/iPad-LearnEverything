@@ -3,7 +3,7 @@
 //  learnEverything
 //
 //  Created by Yuanfeng on 12-06-02.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 ____Yuanfeng Gao___. All rights reserved.
 //
 
 #import <QuartzCore/QuartzCore.h>
@@ -182,10 +182,18 @@
 {
     [super viewWillAppear:animated];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(onBackClicked:)];
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    backBtn.frame = CGRectMake(0, 0, 94, 41);
+    backBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [backBtn setImage:[UIImage imageNamed:@"back_btn"] forState:UIControlStateNormal];
+    backBtn.showsTouchWhenHighlighted = YES;
+    [backBtn addTarget:self action:@selector(onBackClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    
+    self.navigationItem.leftBarButtonItem = item;//[[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(onBackClicked:)];
     self.navigationItem.hidesBackButton = YES;
     
-//    [self.navigationController setNavigationBarHidden:YES];
     [_questionSetView reloadData];
 }
 

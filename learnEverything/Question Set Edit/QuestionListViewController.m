@@ -3,7 +3,7 @@
 //  learnEverything
 //
 //  Created by Yuanfeng on 12-06-02.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 ____Yuanfeng Gao___. All rights reserved.
 //
 
 #import <QuartzCore/QuartzCore.h>
@@ -49,7 +49,7 @@
         self.managedObjectContext = context;
         _questionSet = qs;
         
-        _addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject)];
+        _addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewQuestion)];
         //TODO implement this in the future
         //UIBarButtonItem *undoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemUndo target:self action:@selector(undoPreviousOp:)];
     }
@@ -232,6 +232,7 @@
 }
 
 #pragma mark - Lazy Loading
+
 - (void)loadDataForOnscreenRows
 {
     NSArray *array = [_questionsTableView indexPathsForVisibleRows];
@@ -259,6 +260,7 @@
 }
 
 #pragma mark - UITableView DataSource
+
 // Customize the number of sections in the table view.
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -327,103 +329,6 @@
         return cell;
     }
 }
-
-/*
-#pragma mark - Fetched results controller
-
-- (NSFetchedResultsController *)fetchedResultsController
-{
-    //If exists, just return it
-    if (__fetchedResultsController != nil) {
-        return __fetchedResultsController;
-    }
-    
-    // Set up the fetched results controller.
-    // Create the fetch request for the entity.
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Question" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    NSPredicate *predicate = [NSPredicate
-                              predicateWithFormat:@"ANY belongs_to.set_id like %@",
-                              _questionSetID];
-    //[fetchRequest setPredicate:predicate];
-    
-    // Set the batch size to a suitable number.
-    [fetchRequest setFetchBatchSize:20];
-    
-    // Edit the sort key as appropriate. (Not applicable)
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"create_timestamp" ascending:YES];
-    NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
-    [fetchRequest setSortDescriptors:sortDescriptors];
-    
-    // Edit the section name key path and cache name if appropriate.
-    // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"QuestionList"];
-    aFetchedResultsController.delegate = self;
-    self.fetchedResultsController = aFetchedResultsController;
-    
-	NSError *error = nil;
-	if (![self.fetchedResultsController performFetch:&error]) {
-	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-	    abort();
-	}
-    NSArray *arr = [self.fetchedResultsController fetchedObjects];
-    return __fetchedResultsController;
-}    
-
-
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
-{
-    [_questionList beginUpdates];
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
-           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
-{
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [_questionList insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [_questionList deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
-       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(NSIndexPath *)newIndexPath
-{
-    UITableView *tableView = _questionList;
-    
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeUpdate:
-            [self configureCell:(QuestionCell*)[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-            break;
-            
-        case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    [_questionList endUpdates];
-}
-*/
 
 - (Question*)questionForIndexPath:(NSIndexPath *)indexPath
 {
@@ -517,7 +422,7 @@
  }
  */
 
-- (void)insertNewObject
+- (void)insertNewQuestion
 {
     // Create a new instance of the entity managed by the fetched results controller.
     NSManagedObjectContext *context = self.managedObjectContext;
@@ -576,13 +481,6 @@
     id cell = textField.superview.superview;
     if ([cell isKindOfClass:[UITableViewCell class]]) {
         _indexPathForEditingTextField = [_questionsTableView indexPathForCell:cell];
-//        if ([_questionSet.question_subtype intValue] == subtype_MathQuestion)
-//        {
-//            if (textField.tag == QUESTION_TXT_TAG) {
-//                textField.text = @"";
-//                [textField insertText:@" = ?"];
-//            }
-//        }
     } else
     {
         
@@ -723,7 +621,10 @@
     [self.navigationItem setRightBarButtonItem:_addButton];
     UIActionSheet *temp = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:nil destructiveButtonTitle:@"点击上面的加号添加第一道题目" otherButtonTitles:nil];
     [temp showFromBarButtonItem:_addButton animated:YES];
-    [self performSelector:@selector(dismissActionSheet:) withObject:temp afterDelay:1.0f];
+    [self performSelector:@selector(dismissActionSheet:) withObject:temp afterDelay:0.6f];
+    
+    //新建题库时干脆先插入一题目
+    [self insertNewQuestion];
 }
 
 - (IBAction)onShareQuestionSetClicked:(id)sender {
@@ -980,6 +881,8 @@
     
     [self performSelector:@selector(prepareDataAndShowMailComposer) withObject:nil afterDelay:0.1f];
 }
+
+#pragma mark - Operation Signs
 
 - (IBAction)onPlusClicked:(id)sender
 {

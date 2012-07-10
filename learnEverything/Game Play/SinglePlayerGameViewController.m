@@ -3,7 +3,7 @@
 //  learnEverything
 //
 //  Created by Yuanfeng on 12-06-01.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 ____Yuanfeng Gao___. All rights reserved.
 //
 
 #import "SinglePlayerGameViewController.h"
@@ -73,7 +73,6 @@
 {   
     _grid_view.hidden = NO;
     [_grid_view layoutUnitsAnimatedWithAnimationDirection:kGridViewAnimationFlowFromBottom];
-    [self performSelector:@selector(showInitialDialog1) withObject:nil afterDelay:0.1f];
 }
 
 - (void)showCountDown:(NSNumber*)num
@@ -91,6 +90,7 @@
         [self performSelector:@selector(dismissCountdownAndStartGame) withObject:nil afterDelay:1.0f];
     } else if (number == 2) {
         _countdownImageView.image = [UIImage imageNamed:@"countdown_two"];
+         [self performSelector:@selector(showInitialDialog1) withObject:nil afterDelay:0.1f];
         [self performSelector:@selector(showCountDown:) withObject:[NSNumber numberWithInt:1] afterDelay:1.0f];
     } else if (number == 3) {
         _countdownImageView.image = [UIImage imageNamed:@"countdown_three"];
@@ -362,6 +362,7 @@
 
 
 #pragma mark - Game Progress
+
 - (void)showLeftDialogCritical
 {
     [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"快配对正确的卡片！" dismissAfterDelay:2.0f];
@@ -385,6 +386,24 @@
     [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"就差一点了，\nCome on！" dismissAfterDelay:2.0f];
 }
 
+- (void)_addButtonsToViewHelper:(UIView*)container
+{
+    //Back to menu btn
+    SimulatePressButton *backToMenu = [SimulatePressButton buttonWithType:UIButtonTypeCustom];
+    [backToMenu setImage:[UIImage imageNamed:@"backToMenu"] forState:UIControlStateNormal];
+    backToMenu.frame = CGRectMake(0, 0, 274, 102);
+    backToMenu.center = CGPointMake(container.center.x, container.center.y+100);
+    [backToMenu addTarget:self action:@selector(onMainMenuClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [container addSubview:backToMenu];
+    
+    SimulatePressButton *restartGame = [SimulatePressButton buttonWithType:UIButtonTypeCustom];
+    [restartGame setImage:[UIImage imageNamed:@"restartGame"] forState:UIControlStateNormal];
+    restartGame.frame = CGRectMake(0, 0, 300, 100);
+    restartGame.center = CGPointMake(container.center.x,container.center.y+190);
+    [restartGame addTarget:self action:@selector(onRestartGameClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [container addSubview:restartGame];
+}
+
 - (void)onGameProgressDictReceived:(NSNotification*)notification
 {
     NSDictionary *info = [notification object];
@@ -392,10 +411,10 @@
     CGFloat rightWidth = [[info objectForKey:@"right_width"] floatValue];
     CGFloat totalWidth = [[info objectForKey:@"total_width"] floatValue];
 
-    if (leftWidth == 255) {
+    if (leftWidth >= 245 && leftWidth < 255) {
         [self showLeftDialogCritical];
     }
-    if (rightWidth == 255) {
+    if (rightWidth >= 245 && rightWidth < 255) {
         [self showLeftDialogNearlyWin];
     }
     
@@ -411,20 +430,7 @@
             [container addSubview:bg];
             container.backgroundColor = [UIColor clearColor];
             
-            //Back to menu btn
-            SimulatePressButton *backToMenu = [SimulatePressButton buttonWithType:UIButtonTypeCustom];
-            [backToMenu setImage:[UIImage imageNamed:@"backToMenu"] forState:UIControlStateNormal];
-            backToMenu.frame = CGRectMake(0, 0, 274, 102);
-            backToMenu.center = CGPointMake(container.center.x, container.center.y+100);
-            [backToMenu addTarget:self action:@selector(onMainMenuClicked:) forControlEvents:UIControlEventTouchUpInside];
-            [container addSubview:backToMenu];
-            
-            SimulatePressButton *restartGame = [SimulatePressButton buttonWithType:UIButtonTypeCustom];
-            [restartGame setImage:[UIImage imageNamed:@"restartGame"] forState:UIControlStateNormal];
-            restartGame.frame = CGRectMake(0, 0, 300, 100);
-            restartGame.center = CGPointMake(container.center.x,container.center.y+190);
-            [restartGame addTarget:self action:@selector(onRestartGameClicked:) forControlEvents:UIControlEventTouchUpInside];
-            [container addSubview:restartGame];
+            [self _addButtonsToViewHelper:container];
             
             [self.view addSubview:container];
             
@@ -472,19 +478,7 @@
                     winScreen2.transform = CGAffineTransformIdentity;
                 }
                                  completion:^(BOOL finished) {
-                                     SimulatePressButton *backToMenu = [SimulatePressButton buttonWithType:UIButtonTypeCustom];
-                                     [backToMenu setImage:[UIImage imageNamed:@"backToMenu"] forState:UIControlStateNormal];
-                                     backToMenu.frame = CGRectMake(0, 0, 274, 102);
-                                     backToMenu.center = CGPointMake(container.center.x, container.center.y+100);
-                                     [backToMenu addTarget:self action:@selector(onMainMenuClicked:) forControlEvents:UIControlEventTouchUpInside];
-                                     [container addSubview:backToMenu];
-                                     
-                                     SimulatePressButton *restartGame = [SimulatePressButton buttonWithType:UIButtonTypeCustom];
-                                     [restartGame setImage:[UIImage imageNamed:@"restartGame"] forState:UIControlStateNormal];
-                                     restartGame.frame = CGRectMake(0, 0, 300, 100);
-                                     restartGame.center = CGPointMake(container.center.x,container.center.y+190);
-                                     [restartGame addTarget:self action:@selector(onRestartGameClicked:) forControlEvents:UIControlEventTouchUpInside];
-                                     [container addSubview:restartGame];
+                                     [self _addButtonsToViewHelper:container];
                                  }];
             }];
             [_animationVC showRightDinasourDown];

@@ -3,7 +3,7 @@
 //  learnEverything
 //
 //  Created by Yuanfeng on 12-06-05.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 ____Yuanfeng Gao___. All rights reserved.
 //
 
 #import "BaseGameViewController.h"
@@ -45,6 +45,8 @@
     return [[NSMutableArray alloc] initWithArray:array];
 }
 
+#pragma mark - Getting questions
+//Should not use this one!
 - (NSMutableArray*)allQuestions
 {
     return [self _questionsWithPredicate:[NSPredicate predicateWithValue:YES]];
@@ -84,6 +86,8 @@
     }
     return activeAndCompleteArray;
 }
+
+#pragma mark - IBActions
 
 - (IBAction)onPauseClicked:(id)sender {
     if ([self allowSound]) {
@@ -141,6 +145,8 @@
 {
     return !_speakerBtn.selected;
 }
+
+#pragma mark - View Lifecycles
 
 - (void)viewDidLoad
 {
@@ -243,12 +249,23 @@
 }
 
 #pragma mark - Dialog related
+
 - (void)showLeftDialogAtPosition:(CGPoint)originPosition withText:(NSString*)text
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismissLeftDialog) object:nil];
     _leftDialog.frame = CGRectMake(originPosition.x, originPosition.y, _leftDialog.frame.size.width, _leftDialog.frame.size.height);
     if (!_leftDialog.superview) {
         [self.view addSubview:_leftDialog];
+        _leftDialog.transform = CGAffineTransformMakeScale(0.01f, 0.01f);
+        _leftDialog.transform = CGAffineTransformTranslate(_leftDialog.transform, _leftDialog.frame.size.width/2*(-1), _leftDialog.frame.size.height/2*(-1));
+        [UIView animateWithDuration:0.2f
+                              delay:0.0f 
+                            options:UIViewAnimationOptionAllowUserInteraction 
+                         animations:^{
+            _leftDialog.transform = CGAffineTransformIdentity;
+        } completion:^(BOOL finished) {
+            
+        }];
     }
     _leftDialogLbl.text = text;
 }
@@ -266,6 +283,16 @@
     if (!_rightDialog.superview)
     {
         [self.view addSubview:_rightDialog];
+        _rightDialog.transform = CGAffineTransformMakeScale(0.01f, 0.01f);
+        _rightDialog.transform = CGAffineTransformTranslate(_rightDialog.transform, _rightDialog.frame.size.width/2, _rightDialog.frame.size.height/2);
+        [UIView animateWithDuration:0.2f
+                              delay:0.0f 
+                            options:UIViewAnimationOptionAllowUserInteraction 
+                         animations:^{
+                             _rightDialog.transform = CGAffineTransformIdentity;
+                         } completion:^(BOOL finished) {
+                             
+                         }];
     }
     _rightDialogLbl.text = text;
 }
@@ -285,6 +312,8 @@
 {
     [_rightDialog removeFromSuperview];
 }
+
+#pragma mark - Playing musics
 
 - (void)playBackgroundMusic
 {
@@ -329,6 +358,8 @@
     }
 }
 
+#pragma mark - NSNotifications
+
 - (void)onWillResignAvtiveNotificationReceived:(NSNotification*)notification
 {
     [self.audioPlayer pause];
@@ -359,6 +390,7 @@
 
 - (void)onGameProgressDictReceived:(NSNotification*)notification
 {
+    //Subclass implement this
 //    NSDictionary *info = [notification object];
 //    CGFloat leftWidth = [[info objectForKey:@"left_width"] floatValue];
 //    CGFloat rightWidth = [[info objectForKey:@"right_width"] floatValue];

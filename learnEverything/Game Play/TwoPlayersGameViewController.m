@@ -3,7 +3,7 @@
 //  learnEverything
 //
 //  Created by Yuanfeng on 12-06-10.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 ____Yuanfeng Gao___. All rights reserved.
 //
 
 #import "TwoPlayersGameViewController.h"
@@ -205,6 +205,7 @@
 }
 
 #pragma mark - Super class methods override
+
 - (void)onPauseClicked:(id)sender
 {
     //Config the pause view
@@ -378,6 +379,24 @@
 }
 
 #pragma mark - Game Progress
+
+- (void)_addButtonsToWinScreenHelper:(UIView*)winScreenContainer
+{
+    SimulatePressButton *backToMenu = [SimulatePressButton buttonWithType:UIButtonTypeCustom];
+    [backToMenu setImage:[UIImage imageNamed:@"backToMenu"] forState:UIControlStateNormal];
+    backToMenu.frame = CGRectMake(0, 0, 274, 102);
+    backToMenu.center = CGPointMake(winScreenContainer.center.x, 257);
+    [backToMenu addTarget:self action:@selector(onMainMenuClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [winScreenContainer addSubview:backToMenu];
+    
+    SimulatePressButton *restartGame = [SimulatePressButton buttonWithType:UIButtonTypeCustom];
+    [restartGame setImage:[UIImage imageNamed:@"restartGame"] forState:UIControlStateNormal];
+    restartGame.frame = CGRectMake(0, 0, 300, 100);
+    restartGame.center = CGPointMake(winScreenContainer.center.x,330);
+    [restartGame addTarget:self action:@selector(onRestartGameClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [winScreenContainer addSubview:restartGame];   
+}
+
 - (void)onGameProgressDictReceived:(NSNotification*)notification
 {
     NSDictionary *info = [notification object];
@@ -458,19 +477,7 @@
                         winScreen2.transform = CGAffineTransformIdentity;
                     }
                                      completion:^(BOOL finished) {
-                                         SimulatePressButton *backToMenu = [SimulatePressButton buttonWithType:UIButtonTypeCustom];
-                                         [backToMenu setImage:[UIImage imageNamed:@"backToMenu"] forState:UIControlStateNormal];
-                                         backToMenu.frame = CGRectMake(0, 0, 274, 102);
-                                         backToMenu.center = CGPointMake(winScreenContainer.center.x, 257);
-                                         [backToMenu addTarget:self action:@selector(onMainMenuClicked:) forControlEvents:UIControlEventTouchUpInside];
-                                         [winScreenContainer addSubview:backToMenu];
-                                         
-                                         SimulatePressButton *restartGame = [SimulatePressButton buttonWithType:UIButtonTypeCustom];
-                                         [restartGame setImage:[UIImage imageNamed:@"restartGame"] forState:UIControlStateNormal];
-                                         restartGame.frame = CGRectMake(0, 0, 300, 100);
-                                         restartGame.center = CGPointMake(loseScreenContainer.center.x,330);
-                                         [restartGame addTarget:self action:@selector(onRestartGameClicked:) forControlEvents:UIControlEventTouchUpInside];
-                                         [winScreenContainer addSubview:restartGame];
+                                         [self _addButtonsToWinScreenHelper:winScreenContainer];
                                      }];
                 }];
             } else if (rightWidth <= 10) {
@@ -485,19 +492,7 @@
                         winScreen2.transform = CGAffineTransformIdentity;
                     }
                                      completion:^(BOOL finished) {
-                                         SimulatePressButton *backToMenu = [SimulatePressButton buttonWithType:UIButtonTypeCustom];
-                                         [backToMenu setImage:[UIImage imageNamed:@"backToMenu"] forState:UIControlStateNormal];
-                                         backToMenu.frame = CGRectMake(0, 0, 274, 102);
-                                         backToMenu.center = CGPointMake(winScreenContainer.center.x, 257);
-                                         [backToMenu addTarget:self action:@selector(onMainMenuClicked:) forControlEvents:UIControlEventTouchUpInside];
-                                         [winScreenContainer addSubview:backToMenu];
-                                         
-                                         SimulatePressButton *restartGame = [SimulatePressButton buttonWithType:UIButtonTypeCustom];
-                                         [restartGame setImage:[UIImage imageNamed:@"restartGame"] forState:UIControlStateNormal];
-                                         restartGame.frame = CGRectMake(0, 0, 300, 100);
-                                         restartGame.center = CGPointMake(loseScreenContainer.center.x,330);
-                                         [restartGame addTarget:self action:@selector(onRestartGameClicked:) forControlEvents:UIControlEventTouchUpInside];
-                                         [winScreenContainer addSubview:restartGame];
+                                         [self _addButtonsToWinScreenHelper:winScreenContainer];
                                      }];
                 }];
                 

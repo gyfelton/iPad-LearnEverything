@@ -3,7 +3,7 @@
 //  learnEverything
 //
 //  Created by Yuanfeng on 12-06-02.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 ____Yuanfeng Gao___. All rights reserved.
 //
 
 #import <QuartzCore/QuartzCore.h>
@@ -38,24 +38,7 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-#pragma mark - View lifecycle
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-//    self.view.backgroundColor = [UIColor clearColor];
-    // Do any additional setup after loading the view from its nib.
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    _editQuestionSetButton.hidden = YES;
-    _singleButton.hidden = YES;
-    _dualButton.hidden = YES;
-    _mainTitle.alpha = 1.0f;
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
-}
+#pragma mark - 各种动画
 
 - (void)aniamteViews
 {
@@ -67,19 +50,6 @@
                          _singleButton.hidden = NO;
                          _dualButton.hidden = NO;
                      }];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self aniamteViews];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    _breathTitle = NO;
-    [_main_bg.layer removeAllAnimations];
 }
 
 - (void)_animateCurl
@@ -123,16 +93,49 @@
                           delay:0.0f 
                         options:UIViewAnimationOptionAllowUserInteraction
                      animations:^{
-        _mainTitle.alpha = 0.3f;
-    } completion:^(BOOL finished) {
-        if (finished) {
-            if (_breathTitle)
-            {
-                [self _breathMainTitleOut];
-        
-            }
-        }
-    }];
+                         _mainTitle.alpha = 0.3f;
+                     } completion:^(BOOL finished) {
+                         if (finished) {
+                             if (_breathTitle)
+                             {
+                                 [self _breathMainTitleOut];
+                                 
+                             }
+                         }
+                     }];
+}
+
+
+#pragma mark - View lifecycle
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+//    self.view.backgroundColor = [UIColor clearColor];
+    // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    _editQuestionSetButton.hidden = YES;
+    _singleButton.hidden = YES;
+    _dualButton.hidden = YES;
+    _mainTitle.alpha = 1.0f;
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self aniamteViews];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    _breathTitle = NO;
+    [_main_bg.layer removeAllAnimations];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -140,6 +143,8 @@
     // Return YES for supported orientations
 	return LANDSCAPE_ORIENTATION;
 }
+
+#pragma mark - Button Actions
 
 - (void)pushQuestionSetViewController:(BOOL)isSinglePlayer
 {

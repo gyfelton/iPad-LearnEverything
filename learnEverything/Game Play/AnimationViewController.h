@@ -30,6 +30,6 @@
 - (void)showRightDinasourDown;
 
 @property (nonatomic, readonly) BOOL isSinglePlayerMode;
-@property (nonatomic, setter = setScore: ) CGFloat score; //Range from 0 to 1
+@property (nonatomic, setter = setScore: ) CGFloat score;
 
 @end

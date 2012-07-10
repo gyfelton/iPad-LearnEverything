@@ -3,7 +3,7 @@
 //  learnEverything
 //
 //  Created by Yuanfeng on 12-06-01.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 ____Yuanfeng Gao___. All rights reserved.
 //
 
 #import "AppDelegate.h"
@@ -25,6 +25,8 @@
 @synthesize singlePlayerGameViewController;
 @synthesize twoPlayersGameViewController;
 @synthesize clickSound = _clickSound;
+
+#pragma mark - 准备音乐
 
 - (void)initMusics
 {
@@ -66,6 +68,8 @@
     return path;
 }
 
+#pragma mark - 展现 VCs
+
 - (void)showStartScreenAnimated
 {
     [self.window.rootViewController presentModalViewController:_startVCNav animated:NO];
@@ -89,6 +93,8 @@
     [self.baseNavigationController pushViewController:self.twoPlayersGameViewController animated:NO];
     [self.twoPlayersGameViewController.navigationController setNavigationBarHidden:YES];
 }
+
+#pragma mark - 处理QSJ文件
 
 - (void)beginParseQSJFileWithURL:(NSURL*)url
 {
@@ -114,6 +120,8 @@
     }
     [_hud hide:YES afterDelay:1.6f];
 }
+
+#pragma mark - 展现 HUD
 
 - (void)showMailHUD:(BOOL)sent
 {
@@ -152,6 +160,8 @@
     [_hud hide:YES afterDelay:delay];
 }
 
+#pragma mark - UIApplication Delegates
+
 - (BOOL)processURLIfIsFileURL:(NSURL*)url
 {
     if ([url isFileURL]) {
@@ -181,12 +191,7 @@
     self.window.rootViewController = self.baseNavigationController;
     
     [self.window makeKeyAndVisible];
-    
 
-//    UIImageView *baseBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main_bg_full_screen"]];
-//    baseBackground.frame = self.window.frame;
-//    [self.window addSubview:baseBackground];
-//    [self.window sendSubviewToBack:baseBackground];
     
     //Should not call here
 //    NSURL *url = (NSURL *)[launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];

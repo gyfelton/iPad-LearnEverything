@@ -3,7 +3,7 @@
 //  learnEverything
 //
 //  Created by Yuanfeng on 12-06-06.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 ____Yuanfeng Gao___. All rights reserved.
 //
 
 #import "QuestionCard.h"
@@ -35,15 +35,6 @@
         wrongcross.frame = CGRectMake(0, 0, checkmark.frame.size.width, checkmark.frame.size.height);
         [self addSubview:wrongcross];
         wrongcross.hidden = YES;
-        
-        //[self setBackgroundImage:[UIImage imageNamed:@"wood_card_bg"] forState:UIControlStateNormal];
-//        _cardBack = [[UIImageView alloc] initWithFrame:frame];
-//        _cardBack.frame = CGRectMake(0, 0, _cardBack.frame.size.width, _cardBack.frame.size.height);
-//        _cardBack.image = [UIImage imageNamed:@"card_back"];
-//        [self addSubview:_cardBack];
-//        _cardBack.hidden = YES;
-        
-//        [self setBackgroundImage:[UIImage imageNamed:@"wood_bg"] forState:UIControlStateNormal];
     }
     return self;
 }
@@ -72,20 +63,11 @@
     }
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
-
 - (void)setPressed:(BOOL)press
 {
     _pressed = press;
     if (press) {
-        [UIView animateWithDuration:0.1f animations:^{self.transform = CGAffineTransformMakeScale(0.8f, 0.8f);}];
+        [UIView animateWithDuration:0.1f animations:^{self.transform = CGAffineTransformMakeScale(0.75f, 0.75f);}];
     } else
     {
         [UIView animateWithDuration:0.1f animations:^{self.transform = CGAffineTransformIdentity;}];

@@ -3,7 +3,7 @@
 //  learnEverything
 //
 //  Created by Yuanfeng on 12-06-25.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 ____Yuanfeng Gao___. All rights reserved.
 //
 
 #import "ParentControlViewController.h"
@@ -209,4 +209,5 @@
     _bottom_tip = nil;
     [super viewDidUnload];
 }
+
 @end
