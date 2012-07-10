@@ -1,12 +1,12 @@
 //
-//  FileIOSharedManager.m
+//  QuestionsSharedManager.m
 //  learnEverything
 //
 //  Created by Yuanfeng on 12-07-03.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "FileIOSharedManager.h"
+#import "QuestionsSharedManager.h"
 #import "NSData+Base64.h"
 #import "AppDelegate.h"
 #import "JSONKit.h"
@@ -30,19 +30,19 @@
 }
 @end
 
-static FileIOSharedManager *sharedManager;
+static QuestionsSharedManager *sharedManager;
 
-@interface FileIOSharedManager (Private)
+@interface QuestionsSharedManager (Private)
 - (NSString*)jsonStructureFromManagedObjects:(NSArray*)managedObjects;
 - (NSArray*)managedObjectsFromJSONStructure:(NSString*)json withManagedObjectContext:(NSManagedObjectContext*)moc;
 @end
     
-@implementation FileIOSharedManager
+@implementation QuestionsSharedManager
 @synthesize fetchedResultsController = _fetchedResultsController;
 @synthesize managedObjectContext;
 @synthesize dateFormatterUsed;
 
-+ (FileIOSharedManager*)sharedManager
++ (QuestionsSharedManager*)sharedManager
 {
     if (sharedManager == nil) {
         @synchronized(self) {

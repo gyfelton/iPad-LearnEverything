@@ -1,20 +1,20 @@
 //
-//  QuestionManager.m
+//  QuestionCardsManager.m
 //  learnEverything
 //
 //  Created by Yuanfeng on 12-06-20.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "QuestionManager.h"
+#import "QuestionCardsManager.h"
 #import "Question.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NSMutableArray+Shuffling.h"
 
-@implementation QuestionManager
+@implementation QuestionCardsManager
 //@synthesize isFlipCards;
 //@synthesize questionList = _questionList;
-@synthesize questionManagerDelegate;
+@synthesize customDelegate;
 
 - (void)incrementLastUsedQuestionPointer
 {
@@ -227,8 +227,8 @@
     GVIndexPath *nowClickIndexPath = [_grid_view indexPathForUnitView:card];
     card.pressed = !card.pressed;
     
-    if ([questionManagerDelegate respondsToSelector:@selector(QuestionManager:clickOnCard:)]) {
-        [questionManagerDelegate QuestionManager:self clickOnCard:card];
+    if ([customDelegate respondsToSelector:@selector(QuestionCardsManager:clickOnCard:)]) {
+        [customDelegate QuestionCardsManager:self clickOnCard:card];
     }
     
     if (!_clickedBtnIndexPath || (_clickedBtnIndexPath.row == nowClickIndexPath.row && _clickedBtnIndexPath.column == nowClickIndexPath.column)) {
@@ -251,8 +251,8 @@
             card1.pressed = NO;
             
             //Play DU sound
-            if ([self.questionManagerDelegate respondsToSelector:@selector(QuestionManager:clickOnSameTypeCardsWithCard1:card2:)]) {
-                [self.questionManagerDelegate QuestionManager:self clickOnSameTypeCardsWithCard1:card card2:(QuestionCard*)[_grid_view viewForIndexPath:_clickedBtnIndexPath]];
+            if ([self.customDelegate respondsToSelector:@selector(QuestionCardsManager:clickOnSameTypeCardsWithCard1:card2:)]) {
+                [self.customDelegate QuestionCardsManager:self clickOnSameTypeCardsWithCard1:card card2:(QuestionCard*)[_grid_view viewForIndexPath:_clickedBtnIndexPath]];
             }
             
             //Seet clicked to nil
@@ -291,8 +291,8 @@
                                  }
                                  completion:^(BOOL finished) {
                                      //Animate stars
-                                     if ([questionManagerDelegate respondsToSelector:@selector(QuestionManager:answerCorrectlyWithCard1:card2:)]) {
-                                         [questionManagerDelegate QuestionManager:self answerCorrectlyWithCard1:card card2:card1];
+                                     if ([customDelegate respondsToSelector:@selector(QuestionCardsManager:answerCorrectlyWithCard1:card2:)]) {
+                                         [customDelegate QuestionCardsManager:self answerCorrectlyWithCard1:card card2:card1];
                                      }
                                      [self clearUsedUnitsIfNeeded];
                                  }
@@ -322,8 +322,8 @@
                                      //Animate flame
                                      card.pressed = NO;
                                      card1.pressed = NO;
-                                     if ([questionManagerDelegate respondsToSelector:@selector(QuestionManager:answerWronglyWithCard1:card2:)]) {
-                                         [questionManagerDelegate QuestionManager:self answerWronglyWithCard1:card card2:card1];
+                                     if ([customDelegate respondsToSelector:@selector(QuestionCardsManager:answerWronglyWithCard1:card2:)]) {
+                                         [customDelegate QuestionCardsManager:self answerWronglyWithCard1:card card2:card1];
                                      }
                                      [UIView animateWithDuration:0.0 delay:0.3f options:UIViewAnimationOptionAllowUserInteraction animations:^{
                                          card.wrongcross.hidden = YES;

@@ -1,5 +1,5 @@
 //
-//  QuestionManager.h
+//  QuestionCardsManager.h
 //  learnEverything
 //
 //  Created by Yuanfeng on 12-06-20.
@@ -11,16 +11,16 @@
 #import "QuestionCard.h"
 #import "QuestionType.h"
 
-@class  QuestionManager;
-@protocol QuestionManagerDelegate <NSObject>
+@class  QuestionCardsManager;
+@protocol QuestionCardsManagerDelegate <NSObject>
 
-- (void)QuestionManager:(QuestionManager*)manager clickOnSameTypeCardsWithCard1:(QuestionCard*)card1 card2:(QuestionCard*)card2;
-- (void)QuestionManager:(QuestionManager*)manager answerCorrectlyWithCard1:(QuestionCard*)card1 card2:(QuestionCard*)card2;
-- (void)QuestionManager:(QuestionManager *)manager answerWronglyWithCard1:(QuestionCard *)card1 card2:(QuestionCard *)card2;
-- (void)QuestionManager:(QuestionManager *)manager clickOnCard:(QuestionCard*)card;
+- (void)QuestionCardsManager:(QuestionCardsManager*)manager clickOnSameTypeCardsWithCard1:(QuestionCard*)card1 card2:(QuestionCard*)card2;
+- (void)QuestionCardsManager:(QuestionCardsManager*)manager answerCorrectlyWithCard1:(QuestionCard*)card1 card2:(QuestionCard*)card2;
+- (void)QuestionCardsManager:(QuestionCardsManager *)manager answerWronglyWithCard1:(QuestionCard *)card1 card2:(QuestionCard *)card2;
+- (void)QuestionCardsManager:(QuestionCardsManager *)manager clickOnCard:(QuestionCard*)card;
 @end
 
-@interface QuestionManager : NSObject {
+@interface QuestionCardsManager : NSObject {
     //指定当前使用的是那一组题目，需要除余保证不越界
     NSInteger _lastUsedQuestionPointer;
     
@@ -45,7 +45,7 @@
 }
 
 //@property BOOL isFlipCards;
-@property (nonatomic, unsafe_unretained) id<QuestionManagerDelegate> questionManagerDelegate;
+@property (nonatomic, unsafe_unretained) id<QuestionCardsManagerDelegate> customDelegate;
 
 - (id)initWithGridView:(NonScrollableGridView*)gv questionList:(NSMutableArray*)list questionType:(QuestionType)type numberOfCardsInGridView:(NSInteger)numCards;
 

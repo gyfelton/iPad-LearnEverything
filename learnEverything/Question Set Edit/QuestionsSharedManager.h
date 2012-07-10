@@ -1,5 +1,5 @@
 //
-//  FileIOSharedManager.h
+//  QuestionsSharedManager.h
 //  learnEverything
 //
 //  Created by Yuanfeng on 12-07-03.
@@ -13,7 +13,7 @@
 #define QUESTION_SET_DEFAULT_COVER_NAME @"qn_set_cover_default"
 #define QSJ_FILE_RECEIVED_AND_PARSE_SUCCESSFULL_NOTIFICATION @"QSJ_FILE_RECEIVED_AND_PARSE_SUCCESSFULL_NOTIFICATION"
 
-@interface FileIOSharedManager : NSObject
+@interface QuestionsSharedManager : NSObject
 {
     NSFetchedResultsController *_fetchedResultsController;
 }
@@ -25,7 +25,7 @@
 - (BOOL)insertNewQuestionSet;
 - (BOOL)parseQSJFileWithURL:(NSURL*)url;
 
-+ (FileIOSharedManager*)sharedManager;
++ (QuestionsSharedManager*)sharedManager;
 
 @property (nonatomic, strong) NSDateFormatter *dateFormatterUsed;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;

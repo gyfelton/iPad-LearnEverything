@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "BaseGameViewController.h"
-#import "QuestionManager.h"
+#import "QuestionCardsManager.h"
 #import "QuestionCard.h"
 #import "Question.h"
 #import "NonScrollableGridView.h"
 
-@interface TwoPlayersGameViewController : BaseGameViewController <NonScrollableGridViewDataSource, QuestionManagerDelegate>
+@interface TwoPlayersGameViewController : BaseGameViewController <NonScrollableGridViewDataSource, QuestionCardsManagerDelegate>
 {
     NonScrollableGridView *_grid_view;
 
@@ -24,12 +24,12 @@
     
     //Light side
 //    NSMutableArray *_questionList_light;
-    QuestionManager *_questionManager_light;
+    QuestionCardsManager *_questionManager_light;
     IBOutlet UIView *_grid_view_light_place_holder;
     NonScrollableGridView *_grid_view_light;
     
     //Dark side
-    QuestionManager *_questionManager_dark;  
+    QuestionCardsManager *_questionManager_dark;  
     IBOutlet UIView *_grid_view_dark_place_holder;
     NonScrollableGridView *_grid_view_dark;
     

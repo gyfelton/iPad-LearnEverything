@@ -11,7 +11,7 @@
 #import "SinglePlayerGameViewController.h"
 #import "TwoPlayersGameViewController.h"
 #import "ParentControlViewController.h"
-#import "FileIOSharedManager.h"
+#import "QuestionsSharedManager.h"
 #import "ForceLandscapeEmptyViewController.h"
 
 #define BATTLE_CURRENT_MUSIC_KEY @"BATTLE_CURRENT_MUSIC_KEY"
@@ -92,7 +92,7 @@
 
 - (void)beginParseQSJFileWithURL:(NSURL*)url
 {
-    BOOL success = [[FileIOSharedManager sharedManager] parseQSJFileWithURL:url];
+    BOOL success = [[QuestionsSharedManager sharedManager] parseQSJFileWithURL:url];
     NSString *path = [url absoluteString];
     path = [path lastPathComponent];
     path = [path stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

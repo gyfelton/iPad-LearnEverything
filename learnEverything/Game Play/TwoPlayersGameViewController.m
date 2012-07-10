@@ -45,11 +45,11 @@
     _expandedQuestionList = [[NSMutableArray alloc] initWithArray:_questionList];
     [_expandedQuestionList shuffle];
     
-    _questionManager_light = [[QuestionManager alloc] initWithGridView:_grid_view_light questionList:_questionList questionType:[_questionSet.question_type intValue] numberOfCardsInGridView:ROW_NUMBER*COLUMN_NUMBER];
-    _questionManager_light.questionManagerDelegate = self;
+    _questionManager_light = [[QuestionCardsManager alloc] initWithGridView:_grid_view_light questionList:_questionList questionType:[_questionSet.question_type intValue] numberOfCardsInGridView:ROW_NUMBER*COLUMN_NUMBER];
+    _questionManager_light.customDelegate = self;
     
-    _questionManager_dark = [[QuestionManager alloc] initWithGridView:_grid_view_dark questionList:_questionList questionType:[_questionSet.question_type intValue] numberOfCardsInGridView:ROW_NUMBER*COLUMN_NUMBER];
-    _questionManager_dark.questionManagerDelegate = self;
+    _questionManager_dark = [[QuestionCardsManager alloc] initWithGridView:_grid_view_dark questionList:_questionList questionType:[_questionSet.question_type intValue] numberOfCardsInGridView:ROW_NUMBER*COLUMN_NUMBER];
+    _questionManager_dark.customDelegate = self;
     
     [_grid_view_dark reloadData];
     [_grid_view_light reloadData];
@@ -232,7 +232,7 @@
     [super onPauseClicked:sender];
 }
 
-#pragma mark - QuestionManager Delegate
+#pragma mark - QuestionCardsManager Delegate
 - (void)_animateStarMovement:(UIView*)star
 {
     [UIView animateWithDuration:0.6f delay:0.1f 
@@ -314,7 +314,7 @@
      ];
 }
 
-- (void)QuestionManager:(QuestionManager *)manager answerCorrectlyWithCard1:(QuestionCard *)card1 card2:(QuestionCard *)card2
+- (void)QuestionCardsManager:(QuestionCardsManager *)manager answerCorrectlyWithCard1:(QuestionCard *)card1 card2:(QuestionCard *)card2
 {
     if (manager == _questionManager_light) {
         //Animate star
@@ -358,7 +358,7 @@
     }
 }
 
-- (void)QuestionManager:(QuestionManager *)manager answerWronglyWithCard1:(QuestionCard *)card1 card2:(QuestionCard *)card2
+- (void)QuestionCardsManager:(QuestionCardsManager *)manager answerWronglyWithCard1:(QuestionCard *)card1 card2:(QuestionCard *)card2
 {
     //双人游戏，我们不惩罚答错
     if ([self allowSound]) AudioServicesPlaySystemSound(_errorSound);  // 播放SoundID声音
@@ -367,12 +367,12 @@
     
 }
 
-- (void)QuestionManager:(QuestionManager *)manager clickOnCard:(QuestionCard *)card
+- (void)QuestionCardsManager:(QuestionCardsManager *)manager clickOnCard:(QuestionCard *)card
 {
     if ([self allowSound]) AudioServicesPlaySystemSound(_clickSound);  // 播放SoundID声音
 }
 
-- (void)QuestionManager:(QuestionManager *)manager clickOnSameTypeCardsWithCard1:(QuestionCard *)card1 card2:(QuestionCard *)card2
+- (void)QuestionCardsManager:(QuestionCardsManager *)manager clickOnSameTypeCardsWithCard1:(QuestionCard *)card1 card2:(QuestionCard *)card2
 {
     if ([self allowSound]) AudioServicesPlaySystemSound(_errorSound);  // 播放SoundID声音
 }

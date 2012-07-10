@@ -12,7 +12,7 @@
 #import "QuestionSetViewController.h"
 
 #import "AppDelegate.h"
-#import "FileIOSharedManager.h"
+#import "QuestionsSharedManager.h"
 
 #define HAS_INIT_USER_DEFAULT_KEY_FOR_THIS_VERSION_0_9 @"v0.9_has_init_question_set"
 
@@ -155,7 +155,7 @@
 - (void)checkQSJFiles
 {
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-    [[FileIOSharedManager sharedManager] checkCachedQuestionSetsWithCompletion:^(BOOL finished) {
+    [[QuestionsSharedManager sharedManager] checkCachedQuestionSetsWithCompletion:^(BOOL finished) {
         [delegate dismissHUDAfterDelay:0.1f]; 
         _questionSetView.hidden = NO;
         [_questionSetView reloadData];
@@ -192,8 +192,8 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    if ([FileIOSharedManager sharedManager].fetchedResultsController.delegate == self) {
-        [FileIOSharedManager sharedManager].fetchedResultsController.delegate = nil;
+    if ([QuestionsSharedManager sharedManager].fetchedResultsController.delegate == self) {
+        [QuestionsSharedManager sharedManager].fetchedResultsController.delegate = nil;
     }
 }
 
@@ -261,7 +261,7 @@
     
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:0];
     if (position >= [sectionInfo numberOfObjects]) { 
-        [[FileIOSharedManager sharedManager] insertNewQuestionSet];
+        [[QuestionsSharedManager sharedManager] insertNewQuestionSet];
         
         QuestionSet *qn_set = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:position inSection:0]];
         QuestionListViewController *listVC = [[QuestionListViewController alloc] initWithManagedContext:self.managedObjectContext andQuestionSet:qn_set];
@@ -334,7 +334,7 @@
         return __fetchedResultsController;
     }
     
-    __fetchedResultsController = [FileIOSharedManager sharedManager].fetchedResultsController;
+    __fetchedResultsController = [QuestionsSharedManager sharedManager].fetchedResultsController;
     __fetchedResultsController.delegate = self;
     
     //Set up the fetch result controller with SharedManager

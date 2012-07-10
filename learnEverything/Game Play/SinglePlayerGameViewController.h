@@ -10,10 +10,10 @@
 #import <QuartzCore/QuartzCore.h>
 #import "BaseGameViewController.h"
 #import "NonScrollableGridView.h"
-#import "QuestionManager.h"
+#import "QuestionCardsManager.h"
 #import "AnimationViewController.h"
 
-@interface SinglePlayerGameViewController : BaseGameViewController <NonScrollableGridViewDataSource, QuestionManagerDelegate>
+@interface SinglePlayerGameViewController : BaseGameViewController <NonScrollableGridViewDataSource, QuestionCardsManagerDelegate>
 {
     __unsafe_unretained IBOutlet UIView *_grid_view_place_holder;
     NonScrollableGridView *_grid_view;
@@ -23,7 +23,7 @@
 //    NSMutableArray *_indexPathForQuestion;
 //    NSMutableArray *_indexPathForAnswer;
     
-    QuestionManager *_questionManager;
+    QuestionCardsManager *_questionManager;
     
     UIImageView *_countdownImageView;
     

@@ -187,9 +187,9 @@
     _expandedQuestionList = [[NSMutableArray alloc] initWithArray:_questionList];
     [_expandedQuestionList shuffle];
     
-    //Assign a new questionManager
-    _questionManager = [[QuestionManager alloc] initWithGridView:_grid_view questionList:self.expandedQuestionList questionType:[_questionSet.question_type intValue] numberOfCardsInGridView:ROW_NUMBER*COLUMN_NUMBER];
-    _questionManager.questionManagerDelegate = self;
+    //Assign a new QuestionCardsManager
+    _questionManager = [[QuestionCardsManager alloc] initWithGridView:_grid_view questionList:self.expandedQuestionList questionType:[_questionSet.question_type intValue] numberOfCardsInGridView:ROW_NUMBER*COLUMN_NUMBER];
+    _questionManager.customDelegate = self;
     
     [_grid_view reloadData];
 }
@@ -220,7 +220,7 @@
     return [_questionManager viewForNonScrollableGridViewAtRowIndex:rowIndex columnIndex:columnIndex];
 }
 
-#pragma mark - QuestionManager Delegate
+#pragma mark - QuestionCardsManager Delegate
 - (void)_animateStarMovement:(UIView*)star
 {
     [UIView animateWithDuration:0.6f delay:0.1f 
@@ -305,7 +305,7 @@
      ];
 }
 
-- (void)QuestionManager:(QuestionManager *)manager answerCorrectlyWithCard1:(QuestionCard *)card1 card2:(QuestionCard *)card2
+- (void)QuestionCardsManager:(QuestionCardsManager *)manager answerCorrectlyWithCard1:(QuestionCard *)card1 card2:(QuestionCard *)card2
 {
     //Animate star
     CGRect rect = [card1 convertRect:card1.bounds toView:self.view];
@@ -327,7 +327,7 @@
     if ([self allowSound]) AudioServicesPlaySystemSound(_correctSound);  // 播放SoundID声音
 }
 
-- (void)QuestionManager:(QuestionManager *)manager answerWronglyWithCard1:(QuestionCard *)card1 card2:(QuestionCard *)card2
+- (void)QuestionCardsManager:(QuestionCardsManager *)manager answerWronglyWithCard1:(QuestionCard *)card1 card2:(QuestionCard *)card2
 {
     //Animate flame
     CGRect rect = [card1 convertRect:card1.bounds toView:self.view];
@@ -350,12 +350,12 @@
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 }
 
-- (void)QuestionManager:(QuestionManager *)manager clickOnCard:(QuestionCard *)card
+- (void)QuestionCardsManager:(QuestionCardsManager *)manager clickOnCard:(QuestionCard *)card
 {
     if ([self allowSound]) AudioServicesPlaySystemSound(_clickSound);  // 播放SoundID声音
 }
 
-- (void)QuestionManager:(QuestionManager *)manager clickOnSameTypeCardsWithCard1:(QuestionCard *)card1 card2:(QuestionCard *)card2
+- (void)QuestionCardsManager:(QuestionCardsManager *)manager clickOnSameTypeCardsWithCard1:(QuestionCard *)card1 card2:(QuestionCard *)card2
 {
     if ([self allowSound]) AudioServicesPlaySystemSound(_errorSound);  // 播放SoundID声音
 }
@@ -392,10 +392,10 @@
     CGFloat rightWidth = [[info objectForKey:@"right_width"] floatValue];
     CGFloat totalWidth = [[info objectForKey:@"total_width"] floatValue];
 
-    if (leftWidth <= 255) {
+    if (leftWidth == 255) {
         [self showLeftDialogCritical];
     }
-    if (rightWidth <= 255) {
+    if (rightWidth == 255) {
         [self showLeftDialogNearlyWin];
     }
     

@@ -7,7 +7,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import "FileIOSharedManager.h"
+#import "QuestionsSharedManager.h"
 #import "NSData+Base64.h"
 #import "QuestionListViewController.h"
 #import "QuestionType.h"
@@ -962,7 +962,7 @@
         [_mailComposeVC setSubject:[NSString stringWithFormat:@"由“勇者斗恶龙”分享的题库：%@", _questionSet.name]];
         [_mailComposeVC setMessageBody:@"附件是一个题库，请下载后使用 “勇者斗恶龙” 打开\n\nApp Store下载点这里:" isHTML:NO];
         
-        NSData *data = [[FileIOSharedManager sharedManager] dataFromJSONParsedQuestionSet:_questionSet filterInCompleteQuestion:_shouldNotShareIncompleteQuestion filterInActiveQuestions:_shouldNotShareUnCheckedQuestion];
+        NSData *data = [[QuestionsSharedManager sharedManager] dataFromJSONParsedQuestionSet:_questionSet filterInCompleteQuestion:_shouldNotShareIncompleteQuestion filterInActiveQuestions:_shouldNotShareUnCheckedQuestion];
         NSString *fileName = [_questionSet.set_id stringByAppendingString:@".qsj"];
         [_mailComposeVC addAttachmentData:data mimeType:@"application/x-qsj" fileName:fileName];
         _mailComposeVC.mailComposeDelegate = self;
