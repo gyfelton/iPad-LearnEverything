@@ -116,7 +116,7 @@
 //    }
     CGFloat left_factor = 1;
     CGFloat right_factor = 1;
-    CGFloat offsetAmound = self.isSinglePlayerMode ? 20 : 15; //15:10
+    CGFloat offsetAmound = self.isSinglePlayerMode ? 27 : 22; //15:10
     if (s>0) {
         left_factor = (_left_bo.frame.size.width+offsetAmound)/_left_bo.frame.size.width;
     } else
