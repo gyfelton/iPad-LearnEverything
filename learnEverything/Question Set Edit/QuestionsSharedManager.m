@@ -90,7 +90,7 @@ static QuestionsSharedManager *sharedManager;
 //    aFetchedResultsController.delegate = self;
     
     _fetchedResultsController = aFetchedResultsController;
-    
+
 	NSError *error = nil;
 	if (![self.fetchedResultsController performFetch:&error]) {
 	    /*
@@ -197,6 +197,7 @@ static QuestionsSharedManager *sharedManager;
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
     [set setValueIfNotNil:create_date forKey:@"create_timestamp"];
+    set.create_timestamp = create_date;
     [set setValueIfNotNil:modifyDate forKey:@"modify_timestamp"];
     [set setValueIfNotNil:set_id forKey:@"set_id"];
     [set setValueIfNotNil:name forKey:@"name"];
@@ -230,7 +231,7 @@ static QuestionsSharedManager *sharedManager;
     NSManagedObjectContext *context = self.managedObjectContext;
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
     QuestionSet *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-    
+
     return [self _assignValuesToQuestionSetAndSave:newManagedObject withContext:context SetID:set_id name:name author:author createDate:create_date modifyDate:modifyDate questionType:questionType questions:questions coverImageData:data questionSubtype:question_subtype];
 }
 
