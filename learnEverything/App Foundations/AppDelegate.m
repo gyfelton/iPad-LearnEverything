@@ -17,6 +17,7 @@
 #define BATTLE_CURRENT_MUSIC_KEY @"BATTLE_CURRENT_MUSIC_KEY"
 
 @implementation AppDelegate
+@synthesize restrictToPortraitMode;
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
@@ -395,4 +396,12 @@
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
+#pragma mark - Support Interface Rotation
+- (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+{
+    if (self.restrictToPortraitMode) {
+        return UIInterfaceOrientationMaskPortrait;
+    }
+    return UIInterfaceOrientationMaskLandscape;
+}
 @end

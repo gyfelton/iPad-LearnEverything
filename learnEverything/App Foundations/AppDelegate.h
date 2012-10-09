@@ -40,6 +40,9 @@
 //Sounds
 @property (readonly) SystemSoundID clickSound;
 
+//For iOS , autorotation
+@property BOOL restrictToPortraitMode;
+
 - (void)playClickSound;
 - (NSString*)getBattleMusicPath;
 

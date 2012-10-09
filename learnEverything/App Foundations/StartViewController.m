@@ -138,6 +138,16 @@
     [_main_bg.layer removeAllAnimations];
 }
 
+//- (BOOL)shouldAutorotate
+//{
+//    return NO;
+//}
+//
+//- (NSUInteger)supportedInterfaceOrientations
+//{
+//    return UIInterfaceOrientationMaskLandscape;
+//}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations

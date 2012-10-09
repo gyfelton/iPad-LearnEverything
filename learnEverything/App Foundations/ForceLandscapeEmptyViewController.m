@@ -42,6 +42,16 @@
     // e.g. self.myOutlet = nil;
 }
 
+//- (NSUInteger)supportedInterfaceOrientations
+//{
+//    return UIInterfaceOrientationMaskLandscape;
+//}
+//
+//- (BOOL)shouldAutorotate
+//{
+//    return NO;
+//}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations

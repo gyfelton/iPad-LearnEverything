@@ -58,6 +58,7 @@
 - (NSMutableArray*)activeQuestionsFromQuestionSet;
 - (NSMutableArray*)activeAndCompleteQuestionsFromQuestionSet;
 
+- (void)onMainMenuClicked:(id)sender;
 - (IBAction)onPauseClicked:(id)sender;
 - (IBAction)onSpeakerClicked:(id)sender;
 

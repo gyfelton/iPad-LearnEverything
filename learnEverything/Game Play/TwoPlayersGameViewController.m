@@ -23,6 +23,9 @@
         // Custom initialization
         self.managedObjectContext = context;
         _questionSet = questionSet;
+        
+        AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+        delegate.restrictToPortraitMode = YES;
     }
     return self;
 }
@@ -141,6 +144,11 @@
     [self showCountDown:[NSNumber numberWithInt:3]];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -152,6 +160,15 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (NSUInteger)supportedInterfaceOrientations{
+    return UIInterfaceOrientationPortrait;
+}
+
+- (BOOL)shouldAutorotate
+{
+    return NO;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -205,6 +222,14 @@
 }
 
 #pragma mark - Super class methods override
+
+- (void)onMainMenuClicked:(id)sender
+{
+    AppDelegate *delegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    //We have to reverse it here to force to lanscape...
+    delegate.restrictToPortraitMode = NO;
+    [super onMainMenuClicked:sender];
+}
 
 - (void)onPauseClicked:(id)sender
 {

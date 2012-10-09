@@ -80,7 +80,6 @@
     BOOL _shouldNotShareUnCheckedQuestion;
     
     IBOutlet UIToolbar *_inputAcessoryToolBar;
-    
 }
 
 @property (nonatomic, strong) UINib *questionCellNib; 
