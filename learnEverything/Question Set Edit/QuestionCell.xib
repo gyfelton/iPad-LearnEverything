@@ -47,6 +47,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{71, 5}, {340, 73}}</string>
 								<reference key="NSSuperview" ref="336205897"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="575312755"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -60,6 +61,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{417, 6}, {239, 73}}</string>
 								<reference key="NSSuperview" ref="336205897"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="808728693"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -70,6 +72,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{100, 15}, {284, 53}}</string>
 								<reference key="NSSuperview" ref="336205897"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="108475689"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -105,6 +108,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{432, 15}, {213, 52}}</string>
 								<reference key="NSSuperview" ref="336205897"/>
+								<reference key="NSWindow"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -137,6 +141,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{1, 5}, {62, 72}}</string>
 								<reference key="NSSuperview" ref="336205897"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="296067506"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -172,6 +177,7 @@
 						</array>
 						<string key="NSFrameSize">{751, 81}</string>
 						<reference key="NSSuperview" ref="391686929"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="148505350"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="88071863">
 							<int key="NSColorSpace">3</int>
@@ -186,6 +192,7 @@
 				</array>
 				<string key="NSFrameSize">{751, 82}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="336205897"/>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 				<reference key="IBUIContentView" ref="336205897"/>
@@ -562,7 +569,208 @@
 			<nil key="sourceID"/>
 			<int key="maxID">36</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">QuestionCellType0</string>
+					<string key="superclassName">UITableViewCell</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="ansTxtField">UITextField</string>
+						<string key="notSelectedView">UIImageView</string>
+						<string key="questionNumber">UILabel</string>
+						<string key="questionTxtField">UITextField</string>
+						<string key="selectedView">UIImageView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="ansTxtField">
+							<string key="name">ansTxtField</string>
+							<string key="candidateClassName">UITextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="notSelectedView">
+							<string key="name">notSelectedView</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="questionNumber">
+							<string key="name">questionNumber</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="questionTxtField">
+							<string key="name">questionTxtField</string>
+							<string key="candidateClassName">UITextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="selectedView">
+							<string key="name">selectedView</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/QuestionCellType0.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">QuestionCellType1</string>
+					<string key="superclassName">UITableViewCell</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="ansImageBtn">UIButton</string>
+						<string key="notSelectedView">UIImageView</string>
+						<string key="questionNumber">UILabel</string>
+						<string key="questionTxtField">UITextField</string>
+						<string key="selectedView">UIImageView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="ansImageBtn">
+							<string key="name">ansImageBtn</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="notSelectedView">
+							<string key="name">notSelectedView</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="questionNumber">
+							<string key="name">questionNumber</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="questionTxtField">
+							<string key="name">questionTxtField</string>
+							<string key="candidateClassName">UITextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="selectedView">
+							<string key="name">selectedView</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/QuestionCellType1.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">QuestionListViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="onCoverClicked:">id</string>
+						<string key="onDivisionClicked:">id</string>
+						<string key="onEqualQuestionSignClicked:">id</string>
+						<string key="onEqualSignClicked:">id</string>
+						<string key="onLeftBraketClicked:">id</string>
+						<string key="onMinusClicked:">id</string>
+						<string key="onMultiplyClicked:">id</string>
+						<string key="onPlusClicked:">id</string>
+						<string key="onQuestionSignClicked:">id</string>
+						<string key="onRightBraketClicked:">id</string>
+						<string key="onShareQuestionSetClicked:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="onCoverClicked:">
+							<string key="name">onCoverClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onDivisionClicked:">
+							<string key="name">onDivisionClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onEqualQuestionSignClicked:">
+							<string key="name">onEqualQuestionSignClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onEqualSignClicked:">
+							<string key="name">onEqualSignClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onLeftBraketClicked:">
+							<string key="name">onLeftBraketClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onMinusClicked:">
+							<string key="name">onMinusClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onMultiplyClicked:">
+							<string key="name">onMultiplyClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onPlusClicked:">
+							<string key="name">onPlusClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onQuestionSignClicked:">
+							<string key="name">onQuestionSignClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onRightBraketClicked:">
+							<string key="name">onRightBraketClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onShareQuestionSetClicked:">
+							<string key="name">onShareQuestionSetClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="_chooseQnTypeContainer">UIView</string>
+						<string key="_chooseSubtypeChiEng">SimulatePressButton</string>
+						<string key="_chooseSubtypeChiPic">SimulatePressButton</string>
+						<string key="_chooseSubtypeEngPic">SimulatePressButton</string>
+						<string key="_chooseSubtypeMathQn">SimulatePressButton</string>
+						<string key="_header_img_view">UIImageView</string>
+						<string key="_inputAcessoryToolBar">UIToolbar</string>
+						<string key="type0_questionCell">QuestionCellType0</string>
+						<string key="type1_questionCell">QuestionCellType1</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="_chooseQnTypeContainer">
+							<string key="name">_chooseQnTypeContainer</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_chooseSubtypeChiEng">
+							<string key="name">_chooseSubtypeChiEng</string>
+							<string key="candidateClassName">SimulatePressButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_chooseSubtypeChiPic">
+							<string key="name">_chooseSubtypeChiPic</string>
+							<string key="candidateClassName">SimulatePressButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_chooseSubtypeEngPic">
+							<string key="name">_chooseSubtypeEngPic</string>
+							<string key="candidateClassName">SimulatePressButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_chooseSubtypeMathQn">
+							<string key="name">_chooseSubtypeMathQn</string>
+							<string key="candidateClassName">SimulatePressButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_header_img_view">
+							<string key="name">_header_img_view</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_inputAcessoryToolBar">
+							<string key="name">_inputAcessoryToolBar</string>
+							<string key="candidateClassName">UIToolbar</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="type0_questionCell">
+							<string key="name">type0_questionCell</string>
+							<string key="candidateClassName">QuestionCellType0</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="type1_questionCell">
+							<string key="name">type1_questionCell</string>
+							<string key="candidateClassName">QuestionCellType1</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/QuestionListViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">SimulatePressButton</string>
+					<string key="superclassName">UIButton</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/SimulatePressButton.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>

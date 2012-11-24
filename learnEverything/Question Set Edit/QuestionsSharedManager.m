@@ -365,7 +365,7 @@ static QuestionsSharedManager *sharedManager;
     
     NSData *imgData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:QUESTION_SET_DEFAULT_COVER_NAME ofType:@"png"]];
     
-    return [self _insertNewQuestionSetWithSetID:uniqueID name:@"我的题库" author:@"用户" createDate:[NSDate date] modifyDate:[NSDate date] questionType:[NSNumber numberWithInt:kUnknownQuestionType] questions:nil coverImageData:imgData questionSubtype:nil];
+    return [self _insertNewQuestionSetWithSetID:uniqueID name:@"My Problem Set" author:@"Teacher" createDate:[NSDate date] modifyDate:[NSDate date] questionType:[NSNumber numberWithInt:kUnknownQuestionType] questions:nil coverImageData:imgData questionSubtype:nil]; //@"我的题库" author:@"用户"
 }
 
 #pragma mark - Serialize Managed objects to NSDitionary

@@ -1,4 +1,4 @@
-//
+﻿//
 //  QuestionListViewController.m
 //  learnEverything
 //
@@ -44,7 +44,7 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // Custom initialization
-        self.title = @"编辑题库";
+        self.title = @"Edit Problem Set"; //@"编辑题库";
         
         self.managedObjectContext = context;
         _questionSet = qs;
@@ -619,7 +619,7 @@
     [_questionsTableView reloadData];
     
     [self.navigationItem setRightBarButtonItem:_addButton];
-    UIActionSheet *temp = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:nil destructiveButtonTitle:@"点击上面的加号添加第一道题目" otherButtonTitles:nil];
+    UIActionSheet *temp = [[UIActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:nil destructiveButtonTitle:@"Click the + button above to insert a new question" otherButtonTitles:nil]; //@"点击上面的加号添加第一道题目"
     [temp showFromBarButtonItem:_addButton animated:YES];
     [self performSelector:@selector(dismissActionSheet:) withObject:temp afterDelay:1.2f];
     
@@ -631,7 +631,8 @@
     if (![MFMailComposeViewController canSendMail]) {
         if (!_setMailAlert)
         {
-            _setMailAlert = [[UIAlertView alloc] initWithTitle:@"还没有设置邮件帐户吧" message:@"要分享你的题库，你需要设置你的邮箱，点击“设置邮箱”进行设置" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"设置邮件帐户", nil];
+			_setMailAlert = [[UIAlertView alloc] initWithTitle:@"You have not set up any mail account yet." message:@"To share the problem set, you need to set up an email account. Click \"Set up Account\" to continue." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Set Up Mail Account", nil];
+            //_setMailAlert = [[UIAlertView alloc] initWithTitle:@"还没有设置邮件帐户吧" message:@"要分享你的题库，你需要设置你的邮箱，点击“设置邮箱”进行设置" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"设置邮件帐户", nil];
         }
         [_setMailAlert show];
         return;
@@ -640,7 +641,7 @@
     ShareOptionsTableViewController *options = [[ShareOptionsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     options.customDelegate = self;
     self.popoverController = [[UIPopoverController alloc] initWithContentViewController:options];
-    self.popoverController.popoverContentSize = CGSizeMake(320, 220);
+    self.popoverController.popoverContentSize = CGSizeMake(400, 220); //320
     [self.popoverController presentPopoverFromRect:((UIButton*)sender).frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
 }
 
@@ -648,7 +649,8 @@
     UIButton *cover = (UIButton*)sender;
     
     if (!_actionSheetForCover) {
-        _actionSheetForCover= [[UIActionSheet alloc] initWithTitle:@"修改封面\n请选择图片来源：" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"网络图片搜索", @"照相机", @"相册",nil];
+		_actionSheetForCover= [[UIActionSheet alloc] initWithTitle:@"Modify Cover\nPlease select a image source:" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Web Image Search", @"Camera", @"Photo Album",nil];
+        //_actionSheetForCover= [[UIActionSheet alloc] initWithTitle:@"修改封面\n请选择图片来源：" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"网络图片搜索", @"照相机", @"相册",nil];
     }
     [_actionSheetForCover showFromRect:cover.frame inView:self.view animated:YES];
 }
@@ -667,7 +669,8 @@
             self.popoverController = nil;
             _indexPathForEditingImage = [_questionsTableView indexPathForCell:cell];
             if (!_actionSheetForImageBtn) {
-                _actionSheetForImageBtn = [[UIActionSheet alloc] initWithTitle:@"请选择图片来源：" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"网络图片搜索", @"照相机", @"相册",nil];
+				_actionSheetForImageBtn = [[UIActionSheet alloc] initWithTitle:@"Please select a image source:" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Web Image Search", @"Camera", @"Photo Album",nil];
+                //_actionSheetForImageBtn = [[UIActionSheet alloc] initWithTitle:@"请选择图片来源：" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"网络图片搜索", @"照相机", @"相册",nil];
             }
             [_actionSheetForImageBtn showFromRect:answerBtn.frame inView:cell animated:YES]; 
         }
@@ -817,7 +820,7 @@
 -(void)launchMailAppOnDevice
 {
     NSString *recipients = @"mailto:example@example.com?subject=Hello from California!";
-    NSString *body = @"&body=请跳回到“勇者斗恶龙”继续分享题库^_^”";
+    NSString *body = @"&body=Please switch back to App to continue share problem set."; //@"&body=请跳回到“勇者斗恶龙”继续分享题库^_^”";
     
     NSString *email = [NSString stringWithFormat:@"%@%@", recipients, body];
     email = [email stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -860,8 +863,11 @@
 {
     if ([MFMailComposeViewController canSendMail]) {
         _mailComposeVC = [[MFMailComposeViewController alloc] init];
-        [_mailComposeVC setSubject:[NSString stringWithFormat:@"由“勇者斗恶龙”分享的题库：%@", _questionSet.name]];
-        [_mailComposeVC setMessageBody:@"附件是一个题库，请下载后使用 “勇者斗恶龙” 打开\n\nApp Store下载点这里:" isHTML:NO];
+        
+        [_mailComposeVC setSubject:[NSString stringWithFormat:@"Problem set shared by APP%@", _questionSet.name]]; //TODO APP NAME?
+        [_mailComposeVC setMessageBody:@"Attached is a problem set, please open it in APP:" isHTML:NO]; //TODO APP NAME?
+        //[_mailComposeVC setSubject:[NSString stringWithFormat:@"由“勇者斗恶龙”分享的题库：%@", _questionSet.name]];
+        //[_mailComposeVC setMessageBody:@"附件是一个题库，请下载后使用 “勇者斗恶龙” 打开\n\nApp Store下载点这里:" isHTML:NO];
         
         NSData *data = [[QuestionsSharedManager sharedManager] dataFromJSONParsedQuestionSet:_questionSet filterInCompleteQuestion:_shouldNotShareIncompleteQuestion filterInActiveQuestions:_shouldNotShareUnCheckedQuestion];
         NSString *fileName = [_questionSet.set_id stringByAppendingString:@".qsj"];

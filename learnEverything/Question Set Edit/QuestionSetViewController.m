@@ -1,4 +1,4 @@
-//
+﻿//
 //  QuestionSetViewController.m
 //  learnEverything
 //
@@ -67,7 +67,7 @@
     UIButton *singlePlayer = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     singlePlayer.frame = CGRectMake(0, 0, 300, 150);
     singlePlayer.center = CGPointMake(_chooseGameModeBtn.center.x, _chooseGameModeBtn.center.y-100);
-    [singlePlayer setTitle:@"单人对战" forState:UIControlStateNormal];
+    [singlePlayer setTitle:@"单人对战" forState:UIControlStateNormal]; //
     [singlePlayer addTarget:self action:@selector(startSinglePlayerGame:) forControlEvents:UIControlEventTouchUpInside];
     
     [_chooseGameModeBtn addSubview:singlePlayer];
@@ -287,7 +287,8 @@
             _questionSet = (QuestionSet*)[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:position inSection:0]];
             if ([_questionSet.questions count] < 20) {
                 //TODO should check active and complete questions
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Insufficient number of problems, continue?" message:@"This will result in same problem appearing twice or more times." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Continue", nil]; //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"题目数目不足，是否继续？" message:@"题目数量不足会导致重复题目的出现哦" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"继续游戏", nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Insufficient number of problems, continue?" message:@"This will result in same problem appearing twice or more times." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Continue", nil]; 
+                //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"题目数目不足，是否继续？" message:@"题目数量不足会导致重复题目的出现哦" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"继续游戏", nil];
                 [alert show];
             } else
             {

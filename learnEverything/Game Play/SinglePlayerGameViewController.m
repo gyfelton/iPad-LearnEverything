@@ -1,4 +1,4 @@
-//
+﻿//
 //  ViewController.m
 //  learnEverything
 //
@@ -38,19 +38,19 @@
 #pragma mark - Animations
 - (void)showInitialDialog1
 {
-    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"小朋友快来帮忙!"];
+    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"You can help me defeat the monster!"]; //@"小朋友快来帮忙!"
     [self performSelector:@selector(showInitialDialog2) withObject:nil afterDelay:2.0f];
 }
 
 - (void)showInitialDialog2
 {
-    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"正确配对下面的英文和图片,"];
+    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"Just match the cards,"]; //@"正确配对下面的英文和图片,"
     [self performSelector:@selector(showInitialDialog3) withObject:nil afterDelay:2.0f];
 }
 
 - (void)showInitialDialog3
 {
-    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"就能给我力量帮助打倒怪兽!"];
+    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"I will have more power!"]; //@"就能给我力量帮助打倒怪兽!"
     [self performSelector:@selector(dismissLeftDialog) withObject:nil afterDelay:2.0f];
     [self performSelector:@selector(showInitialRightDialog1) withObject:nil afterDelay:2.0f];
 }
@@ -58,14 +58,14 @@
 - (void)showInitialRightDialog1
 {
     [super dismissLeftDialog];
-    [super showRightDialogAtPosition:CGPointMake(700, 133) withText:@"哈哈哈哈哈!"];
+    [super showRightDialogAtPosition:CGPointMake(700, 133) withText:@"WAHAHAHAHAAHA!"]; //@"哈哈哈哈哈!"
     [super performSelector:@selector(showInitialRightDialog2) withObject:nil afterDelay:2.0f];
 }
 
 - (void)showInitialRightDialog2
 {
     [super dismissLeftDialog];
-    [super showRightDialogAtPosition:CGPointMake(700, 133) withText:@"你打不倒我的!!!"];
+    [super showRightDialogAtPosition:CGPointMake(700, 133) withText:@"You can't defeat me!!!"]; //@"你打不倒我的!!!"
     [super performSelector:@selector(dismissRightDialog) withObject:nil afterDelay:2.0f];
 }
  
@@ -365,25 +365,25 @@
 
 - (void)showLeftDialogCritical
 {
-    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"快配对正确的卡片！" dismissAfterDelay:2.0f];
+    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"Match the right cards!" dismissAfterDelay:2.0f]; //@"快配对正确的卡片！"
     [super performSelector:@selector(showLeftDialogCritical2) withObject:nil afterDelay:2.0f];
 }
 
 
 - (void)showLeftDialogCritical2
 {
-    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"我快撑不住了！" dismissAfterDelay:2.0f];
+    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"I will be overwhelmed soon!" dismissAfterDelay:2.0f]; //@"我快撑不住了！"
     [super performSelector:@selector(showLeftDialogCritical3) withObject:nil afterDelay:2.0f];
 }
 
 - (void)showLeftDialogCritical3
 {
-    [super showRightDialogAtPosition:CGPointMake(700, 133) withText:@"哈哈哈哈哈!" dismissAfterDelay:2.0f];
+    [super showRightDialogAtPosition:CGPointMake(700, 133) withText:@"WAHAHAHAHA!" dismissAfterDelay:2.0f]; //@"哈哈哈哈哈!"
 }
 
 - (void)showLeftDialogNearlyWin
 {
-    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"就差一点了，\nCome on！" dismissAfterDelay:2.0f];
+    [super showLeftDialogAtPosition:CGPointMake(100, 141) withText:@"Almost there，\nCome on!" dismissAfterDelay:2.0f]; //@"就差一点了，\nCome on！"
 }
 
 - (void)_addButtonsToViewHelper:(UIView*)container

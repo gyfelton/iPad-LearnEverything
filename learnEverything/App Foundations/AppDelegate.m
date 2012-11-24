@@ -112,12 +112,12 @@
     if (success)
     {
         img.image = [UIImage imageNamed:@"tick_s"];
-        _hud.labelText = [NSString stringWithFormat:@"载入 %@ 题库成功", path];
+        _hud.labelText = [NSString stringWithFormat:@"Successfully load %@ Problem set", path]; //@"载入 %@ 题库成功"
         [[NSNotificationCenter defaultCenter] postNotificationName:QSJ_FILE_RECEIVED_AND_PARSE_SUCCESSFULL_NOTIFICATION object:url];
     } else
     {
         img.image = [UIImage imageNamed:@"cross_s"];
-        _hud.labelText = @"载入题库失败，请重试";
+        _hud.labelText = @"Fail to load the problem set, please try again."; //@"载入题库失败，请重试";
     }
     [_hud hide:YES afterDelay:1.6f];
 }
@@ -129,11 +129,11 @@
     UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 37, 37)];
     if (sent) {
         img.image = [UIImage imageNamed:@"tick_s"];
-        _hud.labelText = [NSString stringWithFormat:@"题库发送成功！"];
+        _hud.labelText = [NSString stringWithFormat:@"Send successfully!"]; //@"题库发送成功！"
     } else
     {
         img.image = [UIImage imageNamed:@"cross_s"];
-        _hud.labelText = [NSString stringWithFormat:@"题库发送失败！请重试"];
+        _hud.labelText = [NSString stringWithFormat:@"Fail to send the problem set, please try again."]; //@"题库发送失败！请重试"
 
     }
     _hud.customView = img;
@@ -145,14 +145,14 @@
 - (void)showLoadingGameHUD
 {
     _hud.mode = MBProgressHUDModeIndeterminate;
-    _hud.labelText = @"载入游戏中...";
+    _hud.labelText = @"Loading..."; //@"载入游戏中...";
     [_hud show:NO];
 }
 
 - (void)showCheckQSJFilesHUD
 {
     _hud.mode = MBProgressHUDModeIndeterminate;
-    _hud.labelText = @"初始化题库数据中，请稍等";
+    _hud.labelText = @"Getting Ready the data, hold on."; //@"初始化题库数据中，请稍等";
     [_hud show:YES];
 }
 
@@ -174,7 +174,7 @@
             path = [[path substringToIndex:7] stringByAppendingString:@"...qsj"];
         }
         _hud.mode = MBProgressHUDModeIndeterminate;
-        _hud.labelText = [NSString stringWithFormat:@"载入 %@ 题库中...", path];
+        _hud.labelText = [NSString stringWithFormat:@"Problem set %@ Loading...", path]; //@"载入 %@ 题库中..."
         [_hud show:YES];
         [self performSelector:@selector(beginParseQSJFileWithURL:) withObject:url afterDelay:0.3f];
     }

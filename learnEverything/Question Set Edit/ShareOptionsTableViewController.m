@@ -1,4 +1,4 @@
-//
+﻿//
 //  ShareOptionsTableViewController.m
 //  learnEverything
 //
@@ -79,7 +79,7 @@
 - (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        return @"分享选项";
+        return @"Sharing Options";//@"分享选项";
     } else
     {
         return nil;
@@ -89,7 +89,7 @@
 - (NSString*)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
     if (section == 0) {
-        return @"分享后其他人还可以继续编辑题库";
+        return @"Other user can continue edit this problem set";//@"分享后其他人还可以继续编辑题库";
     } else
     {
         return nil;
@@ -128,13 +128,13 @@
         
         cell.accessoryView = s;
         if (indexPath.row == 0) {
-            cell.textLabel.text = @"只分享完整的题目";
+            cell.textLabel.text = @"Share completed questions only";//@"只分享完整的题目";
         } else {
-            cell.textLabel.text = @"只分享启用的题目";
+            cell.textLabel.text = @"Share activated questions only"; //"@"只分享启用的题目";
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     } else {
-        cell.textLabel.text = @"开始分享";
+        cell.textLabel.text = @"Start Sharing";//@"开始分享";
         cell.textLabel.textAlignment = UITextAlignmentCenter;
         cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     }
@@ -194,7 +194,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    cell.textLabel.text = @"打包题库中...请稍等";
+    cell.textLabel.text = @"Packaging..."; //@"打包题库中...请稍等";
     
     if ([customDelegate respondsToSelector:@selector(didSelectCellOnIndexPath:)]) {
         [customDelegate didSelectCellOnIndexPath:indexPath];

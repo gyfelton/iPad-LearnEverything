@@ -1,4 +1,4 @@
-//
+﻿//
 //  ParentControlViewController.m
 //  learnEverything
 //
@@ -10,7 +10,7 @@
 #import "QuestionSetViewController.h"
 #import "AppDelegate.h"
 
-#define DEFAULT_TEXT @"请使用大拇指扫描指纹"
+#define DEFAULT_TEXT @"Please put your right thumb on the screen" //@"请使用大拇指扫描指纹"
 
 @interface ParentControlViewController (Private)
 - (void)animateScanLightUp;
@@ -23,7 +23,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.title = @"身份确认";
+        self.title = @"Verify of Identification"; //@"身份确认";
     }
     return self;
 }
@@ -141,14 +141,14 @@
 
 - (void)accessGranted
 {
-        _topTitle.text = @"扫描成功！";
+        _topTitle.text = @"Identification Verified"; //@"扫描成功！";
         [self performSelector:@selector(pushToQuestionSet) withObject:nil afterDelay:0.4f];
 //    [self pushToQuestionSet];
 }
 
 - (void)accessDenied
 {
-    _topTitle.text = @"扫描失败 >_<\n只有大人才能打开这里哦\n";
+    _topTitle.text = @"Finger Print not found >_<\nOnly your teach can access here\n"; // @"扫描失败 >_<\n只有大人才能打开这里哦\n";
     _bottom_tip.hidden = YES;
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
 }
@@ -163,7 +163,7 @@
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     _allowAccess = YES;
-    _topTitle.text = @"扫描中...请不要移动手指";
+    _topTitle.text = @"Scanning...Please do not move your finger"; //@"扫描中...请不要移动手指";
     [self performSelector:@selector(accessGranted) withObject:nil afterDelay:0.7f];
     [self accessGranted];
 //    if (isAdult) {
