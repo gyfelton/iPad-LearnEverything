@@ -390,7 +390,7 @@
 {
     //Back to menu btn
     SimulatePressButton *backToMenu = [SimulatePressButton buttonWithType:UIButtonTypeCustom];
-    [backToMenu setImage:[UIImage imageNamed:@"backToMenu"] forState:UIControlStateNormal];
+    [backToMenu setImage:[UIImage imageNamed:addSuffixEnglish(@"backToMenu")] forState:UIControlStateNormal];
     backToMenu.frame = CGRectMake(0, 0, 274, 102);
     backToMenu.center = CGPointMake(container.center.x, container.center.y+100);
     [backToMenu addTarget:self action:@selector(onMainMenuClicked:) forControlEvents:UIControlEventTouchUpInside];

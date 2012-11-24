@@ -42,7 +42,7 @@
 						<string key="NSFrameSize">{1024, 768}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="720157030"/>
+						<reference key="NSNextKeyView" ref="442484425"/>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
@@ -75,7 +75,7 @@
 						</object>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">singple_player_btn_english.png</string>
+							<string key="NSResourceName">singple_player_btn.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription" id="107194380">
 							<int key="type">2</int>
@@ -93,7 +93,7 @@
 						<string key="NSFrame">{{369, 422}, {280, 100}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="40959928"/>
+						<reference key="NSNextKeyView" ref="620605160"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -104,7 +104,7 @@
 						<reference key="IBUINormalTitleShadowColor" ref="1043006040"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">dual_game_btn_english.png</string>
+							<string key="NSResourceName">dual_game_btn.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="107194380"/>
 						<reference key="IBUIFont" ref="231734424"/>
@@ -112,10 +112,10 @@
 					<object class="IBUIButton" id="442484425">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{903, 4}, {120, 59}}</string>
+						<string key="NSFrame">{{876, 15}, {148, 53}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="107730225"/>
+						<reference key="NSNextKeyView" ref="720157030"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -126,7 +126,7 @@
 						<reference key="IBUINormalTitleShadowColor" ref="1043006040"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">edit_question_set_btn_english.png</string>
+							<string key="NSResourceName">edit_question_set_btn.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription">
 							<int key="type">2</int>
@@ -144,7 +144,6 @@
 						<string key="NSFrame">{{976, 709}, {18, 19}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -173,7 +172,7 @@
 						<string key="NSFrame">{{98, 94}, {822, 229}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="442484425"/>
+						<reference key="NSNextKeyView" ref="107730225"/>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
@@ -187,7 +186,6 @@
 						<string key="NSFrame">{{949, 675}, {72, 72}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="620605160"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -348,8 +346,8 @@
 							<reference ref="720157030"/>
 							<reference ref="469283837"/>
 							<reference ref="107730225"/>
-							<reference ref="40959928"/>
 							<reference ref="442484425"/>
+							<reference ref="40959928"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -462,11 +460,11 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="dual_game_btn_english.png">{280, 100}</string>
-			<string key="edit_question_set_btn_english.png">{204, 100}</string>
+			<string key="dual_game_btn.png">{280, 100}</string>
+			<string key="edit_question_set_btn.png">{280, 100}</string>
 			<string key="main_bg.jpg">{1024, 768}</string>
 			<string key="main_title.png">{1480, 412}</string>
-			<string key="singple_player_btn_english.png">{280, 100}</string>
+			<string key="singple_player_btn.png">{280, 100}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1930</string>
 	</data>

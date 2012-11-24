@@ -19,3 +19,5 @@
 #define IS_PRE_LOAD_NEW_QSJ NO
 
 #define LANDSCAPE_ORIENTATION UIInterfaceOrientationIsLandscape(interfaceOrientation)
+
+#define addSuffixEnglish(a) [a stringByAppendingString:@"_english"]

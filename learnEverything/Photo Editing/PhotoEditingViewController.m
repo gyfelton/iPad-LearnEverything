@@ -22,7 +22,7 @@
         // Custom initialization
         _isUsing3To4Ratio = is3To4;
         _image = image;
-        self.title = @"裁剪图片";
+        self.title = @"Crop Image"; //@"裁剪图片";
     }
     return self;
 }

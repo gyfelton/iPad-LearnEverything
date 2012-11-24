@@ -34,7 +34,7 @@
     if (self) {
         // Custom initialization
         _viewControllerType = type;
-        self.title = _viewControllerType == kEditQuestionSet ? @"题库列表" : @"选择题库开始游戏";
+        self.title = _viewControllerType == kEditQuestionSet ? @"Problem Sets" : @"Choose a Problem Set to Start Game"; //@"题库列表" : @"选择题库开始游戏";
     }
     
     return self;
@@ -185,7 +185,7 @@
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     backBtn.frame = CGRectMake(0, 0, 94, 41);
     backBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [backBtn setImage:[UIImage imageNamed:@"back_btn"] forState:UIControlStateNormal];
+    [backBtn setImage:[UIImage imageNamed:addSuffixEnglish(@"back_btn")] forState:UIControlStateNormal];
     backBtn.showsTouchWhenHighlighted = YES;
     [backBtn addTarget:self action:@selector(onBackClicked:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -287,7 +287,7 @@
             _questionSet = (QuestionSet*)[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:position inSection:0]];
             if ([_questionSet.questions count] < 20) {
                 //TODO should check active and complete questions
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"题目数目不足，是否继续？" message:@"题目数量不足会导致重复题目的出现哦" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"继续游戏", nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Insufficient number of problems, continue?" message:@"This will result in same problem appearing twice or more times." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Continue", nil]; //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"题目数目不足，是否继续？" message:@"题目数量不足会导致重复题目的出现哦" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"继续游戏", nil];
                 [alert show];
             } else
             {
@@ -474,19 +474,19 @@
         
         switch ([questionSet.question_subtype intValue]) {
             case subtype_MathQuestion:
-                badgeOverlay.image = [UIImage imageNamed:@"badge_subtype_Math"];
+                badgeOverlay.image = [UIImage imageNamed:addSuffixEnglish(@"badge_subtype_Math")];
                 break;
             case subtype_ChineseEnglishTranslation:
-                badgeOverlay.image = [UIImage imageNamed:@"badge_subtype_ChiEng"];
+                badgeOverlay.image = [UIImage imageNamed:addSuffixEnglish(@"badge_subtype_ChiEng")];
                 break;
             case subtype_ChinesePicture:
-                badgeOverlay.image = [UIImage imageNamed:@"badge_subtype_ChiPic"];
+                badgeOverlay.image = [UIImage imageNamed:addSuffixEnglish(@"badge_subtype_ChiPic")];
                 break;
             case subtype_EnglishPicture:
-                badgeOverlay.image = [UIImage imageNamed:@"badge_subtype_EngPic"];
+                badgeOverlay.image = [UIImage imageNamed:addSuffixEnglish(@"badge_subtype_EngPic")];
                 break;
             default:
-                badgeOverlay.image = [UIImage imageNamed:@"badge_subtype_Math"];
+                badgeOverlay.image = [UIImage imageNamed:addSuffixEnglish(@"badge_subtype_Math")];
             break; 
         }
         [img addSubview:badgeOverlay];

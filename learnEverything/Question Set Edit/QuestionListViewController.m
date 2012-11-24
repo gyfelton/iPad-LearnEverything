@@ -125,19 +125,19 @@
         //[_questionTypeIndiciator setTitle:@"文字＋图片" forState:UIControlStateNormal];
         switch ([_questionSet.question_subtype intValue]) {
             case subtype_MathQuestion:
-                _header_img_view.image = [UIImage imageNamed:@"table_header_calc"];
+                _header_img_view.image = [UIImage imageNamed:addSuffixEnglish(@"table_header_calc")];
                 break;
             case subtype_ChineseEnglishTranslation:
-                _header_img_view.image = [UIImage imageNamed:@"table_header_ChiEng"];
+                _header_img_view.image = [UIImage imageNamed:addSuffixEnglish(@"table_header_ChiEng")];
                 break;
             case subtype_ChinesePicture:
-                _header_img_view.image = [UIImage imageNamed:@"table_header_ChiPic"];
+                _header_img_view.image = [UIImage imageNamed:addSuffixEnglish(@"table_header_ChiPic")];
                 break;
             case subtype_EnglishPicture:
-                _header_img_view.image = [UIImage imageNamed:@"table_header_EngPic"];
+                _header_img_view.image = [UIImage imageNamed:addSuffixEnglish(@"table_header_EngPic")];
                 break;
             default:
-                _header_img_view.image = [UIImage imageNamed:@"table_header_calc"];
+                _header_img_view.image = [UIImage imageNamed:addSuffixEnglish(@"table_header_calc")];
                 break;
         }
         [self.navigationItem setRightBarButtonItem:_addButton];
@@ -592,26 +592,26 @@
         _questionSet.question_type = [NSNumber numberWithInt:kTxtPlusTxt];
         _questionSet.question_subtype = [NSNumber numberWithInt:subtype_MathQuestion];
         _questionsTableView.hidden = NO;
-        _header_img_view.image = [UIImage imageNamed:@"table_header_calc"];
+        _header_img_view.image = [UIImage imageNamed:addSuffixEnglish(@"table_header_calc")];
     } 
     if (btn == _chooseSubtypeChiEng)
     {
         _questionSet.question_type = [NSNumber numberWithInt:kTxtPlusTxt];
         _questionsTableView.hidden = NO;
         _questionSet.question_subtype = [NSNumber numberWithInt:subtype_ChineseEnglishTranslation];
-        _header_img_view.image = [UIImage imageNamed:@"table_header_ChiEng"];
+        _header_img_view.image = [UIImage imageNamed:addSuffixEnglish(@"table_header_ChiEng")];
     }
     if (btn == _chooseSubtypeChiPic) {
         _questionSet.question_type = [NSNumber numberWithInt:kTxtPlusPic];
         _questionsTableView.hidden = NO;
         _questionSet.question_subtype = [NSNumber numberWithInt:subtype_ChinesePicture];
-        _header_img_view.image = [UIImage imageNamed:@"table_header_ChiPic"];
+        _header_img_view.image = [UIImage imageNamed:addSuffixEnglish(@"table_header_ChiPic")];
     }
     if (btn == _chooseSubtypeEngPic) {
         _questionSet.question_type = [NSNumber numberWithInt:kTxtPlusPic];
         _questionsTableView.hidden = NO;
         _questionSet.question_subtype = [NSNumber numberWithInt:subtype_EnglishPicture];
-        _header_img_view.image = [UIImage imageNamed:@"table_header_EngPic"];
+        _header_img_view.image = [UIImage imageNamed:addSuffixEnglish(@"table_header_EngPic")];
     }
     
     _header_img_view.hidden = NO;
@@ -713,9 +713,9 @@
     
     switch (buttonIndex) {
         case 0:
-            //Baidu
+            //Bing Image Search
         {
-            ImageSearchWebViewController *imgSearchVC = [[ImageSearchWebViewController alloc] initWithSearchStringArray:[NSArray arrayWithObjects:searchQuery, nil] delegate:self];
+            ImageSearchViewController *imgSearchVC = [[ImageSearchViewController alloc] initWithSearchStringArray:[NSArray arrayWithObjects:searchQuery, nil] delegate:self];
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:imgSearchVC];
             
             UIPopoverController *popOver = [[UIPopoverController alloc] initWithContentViewController:nav]; 

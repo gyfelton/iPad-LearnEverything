@@ -31,7 +31,7 @@
 
 #import <MessageUI/MFMailComposeViewController.h>
 #import "PhotoEditingViewController.h"
-#import "ImageSearchWebViewController.h"
+#import "ImageSearchViewController.h" //"ImageSearchWebViewController.h"
 #import "ShareOptionsTableViewController.h"
 
 #define QUESTION_TXT_TAG 3332

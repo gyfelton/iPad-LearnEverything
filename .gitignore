@@ -1,4 +1,4 @@
-# Xcode
+i# Xcode
 build/*
 *.pbxuser
 !default.pbxuser
@@ -13,3 +13,6 @@ build/*
 xcuserdata
 profile
 *.moved-aside
+.DS_Store
+*/*/.DS_Store
+*/.DS_Store
