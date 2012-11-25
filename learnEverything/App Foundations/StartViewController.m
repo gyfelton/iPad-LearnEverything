@@ -184,7 +184,7 @@
 }
 
 - (IBAction)onInfoBtnClicked:(id)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"“勇者斗恶龙”\nv0.9" message:@"Developer：Elton Gao, Jessie Luo, Andy Chan. Special thanks to Elizebath Yang\n?2012 Elton Gao, All rights Reserved" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:APP_NAME message:@"Developer：Elton Gao, Jessie Luo, Andy Chan.\nSpecial thanks to Elizebath Yang\n©2012 Elton Gao,\nAll rights Reserved" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
 }
 

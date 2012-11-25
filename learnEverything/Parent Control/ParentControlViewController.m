@@ -46,7 +46,7 @@
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 400, 44)];
     label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont regularChineseFontWithSize:36.0]; //26.0
+    label.font = [UIFont regularChineseFontWithSize:26.0];
     label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
     label.textAlignment = UITextAlignmentCenter;
     label.textColor = [UIColor whiteColor]; //[UIColor colorWithRed:0.52f green:0.38f blue:0.11f alpha:1.0f];
@@ -61,14 +61,14 @@
     [self.view addSubview:_fakeScannerView];
     
     _topTitle.text = DEFAULT_TEXT;
-    _topTitle.font = [UIFont regularChineseFontWithSize:48]; //38
+    _topTitle.font = [UIFont regularChineseFontWithSize:38];
     
-    _bottom_tip.font = [UIFont regularChineseFontWithSize:48];
+    _bottom_tip.font = [UIFont regularChineseFontWithSize:38];
     
     _tipLbl.hidden = YES; //Not using this
     
     _main_title.text = self.title;
-    _main_title.font = [UIFont regularChineseFontWithSize:43]; //33
+    _main_title.font = [UIFont regularChineseFontWithSize:33];
 }
 
 - (void)viewWillAppear:(BOOL)animated

@@ -497,9 +497,10 @@
         lbl.shadowColor = [UIColor blackColor];
         lbl.shadowOffset = CGSizeMake(1, -1);
         lbl.backgroundColor = [UIColor clearColor];
+        lbl.lineBreakMode = UILineBreakModeMiddleTruncation;
         lbl.textColor = [UIColor whiteColor];
         lbl.adjustsFontSizeToFitWidth = YES;
-        lbl.minimumFontSize = 9;
+        lbl.minimumFontSize = 13;
         lbl.textAlignment = UITextAlignmentCenter;
         lbl.text = questionSet.name;
         lbl.tag = 1;

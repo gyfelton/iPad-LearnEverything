@@ -21,3 +21,5 @@
 #define LANDSCAPE_ORIENTATION UIInterfaceOrientationIsLandscape(interfaceOrientation)
 
 #define addSuffixEnglish(a) [a stringByAppendingString:@"_english"]
+
+#define APP_NAME @"勇者斗恶龙"
