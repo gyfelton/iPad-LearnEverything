@@ -123,6 +123,9 @@
     {
         left_factor = (_left_bo.frame.size.width-offsetAmound)/_left_bo.frame.size.width;
     }
+    if (left_factor < 0) {
+        left_factor = 0;
+    }
     
     CGFloat leftNewWidth = _left_bo.frame.size.width*left_factor;
     CGFloat totoalWidth = (self.isSinglePlayerMode ? 759 : 566);

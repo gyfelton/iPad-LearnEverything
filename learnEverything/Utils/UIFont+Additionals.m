@@ -12,7 +12,7 @@
 
 + (UIFont*)regularChineseFontWithSize:(CGFloat)size
 {
-    return [UIFont fontWithName:@"FZZhiYi-M12S" size:size];
+    return [UIFont fontWithName:@"myriadproregular" size:size]; //@"FZZhiYi-M12S" //TODO 
 }
 
 @end

@@ -57,6 +57,7 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>myriadproregular.ttf</string>
 		<string>FangZhengZhiYiJianTi.ttf</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>

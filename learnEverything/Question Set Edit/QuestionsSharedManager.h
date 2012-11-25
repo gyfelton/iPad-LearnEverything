@@ -10,7 +10,6 @@
 #import "Question.h"
 #import "QuestionSet.h"
 
-#define QUESTION_SET_DEFAULT_COVER_NAME @"qn_set_cover_default"
 #define QSJ_FILE_RECEIVED_AND_PARSE_SUCCESSFULL_NOTIFICATION @"QSJ_FILE_RECEIVED_AND_PARSE_SUCCESSFULL_NOTIFICATION"
 
 @interface QuestionsSharedManager : NSObject

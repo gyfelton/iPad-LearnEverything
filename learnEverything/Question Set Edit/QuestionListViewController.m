@@ -864,8 +864,9 @@
     if ([MFMailComposeViewController canSendMail]) {
         _mailComposeVC = [[MFMailComposeViewController alloc] init];
         
-        [_mailComposeVC setSubject:[NSString stringWithFormat:@"Problem set shared by APP%@", _questionSet.name]]; //TODO APP NAME?
+        [_mailComposeVC setSubject:[NSString stringWithFormat:@"Problem set %@ shared by %@", _questionSet.name, _questionSet.author]];
         [_mailComposeVC setMessageBody:@"Attached is a problem set, please open it in APP:" isHTML:NO]; //TODO APP NAME?
+        
         //[_mailComposeVC setSubject:[NSString stringWithFormat:@"由“勇者斗恶龙”分享的题库：%@", _questionSet.name]];
         //[_mailComposeVC setMessageBody:@"附件是一个题库，请下载后使用 “勇者斗恶龙” 打开\n\nApp Store下载点这里:" isHTML:NO];
         

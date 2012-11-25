@@ -11,7 +11,7 @@
 #import "StartViewController.h"
 #import "MBProgressHUD.h"
 
-#define CURRENT_CORE_DATA_DB_NAME @"learnEverythingCoreDataMain_9July2012"
+#define CURRENT_CORE_DATA_DB_NAME @"learnEverythingCoreDataMain_24Nov2012" //@"learnEverythingCoreDataMain_9July2012"
 
 @class QuestionSet;
 @class TwoPlayersGameViewController;

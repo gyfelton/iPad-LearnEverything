@@ -17,10 +17,11 @@
 @end
 
 @implementation ImageSearchViewController
+@synthesize tableView;
 
 - (id)initWithSearchStringArray:(NSArray*)array delegate:(id<UIImagePickerControllerDelegate>)d;
 {
-    self = [super initWithStyle:UITableViewStylePlain];
+    self = [super init];
     if (self) {
         // Custom initialization
         self.delegate = d;
@@ -33,6 +34,13 @@
         _currentNumberofPages = 0;
     }
     return self;
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    _imageDownloader.delegate = nil;
+    [_imageDownloader cancel];
 }
 
 - (void)requestImages:(int)currentPageNum
@@ -60,11 +68,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth+UIViewAutoresizingFlexibleHeight;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
+    [self.view addSubview:self.tableView];
 	// Do any additional setup after loading the view.
     _hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:_hud];
-
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.hidden = YES;
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self requestImages:_currentNumberofPages];
 }
 
@@ -120,8 +135,8 @@
             for (UIView *subview in cell.imagesContainer.subviews) {
                 if ([subview isKindOfClass:[YFImageButton class]]) {
                     YFImageButton *image = (YFImageButton*)subview;
-                    [image setImageWithURL:[self retrieveThumbnailURL:image.dictionary] placeholderImage:[UIImage imageNamed:@"placeholder"]];
-                    [image addTarget:self action:@selector(onThumbnailClicked:) forControlEvents:UIControlEventTouchUpInside];
+                    [image setImageWithURL:[NSURL URLWithString:[self retrieveThumbnailURL:image.dictionary]] placeholderImage:[UIImage imageNamed:@"question_list_default_pic"]];
+                    //[image addTarget:self action:@selector(onThumbnailClicked:) forControlEvents:UIControlEventTouchUpInside];
                 }
             }
         }
@@ -174,7 +189,7 @@
     
     int row = indexPath.row;
     if (row*_imagesPerRow >= [_resultArray count]) {
-        static NSString *loadMoreCellIdentifier = @"loadModeCell";
+        static NSString *loadMoreCellIdentifier = @"loadMoreCell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:loadMoreCellIdentifier];
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:loadMoreCellIdentifier];
@@ -209,8 +224,9 @@
             }
             
             image.imageView.contentMode = UIViewContentModeScaleAspectFill;
+            image.imageView.userInteractionEnabled = NO;
 //            image.backgroundColor = [UIColor redColor]; //TEST
-            [image addTarget:self action:@selector(onThumbnailClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [image addTarget:self action:@selector(onThumbnailClicked:) forControlEvents:UIControlEventTouchDown];
             [cell.imagesContainer addSubview:image];
         }
     }

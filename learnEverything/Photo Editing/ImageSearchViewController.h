@@ -11,7 +11,7 @@
 #import "MBProgressHUD.h"
 #import "SDWebImageDownloader.h"
 
-@interface ImageSearchViewController : UITableViewController<SDWebImageDownloaderDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface ImageSearchViewController : UIViewController<SDWebImageDownloaderDelegate, UITableViewDataSource, UITableViewDelegate>
 {
     MBProgressHUD *_hud;
     NSArray *_searchStringArray;
@@ -26,6 +26,6 @@
 }
 
 - (id)initWithSearchStringArray:(NSArray*)array delegate:(id<UIImagePickerControllerDelegate>)delegate;
-
+@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, unsafe_unretained) id<UIImagePickerControllerDelegate>delegate;
 @end

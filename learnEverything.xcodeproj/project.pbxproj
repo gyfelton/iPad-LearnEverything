@@ -129,6 +129,11 @@
 		FE63A16715ABD5DD007D5C1B /* QuestionCard.m in Sources */ = {isa = PBXBuildFile; fileRef = FE63A16415ABD5DD007D5C1B /* QuestionCard.m */; };
 		FE63A16815ABD5DD007D5C1B /* QuestionCardsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FE63A16615ABD5DD007D5C1B /* QuestionCardsManager.m */; };
 		FE63A16A15ABDFAB007D5C1B /* back_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = FE63A16915ABDFAB007D5C1B /* back_btn.png */; };
+		FE80DC62166150AD008892C2 /* question_set_add_new_english.png in Resources */ = {isa = PBXBuildFile; fileRef = FE80DC61166150AD008892C2 /* question_set_add_new_english.png */; };
+		FE80DC651661998C008892C2 /* qn_set_cover_default_1_english.png in Resources */ = {isa = PBXBuildFile; fileRef = FE80DC631661998C008892C2 /* qn_set_cover_default_1_english.png */; };
+		FE80DC661661998C008892C2 /* qn_set_cover_default_2_english.png in Resources */ = {isa = PBXBuildFile; fileRef = FE80DC641661998C008892C2 /* qn_set_cover_default_2_english.png */; };
+		FE80DC681661AA3E008892C2 /* learnEverythingCoreDataMain_24Nov2012.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = FE80DC671661AA3E008892C2 /* learnEverythingCoreDataMain_24Nov2012.sqlite */; };
+		FE80DC6A1661AB54008892C2 /* myriadproregular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE80DC691661AB54008892C2 /* myriadproregular.ttf */; };
 		FE89566515A198210068DBA2 /* PhotoEditingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE89566315A198210068DBA2 /* PhotoEditingViewController.m */; };
 		FE89566615A198210068DBA2 /* PhotoEditingViewController_3To4Ratio.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE89566415A198210068DBA2 /* PhotoEditingViewController_3To4Ratio.xib */; };
 		FE89566915A19CE90068DBA2 /* ImageSearchWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE89566815A19CE90068DBA2 /* ImageSearchWebViewController.m */; };
@@ -385,6 +390,11 @@
 		FE63A16515ABD5DD007D5C1B /* QuestionCardsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionCardsManager.h; sourceTree = "<group>"; };
 		FE63A16615ABD5DD007D5C1B /* QuestionCardsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionCardsManager.m; sourceTree = "<group>"; };
 		FE63A16915ABDFAB007D5C1B /* back_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_btn.png; sourceTree = "<group>"; };
+		FE80DC61166150AD008892C2 /* question_set_add_new_english.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = question_set_add_new_english.png; sourceTree = "<group>"; };
+		FE80DC631661998C008892C2 /* qn_set_cover_default_1_english.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qn_set_cover_default_1_english.png; sourceTree = "<group>"; };
+		FE80DC641661998C008892C2 /* qn_set_cover_default_2_english.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qn_set_cover_default_2_english.png; sourceTree = "<group>"; };
+		FE80DC671661AA3E008892C2 /* learnEverythingCoreDataMain_24Nov2012.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = learnEverythingCoreDataMain_24Nov2012.sqlite; path = CoreData/learnEverythingCoreDataMain_24Nov2012.sqlite; sourceTree = "<group>"; };
+		FE80DC691661AB54008892C2 /* myriadproregular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = myriadproregular.ttf; sourceTree = "<group>"; };
 		FE82F8E3157D11A90081F81E /* QuestionModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "QuestionModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		FE89566215A198210068DBA2 /* PhotoEditingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoEditingViewController.h; sourceTree = "<group>"; };
 		FE89566315A198210068DBA2 /* PhotoEditingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoEditingViewController.m; sourceTree = "<group>"; };
@@ -524,6 +534,7 @@
 		FE04FB0E15AB3108006961B0 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
+				FE80DC671661AA3E008892C2 /* learnEverythingCoreDataMain_24Nov2012.sqlite */,
 				FE04FB0F15AB311D006961B0 /* learnEverythingCoreDataMain_9July2012.sqlite */,
 				FEEACE0F1579CAF800698EBB /* QuestionModel.xcdatamodeld */,
 				FE16806F15A733D0004E95EE /* QuestionSet.h */,
@@ -540,6 +551,7 @@
 		FE05A7A81598A987006F1FAC /* fonts */ = {
 			isa = PBXGroup;
 			children = (
+				FE80DC691661AB54008892C2 /* myriadproregular.ttf */,
 				FE05A7A91598A987006F1FAC /* FangZhengZhiYiJianTi.ttf */,
 			);
 			path = fonts;
@@ -587,6 +599,9 @@
 		FE2127BD1660184300D580CE /* images_english */ = {
 			isa = PBXGroup;
 			children = (
+				FE80DC631661998C008892C2 /* qn_set_cover_default_1_english.png */,
+				FE80DC641661998C008892C2 /* qn_set_cover_default_2_english.png */,
+				FE80DC61166150AD008892C2 /* question_set_add_new_english.png */,
 				FE3AE24A1661454B007EEEB8 /* shareByMail_english.png */,
 				FEDE2F0E1660681200303BB3 /* badge_subtype_ChiEng_english.png */,
 				FEDE2F0F1660681200303BB3 /* badge_subtype_ChiPic_english.png */,
@@ -1196,6 +1211,11 @@
 				FEDE2F20166073FC00303BB3 /* table_header_ChiPic_english.png in Resources */,
 				FEDE2F21166073FC00303BB3 /* table_header_EngPic_english.png in Resources */,
 				FE3AE24B1661454B007EEEB8 /* shareByMail_english.png in Resources */,
+				FE80DC62166150AD008892C2 /* question_set_add_new_english.png in Resources */,
+				FE80DC651661998C008892C2 /* qn_set_cover_default_1_english.png in Resources */,
+				FE80DC661661998C008892C2 /* qn_set_cover_default_2_english.png in Resources */,
+				FE80DC681661AA3E008892C2 /* learnEverythingCoreDataMain_24Nov2012.sqlite in Resources */,
+				FE80DC6A1661AB54008892C2 /* myriadproregular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

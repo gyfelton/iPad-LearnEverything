@@ -363,7 +363,11 @@ static QuestionsSharedManager *sharedManager;
     //Create a unique ID
     NSString *uniqueID = [NSString stringWithFormat:@"user_%@_on_%d", [OpenUDID value], [[NSDate date] timeIntervalSinceReferenceDate]];
     
-    NSData *imgData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:QUESTION_SET_DEFAULT_COVER_NAME ofType:@"png"]];
+    NSData *imgData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"qn_set_cover_default_1_english" ofType:@"png"]];
+    if (rand()%2) //half random chance to assign another cover
+    {
+        imgData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"qn_set_cover_default_2_english" ofType:@"png"]];
+    }
     
     return [self _insertNewQuestionSetWithSetID:uniqueID name:@"My Problem Set" author:@"Teacher" createDate:[NSDate date] modifyDate:[NSDate date] questionType:[NSNumber numberWithInt:kUnknownQuestionType] questions:nil coverImageData:imgData questionSubtype:nil]; //@"我的题库" author:@"用户"
 }

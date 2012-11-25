@@ -437,7 +437,7 @@
     if (index >= [sectionInfo numberOfObjects]) {
         //Add Button
         UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 210, 290)];
-        view.image = [UIImage imageNamed:@"question_set_add_new"];
+        view.image = [UIImage imageNamed:addSuffixEnglish(@"question_set_add_new")];
         view.userInteractionEnabled = YES;
         
         cell.contentView = view;

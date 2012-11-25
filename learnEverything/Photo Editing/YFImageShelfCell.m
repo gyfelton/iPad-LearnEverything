@@ -24,9 +24,9 @@
 //        
 //        self.backgroundView = backgroundImage;
 //        self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth + UIViewAutoresizingFlexibleHeight;
-        
-        _imagesContainer.backgroundColor = [UIColor blueColor];
-        _imagesContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
+        _imagesContainer = [[UIView alloc] initWithFrame:self.bounds];
+        _imagesContainer.autoresizingMask = UIViewAutoresizingFlexibleHeight+UIViewAutoresizingFlexibleWidth;
+//        _imagesContainer.backgroundColor = [UIColor blueColor];
         [self.contentView addSubview:_imagesContainer];
     }
     return self;
